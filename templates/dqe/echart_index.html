@@ -1,0 +1,359 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+{% load get_mode %}
+
+{% block title %}UCS{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            數據看板
+        </h1>
+        <!--<ol class="breadcrumb">-->
+        <!--<li><a href="#"><i class="fa fa-dashboard"></i> 機台控制</a></li>-->
+        <!--<li><a href="#">數據看板</a></li>-->
+        <!--</ol>-->
+    </section>
+
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            {% for structure in structures %}
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box
+                {% if forloop.counter|get_mod:'4' == 1 %}
+                    bg-aqua
+                {% endif %}
+
+                {% if forloop.counter|get_mod:'4' == 2 %}
+                    bg-yellow
+                {% endif %}
+
+                {% if forloop.counter|get_mod:'4' == 3 %}
+                    bg-green
+                {% endif %}
+
+                {% if forloop.counter|get_mod:'4' == 0 %}
+                    bg-gray
+                {% endif %}
+            ">
+                        <div class="inner">
+                            <h3>
+                                {% for data in datas %}
+                                    {% if data.fk_structure__name == structure.name %}
+                                        {{ data.count | default:"0" }}
+                                    {% endif %}
+                                {% endfor %}
+                            </h3>
+
+                            <p>{{ structure.name | default:"--" }}</p>
+                        </div>
+                        <div class="icon">
+
+                            <!--{{forloop.counter|get_mod:'4' }}-->
+
+                            {% if forloop.counter|get_mod:'4' == 1 %}
+                                <i class="fa fa-pencil"></i>
+                            {% endif %}
+
+                            {% if forloop.counter|get_mod:'4' == 2 %}
+                                <i class="fa fa-send-o"></i>
+                            {% endif %}
+
+                            {% if forloop.counter|get_mod:'4' == 3 %}
+                                <i class="glyphicon glyphicon-play"></i>
+                            {% endif %}
+
+                            {% if forloop.counter|get_mod:'4' == 0 %}
+                                <i class="fa fa-check"></i>
+                            {% endif %}
+
+                        </div>
+                        <a href="#" class="small-box-footer">{{ time | date:'Y年m月d日' | default:"----年--月--日" }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <!---->
+            <!-- ./col -->
+            <!--<div class="col-lg-3 col-xs-6">-->
+            <!--&lt;!&ndash; small box &ndash;&gt;-->
+            <!--<div class="small-box bg-yellow ">-->
+            <!--<div class="inner">-->
+            <!--<h3>{{ work_order_2 | default:"0"}}</h3>-->
+            <!--<p>FA</p>-->
+            <!--</div>-->
+            <!--<div class="icon">-->
+            <!--<i class="fa fa-send-o"></i>-->
+            <!--</div>-->
+            <!--<a href="#" class="small-box-footer">{{ time | date:'Y年m月d日' | default:"&#45;&#45;&#45;&#45;年&#45;&#45;月&#45;&#45;日"}}</a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; ./col &ndash;&gt;-->
+            <!--<div class="col-lg-3 col-xs-6">-->
+            <!--&lt;!&ndash; small box &ndash;&gt;-->
+            <!--<div class="small-box bg-green">-->
+            <!--<div class="inner">-->
+            <!--<h3>{{ work_order_3 | default:"0"}}</h3>-->
+
+            <!--<p>MINILINE</p>-->
+            <!--</div>-->
+            <!--<div class="icon">-->
+            <!--<i class="glyphicon glyphicon-play"></i>-->
+            <!--</div>-->
+            <!--<a href="#" class="small-box-footer">{{ time | date:'Y年m月d日' | default:"&#45;&#45;&#45;&#45;年&#45;&#45;月&#45;&#45;日"}}</a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; ./col &ndash;&gt;-->
+            <!--<div class="col-lg-3 col-xs-6">-->
+            <!--&lt;!&ndash; small box &ndash;&gt;-->
+            <!--<div class="small-box bg-gray">-->
+            <!--<div class="inner">-->
+            <!--<h3>{{ work_order_4 | default:"0"}}</h3>-->
+
+            <!--<p>EQC</p>-->
+            <!--</div>-->
+            <!--<div class="icon">-->
+            <!--<i class="fa fa-check"></i>-->
+            <!--</div>-->
+            <!--<a href="#" class="small-box-footer">{{ time | date:'Y年m月d日' | default:"&#45;&#45;&#45;&#45;年&#45;&#45;月&#45;&#45;日"}}</a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!-- ./col -->
+            <!---->
+
+        </div>
+        <!-- /.row -->
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">機台數據統計</h3>
+                        <div class="box-tools pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown"
+                                        title="选择统计类型">
+                                    <i class="fa fa-list-alt"></i></button>
+                                <ul class="dropdown-menu bg-aqua" role="menu">
+                                    <li><a href="#"></a></li>
+                                    <li><a href="#"></a></li>
+                                </ul>
+                            </div>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                    class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div id="bar_container" style="height: 400px"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div id="pie_container" style="height: 400px;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{% static 'plugins/echarts/echarts.min.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#index').addClass('active');
+        });
+
+        /*---柱形图---*/
+        //echarts
+        var bar_dom = document.getElementById("bar_container");
+        var myBarChart = echarts.init(bar_dom);
+        option = null;
+        option = {
+            title: {
+                text: '部門機台統計',
+                subtext: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: [
+                    {% for data in datas %}'{{ data.fk_structure__name }}',{% endfor %}
+                    //{% for data in datas %}'{{ data.fk_structure__name }}',{% endfor %}
+                ]
+            },
+
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {show: true, readOnly: false},
+                    saveAsImage: {show: true}
+                }
+            }
+            ,
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    data: [{% for data in datas %}'{{ data.fk_structure__name }}',{% endfor %}] //'1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'
+                    //{% for data in datas %}'{{ data.fk_structure__name }}',{% endfor %}
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+
+
+                {
+                    name: '访问来源', //作用用于点选隐藏的
+                    type: 'bar',
+                    data: [
+                        {% for data in datas %}
+                            {value:{{ data.count }}, name: '{{ data.fk_structure__name }}'},
+                        {% endfor %}
+                    ],
+
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+
+                },
+
+
+                // {
+                //     name: 'ECharts2 - 2k数据',
+                //     type: 'bar',
+                //     itemStyle: {normal: {color: 'rgba(193,35,43,1)', label: {show: true}}},
+                //
+                //     data: [40, 155, 95, 75,],
+                //     markPoint: {
+                //         data: [
+                //             {type: 'max', name: '最大值'},
+                //             {type: 'min', name: '最小值'}
+                //         ]
+                //     },
+                // },
+                // {
+                //     name: 'ECharts2 - 2w数据',
+                //     type: 'bar',
+                //     itemStyle: {normal: {color: 'rgba(181,195,52,1)', label: {show: true, textStyle: {color: '#27727B'}}}},
+                //     data: [100, 200, 105, 100, ]
+                // },
+                // {
+                //     name: 'FA',
+                //     type: 'bar',
+                //     itemStyle: {normal: {color: 'rgba(252,206,16,1)', label: {show: true, textStyle: {color: '#E87C25'}}}},
+                //     data: [900, 911, 908, 778, ]
+                // },
+                //
+                // {
+                //     name: 'DQE',
+                //     type: 'bar',
+                //     itemStyle: {
+                //         normal: {
+                //             color: 'rgba(193,35,43,0.5)', label: {
+                //                 show: true, formatter: function (p) {
+                //                     return p.value > 0 ? (p.value + '\n') : '';
+                //                 }
+                //             }
+                //         }
+                //     },
+                //     data: [96, 224, 164, 124, ]
+                // }
+
+            ]
+        };
+        if (option && typeof option === "object") {
+            myBarChart.setOption(option, true);
+        }
+        /*------*/
+
+
+
+        /*---饼形图---*/
+        //echarts bar
+
+        var pie_dom = document.getElementById("pie_container");
+        var myPieChart = echarts.init(pie_dom);
+        option = null;
+
+        option = {
+            title: {
+                text: '機台所佔比例',
+                subtext: '',
+                x: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: [{% for data in datas %}'{{ data.fk_structure__name }}',{% endfor %}]
+                //'直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'
+                //{% for data in datas %}'{{ data.fk_structure__name }}',{% endfor %}
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: [
+                        // {value: 335, name: '直接访问'},
+                        // {value: 310, name: '邮件营销'},
+                        // {value: 234, name: '联盟广告'},
+                        // {value: 135, name: '视频广告'},
+                        // {value: 1548, name: '搜索引擎'}
+
+                        {% for data in datas %}
+                            {value:{{ data.count }}, name: '{{ data.fk_structure__name }}'},
+                        {% endfor %}
+
+                    ],
+                    // {% for data in year_work_order_count %}
+                        //     {value:{{ data.count }}, name:'{{ data.name }}'},
+                        // {% endfor %}
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        if (option && typeof option === "object") {
+            myPieChart.setOption(option, true);
+        }
+        /*------*/
+
+        //图表窗体自适应
+        $(window).resize(function () {
+            myBarChart.resize();
+            myPieChart.resize();
+        });
+
+    </script>
+
+{% endblock %}

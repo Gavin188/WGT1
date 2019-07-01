@@ -1,0 +1,469 @@
+{% extends "base-layer.html" %}
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{%static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+    <!-- iCheck for checkboxes and radio inputs -->
+{% endblock %}
+
+{% block main %}
+
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div id="devlist">
+            <div class="box box-primary" id="liebiao">
+                <div class="box-header">
+
+                    <div class="btn-group pull-left">
+                        <button type="button" id="btnRefresh" class="btn btn-default">
+                            <i class="glyphicon glyphicon-repeat"></i>刷新
+                        </button>
+                    </div>
+                    <div class="btn-group pull-left">&nbsp</div>
+                    <!--<div class="btn-group pull-left">-->
+                    <!--<button type="button" id="btnCreate" class="btn btn-default">-->
+                    <!--<i class="glyphicon glyphicon-plus"></i>新增-->
+                    <!--</button>-->
+                    <!--</div>-->
+                    <!--<div class="btn-group pull-left">&nbsp</div>-->
+                    <div class="btn-group pull-left">
+                        <button type="button" id="btnDelete" class="btn btn-danger">
+                            <i class="glyphicon glyphicon-trash"></i>删除
+                        </button>
+                    </div>
+                    <div class="btn-group pull-left">&nbsp</div>
+                    <div class="btn-group pull-left">
+                        <button type="button" id="btnApplyConfirm" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-ok-circle"></i>申請確認
+                        </button>
+                    </div>
+                </div>
+
+                <div class="box-header">
+
+                    <form class="form-inline" id="queryForm">
+                        <div class="form-group searchArea margin-r-5 margin-top-5">
+                            <label>專案：</label>
+                            <select class="form-control inputText select2" name="fk_project" id="fk_project_id">
+                                <option></option>
+                                {% for project in projects %}
+                                    <option value="{{ project.id }}">{{ project.pname }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group searchArea margin-r-5 margin-top-5">
+                            <label>階段：</label>
+                            <select class="form-control inputText select2" name="fk_stage" id="fk_stage_id">
+                                <option></option>
+                                {% for stage in stages %}
+                                    <option value="{{ stage.id }}">{{ stage.sname }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!--<div class="form-group searchArea margin-r-5 margin-top-5">-->
+                        <!--<label>當前部門:</label>-->
+                        <!--<select class="form-control inputText select2" name="fk_structure" id="fk_structure_id">-->
+                        <!--<option></option>-->
+                        <!--{% for structure in structures %}-->
+                            <!--<option value="{{ structure.id }}">{{ structure.name }}</option>-->
+                            <!--{% endfor %}-->
+                        <!--</select>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group searchArea margin-r-5 margin-top-5">-->
+                        <!--<label>Rel編號:</label>-->
+                        <!--<input type="text" name="rel" class="form-control inputText" id="fk_inventory__rel">-->
+                        <!--</div>-->
+
+                        <div class="form-group searchArea margin-r-5 margin-top-5">
+                            <label>Rel編號:</label>
+                            <input type="text" name="rel" class="form-control inputText" id="relStart">
+                        </div>
+                        <div class="form-group searchArea margin-r-5 margin-top-5">
+                            <label>————</label>
+                            <input type="text" name="rel" class="form-control inputText" id="relEnd">
+                        </div>
+
+                        <button type="button" id="btnSearch" class="btn btn-default">
+                            <i class="glyphicon glyphicon-search"></i>查询
+                        </button>
+                    </form>
+
+                </div>
+
+                <div class="box-body">
+                    <table id="dtbList" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr valign="middle">
+                            <th><input type="checkbox" id="checkAll"></th>
+                            <th>OCT_ID</th>
+                            <th>專案</th>
+                            <th>測試階段</th>
+                            <th>Rel編號</th>
+                            <th>SN</th>
+                            <th>入庫日期</th>
+                            <th>入庫者</th>
+
+                            <th>機台狀態</th>
+                            <th>機台當前所在部門</th>
+                            <th>機台當前接收人</th>
+                            <th>機台當前入庫時間</th>
+
+                            <th>當前申請部門</th>
+                            <th>申請人</th>
+                            <th>申請時間</th>
+
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <br> <br>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- /.content -->
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <!-- iCheck 1.0.1 -->
+    <script type="text/javascript">
+        $(function () {
+            $('#SYSTEM-RBAC').addClass('active');
+            $('#SYSTEM-RBAC-MENU').addClass('active');
+        });
+    </script>
+
+    <script type="text/javascript">
+        var oDataTable = null;
+        $(function () {
+            oDataTable = initTable();
+
+            function initTable() {
+                var oTable = $('#dtbList').DataTable($.extend(true, {},
+                    DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
+                    {
+                        ajax: {
+                            "url": "{% url 'dqe:oct-list' %}",
+                            "data": function (d) {
+
+                                d.fk_project_id = $("#fk_project_id").val();
+                                d.fk_stage_id = $("#fk_stage_id").val();
+                                d.relStart = $("#relStart").val();
+                                d.relEnd = $("#relEnd").val();
+                                //d.fk_inventory__rel=$("#fk_inventory__rel").val();
+                                //d.fk_structure_id=$("#fk_structure_id").val();
+
+                            }
+                        },
+
+                        columns: [
+                            DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
+                            {
+                                data: "id",
+                            },
+                            {
+                                data: "fk_inventory__fk_project__pname",
+                            },
+                            {
+                                data: "fk_inventory__fk_stage__sname",
+                            },
+                            {
+                                data: "fk_inventory__rel",
+                            },
+                            {
+                                data: "fk_inventory__sn",
+                            },
+                            {
+                                data: "fk_inventory__indate",
+                                render: function (data, type, full, meta) {
+                                    return moment(data).format("YYYY-MM-DD HH:mm");
+                                }
+                            },
+                            {
+                                data: "fk_inventory__recuser",
+                            },
+
+                            {
+                                data: "fk_inventory__state",
+                                render: function (data, type, full, meta) {
+                                    if (data == 1) {
+                                        return "入庫"
+                                    } else if (data == 2) {
+                                        return "可申請"
+                                    } else if (data == 3) {
+                                        return "被申請"
+                                    } else {
+                                        return "出库"
+                                    }
+                                }
+                            },
+                            {
+                                data: "fk_inventory__fk_structure__name",
+                            },
+                            {
+                                data: "fk_inventory__currRecUser",
+                            },
+                            {
+                                data: "fk_inventory__currRecDate",
+                                render: function (data, type, full, meta) {
+                                    return moment(data).format("YYYY-MM-DD HH:mm");
+                                }
+                            },
+                            {
+                                data: "fk_structure__name",
+                            },
+                            {
+                                data: "opeuser",
+                                // render: function (data, type, row, meta) {
+                                //     var ret = "{{ request.user.name }}";
+                                //     return ret;
+                                //
+                                // }
+                            },
+
+                            {
+                                render: function (data, type, row, meta) {
+                                    var ret = "--";
+                                    return ret;
+
+                                }
+                            },
+
+                            {
+                                data: "id",
+                                width: "5%",
+                                bSortable: "false",
+                                render: function (data, type, row, meta) {
+                                    var ret = "<button title='删除' onclick='doDelete("
+                                        + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
+                                    return ret;
+
+                                }
+                            }],
+                    }));
+                return oTable;
+            }
+
+//注釋編輯功能
+//ret=ret+"<button title='编辑' onclick='doUpdate(" + data + ")'><i class='glyphicon glyphicon-pencil'></i></button>";
+
+            //刷新
+            $("#btnRefresh").click(function () {
+                oDataTable.ajax.reload();
+            });
+
+            //查找
+            $("#btnSearch").click(function () {
+                oDataTable.ajax.reload();
+            });
+
+
+            //select选择后刷新页面GET请求
+            $("#select").change(function () {
+                //alert($("#select").val())
+                oDataTable.ajax.reload();
+            });
+
+            //checkbox全选
+            $("#checkAll").on("click", function () {
+                if ($(this).prop("checked") === true) {
+                    $("input[name='checkList']").prop("checked", $(this).prop("checked"));
+                    $('#example tbody tr').addClass('selected');
+                } else {
+                    $("input[name='checkList']").prop("checked", false);
+                    $('#example tbody tr').removeClass('selected');
+                }
+            });
+
+
+            //批量删除
+            $("#btnDelete").click(function () {
+                if ($("input[name='checkList']:checked").length == 0) {
+                    layer.msg("请选择要删除的记录");
+                    return;
+                }
+
+                var arrId = new Array();
+                $("input[name='checkList']:checked").each(function () {
+                    //alert($(this).val());
+                    arrId.push($(this).val());
+                });
+
+                sId = arrId.join(',');
+
+                layer.alert('确定删除吗？', {
+                    title: '提示'
+                    , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                    , time: 0 //不自动关闭
+                    , btn: ['YES', 'NO']
+                    , yes: function (index) {
+                        layer.close(index);
+                        $.ajax({
+                            type: "POST",
+                            url: "{% url 'dqe:oct-delete' %}",
+                            data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                            cache: false,
+                            success: function (msg) {
+                                if (msg.result) {
+                                    layer.alert("操作成功", {icon: 1});
+                                    oDataTable.ajax.reload();
+                                } else {
+                                    //alert(msg.message);
+                                    layer.alert("操作失败", {icon: 2});
+                                }
+                                return;
+                            }
+                        });
+                    }
+                });
+            });
+
+
+        });
+
+
+        //申请确认
+        $("#btnApplyConfirm").click(function () {
+            if ($("input[name='checkList']:checked").length == 0) {
+                layer.msg("請勾選要申請的機台");
+                return;
+            }
+
+            var arrId = new Array();
+            $("input[name='checkList']:checked").each(function () {
+                //alert($(this).val());
+                arrId.push($(this).val());
+            });
+            //console.log(arrId);
+            sId = arrId.join(',');
+            //console.log(sId);
+            $.ajax({
+                type: "POST",
+                url: "{% url 'dqe:oct-applyConfirm' %}",
+                data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                cache: false,
+                success: function (msg) {
+                    if (msg.result) {
+
+                        oDataTable.ajax.reload();
+                        layer.alert('申請成功', {icon: 1}, function (index) {
+                            parent.layer.closeAll(); //关闭所有弹窗
+                        });
+
+                    } else {
+                        layer.alert("申請失败", {icon: 2});
+                    }
+                    return;
+                }
+            });
+
+        });
+
+
+        //新增
+        $("#btnCreate").click(function () {
+            var div = layer.open({
+                type: 2,
+                title: '新增借入申請確認',
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                content: "{% url 'dqe:oct-update' %}",
+                end: function () {
+                    //关闭时做的事情
+                    window.location.reload();
+                }
+            });
+            //layer.full(div)
+        });
+
+        function doUpdate(id) {
+            var div = layer.open({
+                type: 2,
+                title: '編輯借入申請確認',
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                content: "{% url 'dqe:oct-update' %}" + '?id=' + id,
+                end: function () {
+                    //oDataTable.ajax.reload();
+                    window.location.reload();
+
+                }
+            });
+            //layer.full(div)
+        }
+
+        //删除单个数据
+        function doDelete(id) {
+            layer.alert('确定删除吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'dqe:oct-delete' %}",
+                        data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert('删除成功', {icon: 1});
+                                oDataTable.ajax.reload();
+                            } else {
+                                //alert(msg.message);
+                                layer.alert('删除失败', {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+
+        }
+
+
+    </script>
+
+    <script>
+
+        /*input 时间输入选择*/
+        $(".form_datetime").datetimepicker({
+            language: 'zh',
+            minView: 'month', //选择范围知道日期，不选择时分
+            //weekStart: 1,
+            //todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            //startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            format: 'yyyy-mm-dd'
+        }).on('changeDate', function (ev) {
+            $(this).datetimepicker('hide');
+        });
+
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+    </script>
+
+{% endblock %}

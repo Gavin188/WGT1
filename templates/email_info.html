@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UCS-Email</title>
+    <style type="text/css">
+        table
+        {
+            border-collapse: collapse;
+            margin: 0 auto;
+            text-align: center;
+        }
+        table td, table th
+        {
+            border: 1px solid #cad9ea;
+            color: #666;
+            height: 30px;
+        }
+        table thead th
+        {
+            background-color: #CCE8EB;
+            width: 100px;
+        }
+        table tr:nth-child(odd)
+        {
+            background: #fff;
+        }
+        table tr:nth-child(even)
+        {
+            background: #F5FAFA;
+        }
+
+    </style>
+</head>
+<body>
+
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+
+<h2>超時機台</h2>
+
+<table width="90%" class="table" >
+
+    <thead>
+    <tr>
+        <td>專案</td>
+        <td>階段</td>
+        <td>部門</td>
+        <td>編號</td>
+        <td>SN</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for d in data %}
+    <tr>
+        <td>{{ d.fk_project__pname}}</td>
+        <td>{{ d.fk_stage__sname}}</td>
+        <td>{{ d.fk_structure__name}}</td>
+        <td>{{ d.sn}}</td>
+        <td>{{ d.rel}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+
+</body>
+</html>
+
+

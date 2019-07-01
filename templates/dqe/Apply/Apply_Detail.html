@@ -1,0 +1,400 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="col-md-14">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">申請單</h3>
+
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <div class="mailbox-controls margin-b-10">
+                        <div class="btn-group margin-l-5">
+                            <button type="button" class="btn btn-danger btn-sm" title="返回" id="btnApplyReturn">
+                                <i class="fa fa-undo"> 返回</i>
+                            </button>
+                            <button type="button" class="btn btn-info btn-sm" title="编辑" id="btnApplyEdit"
+                                    onclick="doApplyUpdate({{ apply.id }})">
+                                <i class="fa fa-pencil"> 编辑</i>
+                            </button>
+                        </div>
+                        <div class="btn-group pull-right">
+                            <!--<button type="button" class="btn btn-default btn-sm" onclick="doApplyUpload({{ apply.id }})">-->
+                            <!--<i class="fa fa-cloud-upload">上传操作</i>-->
+                            <!--</button>-->
+                        </div>
+                    </div>
+
+                    <form class="form-horizontal" id="WorkListDetailsForm" action="" method="post">
+                        {% csrf_token %}
+
+                        <input class="form-control" name="applyId" type="hidden" value="{{ apply.id }}"/>
+
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table" id="tbWorkList" style="applyite-space: nowrap;">
+                                <tbody>
+                                <tr class="warning">
+                                    <td><strong> 申請單號 </strong></td>
+                                    <td>{{ apply.applyNum }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong> 申請人 </strong></td>
+                                    <td>{{ apply.applyUser }}</td>
+                                </tr>
+                                <tr class="warning">
+                                    <td><strong> 申請部門 </strong></td>
+                                    <td>{{ apply.applyUnit }}</td>
+
+                                </tr>
+                                <tr>
+                                    <td><strong> 申請時間 </strong></td>
+                                    <td>{{ apply.applyDate  |date:'Y-m-d H:m' }}</td>
+
+                                </tr>
+                                <tr class="warning">
+                                    <td><strong> 確認部門 </strong></td>
+                                    <td>{{ applydetail.lendUnit }}</td>
+
+                                </tr>
+                                <tr>
+                                    <td><strong> 確認人 </strong></td>
+                                    <td>{{ applydetail.confirmUser }}</td>
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer ">
+
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
+            <div class="box">
+                <div class="box-header with-border">
+                    <i class="ion ion-clipboard"></i>
+                    <h3 class="box-title">申請詳情</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="box-header">
+                        <div class="btn-group pull-left">
+                            <button type="button" id="btnRefresh" class="btn btn-default">
+                                <i class="glyphicon glyphicon-repeat"></i>刷新
+                            </button>
+                        </div>
+                        <div class="btn-group pull-left">&nbsp</div>
+                        <div class="btn-group pull-left">
+                            <button type="button" id="btnCreate" class="btn btn-default">
+                                <i class="glyphicon glyphicon-plus"></i>新增
+                            </button>
+
+                        </div>
+                        <div class="btn-group pull-left">&nbsp</div>
+                        <div class="btn-group pull-left">
+                            <button type="button" id="btnDelete" class="btn btn-default">
+                                <i class="glyphicon glyphicon-trash"></i>删除
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <table id="dtbList" class="display" cellspacing="0" width="100%">
+                            <thead>
+                            <tr valign="middle">
+                                <th><input type="checkbox" id="checkAll"></th>
+                                <th>申請詳情ID</th>
+                                <th>機台SN</th>
+                                <th>所屬申請單ID</th>
+                                <th>rel編號</th>
+                                <th>申請單號</th>
+                                <th>機台確認狀態</th>
+                                <th>申請時間</th>
+                                <th>借出時間</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="box-footer clearfix no-border">
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $('#PERSONAL-WORKORDER').addClass('active');
+            $('#{{ menu.code }}').addClass('active');
+
+        });
+
+        // 返回
+        $("#btnApplyReturn").on("click", function () {
+            window.location.href = "{% url 'dqe:mt-apply' %}";
+        });
+
+        //apply edit
+        function doApplyUpdate(id) {
+            layer.open({
+                type: 2,
+                title: '编辑',
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                content: ["{% url 'dqe:mt-apply-update' %}" + '?id=' + id],
+                end: function () {
+                    window.location.reload();
+
+                }
+            });
+        }
+
+        // 这里开始为申请详情
+        var oDataTable = null;
+        $(function () {
+            oDataTable = initTable();
+
+            function initTable() {
+                var oTable = $('#dtbList').DataTable($.extend(true, {},
+                    DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
+                    {
+                        ajax: {
+                            "url": "{% url 'dqe:mt-applydetail-list' %}",
+                            "data": function (d) {
+                                d.applyId = "{{ apply.id }}";
+                            }
+                        },
+                        columns: [
+                            DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
+                            {
+                                data: "id",
+                                width: "5%",
+                            },
+                            {
+                                data: "fk_inventory",
+                            },
+                            {
+                                data: "fk_apply",
+                            },
+                            {
+                                data: "fk_inventory__rel",
+                            },
+                            {
+                                data: "fk_apply__applyNum",
+                            },
+                            {
+                                data: "machineState",
+                                render: function (data, type, row, meta) {
+
+                                    if (data == 1) {
+                                        return "未確認"
+                                    } else if (data == 2) {
+                                        return "確認"
+                                    } else if (data == 3) {
+                                        return "拒絕"
+                                    } else {
+                                        return ""
+                                    }
+                                }
+                            },
+                            {
+                                data: "fk_apply__applyDate",
+                                render: function (data, type, full, meta) {
+                                    return moment(data).format("YYYY-MM-DD HH:mm");
+                                }
+                            },
+                            {
+                                data: "lendDate",
+                                render: function (data, type, full, meta) {
+                                    return moment(data).format("YYYY-MM-DD HH:mm");
+                                }
+                            },
+                            {
+                                data: "id",
+                                width: "10%",
+                                bSortable: "false",
+                                render: function (data, type, row, meta) {
+                                    var ret = "<button title='编辑' onclick='doUpdate("
+                                        + data + ")'><i class='glyphicon glyphicon-pencil'></i></button>";
+                                    ret = ret + "<button title='删除' onclick='doDelete("
+                                        + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
+                                    return ret;
+                                }
+                            }],
+                    }));
+                return oTable;
+            }
+
+        });
+
+        //以下针对 Apply 进行操作
+        //checkbox全选
+        $("#checkAll").on("click", function () {
+            if ($(this).prop("checked") === true) {
+                $("input[name='checkList']").prop("checked", $(this).prop("checked"));
+                $('#example tbody tr').addClass('selected');
+            } else {
+                $("input[name='checkList']").prop("checked", false);
+                $('#example tbody tr').removeClass('selected');
+            }
+        });
+
+        //申请详情刷新
+        $("#btnRefresh").click(function () {
+            oDataTable.ajax.reload();
+        });
+
+        //apply 新增
+        $("#btnCreate").click(function () {
+
+            var div = layer.open({
+                type: 2,
+                title: '入库',
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                content: ["{% url 'dqe:mt-applydetail-update' %}"],
+                end: function () {
+                    //关闭时做的事情
+                    oDataTable.ajax.reload();
+                }
+            });
+            //layer.full(div);
+        });
+
+
+        //apply 编辑
+        function doUpdate(id) {
+            layer.open({
+                type: 2,
+                title: '编辑',
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                content: ["{% url 'dqe:mt-applydetail-update' %}" + '?id=' + id,],
+                end: function () {
+                    //关闭时做的事情
+                    window.location.reload();
+                }
+            });
+        }
+
+        //详情
+        function doDetail(id) {
+            //window.location.href="{% url 'dqe:mt-apply-detail' %}?id="+id+"&applyid="+applyid;
+        }
+
+        //删除
+        function doDelete(id) {
+            layer.alert('当前组内用户也会被删除，确定删除吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'dqe:mt-applydetail-delete' %}",
+                        data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert('删除成功', {icon: 1});
+                                oDataTable.ajax.reload();
+                            } else {
+                                //alert(msg.message);
+                                layer.alert('删除失败', {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+
+        }
+
+        //批量删除
+        $("#btnDelete").click(function () {
+            if ($("input[name='checkList']:checked").length == 0) {
+                layer.msg("请选择要删除的记录");
+                return;
+            }
+
+            var arrId = new Array();
+            $("input[name='checkList']:checked").each(function () {
+                //alert($(this).val());
+                arrId.push($(this).val());
+            });
+
+            sId = arrId.join(',');
+
+            layer.alert('用户组下的用户也将会被删除，确定删除吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'dqe:mt-applydetail-delete' %}",
+                        data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("操作成功", {icon: 1});
+                                oDataTable.ajax.reload();
+                            } else {
+                                //alert(msg.message);
+                                layer.alert("操作失败", {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+
+{% endblock %}
+
+
+

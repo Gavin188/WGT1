@@ -1,0 +1,104 @@
+body {
+    height: 100%;
+    background-image: url('../image/apple5.jpeg');
+    /*background-image: url('/static/media/foxconn.jpg');*/
+    background-size: 100% 100%;
+    background-repeat: repeat-x;
+
+}
+
+/*body {*/
+/*    background: url('../image/apple5.jpeg');*/
+/*    animation-name: myfirst;*/
+/*    animation-duration: 12s;*/
+/*    !*变换时间*!*/
+/*    animation-delay: 20s;*/
+/*    !*动画开始时间*!*/
+/*    animation-iteration-count: infinite;*/
+/*    !*下一周期循环播放*!*/
+/*    animation-play-state: running;*/
+/*    !*动画开始运行*!*/
+/*}*/
+
+/*@keyframes myfirst {*/
+/*    0% {*/
+/*        background: url('../image/apple2.jpeg');*/
+/*    }*/
+/*    34% {*/
+/*        background: url('../image/apple3.jpeg');*/
+/*    }*/
+/*    67% {*/
+/*        background: url('../image/apple4.jpeg');*/
+/*    }*/
+/*    100% {*/
+/*        background: url('../image/apple.jpeg');*/
+/*    }*/
+/*}*/
+
+/*.form {*/
+/*    background: rgba(255, 255, 255, 0.2);*/
+/*    width: 200px;*/
+/*    margin: 120px auto;*/
+/*}*/
+
+/*!*阴影*!*/
+/*.fa {*/
+/*    display: inline-block;*/
+/*    top: 27px;*/
+/*    left: 6px;*/
+/*    position: relative;*/
+/*    color: #ccc;*/
+/*}*/
+
+/*input[type="text"], input[type="password"] {*/
+/*    padding-left: 26px;*/
+/*}*/
+
+/*.checkbox {*/
+/*    padding-left: 21px;*/
+/*}*/
+
+
+.form-login {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-login {
+    margin-top: 80px;
+    font-weight: 400;
+}
+
+.form-login .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+
+}
+
+.form-login .form-control:focus {
+    z-index: 2;
+}
+
+.form-login input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-login input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+form a {
+    display: inline-block;
+    margin-top: 25px;
+    font-size: 12px;
+    line-height: 10px;
+}
