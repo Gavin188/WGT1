@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9e306cd-0955-49bc-aacd-d59e92e713f2" name="Default Changelist" comment="" />
+    <list default="true" id="c9e306cd-0955-49bc-aacd-d59e92e713f2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dqe/views_oct.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views_oct.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dqe/views_oct.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="209" column="19" selection-start-line="209" selection-start-column="12" selection-end-line="209" selection-end-column="19" />
+            <state relative-caret-position="297">
+              <caret line="146" column="65" selection-start-line="146" selection-start-column="65" selection-end-line="146" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -205,7 +208,6 @@
         <option value="$PROJECT_DIR$/dqe/models.py" />
         <option value="$PROJECT_DIR$/templates/dqe/Inventory/Inventory_List.html" />
         <option value="$PROJECT_DIR$/dqe/views_inventory.py" />
-        <option value="$PROJECT_DIR$/dqe/views_oct.py" />
         <option value="$PROJECT_DIR$/system/middleware.py" />
         <option value="$PROJECT_DIR$/templates/dqe/BorrowApply/BorrowApply_List.html" />
         <option value="$PROJECT_DIR$/WGT1/settings.py" />
@@ -218,12 +220,20 @@
         <option value="$PROJECT_DIR$/templates/system/users/user-base.html" />
         <option value="$PROJECT_DIR$/templates/dqe/echart_index.html" />
         <option value="$PROJECT_DIR$/dqe/views_loanconfirm.py" />
+        <option value="$PROJECT_DIR$/dqe/views_oct.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1154" />
-    <option name="y" value="71" />
+    <option name="x" value="198" />
+    <option name="y" value="62" />
     <option name="width" value="1688" />
     <option name="height" value="988" />
   </component>
@@ -247,35 +257,6 @@
             </path>
             <path>
               <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
-              <item name="system" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="dqe" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="system" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="system" type="462c0819:PsiDirectoryNode" />
-              <item name="users" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -287,6 +268,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/static/bootstrap/css" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -409,21 +391,22 @@
       <workItem from="1561113708507" duration="27019000" />
       <workItem from="1561373712398" duration="47122000" />
       <workItem from="1561615959526" duration="5598000" />
-      <workItem from="1561625883059" duration="37988000" />
+      <workItem from="1561625883059" duration="40209000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143417000" />
+    <option name="totallyTimeSpent" value="145638000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1154" y="71" width="1688" height="988" extended-state="0" />
+    <frame x="198" y="62" width="1688" height="988" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.28311056" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.28311056" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" order="0" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.328125" />
+      <window_info anchor="bottom" id="Terminal" order="1" weight="0.8035714" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Python Console" order="4" />
@@ -824,8 +807,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dqe/views_oct.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="209" column="19" selection-start-line="209" selection-start-column="12" selection-end-line="209" selection-end-column="19" />
+        <state relative-caret-position="297">
+          <caret line="146" column="65" selection-start-line="146" selection-start-column="65" selection-end-line="146" selection-end-column="65" />
         </state>
       </provider>
     </entry>

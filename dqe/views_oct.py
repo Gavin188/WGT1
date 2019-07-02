@@ -143,10 +143,8 @@ class OperateCacheTableUpdateView(LoginRequiredMixin, View):
 # 操作緩存表 删除操作
 class OperateCacheTableDeleteView(LoginRequiredMixin, View):
     def post(self, request):
-        print(111)
         res = dict(result=False)
         id = list(map(int, request.POST.get('id').split(',')))[0]
-
         if 'id' in request.POST and request.POST['id']:
             id_list = map(int, request.POST.get('id').split(','))
             OperateCacheTable.objects.filter(id__in=id_list).delete()
