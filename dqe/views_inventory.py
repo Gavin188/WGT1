@@ -419,9 +419,10 @@ class InventoryScanApplyView(LoginRequiredMixin, View):
 
         # STATE_TYPE = (("1", "入庫"), ("2", "可申請"), ("3", "被申請"), ("4", "出库"))
 
+        invState2SN = []  # 库存状态为已经借出的SN
         invState3SN = []  # 库存状态为被申请的SN
         invState4SN = []  # 库存状态为已出库的SN
-        invNotSN = []     # 将扫码没有的机台存放
+        invNotSN = []  # 将扫码没有的机台存放
         try:
             if request.user.department:  # 可能没登录，就获取不到
                 for sn in sns:
@@ -429,8 +430,8 @@ class InventoryScanApplyView(LoginRequiredMixin, View):
                     print(invObj)
                     # 判断对象是否存在，不存在表示该sn库存中没有
                     if invObj:
-                        # 如果有对象 被申请、出库的不能进入缓存中，并提示相应信息
-                        if invObj[0].state != '3' and invObj[0].state != '4':
+                        # 如果有对象 , 已经借出的、被申请、出库的不能进入缓存中，并提示相应信息
+                        if invObj[0].state != '3' and invObj[0].state != '4' and invObj[0].state != '2':
                             OperateCacheTable.objects.get_or_create(
                                 fk_inventory=invObj[0],
                                 fk_structure=Structure.objects.get(name=request.user.department),
@@ -441,17 +442,23 @@ class InventoryScanApplyView(LoginRequiredMixin, View):
                                 invState3SN.append(sn)  # 将被申请的sn归纳出来
                             elif invObj[0].state == '4':
                                 invState4SN.append(sn)  # 将出库的sn归纳出来
+                            elif invObj[0].state == '2':
+                                invState2SN.append(sn)  # 将已经借出的机台的sn归纳出来
                             else:
                                 pass
                     else:
                         invNotSN.append(sn)
-
+            print(invState2SN)
             # 如果没有出现以下3种情况 則為1   # 1 表成功  2 表部分成功  3异常
-            if invState3SN or invState4SN or invNotSN:
+            if invState3SN or invState4SN or invNotSN or invState2SN:
                 if invState3SN:
                     res['invState3SN'] = invState3SN
                 else:
                     res['invState3SN'] = '無'
+                if invState2SN:
+                    res['invState2SN'] = invState2SN
+                else:
+                    res['invState2SN'] = '無'
                 if invState4SN:
                     res['invState4SN'] = invState4SN
                 else:
@@ -467,5 +474,5 @@ class InventoryScanApplyView(LoginRequiredMixin, View):
         except Exception as e:
             # print(e)
             res['result'] = 3
-
+        print(res)
         return HttpResponse(json.dumps(res), content_type='application/json')

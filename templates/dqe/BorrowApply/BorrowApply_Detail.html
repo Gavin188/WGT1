@@ -63,10 +63,10 @@
                                     <td class="success">{{ apply.applyUnit }}</td>
                                 </tr>
                                 <tr>
-{#                                    <td class="info"><strong> 申請時長 </strong></td>#}
-{#                                    <td class="info">#}
-{#                                        {% if apply.applyTime %} {{ apply.applyTime }} {% else %} -- {% endif %}#}
-{#                                    </td>#}
+                                    {#                                    <td class="info"><strong> 申請時長 </strong></td>#}
+                                    {#                                    <td class="info">#}
+                                    {#                                        {% if apply.applyTime %} {{ apply.applyTime }} {% else %} -- {% endif %}#}
+                                    {#                                    </td>#}
 
                                     <td class="info"><strong> 申請單狀態 </strong></td>
                                     <td class="info">
@@ -110,17 +110,30 @@
                                 <i class="glyphicon glyphicon-repeat"></i>刷新
                             </button>
                         </div>
+                        <div class="btn-group pull-left">&nbsp</div>
+                        <div class="btn-group pull-left">
+                            <button type="button" id="btnScanApply" class="btn btn-success">
+                                <i class="glyphicon glyphicon-list-alt"></i> 掃碼入库
+                            </button>
+                        </div>
+
+                        <div class="btn-group pull-left">&nbsp</div>
+                        <div class="btn-group pull-left">
+                            <button type="button" id="btnOutOfStock" class="btn btn-warning">
+                                <i class="glyphicon glyphicon-log-in"></i> 入庫
+                            </button>
+                        </div>
 
                     </div>
                     <div class="box-body">
-                        <table id="dtbList" class="display" cellspacing="0" width="100%">
+                        <table id="dtbList" class="display" cellspacing="0" width="100%" style="font-size: small">
                             <thead>
                             <tr valign="middle">
                                 <th><input type="checkbox" id="checkAll"></th>
                                 <th>申請詳情ID</th>
                                 <th>專案</th>
                                 <th>階段</th>
-                                <th>Rel編號</th>
+                                <th>Wgt NO</th>
                                 <th>SN</th>
                                 <th>申請單號</th>
                                 <th>申請人</th>
@@ -133,8 +146,8 @@
                                 <th>確認時間</th>
                                 <th>機台備註</th>
 
-                                <th>借出部門機台狀態</th>
-{#                                <th>借出部門使用時長</th>#}
+                                {#                                <th>借出部門機台狀態</th>#}
+                                {#                                <th>借出部門使用時長</th>#}
                                 <!--<th>操作</th>-->
                             </tr>
                             </thead>
@@ -191,15 +204,17 @@
                             DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
                             {
                                 data: "id",
-                                width: "6%",
+                                width: "8%",
                             },
                             {
                                 //单独的fk_inventory显示
                                 data: "fk_inventory__fk_project__pname",
+                                width: '5%',
                             },
                             {
                                 //阶段
                                 data: "fk_inventory__fk_stage__sname",
+                                width: '5%',
                             },
                             {
                                 data: "fk_inventory__rel",
@@ -210,6 +225,7 @@
                             {
                                 //申请单号
                                 data: "fk_apply__applyNum",
+                                width: '5%',
                             },
                             {
                                 data: "fk_apply__applyUser",
@@ -265,22 +281,22 @@
                                     }
                                 }
                             },
-                            {
-                                //借出部門機台狀態
-                                data: "macAppState",
-                                render: function (data, type, row, meta) {
-                                    //console.log(">0>", data, ">1>", type, ">2>", row, ">3>", meta);
-                                    if (data == 1) {
-                                        return "入庫"
-                                    } else if (data == 2) {
-                                        return "可申請"
-                                    } else if (data == 3) {
-                                        return "被申請"
-                                    } else {
-                                        return "出庫"
-                                    }
-                                }
-                            },
+                            {#{#}
+                            {#    //借出部門機台狀態#}
+                            {#    data: "macAppState",#}
+                            {#    render: function (data, type, row, meta) {#}
+                            {#        //console.log(">0>", data, ">1>", type, ">2>", row, ">3>", meta);#}
+                            {#        if (data == 1) {#}
+                            {#            return "入庫"#}
+                            {#        } else if (data == 2) {#}
+                            {#            return "可申請"#}
+                            {#        } else if (data == 3) {#}
+                            {#            return "被申請"#}
+                            {#        } else {#}
+                            {#            return "出庫"#}
+                            {#        }#}
+                            {#    }#}
+                            //  {#},#}
                             {#{#}
                             {#    //借出部門使用時長#}
                             {#    data: "lendtime",#}

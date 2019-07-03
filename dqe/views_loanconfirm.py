@@ -287,7 +287,7 @@ class LoanConfirmMachRemarkView(LoginRequiredMixin, View):
                     adobj.lendDate = datetime.now()  # 拒收日期
                     # adobj.lendUnit = request.user.department #拒絕單位
                     adobj.lendtime = "沒借出"  # 没借出、這裡也可以显示为空
-                    adobj.Remark = ''  # 默認就設為空
+                    adobj.Remark = '沒借出'  # 默認就設為空
                     # -- 2019-3-2判断，如果 当前入库日期 不等于 入库日期，那么状态则为 可申请，反之则为 入库。为什么这么改，因为申请一个单的时候，状态会变为被申请(否决)
                     #                     if datetime.strptime(adobj.fk_inventory.currRecDate,'%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d') != adobj.fk_inventory.indate.strftime('%Y-%m-%d'):
                     #                         adobj.macAppState = 2   #adobj.fk_inventory.state   #机台申请前状态
@@ -295,7 +295,7 @@ class LoanConfirmMachRemarkView(LoginRequiredMixin, View):
                     #                         adobj.macAppState = 1
                     # adobj.macAppState = adobj.fk_inventory.state 注释掉，之前申请时已经有了
 
-                    adobj.fk_inventory.state = 2  # ("1", "入庫"), ("2", "可申請"), ("3", "被申請"), ("4", "出库")
+                    adobj.fk_inventory.state = 1  # ("1", "入庫"), ("2", "可申請"), ("3", "被申請"), ("4", "出库")
                     adobj.fk_inventory.save()
                     adobj.save()
 

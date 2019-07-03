@@ -2,342 +2,341 @@
 {% load staticfiles %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
-<link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
-<link rel="stylesheet" href="{%static 'plugins/select2/select2.min.css' %}">
-<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
-<!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+    <!-- iCheck for checkboxes and radio inputs -->
 {% endblock %}
 
 {% block content %}
 
-<!-- Main content -->
-<section class="content">
-    <div id="devlist">
-        <div class="box box-primary" id="liebiao">
+    <!-- Main content -->
+    <section class="content">
+        <div id="devlist">
+            <div class="box box-primary" id="liebiao">
 
-            <div class="box-header">
-                <div class="btn-group pull-left">
-                    <button type="button" id="btnRefresh" class="btn btn-default">
-                        <i class="glyphicon glyphicon-repeat"></i>刷新
-                    </button>
+                <div class="box-header">
+                    <div class="btn-group pull-left">
+                        <button type="button" id="btnRefresh" class="btn btn-default">
+                            <i class="glyphicon glyphicon-repeat"></i>刷新
+                        </button>
+                    </div>
+
                 </div>
 
-            </div>
+                <div class="box-header">
+                    <form class="form-inline" id="queryForm">
 
-            <div class="box-header">
-                <form class="form-inline" id="queryForm">
+                        <div class="form-group searchArea margin-r-5 margin-top-5">
+                            <label>申請人:</label>
+                            <input type="text" name="applyUser" class="form-control inputText" id="applyUser">
+                        </div>
 
-                    <div class="form-group searchArea margin-r-5 margin-top-5">
-                        <label>申請人:</label>
-                        <input type="text" name="applyUser" class="form-control inputText" id="applyUser">
-                    </div>
+                        <div class="form-group searchArea margin-r-5 margin-top-5 ">
+                            <label>申請日期:</label>
+                            <input type="text" name="applyDate" class="form-control form_datetime" id="applyDate">
+                        </div>
 
-                    <div class="form-group searchArea margin-r-5 margin-top-5 ">
-                        <label>申請日期:</label>
-                        <input type="text" name="applyDate" class="form-control form_datetime" id="applyDate">
-                    </div>
+                        <div class="form-group searchArea margin-r-5 margin-top-5">
+                            <label>申請單位:</label>
+                            <select class="form-control inputText select2" name="applyUnit" id="applyUnit">
+                                <option style='text-align:center' value=''>-----所有-----</option>
+                                {% for structure in structures %}
+                                    <option value="{{ structure.name }}">{{ structure.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-                    <div class="form-group searchArea margin-r-5 margin-top-5">
-                        <label>申請單位:</label>
-                        <select class="form-control inputText select2" name="applyUnit" id="applyUnit">
-                            <option></option>
-                            {% for structure in structures %}
-                            <option value="{{ structure.name }}">{{ structure.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                        <div class="form-group searchArea margin-r-5 margin-top-5">
+                            <label>申請單狀態:</label>
+                            <select class="form-control inputText select2" name="applyState" id="applyState">
+                                <option style='text-align:center' value=''>-----所有-----</option>
+                                {% for applyState in applyState_list %}
+                                    <option value="{{ applyState.key }}">{{ applyState.value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-                    <div class="form-group searchArea margin-r-5 margin-top-5">
-                        <label>申請單狀態:</label>
-                        <select class="form-control inputText select2" name="applyState" id="applyState">
-                            <option></option>
-                            {% for applyState in applyState_list %}
-                            <option value="{{ applyState.key }}">{{ applyState.value }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                        <!--<div class="form-group searchArea margin-r-5 margin-top-5 ">-->
+                        <!--<label>借出日期:</label>-->
+                        <!--<input type="text" name="lendDate" class="form-control form_datetime" id="lendDate">-->
+                        <!--</div>-->
 
-                    <!--<div class="form-group searchArea margin-r-5 margin-top-5 ">-->
-                    <!--<label>借出日期:</label>-->
-                    <!--<input type="text" name="lendDate" class="form-control form_datetime" id="lendDate">-->
-                    <!--</div>-->
+                        <!--<div class="form-group searchArea margin-r-5 margin-top-5">-->
+                        <!--<label>確認單位:</label>-->
+                        <!--<select class="form-control inputText select2" name="lendUnit" id="lendUnit">-->
+                        <!--<option></option>-->
+                        <!--{% for structure in structures %}-->
+                            <!--<option value="{{ structure.name }}">{{ structure.name }}</option>-->
+                            <!--{% endfor %}-->
+                        <!--</select>-->
+                        <!--</div>-->
 
-                    <!--<div class="form-group searchArea margin-r-5 margin-top-5">-->
-                    <!--<label>確認單位:</label>-->
-                    <!--<select class="form-control inputText select2" name="lendUnit" id="lendUnit">-->
-                    <!--<option></option>-->
-                    <!--{% for structure in structures %}-->
-                    <!--<option value="{{ structure.name }}">{{ structure.name }}</option>-->
-                    <!--{% endfor %}-->
-                    <!--</select>-->
-                    <!--</div>-->
+                        <button type="button" id="btnSearch" class="btn btn-default">
+                            <i class="glyphicon glyphicon-search"></i>查询
+                        </button>
+                    </form>
+                </div>
 
-                    <button type="button" id="btnSearch" class="btn btn-default">
-                        <i class="glyphicon glyphicon-search"></i>查询
-                    </button>
-                </form>
-            </div>
+                <div class="box-body">
+                    <table id="dtbList" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr valign="middle">
+                            <th><input type="checkbox" id="checkAll"></th>
+                            <th>申请ID</th>
+                            <th>申請單號</th>
+                            <th>申請人</th>
+                            <th>申請時間</th>
+                            <th>申請單位</th>
+                            <th>申請時長</th>
+                            <th>申請單狀態</th>
+                            <th>借出备注</th>
+                            <!--<th>確認人</th>-->
+                            <!--<th>借出時間</th>-->
+                            <!--<th>借出時長</th>-->
+                            <!--<th>機台確認狀態</th>-->
+                            <!--<th>機台申請前狀態（入庫、可申請）</th>-->
+                            <!--<th>借出單位</th> -->
+                            <!--<th>機台拒收備註</th>-->
 
-            <div class="box-body">
-                <table id="dtbList" class="display" cellspacing="0" width="100%">
-                    <thead>
-                    <tr valign="middle">
-                        <th><input type="checkbox" id="checkAll"></th>
-                        <th>APPLYID</th>
-                        <th>申請單號</th>
-                        <th>申請人</th>
-                        <th>申請時間</th>
-                        <th>申請單位</th>
-                        <th>申請時長</th>
-                        <th>申請單狀態</th>
-                        <th>借出备注</th>
-                        <!--<th>確認人</th>-->
-                        <!--<th>借出時間</th>-->
-                        <!--<th>借出時長</th>-->
-                        <!--<th>機台確認狀態</th>-->
-                        <!--<th>機台申請前狀態（入庫、可申請）</th>-->
-                        <!--<th>借出單位</th> -->
-                        <!--<th>機台拒收備註</th>-->
-
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                <br> <br>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <br> <br>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 {% endblock %}
 
 {% block javascripts %}
-<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
-<script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
-<script src="{% static 'js/plugins/layer/layer.js' %}"></script>
-<script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
-<script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
-<!-- iCheck 1.0.1 -->
-<script type="text/javascript">
-    $(function () {
-        $('#DQE-MT').addClass('active');
-        $('#DQE-MT-BORROWAPPLY').addClass('active');
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <!-- iCheck 1.0.1 -->
+    <script type="text/javascript">
+        $(function () {
+            $('#DQE-MT').addClass('active');
+            $('#DQE-MT-BORROWAPPLY').addClass('active');
 
-    });
-</script>
+        });
+    </script>
 
-<script type="text/javascript">
-    var oDataTable = null;
-    $(function () {
-        oDataTable = initTable();
+    <script type="text/javascript">
+        var oDataTable = null;
+        $(function () {
+            oDataTable = initTable();
 
-        function initTable() {
-            var oTable = $('#dtbList').DataTable($.extend(true, {},
-                DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
-                {
-                    ajax: {
-                        "url": "{% url 'dqe:mt-borrowapply-list' %}",
-                        "data": function (d) {
+            function initTable() {
+                var oTable = $('#dtbList').DataTable($.extend(true, {},
+                    DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
+                    {
+                        ajax: {
+                            "url": "{% url 'dqe:mt-borrowapply-list' %}",
+                            "data": function (d) {
 
-                            d.applyDate = $("#applyDate").val();
-                            d.applyUnit = $("#applyUnit").val();
-                            d.applyUser = $("#applyUser").val();
-                            d.applyState = $("#applyState").val();
-                            //d.lendDate = $("#lendDate").val();
-                            //d.lendUnit = $("#lendUnit").val();
-                        }
-                    },
-                    columns: [
-                        DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
-                        {
-                            data: "id",
-                            width: "10%",
-                        },
-                        {
-                            data: "applyNum",
-                        },
-                        {
-                            data: "applyUser",
-                        },
-                        {
-                            data: "applyDate",
-                            render: function (data, type, full, meta) {
-                                return moment(data).format("YYYY-MM-DD HH:mm");
+                                d.applyDate = $("#applyDate").val();
+                                d.applyUnit = $("#applyUnit").val();
+                                d.applyUser = $("#applyUser").val();
+                                d.applyState = $("#applyState").val();
+                                //d.lendDate = $("#lendDate").val();
+                                //d.lendUnit = $("#lendUnit").val();
                             }
                         },
-                        {
-                            data: "applyUnit",
-                        },
-                        {
-                            data: "applyTime",
-                            render: function (data, type, row, meta) {
-
-                                if (data) {
-                                    return data
-                                } else {
-                                    return "--"
+                        columns: [
+                            DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
+                            {
+                                data: "id",
+                                width: "10%",
+                            },
+                            {
+                                data: "applyNum",
+                            },
+                            {
+                                data: "applyUser",
+                            },
+                            {
+                                data: "applyDate",
+                                render: function (data, type, full, meta) {
+                                    return moment(data).format("YYYY-MM-DD HH:mm");
                                 }
-                            }
-                        },
-                        {
-                            data: "applyState",
-                            render: function (data, type, row, meta) {
+                            },
+                            {
+                                data: "applyUnit",
+                            },
+                            {
+                                data: "applyTime",
+                                render: function (data, type, row, meta) {
 
-                                if (data == 1) {
-                                    return "待簽核"
-                                } else {
-                                    return "已簽核"
+                                    if (data) {
+                                        return data
+                                    } else {
+                                        return "--"
+                                    }
                                 }
-                            }
-                        },
-                        {
-                            data: "lendRemark",
-                            render: function (data, type, row, meta) {
+                            },
+                            {
+                                data: "applyState",
+                                render: function (data, type, row, meta) {
 
-                                if (data) {
-                                    return data
-                                } else {
-                                    return "--"
+                                    if (data == 1) {
+                                        return "待簽核"
+                                    } else {
+                                        return "已簽核"
+                                    }
                                 }
-                            }
-                        },
-                        {
-                            data: "id",
-                            width: "10%",
-                            bSortable: "false",
-                            render: function (data, type, row, meta) {
-                                var ret = "<button title='详情' onclick='doDetail("
-                                    + data + ")'><i class='glyphicon glyphicon-list-alt'></i></button>";
-                                ret = ret + "&nbsp";
-                                //console.log(row)
-                                if(row.applyState==1){
-                                    ret = ret + "<button class='btn btn-sm btn-danger' title='删除' onclick='doDelete("
-                                    + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
-                                }else{
-                                    ret = ret + "<button class='btn btn-sm btn-primary' title='删除' disabled='disabled' onclick='doDelete("
-                                    + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
+                            },
+                            {
+                                data: "lendRemark",
+                                render: function (data, type, row, meta) {
+
+                                    if (data) {
+                                        return data
+                                    } else {
+                                        return "--"
+                                    }
+                                }
+                            },
+                            {
+                                data: "id",
+                                width: "10%",
+                                bSortable: "false",
+                                render: function (data, type, row, meta) {
+                                    var ret = "<button title='详情' onclick='doDetail("
+                                        + data + ")'><i class='glyphicon glyphicon-list-alt'></i></button>";
+                                    ret = ret + "&nbsp";
+                                    //console.log(row)
+                                    if (row.applyState == 1) {
+                                        ret = ret + "<button class='btn btn-sm btn-danger' title='删除' onclick='doDelete("
+                                            + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
+                                    } else {
+                                        ret = ret + "<button class='btn btn-sm btn-primary' title='删除' disabled='disabled' onclick='doDelete("
+                                            + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
+                                    }
+
+
+                                    return ret;
                                 }
 
+                            }],
+                    }));
+                return oTable;
+            }
+        });
+        //查询
+        $("#btnSearch").click(function () {
+            oDataTable.ajax.reload();
+        });
 
-
-                                return ret;
-                            }
-
-                        }],
-                }));
-            return oTable;
-        }
-    });
-    //查询
-    $("#btnSearch").click(function () {
-        oDataTable.ajax.reload();
-    });
-
-    //checkbox全选
-    $("#checkAll").on("click", function () {
-        if ($(this).prop("checked") === true) {
-            $("input[name='checkList']").prop("checked", $(this).prop("checked"));
-            $('#example tbody tr').addClass('selected');
-        } else {
-            $("input[name='checkList']").prop("checked", false);
-            $('#example tbody tr').removeClass('selected');
-        }
-    });
-
-    //刷新
-    $("#btnRefresh").click(function () {
-        oDataTable.ajax.reload();
-    });
-
-
-    //详情
-    function doDetail(id) {
-        window.location.href = "{% url 'dqe:mt-borrowapply-detail' %}?id=" + id;
-    }
-
-    //删除该申请单   两种方式
-    // data传递过程中，为了区分是 完成删除full 0 ， 还是保留retain 1 ，
-    function doDelete(id) {
-        layer.open({
-            title: '提示',
-            content: '選擇刪除方式',
-            icon: 3,  //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
-            btn: ['保留勾選機台','完全刪除該單',],
-            yes: function (index, layero) {
-                //按钮【按钮一】的回调
-                layer.close(index);
-                $.ajax({
-                    type: "POST",
-                    url: "{% url 'dqe:mt-borrowapply-delete' %}",
-
-                    data: {"id": id, "retain": 1, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
-                    cache: false,
-                    success: function (msg) {
-                        if (msg.result) {
-                            layer.alert('删除成功！庫存 > 借入申請確認 > 可看到該單下勾選的機台信息', {icon: 1});
-                            oDataTable.ajax.reload();
-                        } else {
-                            //alert(msg.message);
-                            layer.alert('删除失败！', {icon: 2});
-                        }
-
-                    }
-                });
-
-            }, btn2: function (index, layero) {
-                //按钮【按钮二】的回调
-                layer.close(index);
-                $.ajax({
-                    type: "POST",
-                    url: "{% url 'dqe:mt-borrowapply-delete' %}",
-
-                    data: {"id": id, "full": 0, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
-                    cache: false,
-                    success: function (msg) {
-                        if (msg.result) {
-                            layer.alert('完全刪除成功!', {icon: 1});
-                            oDataTable.ajax.reload();
-                        } else {
-                            //alert(msg.message);
-                            layer.alert('删除失败！', {icon: 2});
-                        }
-
-                    }
-                });
-
-            }, cancel: function () {
-                //右上角关闭回调
+        //checkbox全选
+        $("#checkAll").on("click", function () {
+            if ($(this).prop("checked") === true) {
+                $("input[name='checkList']").prop("checked", $(this).prop("checked"));
+                $('#example tbody tr').addClass('selected');
+            } else {
+                $("input[name='checkList']").prop("checked", false);
+                $('#example tbody tr').removeClass('selected');
             }
         });
 
-    }
+        //刷新
+        $("#btnRefresh").click(function () {
+            window.location.reload();
+        });
 
 
-    /*input 时间输入选择*/
-    $(".form_datetime").datetimepicker({
-        language: 'zh',
-        minView: 'month', //选择范围知道日期，不选择时分
-        //weekStart: 1,
-        //todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        //startView: 2,
-        forceParse: 0,
-        showMeridian: 1,
-        format: 'yyyy-mm-dd'
-    }).on('changeDate', function (ev) {
-        $(this).datetimepicker('hide');
-    });
+        //详情
+        function doDetail(id) {
+            window.location.href = "{% url 'dqe:mt-borrowapply-detail' %}?id=" + id;
+        }
 
-    $(function () {
-        //Initialize Select2 Elements
-        $(".select2").select2();
-    });
+        //删除该申请单   两种方式
+        // data传递过程中，为了区分是 完成删除full 0 ， 还是保留retain 1 ，
+        function doDelete(id) {
+            layer.open({
+                title: '提示',
+                content: '選擇刪除方式',
+                icon: 3,  //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                btn: ['保留勾選機台', '完全刪除該單',],
+                yes: function (index, layero) {
+                    //按钮【按钮一】的回调
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'dqe:mt-borrowapply-delete' %}",
+
+                        data: {"id": id, "retain": 1, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert('删除成功！庫存 > 借入申請確認 > 可看到該單下勾選的機台信息', {icon: 1});
+                                oDataTable.ajax.reload();
+                            } else {
+                                //alert(msg.message);
+                                layer.alert('删除失败！', {icon: 2});
+                            }
+
+                        }
+                    });
+
+                }, btn2: function (index, layero) {
+                    //按钮【按钮二】的回调
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'dqe:mt-borrowapply-delete' %}",
+
+                        data: {"id": id, "full": 0, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert('完全刪除成功!', {icon: 1});
+                                oDataTable.ajax.reload();
+                            } else {
+                                //alert(msg.message);
+                                layer.alert('删除失败！', {icon: 2});
+                            }
+
+                        }
+                    });
+
+                }, cancel: function () {
+                    //右上角关闭回调
+                }
+            });
+
+        }
 
 
-</script>
+        /*input 时间输入选择*/
+        $(".form_datetime").datetimepicker({
+            language: 'zh',
+            minView: 'month', //选择范围知道日期，不选择时分
+            //weekStart: 1,
+            //todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            //startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            format: 'yyyy-mm-dd'
+        }).on('changeDate', function (ev) {
+            $(this).datetimepicker('hide');
+        });
+
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+
+
+    </script>
 {% endblock %}

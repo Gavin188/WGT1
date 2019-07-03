@@ -111,7 +111,7 @@
                         <div class="form-group searchArea margin-r-5 margin-top-5">
                             <label>部門：</label>
                             <select class="form-control inputText select2" name="fk_structure" id="fk_structure_id">
-                                <option></option>
+                                <option style='text-align:center' value=''>-----所有-----</option>
                                 {% for structure in structures %}
                                     <option value="{{ structure.id }}">{{ structure.name }}</option>
                                 {% endfor %}
@@ -121,7 +121,7 @@
                         <div class="form-group searchArea margin-r-5 margin-top-5">
                             <label>專案：</label>
                             <select class="form-control inputText select2" name="fk_project" id="fk_project_id">
-                                <option></option>
+                                <option style='text-align:center' value=''>-----所有-----</option>
                                 {% for project in projects %}
                                     <option value="{{ project.id }}">{{ project.pname }}</option>
                                 {% endfor %}
@@ -131,21 +131,21 @@
                         <div class="form-group searchArea margin-r-5 margin-top-5">
                             <label>階段：</label>
                             <select class="form-control inputText select2" name="fk_stage" id="fk_stage_id">
-                                <option></option>
+                                <option style='text-align:center' value=''>-----所有-----</option>
                                 {% for stage in stages %}
                                     <option value="{{ stage.id }}">{{ stage.sname }}</option>
                                 {% endfor %}
                             </select>
                         </div>
 
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>Rel編號:</label>
-                            <input type="text" name="rel" class="form-control inputText" id="relStart">
-                        </div>
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>——</label>
-                            <input type="text" name="rel" class="form-control inputText" id="relEnd">
-                        </div>
+                        {#                        <div class="form-group searchArea margin-r-5 margin-top-5">#}
+                        {#                            <label>Rel編號:</label>#}
+                        {#                            <input type="text" name="rel" class="form-control inputText" id="relStart">#}
+                        {#                        </div>#}
+                        {#                        <div class="form-group searchArea margin-r-5 margin-top-5">#}
+                        {#                            <label>——</label>#}
+                        {#                            <input type="text" name="rel" class="form-control inputText" id="relEnd">#}
+                        {#                        </div>#}
 
 
                         <!--<div class="form-group searchArea margin-r-5 margin-top-5 ">-->
@@ -161,7 +161,7 @@
                         <div class="form-group searchArea margin-r-5 margin-top-5">
                             <label>產品類別:</label>
                             <select class="form-control inputText select2" name="fk_pt" id="fk_pt_id">
-                                <option></option>
+                                <option style='text-align:center' value=''>-----所有-----</option>
                                 {% for prodtype in prodtypes %}
                                     <option value="{{ prodtype.id }}">{{ prodtype.ptname }}</option>
                                 {% endfor %}
@@ -181,16 +181,18 @@
                         <tr valign="middle">
                             <th><input type="checkbox" id="checkAll"></th>
                             <th>ID</th>
+                            <th>產品類型</th>
                             <th>專案</th>
                             <th>階段</th>
-                            <th>Rel編號</th>
+                            <th>Wgt NO</th>
                             <th>SN</th>
                             <th>入庫日期</th>
                             <th>入庫者</th>
                             <th>狀態</th>
                             <th>當前部門</th>
-                            <th>產品類型</th>
-                            <th>機台停留時間</th>
+                            <th>當前拥有</th>
+                            {#                            <th>產品類型</th>#}
+                            {#                            <th>機台停留時間</th>#}
                             <th>備註</th>
                             <th>操作</th>
                         </tr>
@@ -286,6 +288,9 @@
                                 data: "fk_stage__sname",
                             },
                             {
+                                data: "fk_pt__ptname",
+                            },
+                            {
                                 data: "rel",
                             },
                             {
@@ -308,11 +313,13 @@
                                     if (data == 1) {
                                         return "入庫"
                                     } else if (data == 2) {
-                                        return "可申請"
+                                        return "已借出"
                                     } else if (data == 3) {
                                         return "被申請"
-                                    } else {
+                                    } else if (data == 4) {
                                         return "出庫"
+                                    } else {
+                                        return "已损坏"
                                     }
                                 }
                             },
@@ -321,39 +328,40 @@
                             },
 
                             {
-                                data: "fk_pt__ptname",
+                                data: "currRecUser",
                             },
 
-                            {
 
-                                render: function (data, type, full, meta) {
-                                    //var indate = new Date(full.indate);  不是入库时间 、改为当前接收时间
-                                    //console.log(full);
-                                    var indate = new Date(full.currRecDate.replace(/-/g, "/").replace(/(\.\d+)?/g, ""));
-                                    //alert(indate);
-
-                                    var mytime = new Date();     //获取当前时间
-
-                                    var s1 = indate.getTime(), s2 = mytime.getTime();
-
-                                    var total = (s2 - s1) / 1000;
-
-                                    var day = parseInt(total / (24 * 60 * 60));//计算整数天数
-
-                                    var afterDay = total - day * 24 * 60 * 60;//取得算出天数后剩余的秒数
-
-                                    var hour = parseInt(afterDay / (60 * 60));//计算整数小时数
-
-                                    var afterHour = total - day * 24 * 60 * 60 - hour * 60 * 60;//取得算出小时数后剩余的秒数
-
-                                    var min = parseInt(afterHour / 60);//计算整数分
-
-                                    var afterMin = total - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60;//取得算出分后剩余的秒数
-
-                                    return day + "D" + " " + hour + "H";
-
-                                }
-                            },
+                            {#{#}
+                            {##}
+                            {#    render: function (data, type, full, meta) {#}
+                            {#        //var indate = new Date(full.indate);  不是入库时间 、改为当前接收时间#}
+                            {#        //console.log(full);#}
+                            {#        var indate = new Date(full.currRecDate.replace(/-/g, "/").replace(/(\.\d+)?/g, ""));#}
+                            {#        //alert(indate);#}
+                            {##}
+                            {#        var mytime = new Date();     //获取当前时间#}
+                            {##}
+                            {#        var s1 = indate.getTime(), s2 = mytime.getTime();#}
+                            {##}
+                            {#        var total = (s2 - s1) / 1000;#}
+                            {##}
+                            {#        var day = parseInt(total / (24 * 60 * 60));//计算整数天数#}
+                            {##}
+                            {#        var afterDay = total - day * 24 * 60 * 60;//取得算出天数后剩余的秒数#}
+                            {##}
+                            {#        var hour = parseInt(afterDay / (60 * 60));//计算整数小时数#}
+                            {##}
+                            {#        var afterHour = total - day * 24 * 60 * 60 - hour * 60 * 60;//取得算出小时数后剩余的秒数#}
+                            {##}
+                            {#        var min = parseInt(afterHour / 60);//计算整数分#}
+                            {##}
+                            {#        var afterMin = total - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60;//取得算出分后剩余的秒数#}
+                            {##}
+                            {#        return day + "D" + " " + hour + "H";#}
+                            {##}
+                            {#    }#}
+                            //{#},#}
                             {
                                 data: "remark",
                             },
@@ -374,7 +382,7 @@
                                     //("1", "入庫"), ("2", "可申請"), ("3", "被申請"), ("4", "出库")
                                     //console.log("{{request.user.department}}");
                                     console.log('11111', row.operatecachetable__opeuser);
-                                    //如果是入库或者被申请，按钮直接不能点
+                                    //如果是出库或者被申请，按钮直接不能点
                                     if (row.state == 3 | row.state == 4) {
 
                                         ret = ret + "<button title='购物车' class='btn btn-primary btn-sm' id='bs" + data + "' onclick='doShopping("
@@ -383,7 +391,8 @@
                                     } else {
 
                                         //如果是入库或者可申请，就视为可选操作。情况：假如该机太有相应的操作者或者机台当前部门为登录者相同的部门，那么就禁止
-                                        if (row.operatecachetable__opeuser | row.fk_structure__name == "{{request.user.department}}") {
+                                        {#if (row.operatecachetable__opeuser | row.fk_structure__name == "{{request.user.department}}") {#}
+                                        if (row.operatecachetable__opeuser | row.fk_structure__name != "仓管") {
                                             ret = ret + "<button title='购物车' class='btn btn-primary btn-sm' id='bs" + data + "' onclick='doShopping("
                                                 + data + ")' disabled='disabled'><i class='glyphicon glyphicon-shopping-cart' ></i></button>";
                                         } else {
@@ -429,7 +438,9 @@
 
         //刷新
         $("#btnRefresh").click(function () {
-            oDataTable.ajax.reload();
+            window.location.reload();
+            setTimeout(refresh, 5000);
+
         });
 
         //新增

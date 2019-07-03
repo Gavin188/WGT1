@@ -50,7 +50,27 @@
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <!-- iCheck -->
 {% block script %}
+    <script type="text/javascript">
+    (function () {
+        // We must use JS as we need to select previous
+        // elements which can't be done with CSS.
+        $('.skew-title').children('span').hover((function () {
+            var $el, n;
+            $el = $(this);
+            n = $el.index() + 1;
+            $el.addClass('flat');
+            if (n % 2 === 0) {
+                return $el.prev().addClass('flat');
+            } else {
+                if (!$el.hasClass('last')) {
+                    return $el.next().addClass('flat');
+                }
+            }
+        }), function () {
+            return $('.flat').removeClass('flat');
+        });
 
+    }).call(this);
 {% endblock %}
 </body>
-</html>
+< /html>
