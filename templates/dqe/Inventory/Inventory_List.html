@@ -181,7 +181,7 @@
                         <tr valign="middle">
                             <th><input type="checkbox" id="checkAll"></th>
                             <th>ID</th>
-                            <th>產品類型</th>
+{#                            <th>產品類型</th>#}
                             <th>專案</th>
                             <th>階段</th>
                             <th>Wgt NO</th>
@@ -281,15 +281,16 @@
                                 data: "id",
                                 width: "5%",
                             },
+                            {#{#}
+                            {#    data: "fk_pt__ptname",#}
+                            {# },#}
                             {
                                 data: "fk_project__pname",
                             },
                             {
                                 data: "fk_stage__sname",
                             },
-                            {
-                                data: "fk_pt__ptname",
-                            },
+
                             {
                                 data: "rel",
                             },

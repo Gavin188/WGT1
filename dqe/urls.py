@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^inventory/detail$', views_inventory.InventoryDetailView.as_view(), name='inventory-detail'),
     url(r'^inventory/detail/list$', views_inventory.InventoryDetailListView.as_view(), name='inventory-detail-list'),
     url(r'^inventory/out$', views_inventory.InventoryOutView.as_view(), name='inventory-out'),  # 出庫
+    url(r'^inventory/in$', views_inventory.InventoryInView.as_view(), name='inventory-in'),  # 入庫
 
     # 将选择的机台放入购物车  称之为 OperateCacheTable
     url(r'^inventory/addToShopping$', views_inventory.InventoryAddToShoppingView.as_view(),
@@ -39,6 +40,8 @@ urlpatterns = [
 
     # 扫码 申请
     url(r'^inventory/scanApply$', views_inventory.InventoryScanApplyView.as_view(), name='inventory-scanApply'),
+
+    url(r'^inventory/scanReturn$', views_inventory.InventoryScanReturnView.as_view(), name='inventory-scanReturn'),
 
     # 点击 借入申请确认 > 弹出一个界面，用于显示勾选的机台 OperateCacheTable
     url(r'^oct/$', views_oct.OperateCacheTableView.as_view(), name='oct'),

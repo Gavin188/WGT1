@@ -165,16 +165,16 @@ class ApplyConfirmView(LoginRequiredMixin, View):
 
             # 為创建单号做准备
             id = list(map(int, request.POST.get('id').split(',')))[0]
-            print('id', id)
+
             octObj = OperateCacheTable.objects.get(id=id)
-            print('oct', octObj)
+
             invObj0 = Inventory.objects.get(id=octObj.fk_inventory.id)
-            print('inv', invObj0)
+
 
             # 创建一个申请单  申请单号设定为 申请部门 向 确认部门 申请时间
             apply = Apply()
             apply.applyNum = str(request.user.department) + "-" + str(invObj0.fk_structure.name) + "-" + str(
-                datetime.datetime.now().strftime('%Y%m%d_%H%M%S'))
+                datetime.datetime.now().strftime('%Y%m%d_%H%M'))
             apply.applyUser = request.user.username
             # apply.applyTime 申請時長-当确认后才可计算
             apply.applyUnit = request.user.department  # 申請單位

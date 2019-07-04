@@ -140,7 +140,7 @@ class InventoryView(LoginRequiredMixin, View):  # class InventoryView(LoginRequi
                             msg = "機台信息有誤"
                             error_unit.append(df.loc[i].tolist())  # 信息有误的项
                     else:
-                        msg = "機台信息有誤"
+                        msg = "機台重复机台"
                         repeat_unit.append(df.loc[i].tolist())  # 重複機台
                 else:
                     msg = "表格格式有誤"
@@ -322,6 +322,25 @@ class InventoryOutView(LoginRequiredMixin, View):
         return HttpResponse(json.dumps(res), content_type='application/json')
 
 
+# 庫存機台入库操作
+class InventoryInView(LoginRequiredMixin, View):
+    def post(self, request):
+        # fk_structure__name
+        res = dict(result=False)
+        if 'id' in request.POST and request.POST['id']:
+            id_list = map(int, request.POST.get('id').split(','))
+            list_inventory = Inventory.objects.filter(id__in=id_list)
+            for i_list_inventory in list_inventory:
+                i_list_inventory.state = '1'
+                i_list_inventory.currRecUser = request.user.name
+                i_list_inventory.fk_structure_id = request.user.department.id
+                i_list_inventory.save()
+                print("更改成功！！！")
+            res['result'] = True
+
+        return HttpResponse(json.dumps(res), content_type='application/json')
+
+
 # 将要申请的机台放入操作缓冲表 OperateCacheTable
 class InventoryAddToShoppingView(LoginRequiredMixin, View):
 
@@ -390,7 +409,7 @@ class InventoryDetailListView(LoginRequiredMixin, View):
     def get(self, request):
         fields = ['fk_apply__applyNum', 'fk_apply__applyUser', 'fk_apply__applyUnit', 'fk_apply__applyDate',
                   'fk_apply__applyTime', 'fk_apply__applyState', 'confirmUser', 'machineState',
-                  'lendDate', 'lendUnit', 'lendtime', 'remark']
+                  'lendDate', 'lendUnit', 'lendtime', 'remark', 'macAppState']
         # searchFields = ['applyDate', 'lendDate', 'applyUnit', 'lendUnit', 'applyUser', 'applyState']  # 与数据库字段一致
         # filters = {i + '__icontains': request.GET.get(i, '') for i in searchFields if
         #            i not in [''] and request.GET.get(i, '')}
@@ -476,3 +495,11 @@ class InventoryScanApplyView(LoginRequiredMixin, View):
             res['result'] = 3
         print(res)
         return HttpResponse(json.dumps(res), content_type='application/json')
+
+
+class InventoryScanReturnView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'dqe/Inventory/ScanReturn.html', None)
+
+    def post(self, request):
+        pass

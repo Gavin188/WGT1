@@ -87,7 +87,7 @@ class LoanConfirmDetailListView(LoginRequiredMixin, View):
         fields = ['id', 'fk_inventory__fk_project__pname', 'fk_inventory__fk_stage__sname', 'fk_inventory__rel',
                   'fk_inventory__sn', 'fk_apply__applyNum', 'fk_apply__applyUser', 'fk_apply__applyUnit',
                   'fk_apply__applyDate', 'machineState',
-                  'lendUnit', 'confirmUser', 'lendDate', 'remark', 'macAppState', 'lendtime']
+                  'lendUnit', 'confirmUser', 'lendDate', 'remark', 'fk_inventory__state', 'lendtime']
         searchFields = ['fk_inventory__rel', 'machineState', ]  # 查询条件
         filters = {i + '__icontains': request.GET.get(i, '') for i in searchFields if
                    request.GET.get(i, '')}  # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
