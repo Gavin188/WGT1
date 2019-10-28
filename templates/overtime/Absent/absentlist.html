@@ -1,0 +1,270 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+    <!-- iCheck for checkboxes and radio inputs -->
+{% endblock %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div id="devlist">
+            <div class="box box-primary" id="liebiao">
+
+                <div class="box-header">
+                    {#                    <div class="box box-danger">#}
+                    <form class="form-horizontal" id="addForm" method="post" style="height: 700px">
+                        {% csrf_token %}
+                        <input type="hidden" name='id' value="{{ user.id }}"/>
+                        <input type="hidden" name='user' value="save"/>
+                        <div class="box-body">
+                            <h3 style="text-align:center">个人异常申请单</h3>
+                            <fieldset>
+                                <legend>
+                                    <h4>申请人信息</h4>
+                                </legend>
+                                <div class="form-group has-feedback">
+                                    <label class="col-sm-2 control-label">姓名</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" readonly="readonly" name="name" id="name"
+                                               type="text"
+                                               value="{{ user.name }}"/>
+                                    </div>
+                                    <label class="col-sm-2 control-label">工号</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" readonly="readonly" name="worknum" id="worknum"
+                                               type="text"
+                                               value="{{ user.username }}">
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group has-feedback">
+                                    <label class="col-sm-2 control-label">申请日期</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" readonly="readonly" name="apply_time"
+                                               id="apply_time"/>
+                                    </div>
+                                    <label class="col-sm-2 control-label">手机</label>
+                                    <div class="col-sm-3">
+                                        <input class="form-control" readonly="readonly" name="mobile" id="mobile"
+                                               type="text"
+                                               value="{{ user.mobile }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label class="col-sm-2 control-label">资位</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" readonly="readonly" name="level"
+                                               id="level"
+                                               value="{{ user.level }}"/>
+                                    </div>
+                                </div>
+
+                                <legend>
+                                    <h4>异常基本信息</h4>
+                                </legend>
+                                <div class="form-group has-feedback">
+                                    <label class="col-sm-2 control-label">异常原因</label>
+                                    <div class="col-sm-3">
+                                        <select class="form-control select2" style="width:100%;" name="absent_type"
+                                                id="absent_type">
+                                            <option value=""></option>
+                                            <option value="1">漏刷卡</option>
+                                            <option value="2">办卡中</option>
+                                            <option value="3">卡机异常</option>
+                                            <option value="4">公务处理</option>
+                                            <option value="5">刷卡地点错误</option>
+                                        </select>
+                                    </div>
+                                    <label class="col-sm-2 control-label">刷卡类型</label>
+                                    <div class="col-sm-3">
+                                        <select class="form-control select2" style="width:100%;" name="card_type"
+                                                id="card_type">
+                                            <option value=""></option>
+                                            <option value="1">第一段上班卡</option>
+                                            <option value="1">第一段下班卡</option>
+                                            <option value="1">第二段上班卡</option>
+                                            <option value="1">第二段下班卡</option>
+                                            <option value="2">补缺上班卡</option>
+                                            <option value="2">补缺下班卡</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group has-feedback">
+                                    <label class="col-sm-2 control-label">工作日</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control pull-right form_datetime"
+                                               name="startTime"
+                                               id="startTime"/>
+                                    </div>
+                                    <div class="col-sm-2" style="width: 10%">
+                                        <input type="text" class="form-control " name="time_end_period"
+                                               placeholder="00:00"
+                                               id="time_end_period" onblur="check_endperiod()"/>
+                                    </div>
+
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <div class="form-group has-feedback">
+                                        <label class="col-sm-2 control-label">备注</label>
+                                        <div class="col-sm-7" style="height:100px">
+                                            <textarea class="form-control pull-right"
+                                                      name="reason"
+                                                      id="reason" style="height:85px"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                        </div>
+                        <div class="box-footer ">
+                            <div class="row span7 text-center ">
+                                <button type="button" id="btnCancel" class="btn btn-default margin-right ">重置
+                                </button>
+                                <button type="button" id="btnSave" class="btn btn-info margin-right ">提交</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    {#                    </div>#}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <!-- iCheck 1.0.1 -->
+    <script type="text/javascript">
+        $(function () {
+            $('#OVERTIME-OV').addClass('active');
+            $('#OVERTIME-OV-ABSENT-LIST').addClass('active');
+
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        $("#btnSave").click(function () {
+            var strWorkPeriodFrom = document.getElementById("time_end_period").value;
+            var startTime = document.getElementById("startTime").value;
+            if (strWorkPeriodFrom == "") {
+                layer.alert("时间段不能为空", {icon: 2});
+                return false;
+            }
+            if (startTime == "") {
+                layer.alert("工作日不能为空", {icon: 2});
+                return false;
+            }
+
+
+            var data = $("#addForm").serialize();
+            $.ajax({
+                type: $("#addForm").attr('method'),
+                url: "{% url 'overtime:ov-absent-list' %}",
+                data: data,
+                cache: false,
+                success: function (msg) {
+                    console.log(msg)
+                    if (msg.result) {
+                        layer.alert('數據保存成功！', {icon: 1}, function (index) {
+                            parent.layer.closeAll(); //关闭所有弹窗
+                            window.location.href = '/dqe/overtime/ov/apply/list'
+                        });
+                    } else {
+                        layer.alert('數據保存失败！', {icon: 5});
+                        //$('errorMessage').html(msg.message)
+                    }
+                    return;
+                }
+            });
+        });
+
+        function check_endperiod() {
+            var reTime = /^(20|21|22|23|[0-1]?\d):[0-5]?\d$/;
+            var strWorkPeriodTo = document.getElementById("time_end_period").value;
+            if (reTime.test(strWorkPeriodTo)) {
+                console.log(reTime.test(strWorkPeriodTo))
+            } else {
+                layer.alert("时间段格式不正确", {icon: 2});
+                document.getElementById("time_end_period").value = "";
+                return;
+            }
+
+        }
+
+
+        /*input 时间输入选择*/
+        $(".form_datetime").datetimepicker({
+            language: 'zh',
+            minView: 'month', //选择范围知道日期，不选择时分
+            //weekStart: 1,
+            //todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            //startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            format: 'yyyy-mm-dd'
+        }).on('changeDate', function (ev) {
+            $(this).datetimepicker('hide');
+        });
+
+        function apply_time() {
+            var time = new Date();
+            var week;
+            switch (time.getDay()) {            <!--time.getDay()获取后显示1~7阿拉伯数字-->
+                case 1:
+                    week = "星期一";
+                    break;
+                case 2:
+                    week = "星期二";
+                    break;
+                case 3:
+                    week = "星期三";
+                    break;
+                case 4:
+                    week = "星期四";
+                    break;
+                case 5:
+                    week = "星期五";
+                    break;
+                case 6:
+                    week = "星期六";
+                    break;
+                default:
+                    week = "星期天";
+            }
+            var year = time.getFullYear();
+            var month = time.getMonth();
+            var date = time.getDate();
+            var hour = time.getHours();
+            var minutes = time.getMinutes();
+            return year + '-' + (month + 1) + '-' + date + ' ' + hour + ':' + minutes;
+
+            {#document.getElementById("clock").innerHTML = year + "年" + (month + 1) + "月" + date + "日" + " " + hour + ":" + minutes + " " + week;#}
+            {#document.getElementById('time').innerHTML = year + "年" + month + "月" + date + "日 " +" " + hour + ":" + minute +strDate; //显示时间#}
+            {#document.getElementById("footyear").innerHTML = year;#}
+        }
+
+        document.getElementById("apply_time").value = apply_time();
+        setInterval(apply_time, 1000);     <!--每隔1秒显示一次-->
+    </script>
+
+
+{% endblock %}

@@ -37,8 +37,8 @@ class StageView(LoginRequiredMixin, View):
 class StageListView(LoginRequiredMixin, View):
     def get(self, request):
 
-        fields = ['id', 'fk_project__pname','sname']
-        searchFields = ['fk_project__pname','sname' ] #与数据库字段一致
+        fields = ['id','sname']
+        searchFields = ['sname' ] #与数据库字段一致
         filters = {i + '__icontains': request.GET.get(i,'') for i in searchFields if request.GET.get(i, '') }  #此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
 
         res = dict(data=list(Stage.objects.filter(**filters).values(*fields)))
@@ -57,10 +57,6 @@ class StageUpdateView(LoginRequiredMixin, View):
         else:
             stages = Stage.objects.all()
             res['stages'] = stages
-
-        # 專案
-        projects = Project.objects.all()
-        res['projects'] = projects
 
         return render(request, 'system/Stage/Stage_Update.html', res)
 
@@ -93,15 +89,15 @@ class StageDeleteView(LoginRequiredMixin, View):
         return HttpResponse(json.dumps(res), content_type='application/json')
 
 
-# 专案 和 阶段 联动
-class ProjectAndStageLinkageView(LoginRequiredMixin, View):
-
-    def post(self, request):
-
-        res = dict()
-
-        if request.POST.get('fk_project_id'):
-            stages = Stage.objects.filter(fk_project_id=request.POST.get('fk_project_id')).values(*['id','sname'])
-            res['stages'] = list(stages)
-
-        return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
+# # 专案 和 阶段 联动
+# class ProjectAndStageLinkageView(LoginRequiredMixin, View):
+#
+#     def post(self, request):
+#
+#         res = dict()
+#
+#         if request.POST.get('fk_project_id'):
+#             stages = Stage.objects.filter(fk_project_id=request.POST.get('fk_project_id')).values(*['id','sname'])
+#             res['stages'] = list(stages)
+#
+#         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')

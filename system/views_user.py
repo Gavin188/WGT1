@@ -2,28 +2,26 @@
 # @Author : RobbieHan
 # @File   : views_user.py
 
-import re
 import json
+import re
+import time
 
-from django.shortcuts import render, HttpResponse
-from django.views.generic.base import View, TemplateView
-from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.urls import reverse
+from django import forms
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render, HttpResponse
+from django.urls import reverse
+from django.views.generic.base import View, TemplateView
 
-# from dqe.models import Inventory
+from custom import BreadcrumbMixin
+from system.models import Structure, UserProfile
 from .forms import LoginForm, UserCreateForm, UserUpdateForm, PasswordChangeForm
 from .mixin import LoginRequiredMixin
-from .models import Structure, Role
-from custom import BreadcrumbMixin
-from django import forms
-from django.contrib.auth import get_user_model
-from system.models import Structure, Menu
-from datetime import datetime
-from django.db.models import Count, Q
+from .models import Role
 
 User = get_user_model()
 
@@ -38,11 +36,16 @@ class LoginView(View):
 
     def get(self, request):
         if not request.user.is_authenticated:
-            return render(request, 'system/users/login.html')
+            if 'username' in request.COOKIES:
+                username = request.COOKIES.get('username')
+            else:
+                username = ''
+            return render(request, 'system/users/login.html', {'username': username})
         else:
             return HttpResponseRedirect('/')
 
     def post(self, request):
+        response = HttpResponse()
         redirect_to = request.GET.get('next', '/')
         login_form = LoginForm(request.POST)
         ret = dict(login_form=login_form)
@@ -53,6 +56,7 @@ class LoginView(View):
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    response.set_cookie('username', user_name, max_age=7 * 24 * 3600)
                     return HttpResponseRedirect(redirect_to)
                 else:
                     ret['msg'] = '用户未激活！'
@@ -77,7 +81,7 @@ class UserView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
 class UserListView(LoginRequiredMixin, View):
     def get(self, request):
         fields = ['id', 'name', 'gender', 'mobile', 'email', 'department__name', 'post', 'superior__name', 'is_active',
-                  'worknum', 'level','username']
+                  'worknum', 'level', 'username', 'time_control']
         filters = dict()
         if 'select' in request.GET and request.GET['select']:
             filters['is_active'] = request.GET['select']
@@ -90,26 +94,51 @@ class UserCreateView(LoginRequiredMixin, View):
     添加用户
     """
 
+    # <QueryDict: {'csrfmiddlewaretoken': ['urJmQCVsug73dida3cEnHZKhAEzfIHwnpmVYRSunUpp759Efb9KaEqlv0Y5kyoLz'], 'id': ['3'], 'user': ['save'],
     def get(self, request):
         users = User.objects.exclude(username='admin')
         structures = Structure.objects.values()
         roles = Role.objects.values()
 
+        # 加班管控
+        time_list = []
+        for time_con in UserProfile.time_choices:
+            time_dict = dict(key=time_con[0], value=time_con[1])
+            time_list.append(time_dict)
+
         ret = {
             'users': users,
             'structures': structures,
             'roles': roles,
+            'time': time_list,
         }
         return render(request, 'system/users/user_create.html', ret)
 
     def post(self, request):
-        user_create_form = UserCreateForm(request.POST)
-        print(user_create_form)
+        user_create_form = UserCreateForm(request.POST, request.FILES)
+
+        file_obj = request.FILES.get('file')
+
+        # file_name = 'media/image/' + request.POST.get('name') + '_' + str(int(time.time())) + '.' + \
+        #             file_obj.name.split('.')[
+        #                 -1]  # 构造文件名以及文件路径
+        # print('2111', file_name[1:])
+
         if user_create_form.is_valid():
             new_user = user_create_form.save(commit=False)
+            # print('22', user_create_form.cleaned_data)
             new_user.password = make_password(user_create_form.cleaned_data['password'])
+            if 'file' in request.FILES:
+                file_name = 'media/image/' + request.POST.get('name') + '_' + str(int(time.time())) + '.' + \
+                            file_obj.name.split('.')[
+                                -1]  # 构造文件名以及文件路径
+
+                with open(file_name, 'wb+') as f:
+                    f.write(file_obj.read())
+                new_user.image = file_name[6:]
             new_user.save()
             user_create_form.save_m2m()
+
             ret = {'status': 'success'}
         else:
             pattern = '<li>.*?<ul class=.*?><li>(.*?)</li>'
@@ -131,12 +160,18 @@ class UserDetailView(LoginRequiredMixin, View):
         structures = Structure.objects.values()
         roles = Role.objects.values()
         user_roles = user.roles.values()
+        # 加班管控
+        time_list = []
+        for time_con in UserProfile.time_choices:
+            time_dict = dict(key=time_con[0], value=time_con[1])
+            time_list.append(time_dict)
         ret = {
             'user': user,
             'structures': structures,
             'users': users,
             'roles': roles,
-            'user_roles': user_roles
+            'user_roles': user_roles,
+            'time': time_list
         }
         return render(request, 'system/users/user_detail.html', ret)
 
@@ -150,13 +185,39 @@ class UserInfoView(LoginRequiredMixin, View):
         return render(request, 'system/user_info/user_info.html')
 
     def post(self, request):
-        ret = dict(status="fail")
-        user = User.objects.get(id=request.POST['id'])
-        user_update_form = UserUpdateForm(request.POST, instance=user)
-        if user_update_form.is_valid():
-            user_update_form.save()
+        if 'id' in request.POST and request.POST['id']:
+            file_obj = request.FILES.get('file')
+
+            # # print('2111', file_name[6:])
+            # print('equest.POST.get', request.POST.get('name'))
+
+            user = get_object_or_404(User, pk=int(request.POST['id']))
+
+            # print(request.POST)
+            user.name = request.POST.get('name')
+            user.gender = request.POST.get('gender')
+            user.birthday = request.POST.get('birthday')
+            user.username = request.POST.get('username')
+            user.mobile = request.POST.get('mobile')
+            user.email = request.POST.get('email')
+            user.worknum = request.POST.get('worknum')
+            # user.department = request.POST.get('department')
+            user.post = request.POST.get('post')
+            # user.superior = request.POST.get('superior')
+            if 'file' in request.FILES:
+                file_name = 'media/image/' + request.POST.get('name') + '_' + str(int(time.time())) + '.' + \
+                            file_obj.name.split('.')[
+                                -1]  # 构造文件名以及文件路径
+                print('++++', file_name)
+                with open(file_name, 'wb+') as f:
+                    f.write(file_obj.read())
+                user.image = file_name[6:]
+            user.save()
+
             ret = {"status": "success"}
-        return HttpResponse(json.dumps(ret), content_type='application/json')
+        else:
+            ret = {"status": "fail"}
+        return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
 class PasswdChangeView(LoginRequiredMixin, View):

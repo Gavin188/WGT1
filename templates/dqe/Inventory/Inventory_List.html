@@ -6,201 +6,57 @@
     <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
     <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/fileinput.css' %}">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+    <style>
+        {#body {#}
+        {#    margin: 10px;#}
+        {# }#}
 
-    <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+        {#.demo-carousel {#}
+        {#    height: 200px;#}
+        {#    line-height: 200px;#}
+        {#    text-align: center;#}
+        {# }#}
 
-    <!--<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">-->
-    <!--<link rel="stylesheet" href="{% static 'bootstrap/fileinput.css' %}">-->
+        div[title="导出"] {
+            display: none;
+        }
 
-    <!--<script src="{% static 'bootstrap/jquery.min.js' %}"></script>-->
-    <!--<script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>-->
-    <!--<script src="{% static 'bootstrap/fileinput.js' %}"></script>-->
-    <!--<script src="{% static 'bootstrap/fileinput_locale_zh.js' %}"></script>-->
+        div[title="打印"] {
+            display: none;
+        }
 
-    <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
-
-    <!--导出excel-->
-    <!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">-->
-    <!--<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">-->
+        .layui-table-cell {
+        {#color: #FF7F24;#} font-size: 12px
+        }
+    </style>
 
 
-    <!-- iCheck for checkboxes and radio inputs -->
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/buttons/1.5.0/css/buttons.dataTables.min.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
 
     <!-- Main content -->
+    <!-- Main content -->
     <section class="content">
         <div id="devlist">
-            <div class="box box-primary" id="liebiao">
-
-                <div class="box-header">
-                    <div class="btn-group pull-left">
-                        <button type="button" id="btnRefresh" class="btn btn-default">
-                            <i class="glyphicon glyphicon-repeat"></i> 刷新
-                        </button>
-                    </div>
-                    <div class="btn-group pull-left">&nbsp</div>
-                    <div class="btn-group pull-left">
-                        <button type="button" id="btnCreate" class="btn btn-default">
-                            <i class="glyphicon glyphicon-plus"></i> 新增
-                        </button>
-                    </div>
-                    <div class="btn-group pull-left">&nbsp</div>
-                    <div class="btn-group pull-left">
-                        <button type="button" id="btnDelete" class="btn btn-danger">
-                            <i class="glyphicon glyphicon-trash"></i> 删除
-                        </button>
-                    </div>
-
-                    <div class="btn-group pull-left">&nbsp</div>
-                    <div class="btn-group pull-left">
-                        <button type="button" id="btnBorrowApplyConfirm" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-list-alt"></i> 借入申請確認
-                        </button>
-                    </div>
-
-                    <div class="btn-group pull-left">&nbsp</div>
-                    <div class="btn-group pull-left">
-                        <button type="button" id="btnScanApply" class="btn btn-success">
-                            <i class="glyphicon glyphicon-list-alt"></i> 掃碼申請
-                        </button>
-                    </div>
-
-                    <div class="btn-group pull-right">&nbsp</div>
-                    <div class="btn-group pull-right">
-                        <button type="button" id="btnOutOfStock" class="btn btn-warning">
-                            <i class="glyphicon glyphicon-new-window"></i> 出庫
-                        </button>
-                    </div>
-
-                    <div class="btn-group pull-right">&nbsp</div>
-                    <div class="btn-group pull-right">
-                        <button type="button" id="btnImport" class="btn btn-info">
-                            <i class="glyphicon glyphicon-log-in"></i> 導入
-                        </button>
-                    </div>
-                    <!--# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==-->
-                    <!--# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==-->
+            <div class="box box-primary" id="my-page">
+                <div class="box-header" id="my-page">
 
                     <div id="upload" style="display: none">
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            <div class="form-group text-center margin-top-5" style="margin-top: 24px;">
-
-                                <div class="input-append">
-                                    <input id="lefile" type="file" name="file" style="display:none;">
-                                    <input id="fi" type="text" style="height:36px;width:60%;">
-                                    <a class="btn btn-primary btn-sm " onclick="$('#lefile').click();">Browse</a>
-                                </div>
-                                <div class="col-md-10 col-md-offset-1" style="margin-top: 12px;">
-                                    <button type="submit" class="btn btn-primary btn-sm ">提交</button>
-                                </div>
-                            </div>
-
+                            <label class="control-label">Select File</label>
+                            <input type="file" name="file" class="file" id="input-1">
                         </form>
-
                     </div>
-                    <!--# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==-->
-                    <!--# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==-->
-                </div>
+                    <div class="box-body" style="margin-top: -21px;height: auto">
+                        <table class="layui-hide" id="demo" lay-data="{id: 'idTest'}" lay-filter="test"></table>
+                    </div>
 
-                <div class="box-header">
-                    <form class="form-inline" id="queryForm">
-
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>部門：</label>
-                            <select class="form-control inputText select2" name="fk_structure" id="fk_structure_id">
-                                <option style='text-align:center' value=''>-----所有-----</option>
-                                {% for structure in structures %}
-                                    <option value="{{ structure.id }}">{{ structure.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>專案：</label>
-                            <select class="form-control inputText select2" name="fk_project" id="fk_project_id">
-                                <option style='text-align:center' value=''>-----所有-----</option>
-                                {% for project in projects %}
-                                    <option value="{{ project.id }}">{{ project.pname }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>階段：</label>
-                            <select class="form-control inputText select2" name="fk_stage" id="fk_stage_id">
-                                <option style='text-align:center' value=''>-----所有-----</option>
-                                {% for stage in stages %}
-                                    <option value="{{ stage.id }}">{{ stage.sname }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        {#                        <div class="form-group searchArea margin-r-5 margin-top-5">#}
-                        {#                            <label>Rel編號:</label>#}
-                        {#                            <input type="text" name="rel" class="form-control inputText" id="relStart">#}
-                        {#                        </div>#}
-                        {#                        <div class="form-group searchArea margin-r-5 margin-top-5">#}
-                        {#                            <label>——</label>#}
-                        {#                            <input type="text" name="rel" class="form-control inputText" id="relEnd">#}
-                        {#                        </div>#}
-
-
-                        <!--<div class="form-group searchArea margin-r-5 margin-top-5 ">-->
-                        <!--<label>入庫日期:</label>-->
-                        <!--<input type="text" name="indate" class="form-control form_datetime" id="indate">-->
-                        <!--</div>-->
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>SN:</label>
-                            <input type="text" name="rel" class="form-control inputText" id="sn">
-                        </div>
-
-
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>產品類別:</label>
-                            <select class="form-control inputText select2" name="fk_pt" id="fk_pt_id">
-                                <option style='text-align:center' value=''>-----所有-----</option>
-                                {% for prodtype in prodtypes %}
-                                    <option value="{{ prodtype.id }}">{{ prodtype.ptname }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <button type="button" id="btnSearch" class="btn btn-default">
-                            <i class="glyphicon glyphicon-search"></i>查询
-                        </button>
-
-                    </form>
-                </div>
-
-                <div class="box-body">
-                    <table id="dtbList" class="display nowrap" cellspacing="0" width="100%">
-                        <thead>
-                        <tr valign="middle">
-                            <th><input type="checkbox" id="checkAll"></th>
-                            <th>ID</th>
-{#                            <th>產品類型</th>#}
-                            <th>專案</th>
-                            <th>階段</th>
-                            <th>Wgt NO</th>
-                            <th>SN</th>
-                            <th>入庫日期</th>
-                            <th>入庫者</th>
-                            <th>狀態</th>
-                            <th>當前部門</th>
-                            <th>當前拥有</th>
-                            {#                            <th>產品類型</th>#}
-                            {#                            <th>機台停留時間</th>#}
-                            <th>備註</th>
-                            <th>操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <br> <br>
                 </div>
             </div>
         </div>
@@ -214,7 +70,13 @@
     <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
     <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
     <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    {#    <script src="{% static "jquery/dist/jquery.min.js" %}"></script>#}
     <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <script src="{% static 'bootstrap/fileinput.js' %}"></script>
+    <script src="{% static 'bootstrap/fileinput_locale_zh.js' %}"></script>
+    <script src="{% static 'layui/layui.js' %}"></script>
+
+
 
     <!--导出excel-->
     <script src="{% static 'export/js/jquery.dataTables.min.js' %}"></script>
@@ -225,586 +87,517 @@
     <script src="{% static 'export/js/vfs_fonts.js' %}"></script>
     <script src="{% static 'export/js/buttons.html5.min.js' %}"></script>
     <script src="{% static 'export/js/buttons.print.min.js' %}"></script>
-    <script>
-        // $(document).ready(function () {
-        //     $('#dtbList').DataTable({
-        //         dom: 'Bfrtip',
-        //         buttons: [
-        //             'copy', 'csv', 'excel', 'pdf', 'print'
-        //         ]
-        //     });
-        // });
-    </script>
-
     <!-- iCheck 1.0.1 -->
     <script type="text/javascript">
         $(function () {
             $('#DQE-IM').addClass('active');
-            $('#DQE-IM-INVENTORY').addClass('active');
+            $('#DQE-IM-IPADDETAILS').addClass('active');
 
         });
     </script>
 
-    <script type="text/javascript">
-
-
-        var oDataTable = null;
-        $(function () {
-
-            oDataTable = initTable();
-
-            function initTable() {
-                var oTable = $('#dtbList').DataTable($.extend(true, {},
-
-                    DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
-
-                    {
-
-                        ajax: {
-                            "url": "{% url 'dqe:inventory-list' %}",
-                            "data": function (d) {
-
-                                d.fk_project_id = $("#fk_project_id").val();
-                                d.fk_stage_id = $("#fk_stage_id").val();
-                                d.relStart = $("#relStart").val();
-                                d.relEnd = $("#relEnd").val();
-                                d.fk_structure_id = $("#fk_structure_id").val()
-                                d.sn = $("#sn").val();
-                                d.fk_pt_id = $("#fk_pt_id").val();
-                            },
-                        },
-
-                        columns: [
-                            DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
-
-                            {
-                                data: "id",
-                                width: "5%",
-                            },
-                            {#{#}
-                            {#    data: "fk_pt__ptname",#}
-                            {# },#}
-                            {
-                                data: "fk_project__pname",
-                            },
-                            {
-                                data: "fk_stage__sname",
-                            },
-
-                            {
-                                data: "rel",
-                            },
-                            {
-                                data: "sn",
-                            },
-                            {
-                                data: "indate",
-                                render: function (data, type, full, meta) {
-                                    return moment(data).format("YYYY-MM-DD HH:mm");
-                                }
-
-                            },
-                            {
-                                data: "recuser",
-                            },
-                            {
-                                data: "state",
-                                render: function (data, type, row, meta) {
-                                    //console.log(">0>", data, ">1>", type, ">2>", row, ">3>", meta);
-                                    if (data == 1) {
-                                        return "入庫"
-                                    } else if (data == 2) {
-                                        return "已借出"
-                                    } else if (data == 3) {
-                                        return "被申請"
-                                    } else if (data == 4) {
-                                        return "出庫"
-                                    } else {
-                                        return "已损坏"
-                                    }
-                                }
-                            },
-                            {
-                                data: "fk_structure__name",
-                            },
-
-                            {
-                                data: "currRecUser",
-                            },
-
-
-                            {#{#}
-                            {##}
-                            {#    render: function (data, type, full, meta) {#}
-                            {#        //var indate = new Date(full.indate);  不是入库时间 、改为当前接收时间#}
-                            {#        //console.log(full);#}
-                            {#        var indate = new Date(full.currRecDate.replace(/-/g, "/").replace(/(\.\d+)?/g, ""));#}
-                            {#        //alert(indate);#}
-                            {##}
-                            {#        var mytime = new Date();     //获取当前时间#}
-                            {##}
-                            {#        var s1 = indate.getTime(), s2 = mytime.getTime();#}
-                            {##}
-                            {#        var total = (s2 - s1) / 1000;#}
-                            {##}
-                            {#        var day = parseInt(total / (24 * 60 * 60));//计算整数天数#}
-                            {##}
-                            {#        var afterDay = total - day * 24 * 60 * 60;//取得算出天数后剩余的秒数#}
-                            {##}
-                            {#        var hour = parseInt(afterDay / (60 * 60));//计算整数小时数#}
-                            {##}
-                            {#        var afterHour = total - day * 24 * 60 * 60 - hour * 60 * 60;//取得算出小时数后剩余的秒数#}
-                            {##}
-                            {#        var min = parseInt(afterHour / 60);//计算整数分#}
-                            {##}
-                            {#        var afterMin = total - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60;//取得算出分后剩余的秒数#}
-                            {##}
-                            {#        return day + "D" + " " + hour + "H";#}
-                            {##}
-                            {#    }#}
-                            //{#},#}
-                            {
-                                data: "remark",
-                            },
-                            {
-                                data: "id",
-                                width: "12%",
-                                bSortable: "false",
-                                render: function (data, type, row, meta) {
-
-                                    var ret = "<button title='详情' onclick='doDetail("
-                                        + data + ")'><i class='glyphicon glyphicon-list-alt'></i></button>";
-                                    ret = ret + "<button title='编辑' onclick='doUpdate("
-                                        + data + ")'><i class='glyphicon glyphicon-pencil'></i></button>";
-                                    ret = ret + "<button title='删除' onclick='doDelete("
-                                        + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
-                                    ret = ret + "&nbsp";
-                                    //console.log(row);
-                                    //("1", "入庫"), ("2", "可申請"), ("3", "被申請"), ("4", "出库")
-                                    //console.log("{{request.user.department}}");
-                                    console.log('11111', row.operatecachetable__opeuser);
-                                    //如果是出库或者被申请，按钮直接不能点
-                                    if (row.state == 3 | row.state == 4) {
-
-                                        ret = ret + "<button title='购物车' class='btn btn-primary btn-sm' id='bs" + data + "' onclick='doShopping("
-                                            + data + ")' disabled='disabled'><i class='glyphicon glyphicon-shopping-cart' ></i></button>";
-
-                                    } else {
-
-                                        //如果是入库或者可申请，就视为可选操作。情况：假如该机太有相应的操作者或者机台当前部门为登录者相同的部门，那么就禁止
-                                        {#if (row.operatecachetable__opeuser | row.fk_structure__name == "{{request.user.department}}") {#}
-                                        if (row.operatecachetable__opeuser | row.fk_structure__name != "仓管") {
-                                            ret = ret + "<button title='购物车' class='btn btn-primary btn-sm' id='bs" + data + "' onclick='doShopping("
-                                                + data + ")' disabled='disabled'><i class='glyphicon glyphicon-shopping-cart' ></i></button>";
-                                        } else {
-                                            ret = ret + "<button title='购物车' class='btn btn-primary btn-sm' id='bs" + data + "' onclick='doShopping("
-                                                + data + ")'><i class='glyphicon glyphicon-shopping-cart' ></i></button>";
-                                        }
-                                    }
-                                    return ret;
-                                }
-                            }],
-
-                        // "order": [[1, 'id']],
-
-                    },
-
-                    {
-                        "lengthMenu": [[10, 50, 100, 500], [10, 50, 100, 500]]
-                    }
-                ));
-                oTable.order([1, 'asc']).draw();
-
-                return oTable;
-            }
-
-        });
-
-
-        //查询
-        $("#btnSearch").click(function () {
-            oDataTable.ajax.reload();
-        });
-
-        //checkbox全选
-        $("#checkAll").on("click", function () {
-            if ($(this).prop("checked") === true) {
-                $("input[name='checkList']").prop("checked", $(this).prop("checked"));
-                $('#example tbody tr').addClass('selected');
-            } else {
-                $("input[name='checkList']").prop("checked", false);
-                $('#example tbody tr').removeClass('selected');
-            }
-        });
-
-        //刷新
-        $("#btnRefresh").click(function () {
-            window.location.reload();
-            setTimeout(refresh, 5000);
-
-        });
-
-        //新增
-        $("#btnCreate").click(function () {
-            layer.open({
-                type: 2,
-                title: '新增',
-                shadeClose: false,
-                maxmin: true,
-                area: ['800px', '400px'],
-                content: "{% url 'dqe:inventory-update' %}",
-                end: function () {
-                    //关闭时做的事情
-                    oDataTable.ajax.reload();
-                }
-            });
-        });
-
-        //批量删除
-        $("#btnDelete").click(function () {
-            if ($("input[name='checkList']:checked").length == 0) {
-                layer.msg("请选择要删除的记录");
-                return;
-            }
-
-            var arrId = [];
-            $("input[name='checkList']:checked").each(function () {
-                //alert($(this).val());
-                arrId.push($(this).val());
-            });
-
-            sId = arrId.join(',');
-
-            layer.alert('确定删除吗？', {
-                title: '提示'
-                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
-                , time: 0 //不自动关闭
-                , btn: ['YES', 'NO']
-                , yes: function (index) {
-                    layer.close(index);
-                    $.ajax({
-                        type: "POST",
-                        url: "{% url 'dqe:inventory-delete' %}",
-                        data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
-                        cache: false,
-                        success: function (msg) {
-                            if (msg.result) {
-                                layer.alert("操作成功！", {icon: 1});
-                                oDataTable.ajax.reload();
-                            } else {
-                                layer.alert("操作失败！", {icon: 2});
-                            }
-
-                        }
-                    });
-                }
-            });
-        });
-
-
-        //编辑
-        function doUpdate(id) {
-            var div = layer.open({
-                type: 2,
-                title: '编辑',
-                shadeClose: false,
-                maxmin: true,
-                area: ['800px', '400px'],
-                content: ["{% url 'dqe:inventory-update' %}" + '?id=' + id,],
-                end: function () {
-                    //关闭时做的事情
-                    oDataTable.ajax.reload();
-                }
-            });
-        }
-
-        //删除物料
-        function doDelete(id) {
-            layer.alert('确定删除吗？', {
-                title: '提示'
-                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
-                , time: 0 //不自动关闭
-                , btn: ['YES', 'NO']
-                , yes: function (index) {
-                    layer.close(index);
-                    $.ajax({
-                        type: "POST",
-                        url: "{% url 'dqe:inventory-delete' %}",
-                        data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
-                        cache: false,
-                        success: function (msg) {
-                            if (msg.result) {
-                                layer.alert('删除成功！', {icon: 1});
-                                oDataTable.ajax.reload();
-                            } else {
-                                //alert(msg.message);
-                                layer.alert('删除失败！', {icon: 2});
-                            }
-
-                        }
-                    });
-                }
-            });
-
-        }
-
-
-        //doShopping
-        //这里传递的id为，库存中机台对应的id。
-        function doShopping(id) {
-            //this.id html属性  $("this").attr jquery属性
-            //$("this").attr("disabled","true");
-            //$(this).attr("disabled","true");
-            //alert(this.class);
-
-            layer.alert('确认添加至 借入申請確認 ?', {
-                title: '提示'
-                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
-                , time: 0 //不自动关闭
-                , btn: ['YES', 'NO']
-                , yes: function (index) {
-                    layer.close(index);
-                    $.ajax({
-                        type: "POST",
-                        url: "{% url 'dqe:inventory-addToShopping' %}",
-                        data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
-                        cache: false,
-                        success: function (msg) {
-                            if (msg.result) {
-                                layer.alert('已添加成功,請繼續添加所要申請的機台 !！', {icon: 6});
-                                //当添加到购物车时，将其按钮设为不可编辑。
-                                $("#bs" + id).attr("disabled", "true");
-                                //oDataTable.ajax.reload();
-                            } else {
-                                layer.alert('添加失敗,請重新添加！', {icon: 5});
-                            }
-
-                        }
-                    });
-                }
-            });
-        }
-
-        //outbound
-
-        //doOutbounding  出库操作，点击出库按钮后，该机台的信息流入到缓存表中去，確認后再更改機台的狀態（出庫）
-        //这里传递的id为，库存中机台对应的id。
-        // function doOutbounding(id) {
-        //     //this.id html属性  $("this").attr jquery属性
-        //     //$("this").attr("disabled","true");
-        //     //$(this).attr("disabled","true");
-        //     //alert(this.class);
-        //
-        //     layer.alert('确认添加至 出庫申請確認 ?', {
-        //         title: '提示'
-        //         , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
-        //         , time: 0 //不自动关闭
-        //         , btn: ['YES', 'NO']
-        //         , yes: function (index) {
-        //             layer.close(index);
-        //             $.ajax({
-        //                 type: "POST",
-        //                 url: "{% url 'dqe:inventory-addToShopping' %}",
-        //                 data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
-        //                 cache: false,
-        //                 success: function (msg) {
-        //                     if (msg.result) {
-        //                         layer.alert('已添加成功,請繼續添加所要出庫的機台 !！', {icon: 6});
-        //                         //当添加到购物车时，将其按钮设为不可编辑。
-        //                         //$("#bs" + id).attr("disabled", "true");
-        //                         //oDataTable.ajax.reload();
-        //                     } else {
-        //                         layer.alert('添加失敗,請重新添加！', {icon: 5});
-        //                     }
-        //                     return;
-        //                 }
-        //             });
-        //         }
-        //     });
-        // }
-
-
-        //借入申請確認  id = btnBorrowApplyConfirm
-        //将该申请人所选的以页面的形式展现出来
-        $("#btnBorrowApplyConfirm").on("click", function () {
-
-            var div = layer.open({
-                type: 2,
-                title: '借入申請確認',
-                shadeClose: false,
-                maxmin: true,
-                area: ['1200px', '600px'],
-                //所謂的借出確認申請，就是一個操作緩存記錄
-                content: "{% url 'dqe:oct' %}",
-                end: function () {
-                    //关闭时做的事情
-                    oDataTable.ajax.reload();
-                }
-            });
-            layer.full(div);
-
-
-        });
-
-        //導入  id="btnImport"
-        // $("#btnImport").on("click", function () {
-        //     alert("导入功能在此书写");
-        // });
-
-        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==
-        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==
-
-        // 導入  id="btnImport"
-        $("#btnImport").on("click", function () {
-            // alert("导入功能在此书写");
-            layer.open({
-                type: 1,
-                title: "批量导入",
-                closeBtn: 1,
-                shadeClose: false,
-                area: ['600px', '200px'],
-                content: $("#upload"),
-                end: function () {
-                    //关闭时做的事情
-                    oDataTable.ajax.reload();
-                }
-            });
-        });
-
-        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==
-        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==
-
-        //出庫  id="btnOutOfStock"
-        $("#btnOutOfStock").on("click", function () {
-            //alert("出库功能在此书写");
-
-            if ($("input[name='checkList']:checked").length == 0) {
-                layer.msg("请选择要出庫的機台");
-                return;
-            }
-
-            var arrId = [];
-            $("input[name='checkList']:checked").each(function () {
-                //alert($(this).val());
-                arrId.push($(this).val());
-            });
-            sId = arrId.join(',');
-            layer.alert('确定出庫吗？', {
-                title: '提示'
-                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
-                , time: 0 //不自动关闭
-                , btn: ['YES', 'NO']
-                , yes: function (index) {
-                    layer.close(index);
-                    $.ajax({
-                        type: "POST",
-                        url: "{% url 'dqe:inventory-out' %}",
-                        data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
-                        cache: false,
-                        success: function (msg) {
-                            if (msg.result) {
-                                layer.alert("操作成功！", {icon: 1});
-                                oDataTable.ajax.reload();
-                            } else {
-                                layer.alert("操作失败！", {icon: 2});
-                            }
-
-                        }
-                    });
-                }
-            });
-        });
-
-        //详情
-        //此处inventoryId确定某一机台
-        function doDetail(id) {
-            window.location.href = "{% url 'dqe:inventory-detail' %}?inventoryId=" + id;
-        }
-
-        /*input 时间输入选择*/
-        $(".form_datetime").datetimepicker({
-            language: 'zh',
-            minView: 'month', //选择范围知道日期，不选择时分
-            //weekStart: 1,
-            //todayBtn:  1,
-            autoclose: 1,
-            todayHighlight: 1,
-            //startView: 2,
-            forceParse: 0,
-            showMeridian: 1,
-            format: 'yyyy-mm-dd'
-        }).on('changeDate', function (ev) {
-            $(this).datetimepicker('hide');
-        });
-
-        $(function () {
-            //Initialize Select2 Elements
-            $(".select2").select2();
-        });
-
-        /*专案阶段二级联动*/
-
-        $("select[name='fk_project']").change(function () {
-
-            var fk_project_id = $("select[name='fk_project']").val();
-
-            //alert(fk_project_id);
-
-            $.ajax({
-                type: "POST",
-
-                url: "{% url 'system:basic-project-stage' %}",
-
-                data: {"fk_project_id": fk_project_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
-
-                success: function (data) {
-                    //console.log(data);
-                    //console.log(data.stages);
-                    //console.log(data.stages.length);
-
-                    var fk_st = $("select[name='fk_stage']").empty();  //.append('<option value>'+'--请选择--'+'</option>');
-                    fk_st.append('<option></option>')
-                    $.each(data.stages, function (i, val) {
-                        //console.log(i + "===" + val.id)  // #表示浏览器控制台下打印消息
-                        fk_st.append('<option value="' + val.id + '">' + val.sname + '</option>')
-                    })
-
-                }
-            });
-
-        });
-
-
-        //扫码申请  id = btnScanApply
-        //将扫描的sn,放入到文本域中
-        $("#btnScanApply").on("click", function () {
-            var div = layer.open({
-                type: 2,
-                title: '掃碼申請',
-                shadeClose: false,
-                maxmin: true,
-                area: ['800px', '400px'],
-                //所謂的借出確認申請，就是一個操作緩存記錄
-                content: "{% url 'dqe:inventory-scanApply' %}",
-                end: function () {
-                    //关闭时做的事情
-                    oDataTable.ajax.reload();
-                }
-            });
-            //layer.full(div);
-        });
-
+    <script type="text/html" id="barDemo">
+        {#        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>#}
+        {#        <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>#}
+        {#        <a class="layui-btn layui-btn-xs" lay-event="edit">查看</a>#}
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 
     </script>
+    {#    头 工具栏#}
+    <script type="text/html" id="toolbarDemo">
+        {#        <div style="position: relative">#}
+        {#            <div style="position:absolute;">#}
+        {#                <input type="text" class="layui-input">#}
+        {#            </div>#}
+        {#        </div>#}
+        <div class="layui-btn-container" style="float:left">
+            <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+            <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+            <button class="layui-btn layui-btn-sm" lay-event="upload">上传</button>
+            <button class="layui-btn layui-btn-sm" lay-event="delete">导出</button>
+            <button class="layui-btn layui-btn-sm" lay-event="refresh">刷新</button>
+        </div>
+        <div>
+            {#            <form class="layui-form" style="float: right">#}
+            <div class="layui-inline">
+                <input style="width: auto; height: 30px" type="text" id="select_orderId" name="select_orderId"
+                       lay-verify="required"
+                       placeholder="请输入SN" autocomplete="off" class="layui-input">
+            </div>
 
+            <button class="layui-btn layui-btn-sm" lay-submit="" id="searchBtn" data-type="getInfo" lay-event="findSN"
+                    style="float: left;">搜索
+            </button>
+        </div>
+
+    </script>
     <script>
 
-        //上传
-        $('#lefile').on("change", (function () {
-            //alert($(this).val());
-            $("#fi").val($(this).val());
-        }));
+        {#$('#searchBtn').click(function () {#}
+        {#    console.log(123)#}
+        {# });#}
 
+
+        layui.config({
+            version: true, //一般用于更新模块缓存，默认不开启。设为true即让浏览器不缓存。也可以设为一个固定的值，如：201610
+        });
+
+        layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider', 'form'], function () {
+            var laydate = layui.laydate //日machine_manage_info期
+                , laypage = layui.laypage //分页
+                , layer = layui.layer //弹层
+                , table = layui.table //表格
+                , carousel = layui.carousel //轮播
+                , upload = layui.upload //上传
+                , element = layui.element //元素操作
+                , slider = layui.slider //滑块
+                , form = layui.form
+
+            //向世界问个好
+            {#layer.msg('Hello World');#}
+
+            //监听Tab切换
+            element.on('tab(demo)', function (data) {
+                layer.tips('切换了 ' + data.index + '：' + this.innerHTML, this, {
+                    tips: 1
+                });
+            });
+
+            //执行一个 table 实例
+            table.render({
+                elem: '#demo'
+                , height: 820
+                , url: '/dqe/inventory/list' //数据接口
+                , title: 'All Ipad Details'
+                , cellMinWidth: 80
+                , page: true //开启分页
+                , id: 'idTest'//id
+                , limit: 30
+                , cache: false
+                , request: {
+                    pageName: 'pageIndex' //页码的参数名称，默认：page
+                    , limitName: 'pageSize' //每页数据量的参数名，默认：limit
+                }
+                , response: {
+                    statusName: 'code' //规定数据状态的字段名称，默认：code
+                    , statusCode: 0 //规定成功的状态码，默认：0
+                    , msgName: 'msg' //规定状态信息的字段名称，默认：msg
+                    , countName: 'count' //规定数据总数的字段名称，默认：count
+                    , dataName: 'data' //规定数据列表的字段名称，默认：data
+                }
+                , toolbar: '#toolbarDemo' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                , totalRow: true //开启合计行
+                {#, cellMinWidth: 80#}
+                , cols: [[ //表头
+                    {type: 'checkbox', fixed: 'left'}
+                    , {field: 'pk', title: 'ID', width: 72, sort: true, fixed: 'left', totalRowText: '合计：'}
+                    , {field: 'platform', title: 'Platform', sort: true, edit: 'text', width: 110}
+                    , {field: 'hw_build', title: 'HW_Build', edit: 'text', width: 80, sort: true}
+                    , {field: 'wgt_no', title: 'Wgt NO', edit: 'text', width: 100, sort: true}
+                    , {field: 'sn', title: 'SN', width: 80, sort: true}
+                    , {field: 'model', title: 'Model', edit: 'text', width: 80, sort: true}
+                    , {field: 'status_detail', title: 'Status Detail', edit: 'text', width: 80, totalRow: true}
+                    , {field: 'fused', title: 'Fused', edit: 'text', width: 80}
+                    , {field: 'config', title: 'Config', edit: 'text', width: 100, sort: true}
+                    , {field: 'display', title: 'Display', edit: 'text', width: 100, sort: true}
+                    , {field: 'nand', title: 'Nand', edit: 'text', width: 100, sort: true}
+                    , {field: 'date_in', title: '入库时间', width: 100, sort: true}
+                    , {field: 'date_out', title: '出库时间', width: 60, sort: true}
+                    , {
+                        field: 'units_status',
+                        title: '状态',
+                        edit: 'text',
+                        sort: true,
+                        width: 80,
+                        templet: function (item) {
+                            if (item.units_status == '1') {
+                                return "入库";
+                            } else if (item.units_status == '2') {
+                                return "已借出";
+                            } else if (item.units_status == '3') {
+                                return "出库";
+                            } else if (item.units_status == '4') {
+                                return "损坏";
+                            } else {
+                                return "被外借"
+                            }
+                        }
+                    }
+                    , {field: 'recuser', title: '入库人员', edit: 'text', width: 100, sort: true}
+                    , {field: 'hw_build_detail', title: 'HW Build(Detail)', edit: 'text', width: 80, sort: true}
+                    , {field: 'front_color', title: 'Front Color', edit: 'text', width: 80, sort: true}
+                    , {field: 'rear_color', title: 'Rear Color', edit: 'text', width: 80, sort: true}
+                    , {field: 'soc', title: 'SOC', edit: 'text', width: 80, sort: true}
+                    , {field: 'housing', title: 'Housing', edit: 'text', width: 80, sort: true}
+                    , {field: 'tm_grading', title: 'TM Grading', edit: 'text', width: 80, sort: true}
+                    , {field: 'grape', title: 'Grape', edit: 'text', width: 80, sort: true}
+                    , {field: 'nand_type', title: 'NAND Type', edit: 'text', width: 80, sort: true}
+                    , {field: 'die_name', title: 'Die Name', edit: 'text', width: 80, sort: true}
+                    , {field: 'battery_detail', title: 'Battery Detail', edit: 'text', width: 80, sort: true}
+                    , {field: 'battery_confirm', title: 'Battery Confirm', edit: 'text', width: 80, sort: true}
+                    , {field: 'mesa_flex', title: 'Mesa Flex', edit: 'text', width: 80, sort: true}
+                    , {field: 'wifi_vender', title: 'WiFi Vender', edit: 'text', width: 80, sort: true}
+                    , {field: 'WF1', title: 'WF1', edit: 'text', width: 80, sort: true}
+                    , {field: 'wf2', title: 'WF2', edit: 'text', width: 80, sort: true}
+                    , {field: 'wf3', title: 'WF3', edit: 'text', width: 80, sort: true}
+                    , {field: 'wf5', title: 'WF5', edit: 'text', width: 80, sort: true}
+                    , {field: 'wf5p', title: 'WF5P', edit: 'text', width: 80, sort: true}
+                    , {field: 'wf3_metrocirc', title: 'WF3 Metrocirc', edit: 'text', width: 80, sort: true}
+                    , {field: 'wf5_metrocirc', title: 'WF5 Metrocirc', edit: 'text', width: 80, sort: true}
+                    , {field: 'wf_sw_l', title: 'WF_SW_L', edit: 'text', width: 80, sort: true}
+                    , {field: 'wf_sw_r', title: 'WF_SW_R', edit: 'text', width: 80, sort: true}
+                    , {field: 'front_camera', title: 'Front Camera', edit: 'text', width: 80, sort: true}
+                    , {field: 'rear_camera', title: 'Rear Camera', edit: 'text', width: 80, sort: true}
+                    , {field: 'mikey_flex', title: 'Mikey flex (Audio J Flex)', edit: 'text', width: 80, sort: true}
+                    , {field: 'fh_spk', title: 'FH L/R SPK', edit: 'text', width: 80, sort: true}
+                    , {field: 'chin_spk', title: 'Chin L/R SPK', edit: 'text', width: 80, sort: true}
+                    , {field: 'spv_flex', title: 'SPV Flex', edit: 'text', width: 80, sort: true}
+                    , {field: 'microphone', title: 'Microphone (Mic Flex)', edit: 'text', width: 80, sort: true}
+                    , {field: 'microphone2', title: 'Microphone (Mic2 Flex)', edit: 'text', width: 80, sort: true}
+                    , {field: 'c3_flex', title: 'C3 Flex', edit: 'text', width: 80, sort: true}
+                    , {field: 'c4_flex', title: 'C4 Flex', edit: 'text', width: 80, sort: true}
+                    , {field: 'mlb', title: 'MLB', edit: 'text', width: 80, sort: true}
+                    , {field: 'mlb_soc', title: 'MLB Soc', edit: 'text', width: 80, sort: true}
+                    , {field: 'pcb', title: 'PCB', edit: 'text', width: 80, sort: true}
+                    , {field: 'bash_flex', title: 'Bash Flex', edit: 'text', width: 80, sort: true}
+                    , {field: 'sim_flex', title: 'SIM Flex', edit: 'text', width: 80, sort: true}
+                    , {field: 'mimosa', title: 'Mimosa', edit: 'text', width: 80, sort: true}
+                    , {field: 'autobahn_flex', title: 'Autobahn Flex', edit: 'text', width: 80, sort: true}
+                    , {field: 'edp_flex', title: 'EDP Flex', edit: 'text', width: 80, sort: true}
+                    , {field: 'io_bonding', title: 'IO Bonding', edit: 'text', width: 80, sort: true}
+                    , {field: 'gyro_type', title: 'Gyro Type', edit: 'text', width: 80, sort: true}
+                    , {
+                        field: 'appleoscar',
+                        title: 'AppleOscarAccelerometer(Accel)',
+                        edit: 'text',
+                        width: 80,
+                        sort: true
+                    }
+                    , {field: 'dram', title: 'DRAM', edit: 'text', width: 80, sort: true}
+                    , {field: 'e75', title: 'E75 TriStar', edit: 'text', width: 80, sort: true}
+                    , {field: 'full_lam', title: 'Full Lam', edit: 'text', width: 80, sort: true}
+                    , {field: 'unit_weight', title: 'Unit Weight', edit: 'text', width: 80, sort: true}
+                    , {field: 'ecid', title: '16进制 ECID', edit: 'text', width: 80, sort: true}
+                    , {field: 'apecid', title: '10进制 APECID', edit: 'text', width: 80, sort: true}
+                    , {field: 'snum', title: 'SNUM', edit: 'text', width: 80, sort: true}
+                    , {field: 'euicccsn', title: 'EUICCCSN', edit: 'text', width: 80, sort: true}
+                    , {field: 'unit_no', title: 'Unit No.', edit: 'text', width: 80, sort: true}
+                    , {field: 'aapn', title: 'AAPN', edit: 'text', width: 80, sort: true}
+                    , {field: 'hhpn', title: 'HHPN', edit: 'text', width: 80, sort: true}
+                    , {field: 'wo', title: 'WO', edit: 'text', width: 80, sort: true}
+                    , {field: 'allocatedto_group', title: 'AllocatedTo/Group', edit: 'text', width: 80, sort: true}
+                    , {field: 'apple_dri', title: 'Apple DRI', edit: 'text', width: 80, sort: true}
+                    , {field: 'pt_no', title: 'PT No.', edit: 'text', width: 80, sort: true}
+                    , {field: 'apple_po', title: 'Apple PO', edit: 'text', width: 80, sort: true}
+                    , {field: 'boxsn', title: '倉碼', edit: 'text', width: 80, sort: true}
+                    , {field: 'certification_period', title: '認證期限', edit: 'text', width: 80, sort: true}
+                    , {field: 'accessory', title: 'Accessory', edit: 'text', width: 80, sort: true}
+                    , {field: 'presence_laser', title: '有無鐳射', edit: 'text', width: 80, sort: true}
+                    , {field: 'card', title: '是否带卡', edit: 'text', width: 80, sort: true}
+                    , {field: 'card_type', title: '卡型号', edit: 'text', width: 80, sort: true}
+                    , {field: 'detail_comment', title: 'Detail Comment', edit: 'text', width: 100, sort: true}
+                    , {fixed: 'right', title: '操作', width: 80, align: 'center', toolbar: '#barDemo'}
+                ]]
+            });
+
+            //监听单元格编辑
+            table.on('edit(test)', function (obj) {
+                console.log(11111)
+                var value = obj.value //得到修改后的值
+                    , data = obj.data //得到所在行所有键值
+                    , field = obj.field; //得到字段
+                var ID = data.pk
+                //layer.msg('[ID: ' + data.pk + '] ' + field + ' 字段更改为：' + value);
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'dqe:inventory-update' %}",
+                    data: {
+                        "ID": ID,
+                        "field": field,
+                        'value': value,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    cache: false,
+                    success: function (msg) {
+                        {#console.log('ture--', msg)#}
+                        console.log('2323--', msg.result)
+                        if (msg.result) {
+                            layer.msg("操作成功", {icon: 1});
+                            {#$(".layui-laypage-btn")[0].click();#}
+                            {#window.location.reload()#}
+                        } else {
+                            //alert(msg.message);
+                            layer.msg("操作失败", {icon: 2});
+                        }
+                        return;
+                    }
+                });
+            });
+
+            //监听头工具栏事件
+            table.on('toolbar(test)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id)
+                    , data = checkStatus.data; //获取选中的数据
+                switch (obj.event) {
+                    case 'add':
+                        layer.open({
+                            type: 2,
+                            title: '新增',
+                            shadeClose: false,
+                            maxmin: true,
+                            area: ['1300px', '700px'],
+                            content: "{% url 'dqe:inventory-insert' %}",
+                            end: function () {
+                                {#window.location.reload()#}
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.layui.table.reload('idTest');//重载父页表格，参数为表格ID
+                                parent.layer.close(index);
+                            }
+                        });
+                        layui.use('form', function () {
+                            var form = layui.form;
+                            form.render();
+                        });
+                        break;
+                    case 'upload':
+                        layer.open({
+                            type: 1,
+                            title: "批量导入",
+                            closeBtn: 1,
+                            shadeClose: false,
+                            area: ['600px', '400px'],
+                            content: $("#upload"),
+                        });
+
+                        break;
+                    case 'delete':
+                        var sId = "";
+                        for (var i = 0; i < checkStatus.data.length; i++) {
+                            sId += checkStatus.data[i].pk + ",";
+                        }
+                        if (data.length === 0) {
+                            layer.msg('请选择一行');
+                        } else {
+                            layer.alert('确定删除吗？', {
+                                title: '提示'
+                                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                                , time: 0 //不自动关闭
+                                , btn: ['YES', 'NO']
+                                , yes: function (index) {
+                                    layer.close(index);
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "{% url 'dqe:inventory-delete' %}",
+                                        data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                                        cache: false,
+                                        success: function (msg) {
+                                            if (msg.result) {
+                                                layer.alert("操作成功", {icon: 1});
+                                                $(".layui-laypage-btn")[0].click();
+                                                obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                            } else {
+                                                //alert(msg.message);
+                                                layer.alert("操作失败", {icon: 2});
+                                            }
+                                            return;
+                                        }
+                                    });
+                                }
+                            });
+
+                        }
+                        break;
+                    case 'findSN':
+                        $('#searchBtn').on('click', function () {
+                            var type = $(this).data('type');
+                            console.log('---', type)
+                            active[type] ? active[type].call(this) : '';
+                        });
+                        // 点击获取数据
+                        var active = {
+                            getInfo: function () {
+                                var orderId = $('#select_orderId').val();
+                                console.log('111', orderId);
+                                if (orderId) {
+                                    var index = layer.msg('查询中，请稍候...', {icon: 16, time: false, shade: 0});
+                                    setTimeout(function () {
+                                        console.log(456);
+                                        table.reload('idTest', {
+                                            url: '/dqe/order/selectByOrderId',
+                                            where: {
+                                                'orderId': $.trim(orderId)
+                                            }
+                                        });
+                                        layer.close(index);
+                                    }, 800);
+                                } else {
+                                    layer.msg("请输入sn");
+                                }
+                            },
+                        };
+                        //监听回车事件,扫描枪一扫描或者按下回车键就直接执行查询
+                        $("#select_orderId").bind("keyup", function (e) {
+                            if (e.keyCode == 13) {
+                                var type = "getInfo";
+                                active[type] ? active[type].call(this) : '';
+                            }
+                        });
+                        break;
+                    case 'refresh':
+
+                        window.location.reload()
+
+                        break;
+                }
+                ;
+            });
+
+            //监听行工具事件
+            table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data;//获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值
+                var id = data.pk;
+
+                if (layEvent === 'detail') {
+
+                } else if (layEvent === 'del') {
+                    layer.alert('确定删除吗？', {
+                        title: '提示'
+                        , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                        , time: 0 //不自动关闭
+                        , btn: ['YES', 'NO']
+                        , yes: function (index) {
+                            layer.close(index);
+                            $.ajax({
+                                type: "POST",
+                                url: "{% url 'dqe:inventory-onedelete' %}",
+                                data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
+                                cache: false,
+                                success: function (msg) {
+                                    if (msg.result) {
+                                        layer.alert('删除成功', {icon: 1});
+                                        $(".layui-laypage-btn")[0].click();
+                                        obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                                        {#location.href = '/machine/inventory/'#}
+                                    } else {
+                                        //alert(msg.message);
+                                        layer.alert('删除失败', {icon: 2});
+                                    }
+                                    return;
+                                }
+                            });
+                        }
+                    });
+                } else if (layEvent === 'edit') {
+
+                    layer.open({
+                        type: 1,
+                        title: '编辑',
+                        shadeClose: false,
+                        maxmin: true,
+                        area: ['900px', '500px'],
+                        content: $('#RecordUpdate'),
+                    });
+                    layui.use('form', function () {
+                        var form = layui.form;
+                        form.render();
+                    });
+                    layui.use('laydate', function () {
+                        var laydate = layui.laydate;
+                        //执行一个laydate实例
+                        laydate.render({
+                            elem: '#Date_in_input'//指定元素
+                        });
+                    });
+
+                    $.ajax({
+                        url: "{% url 'dqe:inventory-update' %}",
+                        type: 'post',
+                        async: true,
+                        data: {
+                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                            "id": id,
+                        },
+                        dataType: 'json',
+                        success: function (result) {
+                            $("#id_input").val(id);
+                            $("#accessory_input").val(result.record.accessory);
+                            $("#vender_input").val(result.record.vender);
+                            $("#hw_build_input").val(result.record.hw_build);
+                            $("#config_input").val(result.record.config);
+                            $("#status_input").val(result.record.status);
+                            $("#qty_input").val(result.record.qty);
+                            $("#box_sn_input").val(result.record.box_sn);
+                            $("#sn_input").val(result.record.sn);
+                            $("#contact_address_input").val(result.record.contact_address);
+                            $("#Date_in_input").val(result.record.date_in);
+                            $("#date_out_input").val(result.record.date_out);
+                            $("#comment_input").val(result.record.comment);
+                            $("#cat_sn_input").val(result.record.ca_sn);
+                            $("#store_input").val(result.record.store);
+                            $("#aapn_input").val(result.record.aapn);
+                            $("#hhpn_input").val(result.record.hhpn);
+                            $("#wo_input").val(result.record.wo);
+
+                        }
+                    });
+                    $(".layui-laypage-btn")[0].click();
+                }
+            });
+
+            //执行一个轮播实例
+            carousel.render({
+                elem: '#test1'
+                , width: '100%' //设置容器宽度
+                , height: 200
+                , arrow: 'none' //不显示箭头
+                , anim: 'fade' //切换动画方式
+            });
+
+            //将日期直接嵌套在指定容器中
+            var dateIns = laydate.render({
+                elem: '#laydateDemo'
+                , position: 'static'
+                , calendar: true //是否开启公历重要节日
+                , mark: { //标记重要日子
+                    '0-10-14': '生日'
+                    , '2018-08-28': '新版'
+                    , '2018-10-08': '神秘'
+                }
+                , done: function (value, date, endDate) {
+                    if (date.year == 2017 && date.month == 11 && date.date == 30) {
+                        dateIns.hint('一不小心就月底了呢');
+                    }
+                }
+                , change: function (value, date, endDate) {
+                    layer.msg(value)
+                }
+            });
+
+            //分页
+            laypage.render({
+                elem: 'pageDemo' //分页容器的id
+                , count: 100 //总页数
+                , skin: '#1E9FFF' //自定义选中色值
+                //,skip: true //开启跳页
+                , jump: function (obj, first) {
+                    if (!first) {
+                        layer.msg('第' + obj.curr + '页', {offset: 'b'});
+                    }
+                }
+            });
+
+            slider.render({
+                elem: '#sliderDemo'
+                , input: true //输入框
+            });
+
+            {#//底部信息#}
+            {#var footerTpl = lay('#footer')[0].innerHTML;#}
+            {#lay('#footer').html(layui.laytpl(footerTpl).render({}))#}
+            {#    .removeClass('layui-hide');#}
+
+
+        });
     </script>
-
 {% endblock %}

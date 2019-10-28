@@ -1,0 +1,454 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+
+    <style>
+
+        .dt-buttons {
+            display: none;
+        }
+
+        .dataTables_filter {
+            margin-left: 70%;
+            display: none;
+        }
+
+        {#.dataTables_length {#}
+        {#    display: none;#}
+        {# }#}
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div><h3 style="margin-left: 40%">机台申请</h3></div>
+
+        <div class="box-body">
+            <div style="float: right">
+                <button id="addRow">添加一行</button>
+                <button id="button">删除所选的行</button>
+                <button id="submit" style="background-color: red">确认申请</button>
+            </div>
+            <form class="form-horizontal" id="addForm" method="post">
+                {% csrf_token %}
+                <table id="example" class="display" cellspacing="0" width="100%" align="center">
+                    <thead>
+                    <tr>
+                        {#                    <th>Kind</th>#}
+                        <th>Platform</th>
+                        <th>HW-Build</th>
+                        <th>Model</th>
+                        <th>Fused</th>
+                        <th>Comments</th>
+                        <th>Qty</th>
+                        <th>Keep</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    </tfoot>
+                    <tbody>
+                    <tr>
+                        <td><select size="1" id="platform_id" name="platform">
+                            <option style='text-align:center' value=''></option>
+                            {% for project in projects %}
+                                <option value="{{ project.pname }}">{{ project.pname }}</option>
+                            {% endfor %}
+                        </select></td>
+
+                        <td><select size="1" id="hw_build_id" name="hw_build">
+                            <option style='text-align:center' value=''></option>
+                            {% for stage in stages %}
+                                <option value="{{ stage.sname }}">{{ stage.sname }}</option>
+                            {% endfor %}
+                        </select></td>
+                        <td><select size="1" id="model_id" name="model">
+                            <option style='text-align:center' value=''></option>
+                            {% for fused in applyState_list %}
+                                <option value="{{ fused.value }}">{{ fused.value }}</option>
+                            {% endfor %}
+                        </select></td>
+                        <td><select size="1" id="fused_id" name="fused">
+                            <option style='text-align:center' value=''></option>
+                            {% for fused in fuseds %}
+                                <option value="{{ fused.fname }}">{{ fused.fname }}</option>
+                            {% endfor %}
+                        </select></td>
+
+                        <td><input type="text" id="comments_id" name="comments" value=""/></td>
+                        <td><input type="text" id="qty_id" name="qty" value="0" required/></td>
+                        <td><select size="1" id="timeState_id" name="timeState" required>
+                            {% for timeState in timeState_list %}
+                                <option value="{{ timeState.value }}">{{ timeState.value }}</option>
+                            {% endfor %}
+                        </select></td>
+                        </td>
+
+
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div class="box-body">
+            <div><h3 style="margin-left: 40%">物料申请</h3></div>
+            <div style="float: right">
+                <button id="addRow1">添加一行</button>
+                <button id="button1">删除所选的行</button>
+                <button id="submit1" style="background-color: red">确认申请</button>
+            </div>
+            <form class="form-horizontal" id="addForm1" method="post">
+                {% csrf_token %}
+                <table id="example1" class="display" cellspacing="0" width="100%" align="center">
+                    <thead>
+                    <tr>
+                        <th>Accessory</th>
+                        <th>HW-Build</th>
+                        <th>Comments</th>
+                        <th>Qty</th>
+                        <th>Keep</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    </tfoot>
+                    <tbody>
+                    <tr>
+                        <td><select size="1" id="access_id" name="accessory">
+                            <option style='text-align:center' value=''></option>
+                            {% for access in access %}
+                                <option value="{{ access.access }}">{{ access.access }}</option>
+                            {% endfor %}
+                        </select></td>
+                        <td><select size="1" id="hw_build_id" name="hw_build">
+                            <option style='text-align:center' value=''></option>
+                            {% for stage in stages %}
+                                <option value="{{ stage.sname }}">{{ stage.sname }}</option>
+                            {% endfor %}
+                        </select></td>
+                        <td><input type="text" id="comments_id" name="comments" value=""/></td>
+                        <td><input type="text" id="qty_id" name="qty1" lay-verify="number" value=""/></td>
+                        <td><select size="1" id="timeState_id" name="timeState" required>
+                            {#                        <option style='text-align:center' value=''></option>#}
+                            {% for timeState in timeState_list %}
+                                <option value="{{ timeState.value }}">{{ timeState.value }}</option>
+                            {% endfor %}
+                        </select></td>
+
+
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+
+    <!--导出excel-->
+    <script src="{% static 'export/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'export/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'export/js/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'export/js/jszip.min.js' %}"></script>
+    <script src="{% static 'export/js/pdfmake.min.js' %}"></script>
+    <script src="{% static 'export/js/vfs_fonts.js' %}"></script>
+    <script src="{% static 'export/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'export/js/buttons.print.min.js' %}"></script>
+
+
+    <!-- iCheck 1.0.1 -->
+    <script type="text/javascript">
+        $(function () {
+            $('#DQE-MT').addClass('active');
+            $('#DQE-IM-INVENTORY').addClass('active');
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var t = $('#example').DataTable();
+            $('#addRow').on('click', function () {
+                t.row.add([
+                    '<td><select size="1" id="platform_id" name="platform">\n' +
+                    '                    <option style=\'text-align:center\' value=\'\'></option>' +
+                    {% for project in projects %}
+                        '<option value="{{ project.pname }}">{{ project.pname }}</option>\n'+
+                    {% endfor %}
+                    '</select></td>',
+                    '<td><select size="1" id="hw_build_id" name="hw_build">\n' +
+                    '                        <option style=\'text-align:center\' value=\'\'></option>' +
+                    {% for stage in stages %}
+                        '<option value="{{ stage.sname }}">{{ stage.sname }}</option>\n'+
+                    {% endfor %}
+                    '</select></td>',
+                    ' <td><select size="1" id="model_id" name="model">\n' +
+                    '                        <option style=\'text-align:center\' value=\'\'></option>' +
+                    {% for fused in applyState_list %}
+                        '<option value="{{ fused.value }}">{{ fused.value }}</option>\n'+
+                    {% endfor %}
+                    '</select></td>',
+                    '<td><select size="1" id="fused_id" name="fused">\n' +
+                    '                        <option style=\'text-align:center\' value=\'\'></option>' +
+                    {% for fused in fuseds %}
+                        '<option value="{{ fused.fname }}">{{ fused.fname }}</option>\n'+
+                    {% endfor %}
+                    '</select></td>',
+                    '<td><input type="text" id="comments_id" name="comments" value=""/></td>',
+                    '<td><input type="text" id="qty_id" name="qty" value="0"/></td>',
+                    ' <td><select size="1" id="timeState_id" name="timeState">\n' +
+                    {% for timeState in timeState_list %}
+                        '  <option value="{{ timeState.value }}">{{ timeState.value }}</option>\n'+
+                    {% endfor %}
+                    '                    </select></td>',
+
+                ]).draw();
+            });
+
+            $('#example tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    t.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+
+            $('#button').click(function () {
+                t.row('.selected').remove().draw(false);
+            });
+
+
+            $('#submit').click(function () {
+                var data = $("#addForm").serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url 'dqe:accessory' %}',
+                    data: data,
+                    cache: false,
+                    success: function (msg) {
+                        if (msg.result) {
+                            layer.alert('申请成功！', {icon: 1}, function (index) {
+                                parent.layer.closeAll(); //关闭所有弹窗
+                                {#$("#example").ajax.reload();#}
+                                {#$("#addForm").location.reload();#}
+                                {#$("input").val("");#}
+                                {#$("select").val("");#}
+                                $("#addForm input").val("");
+                                $("#addForm select").val("");
+
+                            });
+                        } else {
+                            layer.alert('申请失败,请检查Qty/keep', {icon: 5});
+                            //$('errorMessage').html(msg.message)
+                        }
+                        return;
+                    }
+                });
+            });
+
+
+        });
+
+    </script>
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            var t = $('#example1').DataTable();
+
+            $('#addRow1').on('click', function () {
+                t.row.add([
+                    '<td><select size="1" id="access_id" name="accessory">\n' +
+                    '                     <option style=\'text-align:center\' value=\'\'></option>\n' +
+                    '                            {% for access in access %}\n'+
+                        '                                <option value="{{ access.access }}">{{ access.access }}</option>\n'+
+                        '                            {% endfor %}' +
+                    '</select></td>',
+                    '<td><select size="1" id="hw_build_id" name="hw_build">\n' +
+                    '                        <option style=\'text-align:center\' value=\'\'></option>' +
+                    {% for stage in stages %}
+                        '<option value="{{ stage.sname }}">{{ stage.sname }}</option>\n'+
+                    {% endfor %}
+                    '                    </select></td>',
+                    '<td><input type="text" id="comments_id" name="comments" value=""/></td>',
+                    '<td><input type="text" id="qty_id" name="qty1" value=""/></td>',
+                    ' <td><select size="1" id="timeState_id" name="timeState">\n' +
+                    {% for timeState in timeState_list %}
+                        '  <option value="{{ timeState.value }}">{{ timeState.value }}</option>\n'+
+                    {% endfor %}
+                    '                    </select></td>',
+
+                ]).draw();
+            });
+
+            $('#example1 tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    t.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+
+            $('#button1').click(function () {
+                t.row('.selected').remove().draw(false);
+            });
+
+            $('#submit1').click(function () {
+                var data = $("#addForm1").serialize();
+                {#var data = t.$('input, select').serialize();#}
+                console.log('1111', data)
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url 'dqe:accessory-list' %}',
+                    data: data,
+                    cache: false,
+                    success: function (msg) {
+                        if (msg.result) {
+                            layer.alert('申请成功！', {icon: 1}, function (index) {
+                                parent.layer.closeAll(); //关闭所有弹窗
+                                {#$("#example").ajax.reload();#}
+                                {#$("#addForm").location.reload();#}
+                                {#$("input").val("");#}
+                                {#$("select").val("");#}
+                                $("#addForm1 input").val("");
+                                $("#addForm1 select").val("");
+
+                            });
+                        } else {
+                            layer.alert('申请失败,请检查Qty/keep', {icon: 5});
+                            //$('errorMessage').html(msg.message)
+                        }
+                        return;
+                    }
+                });
+            });
+
+        });
+    </script>
+
+
+
+    <script type="text/javascript">
+        $('#example').DataTable({
+            "serverSide": true,
+            searching: true,
+            lengthChange: false,
+            fontSize: 10,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: false,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            {#aoColumnDefs: [#}
+            {#    {"sWidth": "10%", "aTargets": [6]}#}
+            {#],#}
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条信息",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "未搜索到数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+
+
+        });
+
+
+    </script>
+    <script type="text/javascript">
+        $('#example1').DataTable({
+            "serverSide": true,
+            searching: true,
+            lengthChange: false,
+            fontSize: 10,
+            paging: true,
+            scrollCollapse: true,
+            serverSide: false,
+            search: false,
+            processing: true,
+            /* scrollY: 500,   表格的高度限制*/
+            scrollX: "100%",
+            scrollXInner: "100%",
+            scrollCollapse: true,
+            jQueryUI: false,
+            autoWidth: true,
+            autoSearch: false,
+            {#aoColumnDefs: [#}
+            {#    {"sWidth": "10%", "aTargets": [6]}#}
+            {#],#}
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项搜索结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 条信息",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "未搜索到数据",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+
+
+        });
+
+
+    </script>
+{% endblock %}

@@ -4,234 +4,210 @@
 {% block css %}
     <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
     <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/fileinput.css' %}">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+    <style>
+        body {
+            margin: 10px;
+        }
+
+        .demo-carousel {
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+        }
+
+        div[title="导出"] {
+            display: none;
+        }
+
+        div[title="打印"] {
+            display: none;
+        }
+    </style>
+
+
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/buttons/1.5.0/css/buttons.dataTables.min.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
 
     <!-- Main content -->
+    <!-- Main content -->
     <section class="content">
+        <div id="devlist">
+            <div class="box box-primary" id="my-page">
+                <div class="box-header" id="my-page">
 
-        <div class="col-md-14">
-
-            <div class="box box-primary">
-                <div class="mailbox-controls margin-b-10">
-                    <div class="btn-group margin-l-5">
-                        <button type="button" class="btn btn-danger btn-sm" title="返回" id="btnOriReturn">
-                            <i class="fa fa-undo">返回上一級</i>
-                        </button>
+                    <div id="upload" style="display: none">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            </br>
+                            </br>
+                            <label class="control-label">Select File</label>
+                            <input type="file" name="file" class="file" id="input-1">
+                        </form>
                     </div>
-                    <div class="btn-group pull-right">
-                    </div>
-                </div>
-                <!--原始入库-->
-                <div class="box-header with-border">
-                    <h3 class="box-title">原始數據</h3>
-                    <div class="box-tools">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="box-body no-padding">
-                    <form class="form-horizontal" id="oriForm" action="" method="post">
-                        {% csrf_token %}
 
-                        <input class="form-control" name="applyId" type="hidden" value="{{ apply.id }}"/>
+                    <div id="RecordUpdate" style="display: none;margin-top: 61px">
+                        <!--显示修改记录的表单-->
+                        <form class="layui-form" method="post" enctype="multipart/form-data" id="edit_form">
+                            {% csrf_token %}
 
-                        <div class="table-responsive mailbox-messages">
-                            <table class="table" id="ysList" style="white-space: nowrap; table-layout:fixed ">
-                                <tbody>
-                                <tr>
-                                    <td class="warning"><strong> 專案 </strong></td>
-                                    <td class="warning">{{ apply.fk_project }}</td>
-                                    <td class="warning"><strong> 階段 </strong></td>
-                                    <td class="warning">{{ apply.fk_stage }}</td>
-                                </tr>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Accessory</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Accessory" required lay-verify="required"
+                                           placeholder="请输入Accessory"
+                                           autocomplete="off" class="layui-input" id="accessory_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Vender</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Vender" placeholder="请输入Vender"
+                                           autocomplete="off" class="layui-input" id="vender_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Hw_build</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="hw_build" lay-verify="required" placeholder="请输入Hw build"
+                                           autocomplete="off" class="layui-input" id="hw_build_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Config</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Config" lay-verify="required" placeholder="请输入Config"
+                                           autocomplete="off" class="layui-input" id="config_input">
+                                </div>
+                            </div>
 
-                                <tr>
-                                    <td class="success"><strong> Rel編號 </strong></td>
-                                    <td class="success">{{ apply.rel }}</td>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Status</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Status" lay-verify="required" placeholder="请输入Status"
+                                           autocomplete="off" class="layui-input" id="status_input">
+                                </div>
+                            </div>
 
-                                    <td class="success"><strong> SN </strong></td>
-                                    <td class="success">{{ apply.sn }}</td>
-                                </tr>
-                                <tr>
-                                    <!--<td class="info"><strong> 原始入庫部門 </strong></td>-->
-                                    <!--<td class="info">PM-->
-                                    <!--&lt;!&ndash;{% if apply.applyTime %} {{ apply.applyTime}} {% else %} &#45;&#45;
-                                         {% endif %}&ndash;&gt;-->
-                                    <!--</td>-->
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">QTY</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="QTY" placeholder="请输入QTY"
+                                           autocomplete="off" class="layui-input" id="qty_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">盒子SN</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="box_sn" placeholder="请输入盒子SN"
+                                           autocomplete="off" class="layui-input" id="box_sn_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">SN</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="SN" lay-verify="required" placeholder="请输入SN"
+                                           autocomplete="off" class="layui-input" id="sn_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline" style="width: 35%">
+                                <label class="layui-form-label">Cont&Adds</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Contact&Address" placeholder="请输入Contact&Address"
+                                           autocomplete="off" class="layui-input" id="contact_address_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Date_in</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Date In" lay-verify="required" placeholder="请输入Date In"
+                                           autocomplete="off" class="layui-input" id="Date_in_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Date_out</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="date_out" placeholder="请输入date_out"
+                                           autocomplete="off" class="layui-input" id="date_out_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Comment</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="comment" placeholder="请输入comment"
+                                           autocomplete="off" class="layui-input" style="width: 206px"
+                                           id="comment_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Cat_Sn</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="cat_sn" placeholder="请输入仓码"
+                                           autocomplete="off" class="layui-input" id="cat_sn_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">储位</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Store" placeholder="请输入储位"
+                                           autocomplete="off" class="layui-input" id="store_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">AAPN</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="AAPN" placeholder="请输入AAPN"
+                                           autocomplete="off" class="layui-input" id="aapn_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">HHPN</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="HHPN" placeholder="请输入HHPN"
+                                           autocomplete="off" class="layui-input" id="hhpn_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">WO</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="WO" placeholder="请输入WO"
+                                           autocomplete="off" class="layui-input" id="wo_input">
+                                </div>
+                            </div>
 
-                                    <td class="info"><strong> 原始入庫者 </strong></td>
-                                    <td class="info">{{ apply.recuser }}
-                                        <!--{% if apply.applyState == '1' %} 待簽核 {% elif apply.applyState == '2' %}
-                                            已簽核{% else %}-->
-                                            <!--&#45;&#45; {% endif %}-->
-                                    </td>
-                                    <td class="info"><strong> 原始入庫日期 </strong></td>
-                                    <td class="info">
-                                        {% if apply.indate %} {{ apply.indate }} {% else %} -- {% endif %}
-                                    </td>
+                            <div class="layui-form-item">
+                                <input type="text" name="ID" autocomplete="off" class="layui-input" id="id_input"
+                                       style="display: none">
+                            </div>
 
-                                </tr>
-                                <!--<tr>-->
-                                <!--<td class="info"><strong> 原始入庫日期 </strong></td>-->
-                                <!--<td class="info">-->
-                                <!--{% if apply.indate %} {{ apply.indate}} {% else %} &#45;&#45; {% endif %}-->
-                                <!--</td>-->
+                            <div class="layui-form-item">
+                                <input type="text" name="project_id" autocomplete="off" class="layui-input"
+                                       id="project_id_input"
+                                       style="display: none">
+                            </div>
 
-                                <!--<td class="info"><strong> 原始入庫停留時長 </strong></td>-->
-                                <!--<td class="info">-->
-                                <!--{% if apply.applyState == '1' %} 待簽核 {% elif apply.applyState == '2' %}已簽核{% else %}
-                                    -->
-                                    <!--&#45;&#45; {% endif %}-->
-                                <!--</td>-->
-                                <!--</tr>-->
-                                <tr>
-                                    <td class="danger"><strong> 入庫備註 </strong></td>
-                                    <td class="danger">
-                                        {% if apply.remark %} {{ apply.remark }} {% else %} -- {% endif %}
-                                    </td>
-                                    <td class="danger"><strong></strong></td>
-                                    <td class="danger"></td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="box-footer ">
-                        </div>
-                    </form>
-                </div>
-
-
-            </div>
-
-            <div class="box box-primary">
-                <!--当前入库-->
-                <div class="box-header with-border">
-                    <h3 class="box-title">當前數據</h3>
-
-                    <div class="box-tools">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="box-body no-padding">
-                    <form class="form-horizontal" id="nowForm" action="" method="post">
-                        {% csrf_token %}
-
-                        <input class="form-control" name="applyId" type="hidden" value="{{ apply.id }}"/>
-
-                        <div class="table-responsive mailbox-messages">
-                            <table class="table" id="tbWorkList" style="white-space: nowrap; table-layout:fixed ">
-                                <tbody>
-                                <tr>
-                                    <td class="warning"><strong> 專案 </strong></td>
-                                    <td class="warning">{{ apply.fk_project }}</td>
-                                    <td class="warning"><strong> 階段 </strong></td>
-                                    <td class="warning">{{ apply.fk_stage }}</td>
-                                </tr>
-
-                                <tr>
-                                    <td class="success"><strong> Rel編號 </strong></td>
-                                    <td class="success">{{ apply.rel }}</td>
-
-                                    <td class="success"><strong> SN </strong></td>
-                                    <td class="success">{{ apply.sn }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="info"><strong> 當前所在部門 </strong></td>
-                                    <td class="info">
-                                        {% if apply.fk_structure %} {{ apply.fk_structure }} {% else %} -- {% endif %}
-                                    </td>
-
-                                    <td class="info"><strong> 當前入庫者 </strong></td>
-                                    <td class="info">{{ apply.currRecUser }}
-                                        <!--{% if apply.applyState == '1' %} 待簽核 {% elif apply.applyState == '2' %}
-                                            已簽核{% else %}-->
-                                            <!--&#45;&#45; {% endif %}-->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="info"><strong> 當前入庫日期 </strong></td>
-                                    <td class="info">
-                                        {% if apply.currRecDate %} {{ apply.currRecDate }} {% else %} -- {% endif %}
-                                    </td>
-
-                                    <td class="info"><strong> 當前入庫停留時長 </strong></td>
-                                    <td class="info">
-                                        {% if apply.stayTime %} {{ apply.stayTime }} {% else %} -- {% endif %}
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="box-footer ">
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!--历史记录-->
-            <div class="box">
-                <div class="box-header with-border">
-                    <i class="ion ion-clipboard"></i>
-                    <h3 class="box-title">歷史數據</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                        </button>
-                    </div>
-                    <div class="box-header">
-                        <div class="btn-group pull-left">
-                            <button type="button" id="btnRefresh" class="btn btn-default">
-                                <i class="glyphicon glyphicon-repeat"></i>刷新
-                            </button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <table id="dtbList" class="display" cellspacing="0" width="100%">
-                            <thead>
-                            <tr valign="middle">
-                                <th><input type="checkbox" id="checkAll"></th>
-                                <!--<th>id</th>-->
-                                <!--<th>專案</th>-->
-                                <!--<th>階段</th>-->
-                                <!--<th>Rel編號</th>-->
-                                <!--<th>SN</th>-->
-                                <th>申請單號</th>
-                                <th>申請人</th>
-                                <th>申請單位</th>
-                                <th>申請時間</th>
-                                <th>確認狀態</th>
-                                <th>確認人</th>
-                                <th>確認時間</th>
-                                <th>確認部門</th>
-                                <th>確認部門使用時間</th>
-                                <th>確認前機台狀態</th>
-
-
-                                <!--<th>操作</th>-->
-                            </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                            <div class="layui-form-item" align="center">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                            <font color="#FF0000">备注：Accessory、Vender、HW Build、Config、Status、SN、Date In 为必填项</font>
+                        </form>
                     </div>
                 </div>
-                <div class="box-footer clearfix no-border">
+                <div class="box-body" style="margin-top: -21px">
+                    <table class="layui-hide" id="demo" lay-filter="test"></table>
                 </div>
             </div>
-
         </div>
-
     </section>
-
 
 {% endblock %}
 
@@ -240,244 +216,364 @@
     <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
     <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
     <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
-    <script type="text/javascript">
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static "jquery/dist/jquery.min.js" %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <script src="{% static 'bootstrap/fileinput.js' %}"></script>
+    <script src="{% static 'bootstrap/fileinput_locale_zh.js' %}"></script>
+    <script src="{% static 'layui/layui.js' %}"></script>
 
+
+
+    <!--导出excel-->
+    <script src="{% static 'export/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'export/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'export/js/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'export/js/jszip.min.js' %}"></script>
+    <script src="{% static 'export/js/pdfmake.min.js' %}"></script>
+    <script src="{% static 'export/js/vfs_fonts.js' %}"></script>
+    <script src="{% static 'export/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'export/js/buttons.print.min.js' %}"></script>
+    <!-- iCheck 1.0.1 -->
+    <script type="text/javascript">
         $(function () {
             $('#DQE-IM').addClass('active');
             $('#DQE-IM-INVENTORY').addClass('active');
 
         });
+    </script>
 
+    <script type="text/html" id="barDemo">
+        {#        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>#}
+{#        <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>#}
+        {#        <a class="layui-btn layui-btn-xs" lay-event="edit">查看</a>#}
+{#        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>#}
 
-        // 返回
-        $("#btnNowReturn").on("click", function () {
-            window.location.href = "{% url 'dqe:mt-loanconfirm' %}";
+    </script>
+    {#    头 工具栏#}
+    <script type="text/html" id="toolbarDemo">
+
+{#        <div class="layui-btn-container" style="float:left">#}
+{#            <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>#}
+{#            <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>#}
+{#            <button class="layui-btn layui-btn-sm" lay-event="upload">上传</button>#}
+{#            <button class="layui-btn layui-btn-sm" lay-event="delete">导出</button>#}
+            {#            <button class="layui-btn layui-btn-sm" lay-event="delete">导出</button>#}
+{#        </div>#}
+
+    </script>
+    <script>
+        layui.config({
+            version: '1560414887305' //为了更新 js 缓存，可忽略
         });
 
-        // 这里开始为申请详情
-        var oDataTable = null;
-        $(function () {
-            oDataTable = initTable();
+        layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider'], function () {
+            var laydate = layui.laydate //日machine_manage_info期
+                , laypage = layui.laypage //分页
+                , layer = layui.layer //弹层
+                , table = layui.table //表格
+                , carousel = layui.carousel //轮播
+                , upload = layui.upload //上传
+                , element = layui.element //元素操作
+                , slider = layui.slider //滑块
 
-            function initTable() {
-                var oTable = $('#dtbList').DataTable($.extend(true, {},
-                    DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
-                    {
-                        ajax: {
-                            "url": "{% url 'dqe:inventory-detail-list' %}",
-                            "data": function (d) {
-                                d.applyId = "{{ apply.id }}";
-                            }
+            //向世界问个好
+            {#layer.msg('Hello World');#}
+
+            //监听Tab切换
+            element.on('tab(demo)', function (data) {
+                layer.tips('切换了 ' + data.index + '：' + this.innerHTML, this, {
+                    tips: 1
+                });
+            });
+
+            //执行一个 table 实例
+            table.render({
+                elem: '#demo'
+                , height: 700
+                , url: '#' //数据接口
+                , title: 'ipad详情表'
+                , cellMinWidth: 80
+                , page: true //开启分页
+                , id: 'idTest'//id
+                , limit: 13
+                , request: {
+                    pageName: 'pageIndex' //页码的参数名称，默认：page
+                    , limitName: 'pageSize' //每页数据量的参数名，默认：limit
+                }
+                , response: {
+                    statusName: 'code' //规定数据状态的字段名称，默认：code
+                    , statusCode: 0 //规定成功的状态码，默认：0
+                    , msgName: 'msg' //规定状态信息的字段名称，默认：msg
+                    , countName: 'count' //规定数据总数的字段名称，默认：count
+                    , dataName: 'data' //规定数据列表的字段名称，默认：data
+                }
+                , toolbar: '#toolbarDemo' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                , totalRow: true //开启合计行
+                {#, cellMinWidth: 80#}
+                , cols: [[ //表头
+                    {type: 'checkbox', fixed: 'left'}
+                    , {field: 'pk', title: 'ID', width: 80, sort: true, fixed: 'left', totalRowText: '合计：'}
+                    , {field: 'platform', title: 'Platform', edit: 'text', width: 130}
+                    , {field: 'hw_build', title: 'HW_Build', edit: 'text', width: 100, sort: true}
+                    , {field: 'wgt_no', title: 'Wgt NO', edit: 'text', width: 120, sort: true}
+                    , {field: 'sn', title: 'SN', width: 100, sort: true}
+                    , {field: 'model', title: 'Model', edit: 'text', width: 100, sort: true}
+                    , {field: 'status_detail', title: 'Status Detail', edit: 'text', width: 120, totalRow: true}
+                    , {field: 'fused', title: 'Fused', edit: 'text', width: 100}
+                    , {field: 'config', title: 'Config', edit: 'text', width: 150, sort: true}
+                    , {field: 'display', title: 'Display', edit: 'text', width: 120, sort: true}
+                    , {field: 'nand', title: 'Nand', edit: 'text', width: 120, sort: true}
+                    , {field: 'date_in', title: '入库时间', width: 150, sort: true}
+                    , {field: 'date_out', title: '出库时间', width: 150, sort: true}
+                    , {field: 'units_status', title: '状态', edit: 'text', width: 80, sort: true}
+                    , {field: 'recuser', title: '入库人员', edit: 'text', width: 80, sort: true}
+                    , {fixed: 'right', title: '操作', width: 120, align: 'center', toolbar: '#barDemo'}
+                ]]
+            });
+
+            //监听单元格编辑
+            table.on('edit(test)', function (obj) {
+                console.log(11111)
+                var value = obj.value //得到修改后的值
+                    , data = obj.data //得到所在行所有键值
+                    , field = obj.field; //得到字段
+                layer.msg('[ID: ' + data.pk + '] ' + field + ' 字段更改为：' + value);
+            });
+
+            //监听头工具栏事件
+            table.on('toolbar(test)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id)
+                    , data = checkStatus.data; //获取选中的数据
+                console.log(data)
+                console.log(',99955', checkStatus)
+                switch (obj.event) {
+                    case 'add':
+                        layer.open({
+                            type: 1,
+                            title: '新增',
+                            shadeClose: false,
+                            maxmin: true,
+                            area: ['900px', '500px'],
+                            content: $('#RecordUpdate'),
+                        });
+                        layui.use('form', function () {
+                            var form = layui.form;
+                            form.render();
+                        });
+
+
+                        layui.use('laydate', function () {
+                            var laydate = layui.laydate;
+                            //执行一个laydate实例
+                            laydate.render({
+                                elem: '#Date_in_input'//指定元素
+                            });
+                        });
+                        break;
+                    case 'upload':
+                        layer.open({
+                            type: 1,
+                            title: "批量导入",
+                            closeBtn: 1,
+                            shadeClose: false,
+                            area: ['600px', '400px'],
+                            content: $("#upload"),
+                        });
+                        break;
+                    case 'delete':
+                        console.log('//', checkStatus)
+                        var sId = "";
+                        for (var i = 0; i < checkStatus.data.length; i++) {
+                            sId += checkStatus.data[i].pk + ",";
+                        }
+                        console.log(',55', sId)
+                        if (data.length === 0) {
+                            layer.msg('请选择一行');
+                        } else {
+                            layer.alert('确定删除吗？', {
+                                title: '提示'
+                                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                                , time: 0 //不自动关闭
+                                , btn: ['YES', 'NO']
+                                , yes: function (index) {
+                                    layer.close(index);
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "{% url 'dqe:inventory-delete' %}",
+                                        data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                                        cache: false,
+                                        success: function (msg) {
+                                            if (msg.result) {
+                                                layer.alert("操作成功", {icon: 1});
+                                                $(".layui-laypage-btn")[0].click();
+                                            } else {
+                                                //alert(msg.message);
+                                                layer.alert("操作失败", {icon: 2});
+                                            }
+                                            return;
+                                        }
+                                    });
+                                }
+                            });
+                            {#$(".layui-laypage-btn")[0].click();#}
+                        }
+                        break;
+                }
+                ;
+            });
+
+            //监听行工具事件
+            table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data;//获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值
+                var id = data.pk;
+
+                if (layEvent === 'detail') {
+                    layer.open({
+                        type: 1,
+                        title: '编辑',
+                        shadeClose: false,
+                        maxmin: true,
+                        area: ['900px', '500px'],
+                        content: "{% url 'dqe:inventory-detail-list' %}"
+                    });
+                } else if (layEvent === 'del') {
+                    layer.alert('确定删除吗？', {
+                        title: '提示'
+                        , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                        , time: 0 //不自动关闭
+                        , btn: ['YES', 'NO']
+                        , yes: function (index) {
+                            layer.close(index);
+                            $.ajax({
+                                type: "POST",
+                                url: "{% url 'dqe:inventory-onedelete' %}",
+                                data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
+                                cache: false,
+                                success: function (msg) {
+                                    if (msg.result) {
+                                        layer.alert('删除成功', {icon: 1});
+                                        $(".layui-laypage-btn")[0].click();
+                                        {#location.href = '/machine/inventory/'#}
+                                    } else {
+                                        //alert(msg.message);
+                                        layer.alert('删除失败', {icon: 2});
+                                    }
+                                    return;
+                                }
+                            });
+                        }
+                    });
+                } else if (layEvent === 'edit') {
+
+                    layer.open({
+                        type: 1,
+                        title: '编辑',
+                        shadeClose: false,
+                        maxmin: true,
+                        area: ['900px', '500px'],
+                        content: $('#RecordUpdate'),
+                    });
+                    layui.use('form', function () {
+                        var form = layui.form;
+                        form.render();
+                    });
+                    layui.use('laydate', function () {
+                        var laydate = layui.laydate;
+                        //执行一个laydate实例
+                        laydate.render({
+                            elem: '#Date_in_input'//指定元素
+                        });
+                    });
+
+                    $.ajax({
+                        url: "{% url 'dqe:inventory-update' %}",
+                        type: 'post',
+                        async: true,
+                        data: {
+                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                            "id": id,
                         },
-                        columns: [
-                            DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
-                            // {
-                            //     data: "id",
-                            //     //width: "10%",
-                            // },
-                            // {
-                            //     //单独的fk_inventory显示
-                            //     data: "fk_inventory__fk_project__pname",
-                            // },
-                            // {
-                            //     //阶段
-                            //     data: "fk_inventory__fk_stage__sname",
-                            // },
-                            // {
-                            //     data: "fk_inventory__rel",
-                            // },
-                            // {
-                            //     data: "fk_inventory__sn",
-                            // },
-                            {
-                                //申请单号
-                                data: "fk_apply__applyNum",
-                            },
-                            {
-                                data: "fk_apply__applyUser",
-                            },
-                            {
-                                //申请单位
-                                data: "fk_apply__applyUnit",
-                            },
-                            {
-                                data: "fk_apply__applyDate",
-                                render: function (data, type, full, meta) {
-                                    return moment(data).format("YYYY-MM-DD HH:mm");
-                                }
-                            },
-                            {
-                                //機台確認狀態
-                                data: "machineState",
-                                render: function (data, type, row, meta) {
+                        dataType: 'json',
+                        success: function (result) {
+                            $("#id_input").val(id);
+                            $("#accessory_input").val(result.record.accessory);
+                            $("#vender_input").val(result.record.vender);
+                            $("#hw_build_input").val(result.record.hw_build);
+                            $("#config_input").val(result.record.config);
+                            $("#status_input").val(result.record.status);
+                            $("#qty_input").val(result.record.qty);
+                            $("#box_sn_input").val(result.record.box_sn);
+                            $("#sn_input").val(result.record.sn);
+                            $("#contact_address_input").val(result.record.contact_address);
+                            $("#Date_in_input").val(result.record.date_in);
+                            $("#date_out_input").val(result.record.date_out);
+                            $("#comment_input").val(result.record.comment);
+                            $("#cat_sn_input").val(result.record.ca_sn);
+                            $("#store_input").val(result.record.store);
+                            $("#aapn_input").val(result.record.aapn);
+                            $("#hhpn_input").val(result.record.hhpn);
+                            $("#wo_input").val(result.record.wo);
 
-
-                                    if (data == "1") {
-                                        return "未確認"
-                                    } else if (data == "2") {
-                                        return "確認"
-                                    } else if (data == "3") {
-                                        return "拒絕"
-                                    } else {
-                                        alert(data);
-                                        return "未知錯誤"
-                                    }
-                                }
-                            },
-                            {
-                                data: "confirmUser",
-                            },
-                            {
-                                data: "lendDate",
-                                render: function (data, type, full, meta) {
-                                    return moment(data).format("YYYY-MM-DD HH:mm");
-                                }
-                            },
-                            {
-                                //借出单位 == 确认单位
-                                data: "lendUnit",
-                            },
-                            {
-                                //借出部門使用時長  这个是用于记录历史的的部门使用的时间
-                                data: "lendtime",
-                                render: function (data, type, row, meta) {
-
-                                    if (data) {
-                                        return data
-                                    } else {
-                                        return "--"
-                                    }
-                                }
-                            },
-
-                            // {
-                            //     //机台备注
-                            //     data: "remark",
-                            //     render: function (data, type, row, meta) {
-                            //
-                            //         if (data) {
-                            //             return data
-                            //         } else {
-                            //             return "--"
-                            //         }
-                            //     }
-                            // },
-                            {
-                                //借出部門機台狀態
-                                data: "macAppState",
-                                render: function (data, type, row, meta) {
-                                    console.log(data)
-                                    //console.log(">0>", data, ">1>", type, ">2>", row, ">3>", meta);
-                                    if (data == 1) {
-                                        return "入庫"
-                                    } else if (data == 2) {
-                                        return "已借出"
-                                    } else if (data == 3) {
-                                        return "被申請"
-                                    } else if (data == 4) {
-                                        return "出庫"
-                                    } else {
-                                        return "已经损坏"
-                                    }
-                                }
-                            },
-
-                            // {
-                            //     data: "id",
-                            //     width: "4%",
-                            //     bSortable: "false",
-                            //     render: function (data, type, row, meta) {
-                            //         var ret = "<button title='增加機台備註'  class='btn btn-xs btn-primary' onclick='adRemark("
-                            //             + data + ")'><i class='glyphicon glyphicon-plus'></i></button>";
-                            //         return ret;
-                            //     }
-                            // }
-                        ],
-                    }));
-                return oTable;
-            }
-
-        });
-
-        //以下针对 Apply 进行操作
-        //checkbox全选
-        $("#checkAll").on("click", function () {
-            if ($(this).prop("checked") === true) {
-                $("input[name='checkList']").prop("checked", $(this).prop("checked"));
-                $('#example tbody tr').addClass('selected');
-            } else {
-                $("input[name='checkList']").prop("checked", false);
-                $('#example tbody tr').removeClass('selected');
-            }
-        });
-
-        //申请详情刷新
-        $("#btnRefresh").click(function () {
-            oDataTable.ajax.reload();
-        });
-
-        //机台确认借出 思路：没有勾选的机台，默认就是拒绝借出。这里弹出的备注仍然是 申请单中的备注，至于机台的备注，我们就采用后面增添一个按钮的方式，对这个单下的这台机器的详情进行备注。
-        $("#btnMachLoanConfirm").click(function () {
-            if ($("input[name='checkList']:checked").length == 0) {
-                layer.msg("請勾選要借出的機台");
-                return;
-            }
-            var arrId = new Array();
-            $("input[name='checkList']:checked").each(function () {
-                arrId.push($(this).val());
-            });
-            sId = arrId.join(',');  // applydetail 的 id
-
-            //获取到 ApplyId
-            applyId = $("input[name='applyId']").val()
-            // alert(applyId);
-
-            // 这里将申请单remark的内容传递过去
-            layer.open({
-                type: 2,
-                title: '填寫確認/拒絕備註',
-                shadeClose: false,
-                maxmin: true,
-                area: ['800px', '400px'],
-                content: "{% url 'dqe:mt-loanconfirmdetail-machremark' %}?applyDetailIds=" + sId + "&applyId=" + applyId,        //'/dqe/mt/loanconfirm/aremark?applyId=2',
-                end: function () {
-                    //关闭时做的事情
-                    oDataTable.ajax.reload();
+                        }
+                    });
+                    $(".layui-laypage-btn")[0].click();
                 }
             });
 
-        });
+            //执行一个轮播实例
+            carousel.render({
+                elem: '#test1'
+                , width: '100%' //设置容器宽度
+                , height: 200
+                , arrow: 'none' //不显示箭头
+                , anim: 'fade' //切换动画方式
+            });
 
-
-        //详情
-        // function doDetail(id){
-        //     window.location.href="{% url 'dqe:mt-apply-detail' %}?id="+id+"&applyid="+applyid;
-        // }
-
-        //增加機台备注
-        function adRemark(id) {
-            layer.open({
-                type: 2,
-                title: '增加機台備註',
-                shadeClose: false,
-                maxmin: true,
-                area: ['800px', '400px'],
-                content: "{% url 'dqe:mt-loanconfirmdetail-addremark' %}?applyDetailId=" + id,
-                end: function () {
-                    //关闭时做的事情
-                    oDataTable.ajax.reload();
+            //将日期直接嵌套在指定容器中
+            var dateIns = laydate.render({
+                elem: '#laydateDemo'
+                , position: 'static'
+                , calendar: true //是否开启公历重要节日
+                , mark: { //标记重要日子
+                    '0-10-14': '生日'
+                    , '2018-08-28': '新版'
+                    , '2018-10-08': '神秘'
+                }
+                , done: function (value, date, endDate) {
+                    if (date.year == 2017 && date.month == 11 && date.date == 30) {
+                        dateIns.hint('一不小心就月底了呢');
+                    }
+                }
+                , change: function (value, date, endDate) {
+                    layer.msg(value)
                 }
             });
-        }
 
-        // 返回
-        $("#btnOriReturn").on("click", function () {
-            window.location.href = "{% url 'dqe:inventory' %}";
+            //分页
+            laypage.render({
+                elem: 'pageDemo' //分页容器的id
+                , count: 100 //总页数
+                , skin: '#1E9FFF' //自定义选中色值
+                //,skip: true //开启跳页
+                , jump: function (obj, first) {
+                    if (!first) {
+                        layer.msg('第' + obj.curr + '页', {offset: 'b'});
+                    }
+                }
+            });
+
+            slider.render({
+                elem: '#sliderDemo'
+                , input: true //输入框
+            });
+
+            //底部信息
+            var footerTpl = lay('#footer')[0].innerHTML;
+            lay('#footer').html(layui.laytpl(footerTpl).render({}))
+                .removeClass('layui-hide');
         });
-
     </script>
 
 {% endblock %}
-
-
-

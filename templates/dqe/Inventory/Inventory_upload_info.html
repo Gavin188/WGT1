@@ -10,118 +10,94 @@
 <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
 
 {% if msg == "上傳成功" %}
-<div class="alert alert-success">
-    <strong>{{ msg }}</strong>
-</div>
+    <div class="alert alert-success">
+        <strong>{{ msg }}</strong>
+    </div>
 
 {% else %}
 
-<div class="alert alert-danger">
-    <strong>{{ msg }}</strong>
-</div>
+    <div class="alert alert-danger">
+        <strong>{{ msg }}</strong>
+    </div>
 
 {% endif %}
 
 {% if correct_unit %}
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">入庫成功機台</div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">入庫成功機台</div>
 
-    <table class="table">
-      <colgroup>
-        <col width="150">
-        <col width="200">
-        <col>
-      </colgroup>
-      <thead>
-        <tr>
-          <th>專案</th>
-          <th>階段</th>
-          <th>編號</th>
-          <th>SN</th>
-            <th>產品類別</th>
-          <th>Remark</th>
-        </tr>
-      </thead>
-      <tbody>
-      {% for unit in correct_unit %}
-        <tr>
-            {% for unit_info in unit %}
-              <td>{{ unit_info }}</td>
+        <table class="table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>Platform</th>
+                <th>HW_Build</th>
+                <th>Wgt NO</th>
+                <th>SN</th>
+                <th>Model</th>
+                <th>Status Detail</th>
+                <th>Fused</th>
+                <th>Config</th>
+{#                <th>Display</th>#}
+                <th>Nand</th>
+                <th>入库时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for unit in correct_unit %}
+                <tr>
+                    {% for unit_info in unit %}
+                        <td>{{ unit_info }}</td>
+                    {% endfor %}
+                </tr>
             {% endfor %}
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 {% endif %}
-
-{% if error_unit %}
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">信息有誤機台</div>
-
-    <table class="table">
-      <colgroup>
-        <col width="150">
-        <col width="200">
-        <col>
-      </colgroup>
-      <thead>
-        <tr>
-          <th>專案</th>
-          <th>階段</th>
-          <th>編號</th>
-          <th>SN</th>
-            <th>產品類別</th>
-          <th>Remark</th>
-        </tr>
-      </thead>
-      <tbody>
-      {% for unit in error_unit %}
-        <tr>
-            {% for unit_info in unit %}
-              <td>{{ unit_info }}</td>
-            {% endfor %}
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-</div>
-{% endif %}
-
 {% if repeat_unit %}
-<div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">重複入庫機台</div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">重複入庫機台</div>
 
-    <table class="table">
-      <colgroup>
-        <col width="150">
-        <col width="200">
-        <col>
-      </colgroup>
-      <thead>
-        <tr>
-          <th>專案</th>
-          <th>階段</th>
-          <th>編號</th>
-          <th>SN</th>
-            <th>產品類別</th>
-          <th>Remark</th>
-        </tr>
-      </thead>
-      <tbody>
-      {% for unit in repeat_unit %}
-        <tr>
-            {% for unit_info in unit %}
-              <td>{{ unit_info }}</td>
+        <table class="table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>Platform</th>
+                <th>HW_Build</th>
+                <th>Wgt NO</th>
+                <th>SN</th>
+                <th>Model</th>
+                <th>Status Detail</th>
+
+                <th>Fused</th>
+                <th>Config</th>
+{#                <th>Display</th>#}
+                <th>Nand</th>
+                <th>入库时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for unit in repeat_unit %}
+                <tr>
+                    {% for unit_info in unit %}
+                        <td>{{ unit_info }}</td>
+                    {% endfor %}
+                </tr>
             {% endfor %}
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 {% endif %}
 
 <button type="button" class="btn btn-primary" onclick="window.location.href='/dqe/inventory/'">返回</button>

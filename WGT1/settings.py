@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# 项目的所在的路径
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -30,9 +31,11 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     'dqe',
-    # 'djcelery',
-    # 'machine_manage_info',
+    'overtime',
+    'ckeditor',
+    'ckeditor_uploader',
     'system',
+    'testManage',
     # 'django_adminlte',
     # 'django_adminlte_theme',
     'django.contrib.admin',
@@ -47,12 +50,12 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'system.middleware.MenuCollection',
-    'system.middleware.RbacMiddleware',
+    # 'system.middleware.RbacMiddleware',
 ]
 
 ROOT_URLCONF = 'WGT1.urls'
@@ -69,7 +72,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-
+            # 内置static -->无需在 html 加载 {%load static%}
+            # 'builtins':['django.templatetags.static']
             'libraries': {
                 'get_mode': 'dqe.get_mode',
             }
@@ -143,8 +147,8 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # 媒体
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # 自定以用户模型
 AUTH_USER_MODEL = 'system.UserProfile'
 
@@ -201,3 +205,45 @@ CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 CELERY_TIMEZONE = 'Asia/Shanghai'
 
 CELERYD_MAX_TASKS_PER_CHILD = 10
+
+# 媒体文件配置
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+CKEDITOR_UPLOAD_PATH = "upload/"  # 上传图片保存路径，如果没有图片存储或者使用自定义存储位置，那么则直接写  ' ' ,如果是使用django本身的存储方式，那么你就指名一个目录用来存储即可。
+
+# 富文本编辑器ckeditor配置
+CKEDITOR_CONFIGS = {
+    # （1）默认配置
+    # 'default': {
+    #     'toolbar': 'full',  # 工具条功能
+    #     'height': 300,  # 编辑器高度
+    #     'width': 800,  # 编辑器宽
+    # },
+
+    # （3）自定义配置带代码块显示
+    'default': {
+        'toolbar': (
+            ['div', 'Source', '-', 'Save', 'NewPage', 'Preview', '-', 'Templates'],
+            ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Print', 'SpellChecker', 'Scayt'],
+            ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
+            ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+            ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
+            ['Styles', 'Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Maximize', 'ShowBlocks', '-', 'About', 'pbckcode'],
+            ['Blockquote', 'CodeSnippet'],
+        ),
+        'width': 'auto',
+        # 添加按钮在这里
+        'toolbar_Custom': [
+            ['NumberedList', 'BulletedList'],
+            ['Blockquote', 'CodeSnippet'],
+        ],
+        # 插件
+        'extraPlugins': ','.join(['codesnippet', 'widget', 'lineutils', ]),
+    },
+}

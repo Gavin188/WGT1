@@ -1,24 +1,22 @@
 import json
+from itertools import chain
+import json
+from itertools import chain
 
-from django.contrib.auth.decorators import login_required
-from django.db.models import Q
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.utils.decorators import method_decorator
-from django.views.generic.base import View
-from django.http import HttpResponse
+import pandas as pd
+from django.core import serializers
+from django.core.paginator import Paginator
 from django.core.serializers.json import DjangoJSONEncoder
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.views.generic.base import View
 
-from custom import BreadcrumbMixin
-from dqe.forms import OperateCacheTableCreateForm
-from dqe.models import OperateCacheTable, Project, Stage, Apply, Inventory, ApplyDetail
+from dqe.models import OperateCacheTable, Project, Stage, AccessDetails
 from system.mixin import LoginRequiredMixin
-from system.models import Structure, Menu
-
-import datetime
+from system.models import Structure, Menu, Access
 
 
-# 操作緩存 界面
+# @Gavin  配件信息表
 class OperateCacheTableView(LoginRequiredMixin, View):
     def get(self, request):
         res = dict(data=OperateCacheTable.objects.all())
@@ -41,113 +39,251 @@ class OperateCacheTableView(LoginRequiredMixin, View):
         # print(res)
         return render(request, 'dqe/OperateCacheTable/OperateCacheTable_List.html', res)
 
+    def post(self, request):
+        msg = ""  # 错误信息
+        error_unit = []  # SN 为空
+        correct_unit = []  # 上传成功项
+        repeat_unit = []  # 重複項
+        '''
+        >>> a = [[1, 2], [3, 4], [5, 6]]
+        >>> list(itertools.chain.from_iterable(a))
+        [1, 2, 3, 4, 5, 6]
+        
+        '''
+        sn = list(chain.from_iterable(list(AccessDetails.objects.all().values_list("sn"))))  # 所有SN
+
+        # 上传 文件  并且 解析excel
+        # file = request.FILES["file"]  # 获取上传的表格
+        if request.FILES.get("file"):
+            file = request.FILES["file"]  # 获取上传的表格
+            if file.name.endswith(".xlsx") or file.name.endswith(".xls"):  # 判断上传文件是否为表格
+
+                df = pd.read_excel(file)
+                df.fillna('', inplace=True)
+                for i in range(len(df)):
+                    if df.loc[i, "Date in"] == '':
+                        df.loc[i, "Date in"] = '1900-01-01'
+                    elif type(df.loc[i, "Date in"]) is not str:
+                        df.loc[i, "Date in"] = df.loc[i, "Date in"].strftime("%Y-%m-%d")
+
+                for i in range(len(df)):
+                    if str(df.loc[i, 'SN']) != "":
+                        if str(df.loc[i, 'SN']).replace(' ', '') not in sn:
+                            msg = "上传成功"
+                            correct_unit.append(df.loc[i].tolist())
+                            # Accessory	Vender	HW Build	Config	Status	Qty.	盒子SN	SN
+                            # Contact & Address	Date in	Date Out	Comment	仓码	储位	AAPN	HHPN	WO
+                            accessDetails = AccessDetails()
+
+                            # 將數據寫入數據庫
+                            accessDetails.accessory = df.loc[i, 'Accessory'].replace(' ', '')
+                            accessDetails.vender = df.loc[i, 'Vender'].replace(' ', '')
+                            accessDetails.hw_build = df.loc[i, 'HW Build'].replace(' ', '')
+                            accessDetails.config = str(df.loc[i, 'Config']).replace(' ', '')
+                            # accessDetails.status = df.loc[i, 'Status'].replace(' ', '')
+                            accessDetails.status = 2
+                            accessDetails.recuser = request.user.name
+                            accessDetails.qty = df.loc[i, 'Qty.']
+                            accessDetails.box_sn = df.loc[i, '盒子SN'].replace(' ', '')
+                            accessDetails.sn = str(df.loc[i, 'SN'])
+                            accessDetails.contact_address = df.loc[i, ' Contact & Address']
+                            accessDetails.date_in = str(df.loc[i, 'Date in'])
+                            accessDetails.date_out = df.loc[i, 'Date Out']
+                            accessDetails.comment = df.loc[i, 'Comment'].replace(' ', '')
+                            accessDetails.ca_sn = df.loc[i, '仓码']
+                            accessDetails.store = df.loc[i, '储位']
+                            accessDetails.aapn = df.loc[i, 'AAPN']
+                            accessDetails.hhpn = df.loc[i, 'HHPN']
+                            accessDetails.wo = df.loc[i, 'WO']
+
+                            accessDetails.save()
+
+
+
+
+                        else:
+                            msg = "重复机台"
+                            repeat_unit.append(df.loc[i].tolist())
+                    else:
+                        msg = "SN 不能为空"
+                        error_unit.append(df.loc[i].tolist())
+
+                access_data = list(AccessDetails.objects.filter().values('accessory').distinct())
+                da = [i['accessory'] for i in access_data]
+                access_data = list(Access.objects.filter().values('access'))
+                access_da = [i['access'] for i in access_data]
+                for i in da:
+                    if i not in access_da:
+                        access = Access()
+                        access.access = i
+                        access.save()
+
+            else:
+                msg = "請上傳表格文件"
+
+            return render(request, 'dqe/OperateCacheTable/Accessory_upload_info.html',
+                          {"msg": msg, "correct_unit": correct_unit, "repeat_unit": repeat_unit})
+
+        # # 新增数据 或者 更新 数组
+        if request.POST.get("ID"):
+            # print(request.POST.get("Status"))
+
+            id = request.POST.get("ID")
+            if id != '':
+                id_record = AccessDetails.objects.get(id=id)
+        else:
+            id_record = AccessDetails()
+        # print('--', request.POST.get("Status"))
+        id_record.accessory = request.POST.get('Accessory')
+        id_record.vender = request.POST.get("Vender")
+        id_record.hw_build = request.POST.get("hw_build")
+        id_record.config = request.POST.get("Config")
+        id_record.status = request.POST.get("Status")
+
+        id_record.qty = request.POST.get("QTY")
+        id_record.box_sn = request.POST.get("box_sn")
+        id_record.sn = request.POST.get("SN")
+        id_record.contact_address = request.POST.get("Contact&Address")
+        id_record.date_in = request.POST.get("Date In")
+        # id_record.date_out = request.POST.get("date_out")
+        id_record.comment = request.POST.get("comment")
+        id_record.ca_sn = request.POST.get("cat_sn")
+        id_record.store = request.POST.get("Store")
+        id_record.aapn = request.POST.get("AAPN")
+        id_record.hhpn = request.POST.get("HHPN")
+        id_record.wo = request.POST.get("WO")
+        id_record.save()
+
+        return render(request, 'dqe/OperateCacheTable/OperateCacheTable_List.html', None)
+
 
 # 操作緩存 列表
 class OperateCacheTableListView(LoginRequiredMixin, View):
     def get(self, request):
-
-        fields = ['id', 'fk_inventory__id', 'fk_structure__id', 'fk_inventory__fk_project__pname',
-                  'fk_inventory__fk_stage__sname', 'fk_inventory__rel', 'fk_inventory__sn', 'fk_inventory__indate',
-                  'fk_inventory__state', 'fk_inventory__fk_structure__name', 'fk_structure__name',
-                  'fk_inventory__recuser',
-                  'fk_inventory__currRecUser', 'opeuser', 'fk_inventory__currRecDate'
+        fields = ['id', 'accessory', 'vender', 'hw_build', 'config',
+                  'status', 'qty', 'box_sn', 'sn',
+                  'contact_address', 'date_in', 'date_out', 'comment',
+                  'ca_sn',
+                  'store', 'aapn', 'hhpn', 'wo', 'recuser'
                   ]
-        searchFields = ['fk_project_id', 'fk_stage_id', 'fk_structure_id', ]  # 与数据库字段一致 # 'fk_inventory__rel',
-        filters = {i + '__icontains': request.GET.get(i, '') for i in searchFields if
-                   i not in ['fk_project_id', 'fk_stage_id',
-                             'fk_structure_id', ]}  # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
+        filters = {}  # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
 
-        print(request.GET.get(i) for i in searchFields)
+        res = {
+            "code": 0,
+            "msg": "",
+            "count": "",
+            "data": "",
+        }
 
-        # __icontains 忽略大小写
-        # 通过id筛选数据，id必须是确定的，如果id不存在，那么不将该条件放入
-        if request.GET.get('fk_project_id'):
-            filters['fk_inventory__fk_project__id'] = request.GET.get('fk_project_id')
-        if request.GET.get('fk_stage_id'):
-            filters['fk_inventory__fk_stage__id'] = request.GET.get('fk_stage_id')
-        if request.GET.get('fk_structure_id'):
-            filters['fk_structure_id'] = request.GET.get('fk_structure_id')
-        else:  # 此处应该以部门的方式遍历 该操作缓存表
-            filters['fk_structure'] = Structure.objects.get(name=request.user.department)
+        # res = dict(data=list(AccessDetails.objects.filter(**filters).values(*fields)))
 
-        # 用于处理Rel编号
-        if request.GET.get('relStart') and request.GET.get('relEnd'):
-            filters['fk_inventory__rel__icontains'] = request.GET.get('relEnd').split('-')[0]
-            # 将查询范围内的库存id找出来
-            invIds = []
-            invObjs = Inventory.objects.all()
-            for invObj in invObjs:
-                if int(invObj.rel.split('-')[1]) >= int(request.GET.get('relStart').split('-')[1]) and int(
-                        invObj.rel.split('-')[1]) <= int(request.GET.get('relEnd').split('-')[1]):
-                    invIds.append(invObj.id)
-            filters['fk_inventory__id__in'] = invIds
+        data = serializers.serialize("json", AccessDetails.objects.all().order_by('-date_in', 'id'))
+        count = AccessDetails.objects.all().count()
+        data = json.loads(data)
+        # print('data', data)
+        all_page = []
+        for record in data:
+            record['fields']['pk'] = record['pk']
+            fields = record['fields']
+            all_page.append(fields)
+        '''显示 分页'''
+        # print('all_page', all_page)
+        pageIndex = request.GET.get('pageIndex')  # pageIndex = request.POST.get('pageIndex')
+        pageSize = request.GET.get('pageSize')  # pageSize = request.POST.get('pageSize')
+        pageInator = Paginator(all_page, pageSize)
 
-        elif request.GET.get('relStart'):
-            filters['fk_inventory__rel__icontains'] = request.GET.get('relStart').split('-')[0]
+        contacts = pageInator.page(pageIndex)
 
-            invObjs = Inventory.objects.all()
-            invIds = []
-            for invObj in invObjs:
-                if int(invObj.rel.split('-')[1]) >= int(request.GET.get('relStart').split('-')[1]):
-                    invIds.append(invObj.id)
-            filters['fk_inventory__id__in'] = invIds
+        # print('1', pageIndex)
+        # print('2', pageSize)
+        # print('3', pageInator)
+        # print('4', contacts)
 
-        elif request.GET.get('relEnd'):
-            filters['fk_inventory__rel__icontains'] = request.GET.get('relEnd').split('-')[0]
-            invObjs = Inventory.objects.all()
-            invIds = []
-            for invObj in invObjs:
-                if int(invObj.rel.split('-')[1]) >= int(request.GET.get('relStart').split('-')[1]):
-                    invIds.append(invObj.id)
-            filters['fk_inventory__id__in'] = invIds
-        else:
-            pass
+        list = []  # 最终返回的结果集合
+        for contact in contacts:
+            # print(contact)
+            list.append(contact)
+        res['count'] = count
+        res['data'] = list
+        res['msg'] = True
+        # print(res)
 
-        print('oper', filters)
-
-        # 查询OperateCacheTable所有结果
-        # res = dict(data=list(OperateCacheTable.objects.values(*fields)))
-        res = dict(data=list(OperateCacheTable.objects.filter(**filters).values(*fields)))
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
 
 
 class OperateCacheTableUpdateView(LoginRequiredMixin, View):
-    def get(self, request):
-        res = dict()
+    # def get(self, request):
+    #     res = dict()
+    #
+    #     if 'id' in request.GET and request.GET['id']:
+    #         oct = get_object_or_404(OperateCacheTable, pk=request.GET.get('id'))
+    #         res['oct'] = oct
+    #     else:
+    #         octs = OperateCacheTable.objects.all()
+    #         res['octs'] = octs
+    #
+    #     return render(request, 'dqe/OperateCacheTable/OperateCacheTable_Update.html', res)
 
-        if 'id' in request.GET and request.GET['id']:
-            oct = get_object_or_404(OperateCacheTable, pk=request.GET.get('id'))
-            res['oct'] = oct
-        else:
-            octs = OperateCacheTable.objects.all()
-            res['octs'] = octs
-
-        return render(request, 'dqe/OperateCacheTable/OperateCacheTable_Update.html', res)
+    # def post(self, request):
+    #     res = dict(result=False)
+    #     if 'id' in request.POST and request.POST['id']:  # id的存在，就是为了说明是新增数据还是编辑数据
+    #         oct = get_object_or_404(OperateCacheTable, pk=request.POST.get('id'))
+    #     else:
+    #         oct = OperateCacheTable()
+    #
+    #     oct_create_form = OperateCacheTableCreateForm(request.POST, instance=oct)
+    #
+    #     if oct_create_form.is_valid():
+    #         oct_create_form.save()
+    #         res['result'] = True
+    #
+    #     return HttpResponse(json.dumps(res), content_type='application/json')
 
     def post(self, request):
+        # 获取单条记录到表单
+        # print(111144444)
+        response = serializers.serialize("json", AccessDetails.objects.filter(id=request.POST.get('id')))
+        response = json.loads(response)
+        # print('response', response)
+        return2ajax = {}
+        return2ajax["record"] = response[0]["fields"]
+        # print('return2ajax', return2ajax)
+
+        return HttpResponse(json.dumps(return2ajax, cls=DjangoJSONEncoder), content_type='application/json')
+
+
+# 删除配件库存  批量 删除操作
+class OperateCacheTableDeleteView(LoginRequiredMixin, View):
+    def post(self, request):
         res = dict(result=False)
-        if 'id' in request.POST and request.POST['id']:  # id的存在，就是为了说明是新增数据还是编辑数据
-            oct = get_object_or_404(OperateCacheTable, pk=request.POST.get('id'))
-        else:
-            oct = OperateCacheTable()
+        print('res', request.POST['id'])
+        # data = request.POST.get('id').split(',')
+        # del data[:0]
+        print('11111', request.POST)
 
-        oct_create_form = OperateCacheTableCreateForm(request.POST, instance=oct)
+        if 'id' in request.POST and request.POST['id']:
+            data = request.POST.get('id').split(',')
+            del data[len(data) - 1]
 
-        if oct_create_form.is_valid():
-            oct_create_form.save()
+            id_list = map(int, data)
+
+            for id in id_list:
+                print(id)
+                all_aceess = AccessDetails.objects.filter(id=id)
+                all_aceess.delete()
+
             res['result'] = True
 
         return HttpResponse(json.dumps(res), content_type='application/json')
 
 
-# 操作緩存表 删除操作
-class OperateCacheTableDeleteView(LoginRequiredMixin, View):
+# 单个删除
+class AccessoryDeleteView(LoginRequiredMixin, View):
     def post(self, request):
         res = dict(result=False)
-        id = list(map(int, request.POST.get('id').split(',')))[0]
         if 'id' in request.POST and request.POST['id']:
             id_list = map(int, request.POST.get('id').split(','))
-            OperateCacheTable.objects.filter(id__in=id_list).delete()
+            AccessDetails.objects.filter(id__in=id_list).delete()
             res['result'] = True
 
         return HttpResponse(json.dumps(res), content_type='application/json')
@@ -155,60 +291,49 @@ class OperateCacheTableDeleteView(LoginRequiredMixin, View):
 
 # 申请确认
 # 思路：创建Apply>将ApplyDetail也创建出来>清空操作缓存>库存中的状态变为被申请状态
-class ApplyConfirmView(LoginRequiredMixin, View):
+class AcceselectByOrderIdView(LoginRequiredMixin, View):
+    def get(self, request):
 
-    def post(self, request):
-        print(request.POST.get('id').split(','))
-        res = dict(result=False)
+        res = {
+            "code": 0,
+            "msg": "",
+            "count": "1",
+            "data": "",
+        }
+        orderId = request.GET.get('orderId')
 
-        if 'id' in request.POST and request.POST['id']:
+        if orderId:
+            data = serializers.serialize("json", AccessDetails.objects.filter(sn=orderId).all())
+            print('232', data)
+            data = json.loads(data)
+            print('data------', data)
+            all_page = []
+            for record in data:
+                record['fields']['pk'] = record['pk']
+                fields = record['fields']
+                all_page.append(fields)
+            '''显示 分页'''
+            # print('all_page', all_page)
+            pageIndex = request.GET.get('pageIndex')  # pageIndex = request.POST.get('pageIndex')
+            pageSize = request.GET.get('pageSize')  # pageSize = request.POST.get('pageSize')
+            pageInator = Paginator(all_page, pageSize)
 
-            # 為创建单号做准备
-            id = list(map(int, request.POST.get('id').split(',')))[0]
+            contacts = pageInator.page(pageIndex)
 
-            octObj = OperateCacheTable.objects.get(id=id)
+            # print('1', pageIndex)
+            # print('2', pageSize)
+            # print('3', pageInator)
+            # print('4', contacts)
 
-            invObj0 = Inventory.objects.get(id=octObj.fk_inventory.id)
-
-
-            # 创建一个申请单  申请单号设定为 申请部门 向 确认部门 申请时间
-            apply = Apply()
-            apply.applyNum = str(request.user.department) + "-" + str(invObj0.fk_structure.name) + "-" + str(
-                datetime.datetime.now().strftime('%Y%m%d_%H%M'))
-            apply.applyUser = request.user.username
-            # apply.applyTime 申請時長-当确认后才可计算
-            apply.applyUnit = request.user.department  # 申請單位
-            apply.applyDate = datetime.datetime.now()
-            apply.applyState = 1  # ("1", "待簽核"), ("2", "已簽核")
-            apply.save()
-
-            # 将操作缓存表中的数据 加入 到applydetail
-            id_list = map(int, request.POST.get('id').split(','))
-            print('id_list', id_list)
-            octObjs = OperateCacheTable.objects.filter(id__in=id_list)
-            print(octObjs)
-            for oct in octObjs:
-                ApplyDetail.objects.create(
-                    fk_apply=apply,
-                    fk_inventory=oct.fk_inventory,
-                    # machineState= 默认为未确认
-                    confirmUser=oct.fk_inventory.currRecUser,  # 机台确认人=库存當前接收人
-                    # lendDate = 借出时间，确认时
-                    lendUnit=oct.fk_inventory.fk_structure.name,
-                    # lendtime = 借出时长，确认时加上
-                    # remark = 借出时 加上
-                    macAppState=oct.fk_inventory.state  # 借出前的状态/機台申請前狀態
-                )
-
-                # 申请提单时，改变库存中的状态 变为被申请即可，当确认该单时，那么当前使用部门、当前入库人、当前入库日期都要改
-                oct.fk_inventory.state = 3  # ("1", "入庫"), ("2", "可申請"), ("3", "被申請"), ("4", "出库")
-                oct.fk_inventory.save()
-
-            # 清空该操作缓存 ，因为此处是勾选出来的OperateCacheTable的id,所以不需要查找部门后在滤除
-            octObjs.delete()
-
-            res['result'] = True
+            list = []  # 最终返回的结果集合
+            for contact in contacts:
+                # print(contact)
+                list.append(contact)
+            # res['count'] = count
+            res['data'] = list
+            res['msg'] = True
         else:
-            res['result'] = False
+            res['msg'] = False
+        print('sn1--', res)
 
-        return HttpResponse(json.dumps(res), content_type='application/json')
+        return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')

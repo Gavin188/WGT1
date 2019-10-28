@@ -1,0 +1,2255 @@
+[
+  {
+    "model": "system.menu",
+    "pk": 1,
+    "fields": {
+      "name": "\u7cfb\u7d71",
+      "parent": null,
+      "icon": null,
+      "code": "SYSTEM",
+      "url": "/system/",
+      "number": 1.0
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 2,
+    "fields": {
+      "name": "\u57fa\u7840\u8bbe\u7f6e",
+      "parent": 1,
+      "icon": "fa fa-gg",
+      "code": "SYSTEM-BASIC",
+      "url": null,
+      "number": 1.1
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 3,
+    "fields": {
+      "name": "\u7ec4\u7ec7\u67b6\u6784",
+      "parent": 2,
+      "icon": null,
+      "code": "SYSTEM-BASIC-STRUCTURE",
+      "url": "/system/basic/structure/",
+      "number": 1.11
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 4,
+    "fields": {
+      "name": "\u7ec4\u7ec7\u67b6\u6784\uff1a\u5217\u8868",
+      "parent": 3,
+      "icon": null,
+      "code": "SYSTEM-BASIC-STRUCTURE-LIST",
+      "url": "/system/basic/structure/list/",
+      "number": 1.111
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 5,
+    "fields": {
+      "name": "\u7ec4\u7ec7\u67b6\u6784\uff1a\u521b\u5efa",
+      "parent": 3,
+      "icon": null,
+      "code": "SYSTEM-BASIC-STRUCTURE-CREATE",
+      "url": "/system/basic/structure/create/",
+      "number": 1.112
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 6,
+    "fields": {
+      "name": "\u7ec4\u7ec7\u67b6\u6784\uff1a\u5220\u9664",
+      "parent": 3,
+      "icon": null,
+      "code": "SYSTEM-BASIC-STRUCTURE-DELETE",
+      "url": "/system/basic/structure/delete/",
+      "number": 1.113
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 7,
+    "fields": {
+      "name": "\u7ec4\u7ec7\u67b6\u6784\uff1a\u5173\u8054\u7528\u6237",
+      "parent": 3,
+      "icon": null,
+      "code": "SYSTEM-BASIC-STRUCTURE-ADD_USER",
+      "url": "/system/basic/structure/add_user/",
+      "number": 1.114
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 8,
+    "fields": {
+      "name": "\u7528\u6237\u7ba1\u7406",
+      "parent": 2,
+      "icon": null,
+      "code": "SYSTEM-BASIC-USER",
+      "url": "/system/basic/user/",
+      "number": 1.12
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 9,
+    "fields": {
+      "name": "\u7528\u6237\u7ba1\u7406\uff1a\u5217\u8868",
+      "parent": 8,
+      "icon": null,
+      "code": "SYSTEM-BASIC-USER-LIST",
+      "url": "/system/basic/user/list/",
+      "number": 1.121
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 10,
+    "fields": {
+      "name": "\u7528\u6237\u7ba1\u7406\uff1a\u8be6\u60c5",
+      "parent": 8,
+      "icon": null,
+      "code": "SYSTEM-BASIC-USER-DETAIL",
+      "url": "/system/basic/user/detail/",
+      "number": 1.122
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 11,
+    "fields": {
+      "name": "\u7528\u6237\u7ba1\u7406\uff1a\u4fee\u6539",
+      "parent": 8,
+      "icon": null,
+      "code": "SYSTEM-BASIC-USER-UPDATE",
+      "url": "/system/basic/user/update/",
+      "number": 1.123
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 12,
+    "fields": {
+      "name": "\u7528\u6237\u7ba1\u7406\uff1a\u521b\u5efa",
+      "parent": 8,
+      "icon": null,
+      "code": "SYSTEM-BASIC-USER-CREATE",
+      "url": "/system/basic/user/create/",
+      "number": 1.123
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 13,
+    "fields": {
+      "name": "\u7528\u6237\u7ba1\u7406\uff1a\u5220\u9664",
+      "parent": 8,
+      "icon": null,
+      "code": "SYSTEM-BASIC-USER-DELETE",
+      "url": "/system/basic/user/delete/",
+      "number": 1.124
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 14,
+    "fields": {
+      "name": "\u7528\u6237\u7ba1\u7406\uff1a\u542f\u7528",
+      "parent": 8,
+      "icon": null,
+      "code": "SYSTEM-BASIC-USER-ENABLE",
+      "url": "/system/basic/user/enable/",
+      "number": 1.125
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 15,
+    "fields": {
+      "name": "\u7528\u6237\u7ba1\u7406\uff1a\u7981\u7528",
+      "parent": 8,
+      "icon": null,
+      "code": "SYSTEM-BASIC-USER-DISABLE",
+      "url": "/system/basic/user/disable/",
+      "number": 1.126
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 16,
+    "fields": {
+      "name": "\u7528\u6237\u7ba1\u7406\uff1a\u4fee\u6539\u5bc6\u7801",
+      "parent": 8,
+      "icon": null,
+      "code": "SYSTEM-BASIC-USER-PASSWORD_CHANGE",
+      "url": "/system/basic/user/password_change/",
+      "number": 1.127
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 17,
+    "fields": {
+      "name": "\u6743\u9650\u7ba1\u7406",
+      "parent": 1,
+      "icon": "fa fa-user-plus",
+      "code": "SYSTEM-RBAC",
+      "url": null,
+      "number": 1.2
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 18,
+    "fields": {
+      "name": "\u83dc\u5355\u7ba1\u7406",
+      "parent": 17,
+      "icon": null,
+      "code": "SYSTEM-RBAC-MENU",
+      "url": "/system/rbac/menu/",
+      "number": 1.21
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 19,
+    "fields": {
+      "name": "\u83dc\u5355\u7ba1\u7406\uff1a\u521b\u5efa",
+      "parent": 18,
+      "icon": null,
+      "code": "SYSTEM-RBAC-MENU-CREATE",
+      "url": "/system/rbac/menu/create/",
+      "number": 1.211
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 20,
+    "fields": {
+      "name": "\u83dc\u5355\u7ba1\u7406\uff1a\u4fee\u6539",
+      "parent": 18,
+      "icon": null,
+      "code": "SYSTEM-RBAC-MENU-UPDATE",
+      "url": "/system/rbac/menu/update/",
+      "number": 1.213
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 21,
+    "fields": {
+      "name": "\u89d2\u8272\u7ba1\u7406",
+      "parent": 17,
+      "icon": null,
+      "code": "SYSTEM-RBAC-ROLE",
+      "url": "/system/rbac/role/",
+      "number": 1.22
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 22,
+    "fields": {
+      "name": "\u89d2\u8272\u7ba1\u7406\uff1a\u5217\u8868",
+      "parent": 21,
+      "icon": null,
+      "code": "SYSTEM-RBAC-ROLE-LIST",
+      "url": "/system/rbac/role/list/",
+      "number": 1.221
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 23,
+    "fields": {
+      "name": "\u89d2\u8272\u7ba1\u7406\uff1a\u521b\u5efa",
+      "parent": 21,
+      "icon": null,
+      "code": "SYSTEM-RBAC-ROLE-CREATE",
+      "url": "/system/rbac/role/create/",
+      "number": 1.222
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 24,
+    "fields": {
+      "name": "\u89d2\u8272\u7ba1\u7406\uff1a\u4fee\u6539",
+      "parent": 21,
+      "icon": null,
+      "code": "SYSTEM-RBAC-ROLE-UPDATE",
+      "url": "/system/rbac/role/update/",
+      "number": 1.223
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 25,
+    "fields": {
+      "name": "\u89d2\u8272\u7ba1\u7406\uff1a\u5220\u9664",
+      "parent": 21,
+      "icon": null,
+      "code": "SYSTEM-RBAC-ROLE-DELETE",
+      "url": "/system/rbac/role/delete/",
+      "number": 1.224
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 26,
+    "fields": {
+      "name": "\u89d2\u8272\u7ba1\u7406\uff1a\u5173\u8054\u83dc\u5355",
+      "parent": 21,
+      "icon": null,
+      "code": "SYSTEM-RBAC-ROLE-ROLE2MENU",
+      "url": "/system/rbac/role/role2menu/",
+      "number": 1.225
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 27,
+    "fields": {
+      "name": "\u89d2\u8272\u7ba1\u7406\uff1a\u83dc\u5355\u5217\u8868",
+      "parent": 21,
+      "icon": null,
+      "code": "SYSTEM-RBAC-ROLE-ROLE2MENU_LIST",
+      "url": "/system/rbac/role/role2menu_list/",
+      "number": 1.226
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 28,
+    "fields": {
+      "name": "\u89d2\u8272\u7ba1\u7406\uff1a\u5173\u8054\u7528\u6237",
+      "parent": 21,
+      "icon": null,
+      "code": "SYSTEM-RBAC-ROLE-ROLE2USER",
+      "url": "/system/rbac/role/role2user/",
+      "number": 1.227
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 29,
+    "fields": {
+      "name": "\u6d41\u7a0b\u63a7\u5236",
+      "parent": null,
+      "icon": null,
+      "code": "DQE",
+      "url": "/dqe/",
+      "number": 2.0
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 30,
+    "fields": {
+      "name": "\u7269\u6599\u7ba1\u7406",
+      "parent": 29,
+      "icon": "glyphicon glyphicon-home",
+      "code": "DQE-IM",
+      "url": null,
+      "number": 2.1
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 31,
+    "fields": {
+      "name": "\u5eab\u5b58\uff1a\u5217\u8868",
+      "parent": 34,
+      "icon": null,
+      "code": "DQE-IM-INVENTORY-LIST",
+      "url": "/dqe/inventory/list",
+      "number": 2.111
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 32,
+    "fields": {
+      "name": "\u5eab\u5b58\uff1a\u4fee\u6539",
+      "parent": 34,
+      "icon": null,
+      "code": "DQE-IM-INVENTORY-UPDATE",
+      "url": "/dqe/inventory/update",
+      "number": 2.112
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 33,
+    "fields": {
+      "name": "\u5eab\u5b58\uff1a\u6279\u91cf\u522a\u9664",
+      "parent": 34,
+      "icon": null,
+      "code": "DQE-IM-INVENTORY-DELETE",
+      "url": "/dqe/inventory/delete",
+      "number": 2.113
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 34,
+    "fields": {
+      "name": "\u673a\u53f0\u5eab\u5b58",
+      "parent": 30,
+      "icon": null,
+      "code": "DQE-IM-IPADDETAILS",
+      "url": "/dqe/inventory/",
+      "number": 2.11
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 35,
+    "fields": {
+      "name": "\u5eab\u5b58\uff1a\u5355\u4e2a\u5220\u9664",
+      "parent": 34,
+      "icon": null,
+      "code": "DQE-IM-INVENTORY-ONEDELETE",
+      "url": "/dqe/inventory/onedelete",
+      "number": 2.114
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 36,
+    "fields": {
+      "name": "\u914d\u4ef6\u5eab\u5b58",
+      "parent": 30,
+      "icon": null,
+      "code": "DQE-IM-OCT",
+      "url": "/dqe/oct/",
+      "number": 2.13
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 37,
+    "fields": {
+      "name": "\u914d\u4ef6\u5eab\u5b58\uff1a\u5217\u8868",
+      "parent": 36,
+      "icon": null,
+      "code": "DQE-IM-OCT-LIST",
+      "url": "/dqe/oct/list",
+      "number": 2.131
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 38,
+    "fields": {
+      "name": "\u914d\u4ef6\u5eab\u5b58\uff1a\u4fee\u6539",
+      "parent": 36,
+      "icon": null,
+      "code": "DQE-IM-OCT-UPDATE",
+      "url": "/dqe/oct/update",
+      "number": 2.132
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 39,
+    "fields": {
+      "name": "\u914d\u4ef6\u5eab\u5b58\uff1a\u6279\u91cf\u522a\u9664",
+      "parent": 36,
+      "icon": null,
+      "code": "DQE-IM-OCT-DELETE",
+      "url": "/dqe/oct/delete",
+      "number": 2.134
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 40,
+    "fields": {
+      "name": "\u7269\u6599\u7533\u8bf7",
+      "parent": 29,
+      "icon": "glyphicon glyphicon-retweet",
+      "code": "DQE-MT",
+      "url": null,
+      "number": 2.2
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 41,
+    "fields": {
+      "name": "\u9700\u6c42\u7533\u8bf7",
+      "parent": 29,
+      "icon": "glyphicon glyphicon-briefcase",
+      "code": "OVERTIME-OV",
+      "url": null,
+      "number": 2.4
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 42,
+    "fields": {
+      "name": "\u8bf7\u5047\u7533\u8bf7\u5355",
+      "parent": 41,
+      "icon": null,
+      "code": "OVERTIME-OV-ABNORMAL-LIST",
+      "url": "/dqe/overtime/ov/abnormal/list",
+      "number": 2.41
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 43,
+    "fields": {
+      "name": "\u5f02\u5e38\u7533\u8bf7\u5355",
+      "parent": 41,
+      "icon": null,
+      "code": "OVERTIME-OV-ABSENT-LIST",
+      "url": "/dqe/overtime/ov/absent/list",
+      "number": 2.42
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 44,
+    "fields": {
+      "name": "\u52a0\u73ed\u7533\u8bf7\u5355",
+      "parent": 41,
+      "icon": null,
+      "code": "OVERTIME-OV-TIME-LIST",
+      "url": "/dqe/overtime/ov/time/list",
+      "number": 2.43
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 45,
+    "fields": {
+      "name": "\u7269\u6599\u7533\u8acb\u55ae",
+      "parent": 40,
+      "icon": null,
+      "code": "DQE-MT-APPLYDETAIL",
+      "url": "/dqe/mt/applydetail/",
+      "number": 2.22
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 46,
+    "fields": {
+      "name": "\u7533\u8acb\u8a73\u60c5\uff1a\u5217\u8868",
+      "parent": 45,
+      "icon": null,
+      "code": "DQE-MT-APPLYDETAIL-LIST",
+      "url": "/dqe/mt/applydetail/list",
+      "number": 2.221
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 47,
+    "fields": {
+      "name": "\u7533\u8acb\u8a73\u60c5\uff1a\u4fee\u6539",
+      "parent": 45,
+      "icon": null,
+      "code": "DQE-MT-APPLYDETAIL-UPDATE",
+      "url": "/dqe/mt/applydetail/update",
+      "number": 2.222
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 48,
+    "fields": {
+      "name": "\u7533\u8acb\u8a73\u60c5\uff1a\u522a\u9664",
+      "parent": 45,
+      "icon": null,
+      "code": "DQE-MT-APPLYDETAIL-DELETE",
+      "url": "/dqe/mt/applydetail/delete",
+      "number": 2.223
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 49,
+    "fields": {
+      "name": "\u7533\u8bf7\u5355\u8be6\u60c5",
+      "parent": 41,
+      "icon": null,
+      "code": "OVERTIME-OV-APPLY-LIST",
+      "url": "/dqe/overtime/ov/apply/list",
+      "number": 2.44
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 50,
+    "fields": {
+      "name": "\u5eab\u5b58-\u67e5\u8be2SN",
+      "parent": 34,
+      "icon": null,
+      "code": "DQE-IM-ORDER-SELECTBYORDERLD",
+      "url": "/dqe/order/selectByOrderId",
+      "number": 2.116
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 51,
+    "fields": {
+      "name": "\u501f\u5165\u7533\u8acb",
+      "parent": 40,
+      "icon": null,
+      "code": "DQE-MT-BORROWAPPLY",
+      "url": "/dqe/mt/borrowapply/",
+      "number": 2.23
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 52,
+    "fields": {
+      "name": "\u501f\u5165\u7533\u8acb\uff1a\u5217\u8868",
+      "parent": 51,
+      "icon": null,
+      "code": "DQE-MT-BORROWAPPLY-LIST",
+      "url": "/dqe/mt/borrowapply/list",
+      "number": 2.231
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 53,
+    "fields": {
+      "name": "\u914d\u4ef6\u501f\u5165\uff1a\u8be6\u60c5",
+      "parent": 52,
+      "icon": null,
+      "code": "DQE-MT-ACCESSLIST-DETAIL",
+      "url": "/dqe/mt/accesslist/detail",
+      "number": 2.233
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 54,
+    "fields": {
+      "name": "\u501f\u51fa\u78ba\u8a8d",
+      "parent": 40,
+      "icon": null,
+      "code": "DQE-MT-LOANCONFIRM",
+      "url": "/dqe/mt/loanconfirm/",
+      "number": 2.24
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 55,
+    "fields": {
+      "name": "IPad\u501f\u5165\uff1a\u8be6\u60c5",
+      "parent": 52,
+      "icon": null,
+      "code": "DQE-MT-APPLYLIST-DETAIL",
+      "url": "/dqe/mt/applylist/detail",
+      "number": 2.232
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 56,
+    "fields": {
+      "name": "\u501f\u51fa\u78ba\u8a8d\uff1a\u5217\u8868",
+      "parent": 54,
+      "icon": null,
+      "code": "DQE-MT-LOANCONFIRM-LIST",
+      "url": "/dqe/mt/loanconfirm/list",
+      "number": 2.241
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 57,
+    "fields": {
+      "name": "\u501f\u51fa\u78ba\u8a8d\uff1aIPAD\u8a73\u60c5",
+      "parent": 56,
+      "icon": null,
+      "code": "DQE-MT-LOANCONFIRM-DETAIL",
+      "url": "/dqe/mt/loanconfirm/detail",
+      "number": 2.242
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 58,
+    "fields": {
+      "name": "\u501f\u51fa\u78ba\u8a8d\uff1aIPAD\u5217\u8868",
+      "parent": 57,
+      "icon": null,
+      "code": "DQE-MT-LOANCONFIRMDETAIL-LIST",
+      "url": "/dqe/mt/loanconfirmdetail/list",
+      "number": 2.2421
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 59,
+    "fields": {
+      "name": "\u4fe1\u606f\u67e5\u8a62",
+      "parent": 29,
+      "icon": "glyphicon glyphicon-search",
+      "code": "DQE-IS",
+      "url": null,
+      "number": 2.3
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 60,
+    "fields": {
+      "name": "\u6a5f\u53f0\u72c0\u614b\u67e5\u8a62",
+      "parent": 59,
+      "icon": null,
+      "code": "DQE-IS-MACHINESTATUSQUERY",
+      "url": "/dqe/is/machineStatusQuery/",
+      "number": 2.31
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 61,
+    "fields": {
+      "name": "\u6a5f\u53f0\u72c0\u614b\u67e5\u8a62\uff1a\u5217\u8868",
+      "parent": 60,
+      "icon": null,
+      "code": "DQE-IS-MACHINESTATUSQUERY-LIST",
+      "url": "/dqe/is/machineStatusQuery/list",
+      "number": 2.311
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 62,
+    "fields": {
+      "name": "\u603b\u89c8\u7533\u8bf7\u5355",
+      "parent": 41,
+      "icon": null,
+      "code": "OVERTIME-OV-APPLYLEADER-LIST",
+      "url": "/dqe/overtime/ov/applyleader/list",
+      "number": 2.45
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 63,
+    "fields": {
+      "name": "\u673a\u53f0\u914d\u4ef6\uff1a\u7533\u8bf7",
+      "parent": 40,
+      "icon": null,
+      "code": "DQE-IM-INVENTORY",
+      "url": "/dqe/accessoryinventory/",
+      "number": 2.21
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 64,
+    "fields": {
+      "name": "\u501f\u51fa\u78ba\u8a8d\uff1a\u914d\u4ef6\u8be6\u60c5",
+      "parent": 56,
+      "icon": null,
+      "code": "DQE-MT-LOANCONFIRMACCESS-DETAIL",
+      "url": "/dqe/mt/loanconfirmaccess/detail",
+      "number": 2.243
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 65,
+    "fields": {
+      "name": "ipad\u501f\u51fa\u78ba\u8a8d\uff1a\u4e34\u65f6\u8868",
+      "parent": 57,
+      "icon": null,
+      "code": "DQE-MT-LOANIPADDETAIL-LIST",
+      "url": "/dqe/mt/loanipaddetail/list",
+      "number": 2.2422
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 66,
+    "fields": {
+      "name": "IPad\u4e34\u65f6\u8868\uff1a\u786e\u8ba4\u501f\u51fa",
+      "parent": 65,
+      "icon": null,
+      "code": "DQE-MT-LOANCONFIRMIPADLIST-CONFIRM",
+      "url": "/dqe/mt/loanconfirmipadlist/confirm",
+      "number": 2.24221
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 67,
+    "fields": {
+      "name": "\u914d\u4ef6\u501f\u51fa\u78ba\u8a8d\uff1a\u624b\u52a8SN",
+      "parent": 104,
+      "icon": null,
+      "code": "DQE-MT-HANDAPPLY",
+      "url": "/dqe/mt/handApply",
+      "number": 2.24312
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 68,
+    "fields": {
+      "name": "\u6a5f\u53f0\u72c0\u614b\u67e5\u8a62\uff1a\u8be6\u60c5",
+      "parent": 60,
+      "icon": null,
+      "code": "DQE-IS-MACHINESTATUSQUERY-DETAIL",
+      "url": "/dqe/is/machineStatusQuery/detail",
+      "number": 2.312
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 69,
+    "fields": {
+      "name": "\u5eab\u5b58\uff1a\u51fa\u5eab",
+      "parent": 34,
+      "icon": null,
+      "code": "DQE-IM-INVENTORY-OUT",
+      "url": "/dqe/inventory/out",
+      "number": null
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 70,
+    "fields": {
+      "name": "\u6a5f\u53f0\u72c0\u614b\u67e5\u8a62\uff1a\u6b77\u53f2\u8a18\u9304",
+      "parent": 61,
+      "icon": null,
+      "code": "DQE-IS-MACHINESTATUSQUERY-DETAIL-LIST",
+      "url": "/dqe/is/machineStatusQuery/detail/list",
+      "number": 2.314
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 71,
+    "fields": {
+      "name": "\u6d4b\u8bd5\u5e73\u53f0",
+      "parent": 2,
+      "icon": null,
+      "code": "SYSTEM-BASIC-PROJECT",
+      "url": "/system/basic/project/",
+      "number": 1.13
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 72,
+    "fields": {
+      "name": "\u4e13\u6848\uff1a\u5217\u8868",
+      "parent": 71,
+      "icon": null,
+      "code": "SYSTEM-BASIC-PROJECT-LIST",
+      "url": "/system/basic/project/list",
+      "number": 1.131
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 73,
+    "fields": {
+      "name": "\u4e13\u6848\uff1a\u4fee\u6539",
+      "parent": 71,
+      "icon": null,
+      "code": "SYSTEM-BASIC-PROJECT-UPDATE",
+      "url": "/system/basic/project/update",
+      "number": 1.132
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 74,
+    "fields": {
+      "name": "\u4e13\u6848\uff1a\u5220\u9664",
+      "parent": 71,
+      "icon": null,
+      "code": "SYSTEM-BASIC-PROJECT-DELETE",
+      "url": "/system/basic/project/delete",
+      "number": 1.133
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 75,
+    "fields": {
+      "name": "\u4e13\u6848\u9636\u6bb5",
+      "parent": 2,
+      "icon": null,
+      "code": "SYSTEM-BASIC-STAGE",
+      "url": "/system/basic/stage/",
+      "number": 1.14
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 76,
+    "fields": {
+      "name": "\u9636\u6bb5\uff1a\u5217\u8868",
+      "parent": 75,
+      "icon": null,
+      "code": "SYSTEM-BASIC-STAGE-LIST",
+      "url": "/system/basic/stage/list",
+      "number": 1.141
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 77,
+    "fields": {
+      "name": "\u9636\u6bb5\uff1a\u4fee\u6539",
+      "parent": 75,
+      "icon": null,
+      "code": "SYSTEM-BASIC-STAGE-UPDATE",
+      "url": "/system/basic/stage/update",
+      "number": 1.142
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 78,
+    "fields": {
+      "name": "\u9636\u6bb5\uff1a\u5220\u9664",
+      "parent": 75,
+      "icon": null,
+      "code": "SYSTEM-BASIC-STAGE-DELETE",
+      "url": "/system/basic/stage/delete",
+      "number": 1.143
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 79,
+    "fields": {
+      "name": "\u516c\u544a\u8a2d\u5b9a",
+      "parent": 2,
+      "icon": null,
+      "code": "SYSTEM-BASIC-NOTICE",
+      "url": "/system/basic/notice/",
+      "number": 1.15
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 80,
+    "fields": {
+      "name": "\u516c\u544a\u8a2d\u5b9a\uff1a\u5217\u8868",
+      "parent": 79,
+      "icon": null,
+      "code": "SYSTEM-BASIC-NOTICE-LIST",
+      "url": "/system/basic/notice/list",
+      "number": 1.151
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 81,
+    "fields": {
+      "name": "\u516c\u544a\u8a2d\u5b9a\uff1a\u4fee\u6539",
+      "parent": 79,
+      "icon": null,
+      "code": "SYSTEM-BASIC-NOTICE-UPDATE",
+      "url": "/system/basic/notice/update",
+      "number": 1.152
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 82,
+    "fields": {
+      "name": "\u516c\u544a\u8a2d\u5b9a\uff1a\u522a\u9664",
+      "parent": 79,
+      "icon": null,
+      "code": "SYSTEM-BASIC-NOTICE-DELETE",
+      "url": "/system/basic/notice/delete",
+      "number": 1.153
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 83,
+    "fields": {
+      "name": "\u7528\u6237\u7ba1\u7406\uff1a\u4e2a\u4eba\u4e2d\u5fc3",
+      "parent": 3,
+      "icon": null,
+      "code": "SYSTEM-BASIC-USER-USER_INFO",
+      "url": "/system/basic/user/user_info/",
+      "number": null
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 84,
+    "fields": {
+      "name": "\u7528\u6237\u7ba1\u7406\uff1a\u4fee\u6539\u5bc6\u7801\u4e2a\u4eba",
+      "parent": 3,
+      "icon": null,
+      "code": "SYSTEM-BASIC-PASSWORDCHANGE",
+      "url": "/system/basic/user/passwordchange/",
+      "number": null
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 85,
+    "fields": {
+      "name": "\u5e93\u5b58\uff1a\u65b0\u589e\u673a\u53f0",
+      "parent": 34,
+      "icon": null,
+      "code": "DQE-IM-INVENTORY-INSERT",
+      "url": "/dqe/inventory/insert",
+      "number": 2.115
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 86,
+    "fields": {
+      "name": "ipad\u501f\u51fa\u786e\u8ba4\uff1a\u624b\u52a8\u6dfb\u52a0",
+      "parent": 58,
+      "icon": null,
+      "code": "DQE-MT-INVENTORY-HANDAPPLY",
+      "url": "/dqe/mt/inventory/handApply",
+      "number": 2.24212
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 87,
+    "fields": {
+      "name": "\u914d\u4ef6\u501f\u51fa\u786e\u8ba4\uff1a\u4e34\u65f6\u8868",
+      "parent": 64,
+      "icon": null,
+      "code": "DQE-MT-LOANACCESSDETAIL-LIST",
+      "url": "/dqe/mt/loanaccessdetail/list",
+      "number": 2.2432
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 88,
+    "fields": {
+      "name": "\u501f\u5165\u7533\u8acb\uff1a\u522a\u9664",
+      "parent": 51,
+      "icon": null,
+      "code": "DQE-MT-BORROWAPPLY-DELETE",
+      "url": "/dqe/mt/borrowapply/delete",
+      "number": 2.234
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 89,
+    "fields": {
+      "name": "\u52a0\u73ed\u7ba1\u63a7",
+      "parent": 2,
+      "icon": null,
+      "code": "SYSTEM-BASIC-PRODTYPE",
+      "url": "/system/basic/prodtype/",
+      "number": 1.16
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 90,
+    "fields": {
+      "name": "\u52a0\u73ed\u7ba1\u63a7\uff1a\u5217\u8868",
+      "parent": 89,
+      "icon": null,
+      "code": "SYSTEM-BASIC-PRODTYPE-LIST",
+      "url": "/system/basic/prodtype/list",
+      "number": 1.161
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 91,
+    "fields": {
+      "name": "\u52a0\u73ed\u7ba1\u63a7\uff1a\u4fee\u6539",
+      "parent": 89,
+      "icon": null,
+      "code": "SYSTEM-BASIC-PRODTYPE-UPDATE",
+      "url": "/system/basic/prodtype/update",
+      "number": 1.162
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 92,
+    "fields": {
+      "name": "\u52a0\u73ed\u7ba1\u63a7\uff1a\u522a\u9664",
+      "parent": 89,
+      "icon": null,
+      "code": "SYSTEM-BASIC-PRODTYPE-DELETE",
+      "url": "/system/basic/prodtype/delete",
+      "number": 1.163
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 93,
+    "fields": {
+      "name": "\u4e13\u6848\u9636\u6bb5\uff1a\u8054\u52a8",
+      "parent": 75,
+      "icon": null,
+      "code": "SYSTEM-BASIC-PROJECT-STAGE",
+      "url": "/system/basic/project/stage",
+      "number": 1.144
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 94,
+    "fields": {
+      "name": "Ipad\u501f\u51fa\u786e\u8ba4\uff1a\u6383\u78bc\u7533\u8acb",
+      "parent": 58,
+      "icon": null,
+      "code": "DQE-MT-INVENTORY-SCANAPPLY",
+      "url": "/dqe/mt/inventory/scanApply",
+      "number": 2.24211
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 95,
+    "fields": {
+      "name": "\u673a\u53f0\u5165\u5e93",
+      "parent": 60,
+      "icon": null,
+      "code": "DQE-INVENTORY-IN",
+      "url": "/dqe/inventory/in",
+      "number": 2.313
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 96,
+    "fields": {
+      "name": "\u673a\u53f0\u72b6\u6001\u67e5\u8be2\uff1aReset\u8bb0\u5f55",
+      "parent": 61,
+      "icon": null,
+      "code": "DQE-IS-MACHINESTATUSQUERY-RESET-LIST",
+      "url": "/dqe/is/machineStatusQuery/reset/list",
+      "number": 2.3121
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 97,
+    "fields": {
+      "name": "\u7248\u672c\u7c7b\u578b",
+      "parent": 2,
+      "icon": null,
+      "code": "SYSTEM-BASIC-FUSED",
+      "url": "/system/basic/fused/",
+      "number": 1.17
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 98,
+    "fields": {
+      "name": "\u7248\u672c\u7c7b\u578b\uff1a\u5217\u8868",
+      "parent": 97,
+      "icon": null,
+      "code": "SYSTEM-BASIC-FUSED-LIST",
+      "url": "/system/basic/fused/list",
+      "number": 1.171
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 99,
+    "fields": {
+      "name": "\u7248\u672c\u7c7b\u578b\uff1a\u66f4\u65b0",
+      "parent": 97,
+      "icon": null,
+      "code": "SYSTEM-BASIC-FUSED-UPDATE",
+      "url": "/system/basic/fused/update",
+      "number": 1.172
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 100,
+    "fields": {
+      "name": "\u7248\u672c\u7c7b\u578b\uff1a\u5220\u9664",
+      "parent": 97,
+      "icon": null,
+      "code": "SYSTEM-BASIC-FUSED-DELETE",
+      "url": "/system/basic/fused/delete",
+      "number": 1.173
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 101,
+    "fields": {
+      "name": "\u673a\u53f0\u914d\u4ef6\uff1a\u5217\u8868",
+      "parent": 63,
+      "icon": null,
+      "code": "DQE-IM-INVENTORY-LIST",
+      "url": "/dqe/accessoryinventory/list",
+      "number": 2.211
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 102,
+    "fields": {
+      "name": "\u914d\u4ef6\u5e93\u5b58\uff1a\u5220\u9664",
+      "parent": 36,
+      "icon": null,
+      "code": "DQE-IM-OCT-ONEDELETE",
+      "url": "/dqe/oct/onedelete",
+      "number": 2.135
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 103,
+    "fields": {
+      "name": "\u914d\u4ef6\u5e93\u5b58\uff1a\u67e5\u627eSN",
+      "parent": 36,
+      "icon": null,
+      "code": "DQE-IM-OCT-SELECTBYORDERID",
+      "url": "/dqe/oct/selectByOrderId",
+      "number": 2.136
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 104,
+    "fields": {
+      "name": "\u501f\u51fa\u786e\u8ba4\uff1a\u914d\u4ef6\u5217\u8868",
+      "parent": 64,
+      "icon": null,
+      "code": "DQE-MT-LOANCONFIRMACCESS-LIST",
+      "url": "/dqe/mt/loanconfirmaccess/list",
+      "number": 2.2431
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 105,
+    "fields": {
+      "name": "Ipad\u4e34\u65f6\u8868\uff1a\u9009\u62e9\u5220\u9664",
+      "parent": 65,
+      "icon": null,
+      "code": "DQE-MT-LOANIPAD-DELETE",
+      "url": "/dqe/mt/loanipad/delete",
+      "number": 2.24222
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 106,
+    "fields": {
+      "name": "Ipad\u4e34\u65f6\u8868\uff1a\u9009\u62e9\u9000\u8fd8",
+      "parent": 65,
+      "icon": null,
+      "code": "DQE-MT-LOANCONFIRMDETAIL-RETURN",
+      "url": "/dqe/mt/loanconfirmdetail/return",
+      "number": 2.24223
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 107,
+    "fields": {
+      "name": "IPad\u4e34\u65f6\u8868\uff1a\u626b\u7801\u9000\u8fd8",
+      "parent": 65,
+      "icon": null,
+      "code": "DQE-MT-INVENTORY-SCANRETURN",
+      "url": "/dqe/mt/inventory/scanReturn",
+      "number": 2.24224
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 108,
+    "fields": {
+      "name": "\u914d\u4ef6\u4e34\u65f6\u8868\uff1a\u786e\u8ba4\u501f\u51fa",
+      "parent": 87,
+      "icon": null,
+      "code": "DQE-MT-LOANCONFIRMACCESSLIST-CONFIRM",
+      "url": "/dqe/mt/loanconfirmaccesslist/confirm",
+      "number": 2.24321
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 109,
+    "fields": {
+      "name": "\u914d\u4ef6\u4e34\u65f6\u8868\uff1a\u9009\u62e9\u5220\u9664",
+      "parent": 87,
+      "icon": null,
+      "code": "DQE-MT-LOANACCESS-DELETE",
+      "url": "/dqe/mt/loanaccess/delete",
+      "number": 2.24322
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 110,
+    "fields": {
+      "name": "\u914d\u4ef6\u4e34\u65f6\u8868\uff1a\u9009\u62e9\u9000\u8fd8",
+      "parent": 87,
+      "icon": null,
+      "code": "DQE-MT-LOANACCESS-RETURN",
+      "url": "/dqe/mt/loanaccess/return",
+      "number": 2.24323
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 111,
+    "fields": {
+      "name": "\u914d\u4ef6\u4e34\u65f6\u8868\uff1aSN\u9000\u8fd8",
+      "parent": 87,
+      "icon": null,
+      "code": "DQE-MT-LOANACCESS-HAND",
+      "url": "/dqe/mt/loanaccess/hand",
+      "number": 2.24324
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 112,
+    "fields": {
+      "name": "\u501f\u51fa\u786e\u8ba4\uff1a\u6d88\u606f\u901a\u77e5",
+      "parent": 54,
+      "icon": null,
+      "code": "DQE-MT-LOANCONFIRM-MESSAGE",
+      "url": "/dqe/mt/loanconfirm/message",
+      "number": 2.244
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 113,
+    "fields": {
+      "name": "Ipad\u8be6\u60c5\uff1a\u5217\u8868",
+      "parent": 55,
+      "icon": null,
+      "code": "DQE-MT-APPLYLISTDETAIL-LIST",
+      "url": "/dqe/mt/applylistdetail/list",
+      "number": 2.2321
+    }
+  },
+  {
+    "model": "system.menu",
+    "pk": 114,
+    "fields": {
+      "name": "\u914d\u4ef6\u8be6\u60c5\uff1a\u5217\u8868",
+      "parent": 53,
+      "icon": null,
+      "code": "DQE-MT-ACCESSDETAIL-LIST",
+      "url": "/dqe/mt/accessdetail/list",
+      "number": 2.2331
+    }
+  },
+  {
+    "model": "system.role",
+    "pk": 1,
+    "fields": {
+      "name": "admin",
+      "desc": null,
+      "permissions": [
+        84,
+        69,
+        83,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        11,
+        13,
+        14,
+        15,
+        16,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        93,
+        79,
+        80,
+        81,
+        82,
+        89,
+        90,
+        91,
+        92,
+        97,
+        98,
+        99,
+        100,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        34,
+        31,
+        32,
+        33,
+        35,
+        85,
+        50,
+        36,
+        37,
+        38,
+        39,
+        102,
+        103,
+        40,
+        63,
+        101,
+        45,
+        46,
+        47,
+        48,
+        51,
+        52,
+        55,
+        113,
+        53,
+        114,
+        88,
+        54,
+        56,
+        57,
+        58,
+        94,
+        86,
+        65,
+        66,
+        105,
+        106,
+        107,
+        64,
+        104,
+        67,
+        87,
+        108,
+        109,
+        110,
+        111,
+        112,
+        59,
+        60,
+        61,
+        68,
+        96,
+        95,
+        70,
+        41,
+        42,
+        43,
+        44,
+        49,
+        62
+      ]
+    }
+  },
+  {
+    "model": "system.role",
+    "pk": 2,
+    "fields": {
+      "name": "\u6d4b\u8bd5\u5de5\u7a0b\u5e08",
+      "desc": "\u6d4b\u8bd5\u8ba1\u5212\u67e5\u8be2",
+      "permissions": [
+        83,
+        84,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        11,
+        13,
+        14,
+        15,
+        16,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        93,
+        79,
+        80,
+        81,
+        82,
+        89,
+        90,
+        91,
+        92,
+        97,
+        98,
+        99,
+        100,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    }
+  },
+  {
+    "model": "system.role",
+    "pk": 3,
+    "fields": {
+      "name": "\u6d4b\u8bd5\u6392\u914d\u4eba\u5458",
+      "desc": "\u6392\u914d\u6d4b\u8bd5\u8ba1\u5212/\u67e5\u8be2",
+      "permissions": [
+        83,
+        84,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        11,
+        13,
+        14,
+        15,
+        16,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        93,
+        79,
+        80,
+        81,
+        82,
+        89,
+        90,
+        91,
+        92,
+        97,
+        98,
+        99,
+        100,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    }
+  },
+  {
+    "model": "system.role",
+    "pk": 4,
+    "fields": {
+      "name": "\u4ed3\u7ba1",
+      "desc": "\u673a\u53f0\u4fe1\u606f\u7ba1\u7406",
+      "permissions": [
+        84,
+        69,
+        83,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        11,
+        13,
+        14,
+        15,
+        16,
+        29,
+        30,
+        34,
+        31,
+        32,
+        33,
+        35,
+        85,
+        50,
+        36,
+        37,
+        38,
+        39,
+        102,
+        103,
+        40,
+        63,
+        101,
+        45,
+        46,
+        47,
+        48,
+        51,
+        52,
+        55,
+        113,
+        53,
+        114,
+        88,
+        54,
+        56,
+        57,
+        58,
+        94,
+        86,
+        65,
+        66,
+        105,
+        106,
+        107,
+        64,
+        104,
+        67,
+        87,
+        108,
+        109,
+        110,
+        111,
+        112,
+        59,
+        60,
+        61,
+        68,
+        96,
+        95,
+        70,
+        41,
+        42,
+        43,
+        44,
+        49,
+        62
+      ]
+    }
+  },
+  {
+    "model": "system.structure",
+    "pk": 1,
+    "fields": {
+      "name": "Group1",
+      "type": "department",
+      "parent": 6
+    }
+  },
+  {
+    "model": "system.structure",
+    "pk": 2,
+    "fields": {
+      "name": "Group2",
+      "type": "department",
+      "parent": 6
+    }
+  },
+  {
+    "model": "system.structure",
+    "pk": 3,
+    "fields": {
+      "name": "Group3",
+      "type": "department",
+      "parent": 6
+    }
+  },
+  {
+    "model": "system.structure",
+    "pk": 4,
+    "fields": {
+      "name": "Group4",
+      "type": "department",
+      "parent": 6
+    }
+  },
+  {
+    "model": "system.structure",
+    "pk": 5,
+    "fields": {
+      "name": "Leader",
+      "type": "department",
+      "parent": 6
+    }
+  },
+  {
+    "model": "system.structure",
+    "pk": 6,
+    "fields": {
+      "name": "WGT",
+      "type": "unit",
+      "parent": null
+    }
+  },
+  {
+    "model": "system.structure",
+    "pk": 7,
+    "fields": {
+      "name": "\u4ed3\u7ba1",
+      "type": "department",
+      "parent": 6
+    }
+  },
+  {
+    "model": "system.userprofile",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$7d2PpXGR8VaL$aSH+bus2hcqXko43dumx28a+d0aKLYBUZ5a5pRJaU3s=",
+      "last_login": "2019-08-06T16:46:58.723",
+      "is_superuser": false,
+      "username": "venna",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-06-20T14:29:42.755",
+      "name": "\u90ed\u6587\u5a1c",
+      "birthday": "2019-06-11",
+      "gender": "female",
+      "mobile": "13842658965",
+      "email": "5645645@qq.com",
+      "image": "image/default.jpg",
+      "department": 5,
+      "post": "pm",
+      "superior": null,
+      "worknum": "F7689003",
+      "level": "\u5e08\u4e8c",
+      "enjoy_company": "2019-06-07",
+      "enjoy_wgt": "2019-06-11",
+      "groups": [],
+      "user_permissions": [],
+      "roles": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "system.userprofile",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$30FxdC2w1sgN$48c/0IRJjvRJrcYhfcV9FfMQy4GFAcdYI3Y7bR7wlCs=",
+      "last_login": "2019-08-10T15:51:45.098",
+      "is_superuser": false,
+      "username": "F7689362",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-06-21T17:23:07.165",
+      "name": "\u90ed\u5fd7\u822a",
+      "birthday": "2019-06-07",
+      "gender": "male",
+      "mobile": "13865489225",
+      "email": "54454@qq.com",
+      "image": "image/\u90ed\u5fd7\u822a250_1564560363.jpeg",
+      "department": 5,
+      "post": "\u5f00\u53d1",
+      "superior": 2,
+      "worknum": "gavin",
+      "level": "\u5e08\u4e8c",
+      "enjoy_company": "2019-06-07",
+      "enjoy_wgt": "2019-06-03",
+      "groups": [],
+      "user_permissions": [],
+      "roles": [
+        1,
+        2
+      ]
+    }
+  },
+  {
+    "model": "system.userprofile",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$N3rI3v3ys8WQ$3qo3ot2DoulhfWpatrXm8JUuO9IIvo0ncGMC0Fo7r90=",
+      "last_login": "2019-08-05T14:30:38.048",
+      "is_superuser": false,
+      "username": "F7689286",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-06-21T18:43:59.881",
+      "name": "\u6768\u7389\u6625",
+      "birthday": "2019-06-18",
+      "gender": "female",
+      "mobile": "13658236954",
+      "email": "56454@11.com",
+      "image": "image/default.jpg",
+      "department": 4,
+      "post": "\u6d4b\u8bd5",
+      "superior": 2,
+      "worknum": "cindy",
+      "level": "\u5e08\u4e8c",
+      "enjoy_company": "2019-06-07",
+      "enjoy_wgt": "2019-06-08",
+      "groups": [],
+      "user_permissions": [],
+      "roles": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "system.userprofile",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$OU3ycUfGtob3$2Ni7fAwLTWbqSbWC7Tx8NGOyGX2TTsbY9xhasDpStfc=",
+      "last_login": "2019-08-07T14:47:29.690",
+      "is_superuser": false,
+      "username": "F7689352",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-06-22T19:01:47.737",
+      "name": "\u9ec4\u5b89\u5e73",
+      "birthday": "2019-06-19",
+      "gender": "male",
+      "mobile": "13654896324",
+      "email": "5446845@qq.com",
+      "image": "image/default.jpg",
+      "department": 7,
+      "post": "\u7ba1\u7406\u5c42",
+      "superior": null,
+      "worknum": "yellow",
+      "level": "\u5e08\u4e09",
+      "enjoy_company": "2019-06-18",
+      "enjoy_wgt": "2019-06-18",
+      "groups": [],
+      "user_permissions": [],
+      "roles": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "system.userprofile",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$ZFrx4QeGmd5a$m6TgD7Pu6ekVCYFoqZaGqhtdA6EfXxMjfp28qzm78xA=",
+      "last_login": "2019-08-07T14:08:23.151",
+      "is_superuser": false,
+      "username": "F7688858",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-07-02T15:09:46.327",
+      "name": "\u4f59\u5e05",
+      "birthday": "2019-07-26",
+      "gender": "male",
+      "mobile": "13698654789",
+      "email": "5465155@qq.com",
+      "image": "image/\u4f59\u5e05_1564560481.jpg",
+      "department": 7,
+      "post": "\u6d4b\u8bd5\u5de5\u7a0b\u5e08",
+      "superior": 5,
+      "worknum": "luke",
+      "level": "\u5e08\u4e8c",
+      "enjoy_company": "2019-07-17",
+      "enjoy_wgt": "2019-07-16",
+      "groups": [],
+      "user_permissions": [],
+      "roles": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "system.userprofile",
+    "pk": 16,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$MDcgWNE53TM9$fm40oMLSNh3vE2aIuxkLJxRtRtCa0Ru6t6Vxq6gK4BI=",
+      "last_login": "2019-08-05T15:14:01.098",
+      "is_superuser": false,
+      "username": "F7689365",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-07-31T16:25:20.446",
+      "name": "\u5f20\u4e09",
+      "birthday": "2019-07-10",
+      "gender": "male",
+      "mobile": "13986354124",
+      "email": "dsfds@qq.com",
+      "image": "image/\u5f20\u4e09_1564561669.jpeg",
+      "department": 5,
+      "post": "\u6d4b\u8bd5",
+      "superior": 2,
+      "worknum": "Lxcc",
+      "level": "\u5e08\u4e8c",
+      "enjoy_company": "2019-07-04",
+      "enjoy_wgt": "2019-07-24",
+      "groups": [],
+      "user_permissions": [],
+      "roles": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "system.userprofile",
+    "pk": 17,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$lpxHQLkpKIJY$NB+7eHDxAaMJ13i6ak3QIaGSebetiBaS7YCTor9/wbA=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "F7689366",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-08-10T08:42:49.691",
+      "name": "1",
+      "birthday": "1899-12-07",
+      "gender": "male",
+      "mobile": "13842536986",
+      "email": "56456@qq.com",
+      "image": "image/default.jpg",
+      "department": 5,
+      "post": "ces",
+      "superior": null,
+      "worknum": "ddd",
+      "level": "s",
+      "enjoy_company": "2019-08-01",
+      "enjoy_wgt": "2019-07-31",
+      "groups": [],
+      "user_permissions": [],
+      "roles": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 141,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-10T08:31:29.705",
+      "relContent": "\u65b0\u7684\u4e00\u5929\uff0c\u65b0\u7684\u5f00\u59cb\uff0c\u52a0\u6cb9\uff01\uff01\uff01\r\n\u4e5f\u522b\u592a\u7d2f\u4e86",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 142,
+    "fields": {
+      "tag": null,
+      "relDate": "2019-08-10T10:40:53.921",
+      "relContent": "\u597d\u7684\uff0c\u4f60\u628a\u6d88\u606f\u522a\u5b8c\u4e86\uff1f",
+      "relUser": "venna",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 143,
+    "fields": {
+      "tag": null,
+      "relDate": "2019-08-10T10:41:27.941",
+      "relContent": "\u6211\u4eca\u65e9\u4f86\u7d66\u6a5f\u69cb\u7684\u767c\u4e86\u4e00\u500b\u5927\u706b\uff0c\u6c23\u6b7b\u6211\u4e86\u90fd",
+      "relUser": "venna",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 144,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-10T14:11:21.710",
+      "relContent": "\u548b\u5730\u4e86\uff0c\u53d1\u4e86\u4e00\u4e2a\u5927\u706b",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 145,
+    "fields": {
+      "tag": null,
+      "relDate": "2019-08-10T16:28:29.961",
+      "relContent": "\u665a\u4e0a\u518d\u8ddf\u4f60\u8aaa\uff0c\u6211\u4eca\u5929\u61c9\u8a72\u80fd\u6e96\u6642\u4e0b\u73ed",
+      "relUser": "venna",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 146,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-10T16:51:57.949",
+      "relContent": "\u597d\u7684\uff0c\u90a3\u6211\u548c\u4f60\u4e00\u8d77\u4e0b\u73ed",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 147,
+    "fields": {
+      "tag": "venna",
+      "relDate": "2019-08-10T17:19:38.617",
+      "relContent": "\u4f60\u5feb\u4e0b\u73ed\u7684\u8bdd\u8ddf\u6211\u8bf4\u4e00\u58f0\u554a",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 148,
+    "fields": {
+      "tag": null,
+      "relDate": "2019-08-10T17:32:09.754",
+      "relContent": "\u621140\u5de6\u53f3\u6703\u53bbRD\u627e\u6211\u5011\u4e3b\u7ba1\u8aaa\u4e00\u4e9b\u4e8b\u60c5\uff0c\u8aaa\u5b8c\u5c31\u8d70\uff0c\u5c31\u5e7e\u5206\u9418\u5427",
+      "relUser": "venna",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 149,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-10T17:34:24.645",
+      "relContent": "\u90a3\u4f60\u6765\u627e\u6211\u4e00\u4e0b\u5417\uff1f\uff1f",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 150,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-10T17:38:01.269",
+      "relContent": "\u5927\u7ea640 \u6211\u4f1a\u53bb\u5395\u6240\u90a3\u91cc",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 151,
+    "fields": {
+      "tag": "venna",
+      "relDate": "2019-08-10T17:44:14.581",
+      "relContent": "\u53bb\u5395\u6240\u90a3\u91cc\u6ca1\u6709\u770b\u5230\u4f60\u7684\u4eba",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 152,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-10T17:44:35.777",
+      "relContent": "\u5509",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 153,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-10T17:51:58.221",
+      "relContent": "\u8fd8\u6ca1\u7ed3\u675f\u5417",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 154,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-10T18:51:31.263",
+      "relContent": "622442 \u7ed9\u4f60\u6253\u7535\u8bdd\u4e86",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 155,
+    "fields": {
+      "tag": "\u59d0\u59d0",
+      "relDate": "2019-08-10T20:01:32.791",
+      "relContent": "\u6211\u5148\u4e0b\u53bb\u4e86 \uff0c\u8111\u58f3\u75bc",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 156,
+    "fields": {
+      "tag": null,
+      "relDate": "2019-08-12T08:07:05.536",
+      "relContent": "\u56f0\u6b7b\u4e86",
+      "relUser": "venna",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 157,
+    "fields": {
+      "tag": null,
+      "relDate": "2019-08-12T12:17:43.070",
+      "relContent": "\u6211\u5c0f\u624b\u6a5f\u5565\u6642\u5019\u7d66\u6211\uff1f",
+      "relUser": "venna",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 158,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-12T14:08:06.487",
+      "relContent": "\u4f60\u7684\u5c0f\u624b\u673a\u5468\u4e94\u90a3\u5929\u5c31\u7ed9\u4f60\u4e86 \uff0c\u77e5\u9053\u4e86\u597d\u591a\u4eba\u7ed9\u4f60\u6253\u7535\u8bdd",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 159,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-12T14:08:26.974",
+      "relContent": "\u5728\u4f60\u81ea\u5df1\u7684\u67dc\u5b50\u91cc",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 160,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-12T14:08:46.954",
+      "relContent": "\u83ab\u8981\u57cb\u6028\u6211",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 161,
+    "fields": {
+      "tag": null,
+      "relDate": "2019-08-12T14:25:52.048",
+      "relContent": "\u554a\uff01\u5fd8\u4e86\u90fd",
+      "relUser": "venna",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 162,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-12T14:32:08.427",
+      "relContent": "\u602a\u4e0d\u5f97 \u7ed9\u4f60\u53d1\u77ed\u4fe1\u6ca1\u4eba\u56de\u6211",
+      "relUser": "F7689362",
+      "other": null
+    }
+  },
+  {
+    "model": "system.notice",
+    "pk": 163,
+    "fields": {
+      "tag": "Venna",
+      "relDate": "2019-08-12T14:32:28.460",
+      "relContent": "\u90a3\u4f60\u628a\u5361\u7ed9\u6211\uff0c\u6211\u4e0b\u53bb\u5e2e\u4f60\u53d6",
+      "relUser": "F7689362",
+      "other": null
+    }
+  }
+]

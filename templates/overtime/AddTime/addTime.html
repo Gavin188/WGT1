@@ -1,0 +1,154 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/fileinput.css' %}">
+    <link rel="stylesheet" href="{% static 'layui/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <style type="text/css">
+
+
+        #i_div {
+
+            margin-left: 10%;
+            width: 80%;
+
+        }
+
+        #table_div_fa {
+            position: relative;
+        }
+
+        #table_div {
+            position: absolute;
+            margin-left: 10%;
+            width: 80%;
+            top: 138px;
+
+        }
+
+        #table_div2 {
+            position: absolute;
+            margin-left: 10%;
+            width: 80%;
+            top: 45px;
+        }
+
+        {##table_div3 {#}
+        {#    position: absolute;#}
+        {#    margin-left: 10%;#}
+        {#    width: 20%;#}
+        {#    top: 220px;#}
+        {# }#}
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+        {#    <body>#}
+        <input type="hidden" name='id' id="user_id" value="{{ user.id }}"/>
+        {#        <input type="button" name='apply_id' id="apply_id" value="{{ apply_id }}"/>#}
+        <h3 style="margin-left: 45%">个人加班提报</h3>
+        <div id="i_div" style="margin-top: 1%"></div>
+
+        <div id="table_div_fa">
+            <form id="addTime" method="post">
+                <div id="table_div2">
+                    <table class="layui-table">
+                        <thead>
+                        <tr id='trDa2'>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr id='trTime2'>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="table_div">
+                    <table class="layui-table" style="position: relative">
+                        <thead>
+                        <tr id='trDa'>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id='trTime'>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </form>
+        </div>
+        <div style="top: 800px">
+            <button type="button" name='btnSave' id="btnSave"
+                    style="position: absolute; top: 750px;width: 12%;display: none;height: 32px;color: red;left: 50%"
+                    onsubmit="return false">
+                加班提报
+            </button>
+        </div>
+        {% for da in data %}
+            <input type="hidden" name='tname' id="tname" value="{{ da.tname }}"/>
+        {% endfor %}
+        {% for da in data %}
+            <input type="hidden" name='tnumber' id="tnumber" value="{{ da.tnumber }}"/>
+        {% endfor %}
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'layui/lay/times.js' %}"></script>
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <!-- iCheck 1.0.1 -->
+    <script type="text/javascript">
+        $(function () {
+            $('#OVERTIME-OV').addClass('active');
+            $('#OVERTIME-OV-TIME-LIST').addClass('active');
+
+        });
+
+        {#$("#btnSave").click(function () {#}
+        {#    var data = $("#addTime").serialize();#}
+        {#    console.log('33', data)#}
+        {##}
+        {#    var timeCount = $('#tic').val();#}
+        {#    var data = $("#addForm").serialize();#}
+        {#    $.ajax({#}
+        {#        type: $("#addForm").attr('method'),#}
+        {#        url: "{% url 'overtime:ov-time-list' %}",#}
+        {#        data: data,#}
+        {#        cache: false,#}
+        {#        success: function (msg) {#}
+        {#            if (msg) {#}
+        {#                layer.alert('數據保存成功！', {icon: 1}, function (index) {#}
+        {#                    parent.layer.closeAll(); //关闭所有弹窗#}
+        {#                     window.location.href = '/dqe/overtime/ov/apply/list'#}
+        {#                });#}
+        {#            } else {#}
+        {#                layer.alert('數據保存失败！', {icon: 5});#}
+        {#                //$('errorMessage').html(msg.message)#}
+        {#            }#}
+        {#            return;#}
+        {#        }#}
+        {#    });#}
+        {# });#}
+    </script>
+    <script type="text/javascript">
+        $("#i_div").LunarInitDate();
+    </script>
+
+{% endblock %}

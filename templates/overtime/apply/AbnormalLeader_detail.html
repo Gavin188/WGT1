@@ -1,0 +1,333 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+    <!-- iCheck for checkboxes and radio inputs -->
+{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <div class="box-header with-border">
+                <i class="ion ion-clipboard"></i>
+
+                {#                <div class="box-tools pull-right">#}
+                {#                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i#}
+                {#                            class="fa fa-minus"></i>#}
+                {#                    </button>#}
+                {#                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>#}
+                {#                    </button>#}
+                {#                </div>#}
+                <div class="box-header">
+                    <div class="btn-group pull-left">
+                        <button type="button" class="btn btn-danger" title="返回" id="btnApplyReturn">
+                            <i class="fa fa-undo"> 请假申请单--({{ apply.id }})</i>
+                            {#                            <h3 class="box-title"></h3>#}
+                        </button>
+                    </div>
+                    <div class="btn-group pull-right">
+                        <button title='拒绝' class="btn btn-warning" onclick='doRefuseApply()'>拒绝</button>
+                    </div>
+                    <div class="btn-group pull-right">
+                        <button title='同意' class="btn btn-success" onclick='doAgreeApply()'>同意</button>
+                    </div>
+                    <input type=hidden name="apply" id="apply_id" value={{ apply.id }}>
+                    <input type=hidden name="apply" id="apply_applyState" value={{ apply.applyState }}>
+                </div>
+                <div class="box-body" style="margin-top: 10px">
+                    <table id="dtbList" class="display" cellspacing="0" width="100%" style="font-size: small;">
+                        <thead>
+                        <tr valign="middle">
+                            <th><input type="checkbox" id="checkAll"></th>
+                            <th>ID</th>
+                            <th>申請人</th>
+                            <th>申請工号</th>
+                            <th>申請资位</th>
+                            {#                            <th>申請手机号</th>#}
+                            <th>请假类别</th>
+                            <th>申請時長</th>
+                            <th>开始工作日</th>
+                            <th>开始时段</th>
+                            <th>结束工作日</th>
+                            <th>结束时段</th>
+                            <th>请假理由</th>
+                            <th>代理人姓名</th>
+                            <th>代理人工号</th>
+                            <th>申請狀態</th>
+                            {#                            <th>操作</th>#}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <br> <br>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <!-- iCheck 1.0.1 -->
+    <script type="text/javascript">
+        $(function () {
+            $('#OVERTIME-OV').addClass('active');
+            $('#OVERTIME-OV-APPLYLEADER-LIST').addClass('active');
+
+        });
+    </script>
+
+    <script type="text/javascript">
+        var oDataTable = null;
+        $(function () {
+            oDataTable = initTable();
+
+            function initTable() {
+                var oTable = $('#dtbList').DataTable($.extend(true, {},
+                    DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
+                    {
+                        ajax: {
+                            "url": "{% url 'overtime:ov-applyleaderAbnormalist-detail' %}",
+                            "data": function (d) {
+
+                                d.applyId = $("#apply_id").val();
+                                {#d.lendDate = $("#lendDate").val();#}
+                                {#d.applyUnit = $("#applyUnit").val();#}
+                                {#d.lendUnit = $("#lendUnit").val();#}
+                                {#d.applyUser = $("#applyUser").val();#}
+                                {#d.applyState = $("#applyState").val();#}
+
+                            }
+                        },
+                        columns: [
+                            DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
+                            {
+                                data: "id",
+                                width: "5%",
+                            },
+                            {
+                                data: "username__name",
+                            },
+                            {
+                                data: "username__username",
+                            },
+                            {
+                                data: "username__level",
+                            },
+                            {
+                                data: "leave_type",
+                                render: function (data, type, full, meta) {
+                                    if (data == 1) {
+                                        return '事假'
+                                    } else if (data == 2) {
+                                        return '路程假'
+                                    } else if (data == 3) {
+                                        return '專案事假'
+                                    } else if (data == 4) {
+                                        return '年休假'
+                                    } else if (data == 5) {
+                                        return '產假'
+                                    } else if (data == 6) {
+                                        return '返鄉福利假'
+                                    } else if (data == 7) {
+                                        return '婚假'
+                                    } else if (data == 8) {
+                                        return '病假'
+                                    } else if (data == 9) {
+                                        return '喪假'
+                                    } else {
+                                        return "三八婦女節假"
+                                    }
+                                }
+                            },
+                            {
+                                data: "lengh_time",
+
+                            },
+                            {
+                                data: "startTime",
+
+                            },
+                            {
+                                data: "time_start_period",
+
+                            },
+                            {
+                                data: "endTime",
+
+                            },
+
+                            {
+                                data: "time_end_period",
+
+                            },
+
+                            {
+                                data: "reason",
+                            },
+                            {
+                                data: "agent_name",
+
+
+                            },
+                            {
+                                data: "agent_worknum",
+
+                            },
+                            {
+                                data: "fk_apply__applyState",
+                                render: function (data, type, full, meta) {
+                                    if (data == 1) {
+                                        return '<font color="red">待簽核</font>'
+                                    } else if (data == 2) {
+                                        return '<font color="green">以簽核</font>'
+                                    } else if (data == 3) {
+                                        return "已取消"
+                                    } else {
+                                        return "以拒绝"
+                                    }
+                                }
+                            },
+                            {#{#}
+                            {#    data: "id",#}
+                            {#    bSortable: "false",#}
+                            {#    render: function (data, type, row, meta) {#}
+                            {#        var ret = "<button title='同意' onclick='doAgreeApply("#}
+                            {#            + data + ")'>同意</button>";#}
+                            {#        ret = ret + "<button title='拒绝' onclick='doRefuseApply("#}
+                            {#            + data + ")'>拒绝</button>";#}
+                            {#        return ret;#}
+                            {#    }#}
+                            {# }#}
+                        ],
+                    }));
+                return oTable;
+            }
+
+            $("#btnRefresh").click(function () {
+                oDataTable.ajax.reload();
+            });
+
+
+            // 返回
+            $("#btnApplyReturn").on("click", function () {
+                window.location.href = "/dqe/overtime/ov/applyleader/list";
+            });
+
+            //编辑
+            {#$('#btnConfirmApply').click(function () {#}
+            {#    layer.open({#}
+            {#        type: 2,#}
+            {#        title: '审核',#}
+            {#        shadeClose: false,#}
+            {#        maxmin: true,#}
+            {#        area: ['800px', '400px'],#}
+            {#        content: ["{% url 'overtime:ov-apply-confirm' %}" + '?id=' + apply_id,],#}
+            {#        end: function () {#}
+            {#            //关闭时做的事情#}
+            {#            oDataTable.ajax.reload();#}
+            {#        }#}
+            {#    });#}
+            {# })#}
+
+
+            /*input 时间输入选择*/
+            $(".form_datetime").datetimepicker({
+                language: 'zh',
+                minView: 'month', //选择范围知道日期，不选择时分
+                //weekStart: 1,
+                //todayBtn:  1,
+                autoclose: 1,
+                todayHighlight: 1,
+                //startView: 2,
+                forceParse: 0,
+                showMeridian: 1,
+                format: 'yyyy-mm-dd'
+            }).on('changeDate', function (ev) {
+                $(this).datetimepicker('hide');
+            });
+
+
+            $(function () {
+                //Initialize Select2 Elements
+                $(".select2").select2();
+            });
+
+
+        });
+
+    </script>
+    <script>
+        function doAgreeApply() {
+            console.log(111)
+            sId = $('#apply_id').val()
+            layer.alert('确定批准吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'overtime:ov-apply-confirm' %}",
+                        data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("操作成功！", {icon: 1});
+                                oDataTable.ajax.reload();
+                            } else {
+                                layer.alert("操作失败！", {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+
+        }
+
+        function doRefuseApply(sId) {
+            console.log(111)
+            layer.alert('确定拒绝吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'overtime:ov-apply-refuse' %}",
+                        data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("操作成功！", {icon: 1});
+                                oDataTable.ajax.reload();
+                            } else {
+                                layer.alert("操作失败！", {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+
+        }
+    </script>
+{% endblock %}

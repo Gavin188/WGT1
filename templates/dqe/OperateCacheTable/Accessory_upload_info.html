@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传信息</title>
+</head>
+<body>
+
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+
+{% if msg == "上傳成功" %}
+    <div class="alert alert-success">
+        <strong>{{ msg }}</strong>
+    </div>
+
+{% else %}
+
+    <div class="alert alert-danger">
+        <strong>{{ msg }}</strong>
+    </div>
+
+{% endif %}
+
+{% if correct_unit %}
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">入庫成功機台</div>
+
+        <table class="table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Accessory</th>
+                <th>Vender</th>
+                <th>HW Build</th>
+                <th>Config</th>
+                <th>Status</th>
+                <th>QTY</th>
+                <th>盒子SN</th>
+                <th>SN</th>
+                <th>Contact&Address</th>
+                <th>Date in</th>
+                <th>Date out</th>
+                <th>Comment</th>
+                <th>仓码</th>
+                <th>储位</th>
+                <th>AAPN</th>
+                <th>HHPN</th>
+                <th>WO</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for unit in correct_unit %}
+                <tr>
+                    {% for unit_info in unit %}
+                        <td>{{ unit_info }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+{% if repeat_unit %}
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">重複入庫機台</div>
+
+        <table class="table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Accessory</th>
+                <th>Vender</th>
+                <th>HW Build</th>
+                <th>Config</th>
+                <th>Status</th>
+                <th>QTY</th>
+                <th>盒子SN</th>
+                <th>SN</th>
+                <th>Contact&Address</th>
+                <th>Date in</th>
+                <th>Date out</th>
+                <th>Comment</th>
+                <th>仓码</th>
+                <th>储位</th>
+                <th>AAPN</th>
+                <th>HHPN</th>
+                <th>WO</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for unit in repeat_unit %}
+                <tr>
+                    {% for unit_info in unit %}
+                        <td>{{ unit_info }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+{% if error_unit %}
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">SN为空的配件</div>
+
+        <table class="table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Accessory</th>
+                <th>Vender</th>
+                <th>HW Build</th>
+                <th>Config</th>
+                <th>Status</th>
+                <th>QTY</th>
+                <th>盒子SN</th>
+                <th>SN</th>
+                <th>Contact&Address</th>
+                <th>Date in</th>
+                <th>Date out</th>
+                <th>Comment</th>
+                <th>仓码</th>
+                <th>储位</th>
+                <th>AAPN</th>
+                <th>HHPN</th>
+                <th>WO</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for unit in error_unit %}
+                <tr>
+                    {% for unit_info in unit %}
+                        <td>{{ unit_info }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+
+<button type="button" class="btn btn-primary" onclick="window.location.href='/dqe/oct/'">返回</button>
+
+</body>
+</html>

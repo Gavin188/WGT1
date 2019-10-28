@@ -2,88 +2,117 @@
 {% load staticfiles %}
 
 {% block css %}
-<link rel="stylesheet" href="{%static 'plugins/select2/select2.min.css' %}">
-<link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
-<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
 {% endblock %}
 
 {% block main %}
-<div class="box box-danger">
-	<form class="form-horizontal" id="addForm" method="post">
-		{% csrf_token %}
+    <div class="box box-danger">
+        <form class="form-horizontal" id="addForm" method="post">
+            {% csrf_token %}
 
-        <input type="hidden" name='id' value="{{ prodtype.id }}" />
+            <input type="hidden" name='id' value="{{ prodtype.id }}"/>
 
-		<div class="box-body">
-          <fieldset>
-            <legend>
-              <h4>專案</h4>
-            </legend>
+            <div class="box-body">
+                <fieldset>
+                    <legend>
+                        <h4>加班</h4>
+                    </legend>
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label">加班管控</label>
+                        <div class="col-sm-3">
+                            <select class="form-control select2" style="width:100%;" name="time_control"
+                                    id="time_control">
+                                {#                                <option value="{{ prodtype.time_control }}"></option>#}
+                                {% for applyState in time %}
+                                    <option value="{{ applyState.key }}">{{ applyState.value }}</option>
+                                {% endfor %}
+                            </select>
+                            {#                            <input class="form-control" name="time_control" type="text" value="{{ prodtype.time_control }}"/>#}
+                        </div>
+
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label">加班时数</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" name="tname" type="text" value="{{ prodtype.tname }}"/>
+                        </div>
+                        <label class="col-sm-2 control-label">加班次数</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" name="tnumber" type="text" value="{{ prodtype.tnumber }}"/>
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label class="col-sm-2 control-label">加班比例</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" name="tscale" type="text" value="{{ prodtype.tscale }}"/>
+                        </div>
+                        <label class="col-sm-2 control-label">提报日期</label>
+                        <div class="col-sm-3">
+                            <input class="form-control" name="tdate" type="text" value="{{ prodtype.tdate }}"/>
+                        </div>
+                    </div>
 
 
-
-            <div class="form-group has-feedback">
-                <label class="col-sm-2 control-label">產品類名</label>
-                <div class="col-sm-3">
-                    <input class="form-control" name="ptname" type="text" value="{{ prodtype.ptname }}"/>
-                </div>
+                </fieldset>
 
             </div>
+            <div class="box-footer ">
+                <div class="row span7 text-center ">
+                    <button type="button" id="btnCancel" class="btn btn-default margin-right ">重置</button>
+                    <button type="button" id="btnSave" class="btn btn-info margin-right ">保存</button>
+                </div>
+            </div>
 
-
-          </fieldset>
-
-		</div>
-		<div class="box-footer ">
-			<div class="row span7 text-center ">
-              <button type="button" id="btnCancel" class="btn btn-default margin-right " >重置</button>
-              <button type="button" id="btnSave" class="btn btn-info margin-right " >保存</button>
-			</div>
-		</div>
-
-	</form>
-</div>
+        </form>
+    </div>
 
 {% endblock %}
 
 {% block javascripts %}
-<script src="{% static 'plugins/combo-select/jquery.combo.select.js' %}"></script>
-<script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
-<script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <script src="{% static 'plugins/combo-select/jquery.combo.select.js' %}"></script>
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-	$("#btnSave").click(function(){
-		var data = $("#addForm").serialize();
-		$.ajax({
-			type: $("#addForm").attr('method'),
-			url : "{% url 'system:basic-prodtype-update' %}",
-			data : data,
-			cache: false,
-			success : function(msg) {
-				if (msg.result){
-					layer.alert('數據保存成功！', {icon: 1},function(index){
-					    parent.layer.closeAll(); //关闭所有弹窗
-                    });
-				}else{
-					layer.alert('數據保存失败！', {icon: 5});
-                    //$('errorMessage').html(msg.message)
-				}
-				return ;
-			}
-		});
-	});
+        var data = "{{ prodtype.time_control }}";
+        document.getElementById('time_control').value = data
+
+        $("#btnSave").click(function () {
+            var data = $("#addForm").serialize();
+            console.log(data)
+            $.ajax({
+                type: $("#addForm").attr('method'),
+                url: "{% url 'system:basic-prodtype-update' %}",
+                data: data,
+                cache: false,
+                success: function (msg) {
+                    if (msg.result) {
+                        layer.alert('數據保存成功！', {icon: 1}, function (index) {
+                            parent.layer.closeAll(); //关闭所有弹窗
+                        });
+                    } else {
+                        layer.alert('數據保存失败！', {icon: 5});
+                        //$('errorMessage').html(msg.message)
+                    }
+                    return;
+                }
+            });
+        });
 
 
-	/*点取消刷新新页面*/
-    $("#btnCancel").click(function () {
-	    window.location.reload();
+        /*点取消刷新新页面*/
+        $("#btnCancel").click(function () {
+            window.location.reload();
 
-    });
+        });
 
-    /*input 时间输入选择*/
-    $(".form_datetime").datetimepicker({
-            language:  'zh',
+        /*input 时间输入选择*/
+        $(".form_datetime").datetimepicker({
+            language: 'zh',
             minView: 'month', //选择范围知道日期，不选择时分
             //weekStart: 1,
             //todayBtn:  1,
@@ -95,13 +124,13 @@
             format: 'yyyy-mm-dd'
         }).on('changeDate', function (ev) {
             $(this).datetimepicker('hide');
-    });
+        });
 
-    // select2
-    $(function () {
-        //Initialize Select2 Elements
-        $(".select2").select2();
-    });
-</script>
+        // select2
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+    </script>
 
 {% endblock %}

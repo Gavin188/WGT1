@@ -11,11 +11,12 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 from custom import BreadcrumbMixin
 from dqe.forms import ProjectCreateForm
-from dqe.models import Project, Stage
+from dqe.models import Project, Stage, IpadDetails
 from system.mixin import LoginRequiredMixin
-from system.models import Structure,Menu
+from system.models import Structure, Menu
 
-#专案界面
+
+# 专案界面
 class ProjectView(LoginRequiredMixin, View):
     def get(self, request):
         res = dict(data=Project.objects.all())
@@ -27,24 +28,27 @@ class ProjectView(LoginRequiredMixin, View):
         menu = Menu.get_menu_by_request_url(url=self.request.path_info)
         if menu is not None:
             res.update(menu)
-        return render(request, 'system/Project/Project_List.html',res)
+        return render(request, 'system/Project/Project_List.html', res)
 
-#申请详情列表
+
+# 申请详情列表
 class ProjectListView(LoginRequiredMixin, View):
     def get(self, request):
-
         fields = ['id', 'pname']
-        searchFields = ['pname', ] #与数据库字段一致
-        filters = {i + '__icontains': request.GET.get(i,'') for i in searchFields if request.GET.get(i, '') }  #此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
+        searchFields = ['pname', ]  # 与数据库字段一致
+        filters = {i + '__icontains': request.GET.get(i, '') for i in searchFields if
+                   request.GET.get(i, '')}  # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
+
+
 
         res = dict(data=list(Project.objects.filter(**filters).values(*fields)))
 
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
 
 
-#專案 新增 和 修改
+# 專案 新增 和 修改
 class ProjectUpdateView(LoginRequiredMixin, View):
-    #注意：编辑页面中type=hidden隐藏的id，目的就是为了标识是编辑/增加操作
+    # 注意：编辑页面中type=hidden隐藏的id，目的就是为了标识是编辑/增加操作
     def get(self, request):
         res = dict()
         if 'id' in request.GET and request.GET['id']:
@@ -58,7 +62,7 @@ class ProjectUpdateView(LoginRequiredMixin, View):
 
     def post(self, request):
         res = dict(result=False)
-        if 'id' in request.POST and request.POST['id']:  #id的存在，就是为了说明是新增数据还是编辑数据
+        if 'id' in request.POST and request.POST['id']:  # id的存在，就是为了说明是新增数据还是编辑数据
             project = get_object_or_404(Project, pk=request.POST.get('id'))
         else:
             project = Project()
@@ -71,7 +75,8 @@ class ProjectUpdateView(LoginRequiredMixin, View):
 
         return HttpResponse(json.dumps(res), content_type='application/json')
 
-#库存删除
+
+# 库存删除
 class ProjectDeleteView(LoginRequiredMixin, View):
     def post(self, request):
         res = dict(result=False)
@@ -83,5 +88,3 @@ class ProjectDeleteView(LoginRequiredMixin, View):
             res['result'] = True
 
         return HttpResponse(json.dumps(res), content_type='application/json')
-
-

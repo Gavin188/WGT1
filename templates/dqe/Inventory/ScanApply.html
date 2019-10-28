@@ -12,13 +12,15 @@
         <form class="form-horizontal" id="addForm" method="post">
             {% csrf_token %}
 
-            <input type="hidden" name='id' value="{{ project.id }}"/>
+            <input type="hidden" name='applyid' id='applyid' value={{ applyDetailId }}>
 
             <div class="box-body">
                 <fieldset>
                     <legend>
                         {#              <h4>掃碼申請</h4>#}
                     </legend>
+
+                    {#                    <p type="text" name='qty' id='qyt_id' style="width: 10%" value={{ qty }}></p>#}
 
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label">SN</label>
@@ -27,7 +29,7 @@
                                       id="sns"></textarea>
                         </div>
                     </div>
-
+                    <font color="#FF0000">申请的机台数量：{{ qty }}</font>
                 </fieldset>
 
             </div>
@@ -63,15 +65,17 @@
             }
 
             var data = $("#addForm").serialize();
+            var id = $('#applyid').val()
+            console.log('5555', id)
             $.ajax({
                 type: $("#addForm").attr('method'),
-                url: "{% url 'dqe:inventory-scanApply' %}",
+                url: "{% url 'dqe:mt-inventory-scanApply' %}?applydetailid=" + id,
                 data: data,
                 cache: false,
                 success: function (msg) {
-                    console.log(msg)
+                    {#console.log(msg)#}
                     if (msg.result == 1) {
-                        layer.alert('勾選機台成功，請到借入申請確認繼續操作！', {icon: 1}, function (index) {
+                        layer.alert('添加机台成功！', {icon: 1}, function (index) {
                             parent.layer.closeAll(); //关闭所有弹窗
                         });
                     } else if (msg.result == 2) {
@@ -82,7 +86,7 @@
                         //        parent.layer.closeAll(); //关闭所有弹窗
                         //    });
 
-                        layer.alert('以下機台信息有誤，請確認后再試 </br>' + '被申請的機台SN編號: [' + msg.invState3SN + ']</br>已借出的機台SN編號: [' + msg.invState2SN + '] </br>出庫的機台SN編號: [' + msg.invState4SN + '] </br>無效機台SN編號: [' + msg.invNotSN + ']', {
+                        layer.alert('以下機台信息有誤，請確認后再試 </br>' + '被申請的機台SN編號: [' + msg.invState3SN + '] </br>已经存在的配件sn: [' + msg.invState1SN + ']</br>已借出的機台SN編號: [' + msg.invState2SN + '] </br>出庫的機台SN編號: [' + msg.invState4SN + '] </br>無效機台SN編號: [' + msg.invNotSN + ']', {
                             title: '提示'
                             , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
                             , time: 0 //不自动关闭

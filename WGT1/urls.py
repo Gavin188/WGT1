@@ -20,13 +20,14 @@ from django.views.static import serve
 from WGT1 import settings
 from dqe.views import DqeView
 from system.views_user import LoginView, LogoutView, IndexView
+from testManage import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     # 登录
     path('', IndexView.as_view(), name='index'),
-    path('', DqeView.as_view(), name='ucsLogin'),
+    path('', DqeView.as_view(), name='wgtLogin'),
 
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
@@ -34,8 +35,14 @@ urlpatterns = [
     # 系统管理
     path('system/', include('system.urls', namespace='system')),
 
-    # dqe
+    # 机台和配件的申请和处理
     path('dqe/', include('dqe.urls', namespace='dqe')),
+
+    # 加班 - 异常 - 请假 提报
+    path('dqe/overtime/', include('overtime.urls', namespace='overtime')),
+
+    # 测试管理
+    path('dqe/testManage/', include('testManage.urls', namespace='testManage')),
 
 ]
 

@@ -1,0 +1,298 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link href="{% static 'jquery.bsgrid-master/plugins/bootstrap/2.3.2/css/bootstrap-responsive.min.css ' %}"
+          rel="stylesheet">
+    <link href="{% static 'jquery.bsgrid-master/builds/css/skins/grid_bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'bootstrap/fileinput.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+    {#    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">#}
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+
+{% endblock %}
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div id="devlist">
+            <div class="box box-primary" id="liebiao">
+                <div class="box-header">
+                    <form class="form-inline" id="queryForm">
+                        <div class="form-group searchArea margin-r-5 margin-top-5">
+                            <label>提报日期:</label>
+                            <input type="text" name="date" class="form-control form_datetime" id="date">
+                        </div>
+
+
+                        <div class="form-group searchArea margin-r-5 margin-top-5 ">
+                            <label>发现人:</label>
+                            <input type="text" name="find_per" class="form-control inputText" id="find_per">
+                        </div>
+                        <div class="form-group searchArea margin-r-5 margin-top-5 ">
+                            <label>提报人:</label>
+                            <input type="text" name="sub_per" class="form-control inputText" id="sub_per">
+                        </div>
+
+                        <button type="button" onclick="btnSearch()" class="btn btn-default" style="margin-left: 3%">
+                            <i class="glyphicon glyphicon-search"></i>查询
+                        </button>
+
+
+                        {#                        <button type="button" onclick="btnExport()" class="btn btn-success btn-group pull-right"#}
+                        {#                                style="margin-left: 3%"></i>导入#}
+                        {#                        </button>#}
+                    </form>
+                    {#                    <div id="upload" style="display: none">#}
+                    {#                        <form method="post" enctype="multipart/form-data" id="qwer" onsubmit="return false">#}
+                    {#                            {% csrf_token %}#}
+                    {#                            </br>#}
+                    {#                            </br>#}
+                    {#                            <label class="control-label">Select File</label>#}
+                    {#                            <input type="file" name="file" class="file" id="input-1">#}
+                    {#                        </form>#}
+                    {##}
+                    {#                    </div>#}
+                </div>
+
+                <div class="box-body">
+                    <table id="searchTable" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th w_index="date">日期</th>
+                            <th w_index="group">组别</th>
+                            <th w_index="find_per">发现人</th>
+                            <th w_index="sub_per">提报人</th>
+                            <th w_index="radar_id">Radar ID</th>
+                            <th w_index="desc">描述</th>
+                            <th w_index="comments">备注</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    {#    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>#}
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <script src="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.js' %}"></script>
+    <script src="{% static 'jquery.bsgrid-master/builds/js/lang/grid.zh-CN.min.js' %}"></script>
+
+    <script src="{% static 'bootstrap/fileinput.js' %}"></script>
+    <script src="{% static 'bootstrap/fileinput_locale_zh.js' %}"></script>
+    <script src="{% static 'layui/layui.js' %}"></script>
+
+
+    <!--导出excel-->
+    <script src="{% static 'export/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'export/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'export/js/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'export/js/jszip.min.js' %}"></script>
+    <script src="{% static 'export/js/pdfmake.min.js' %}"></script>
+    <script src="{% static 'export/js/vfs_fonts.js' %}"></script>
+    <script src="{% static 'export/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'export/js/buttons.print.min.js' %}"></script>
+
+
+    <!-- iCheck 1.0.1 -->
+    <script type="text/javascript">
+        $(function () {
+            $('#TEST-BUG').addClass('active');
+            $('#TEST-BUG-BUGREMARK').addClass('active');
+
+        });
+
+    </script>
+    <script>
+        var gridObj;
+        $(function () {
+            gridObj = $.fn.bsgrid.init('searchTable', {
+                url: "{% url 'testManage:bug-bugremark-list' %}",   //json文件url
+                ajaxType: 'POST',      //请求方式
+                pageSizeSelect: true,   //是否显示分页大小选择下拉框，默认false
+                autoLoad: true,
+                pageSize: 20,
+                stripeRows: true,//隔行变色
+                rowHoverColor: true,//划过行变色
+                pageName: 'pageIndex', //页码的参数名称，默认：page
+                ageAll: false,
+                displayBlankRows: false,//不显示空白行
+                extend: {
+                    settings: {
+                        supportGridEdit: true, // default false, if support extend grid edit
+                        supportGridEditTriggerEvent: '', // default 'rowClick', values: ''(means no need Trigger), 'rowClick', 'rowDoubleClick', 'cellClick', 'cellDoubleClick'
+                        gridEditConfigs: {
+                            datetime: {
+                                build: function (edit, value, record, rowIndex, colIndex, tdObj, trObj, options) {
+                                    // Laydate v1.1 may not render display none input, so use onclick
+                                    return value + '<input id="date_' + rowIndex + '_' + colIndex + '" class="bsgrid_editgrid_hidden laydate-icon" style="width:12%" value="' + value + '" onclick="viewDatetimeChoose(this)" />';
+                                },
+                                val: function (formObj) {
+                                    return formObj.val();
+                                }
+                            }
+                        }
+                    }
+                },//分页大小，默认20
+            });
+            btnSearch();
+        });
+
+        function btnSearch() {
+            var date = $('#date').val();
+            var find_per = $('#find_per').val();
+            var sub_per = $('#sub_per').val();
+            data_dict = {'date': date, 'find_per': find_per, 'sub_per': sub_per};
+            gridObj.search(data_dict);
+        }
+
+        function btnExport() {
+            layer.open({
+                type: 1,
+                title: "批量导入",
+                closeBtn: 1,
+                shadeClose: false,
+                area: ['600px', '400px'],
+                content: $("#upload"),
+            });
+        }
+
+        // on操作的追加后的元素， click无法选中，用on追踪
+        $("#qwer").on("click", ".fileinput-upload-button", function () {
+            var form_data = new FormData();
+            var file_info = $('#input-1')[0].files[0];
+            form_data.append('file', file_info);
+            {#console.log(1232212);#}
+            $.ajax({
+                type: "POST",
+                url: "{% url 'testManage:is-taskarrange' %}",
+                data: form_data,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (msg) {
+                    {#console.log(msg)#}
+                    if (msg.result) {
+                        layer.alert(msg.msg, {icon: 1}, function (index) {
+                            parent.layer.closeAll(); //关闭所有弹窗
+                            window.location.reload();
+                        });
+
+                    } else {
+                        layer.alert(msg.msg, {icon: 2});
+                    }
+                    return;
+                }
+            });
+        });
+        /*input 时间输入选择*/
+        $(".form_datetime").datetimepicker({
+            language: 'zh',
+            minView: 'month', //选择范围知道日期，不选择时分
+            //weekStart: 1,
+            //todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            //startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            format: 'yyyy-mm-dd'
+        }).on('changeDate', function (ev) {
+            $(this).datetimepicker('hide');
+        });
+
+
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            var search = $("#find_per");
+
+            var source = new Array();//[{"name":"zhangkun"},{"name":"dashen"}]//["aab","aac","bbd","bbn"];
+            {#source = ["卢造发", "卢造发1", "卢造发2", "卢造发3", "卢造发4", "卢造发5"]#}
+
+            search.keyup(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'testManage:is-taskarrange-rearch' %}",
+                    data: {search: $("#find_per").val()},
+                    success: function (data) {
+                        {#var obj = eval(data); //将json转换为对象的方法#}
+                        var obj = JSON.stringify(data);       //转为JSON字符串
+                        {#var obj = JSON.parse(data);       //转为JSON字符串#}
+                        source = data['username'];
+                        {#console.log('11122-', obj['username']);#}
+                        {#for (var i = 0; i < obj.length; i++) {#}
+                        {#    console.log(obj[i])#}
+                        {# }#}
+                        {#for (var i = 0; i < obj.length; i++) {#}
+                        {#    console.log('222', obj[i]);#}
+                        {#    source[i] = obj[i].username;#}
+                        {# }#}
+                        {#source = ["卢造发", "卢造发1", "卢造发2", "卢造发3", "卢造发4", "卢造发5"];#}
+                        search.autocomplete({
+                            source: source,
+                            messages: {  //message设置不出现匹配关键字的结果
+                                noResults: '',
+                                results: function () {
+                                }
+                            }
+                        });
+
+
+                    }
+                });
+            });
+        });
+        $(function () {
+            var search = $("#sub_per");
+
+            var source = new Array();//[{"name":"zhangkun"},{"name":"dashen"}]//["aab","aac","bbd","bbn"];
+            {#source = ["卢造发", "卢造发1", "卢造发2", "卢造发3", "卢造发4", "卢造发5"]#}
+
+            search.keyup(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'testManage:is-taskarrange-rearch' %}",
+                    data: {search: $("#sub_per").val()},
+                    success: function (data) {
+                        {#var obj = eval(data); //将json转换为对象的方法#}
+                        var obj = JSON.stringify(data);       //转为JSON字符串
+                        {#var obj = JSON.parse(data);       //转为JSON字符串#}
+                        source = data['username'];
+                        {#console.log('11122-', obj['username']);#}
+                        {#for (var i = 0; i < obj.length; i++) {#}
+                        {#    console.log(obj[i])#}
+                        {# }#}
+                        {#for (var i = 0; i < obj.length; i++) {#}
+                        {#    console.log('222', obj[i]);#}
+                        {#    source[i] = obj[i].username;#}
+                        {# }#}
+                        {#source = ["卢造发", "卢造发1", "卢造发2", "卢造发3", "卢造发4", "卢造发5"];#}
+                        search.autocomplete({
+                            source: source,
+                            messages: {  //message设置不出现匹配关键字的结果
+                                noResults: '',
+                                results: function () {
+                                }
+                            }
+                        });
+
+
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

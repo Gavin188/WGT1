@@ -68,10 +68,9 @@
                             <th>登录账号</th>
                             <th>工號</th>
                             <th>资位</th>
-                            {#                        <th>进集团时间</th>#}
-
                             <th>职位</th>
                             <th>上级</th>
+                            <th>加班</th>
                             <th>状态</th>
                             <th>操作</th>
                         </tr>
@@ -163,6 +162,16 @@
                                 data: "superior__name",
                             },
                             {
+                                data: "time_control",
+                                render: function (data) {
+                                    if (data == 1) {
+                                        return "管控";
+                                    } else {
+                                        return "不管控";
+                                    }
+                                }
+                            },
+                            {
                                 data: "is_active",
                                 render: function (data) {
                                     if (data == true) {
@@ -174,7 +183,7 @@
                             },
                             {
                                 data: "id",
-                                width: "10%",
+                                width: "13%",
                                 bSortable: "false",
                                 render: function (data, type, row, meta) {
                                     var ret = "";

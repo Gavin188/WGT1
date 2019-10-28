@@ -116,6 +116,15 @@
                         <div class="col-sm-3">
                             <input class="form-control" name="level" type="text" value="{{ user.level }}"/>
                         </div>
+                        <label class="col-sm-2 control-label">加班管控</label>
+                        <div class="col-sm-3">
+                            <select class="form-control select2" style="width:100%;" name="time_control"
+                                    id="time_control">
+                                {% for applyState in time %}
+                                    <option value="{{ applyState.key }}">{{ applyState.value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
 
                     <legend>
@@ -169,8 +178,10 @@
         $("#btnCancel").click(function () {
             window.location.reload();
 
-        })
-
+        });
+        {#$('#time_control') #}
+        var data = "{{ user.time_control }}";
+        document.getElementById('time_control').value = data
         /*input 时间输入选择*/
         $(".form_datetime").datetimepicker({
             language: 'zh',

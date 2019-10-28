@@ -1,5 +1,9 @@
+import datetime
+
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 
 class Menu(models.Model):
@@ -60,6 +64,7 @@ class Structure(models.Model):
 
 # 用户表
 class UserProfile(AbstractUser):
+    time_choices = (("1", "管控"), ("2", "不管控"))
     name = models.CharField(max_length=20, default="", verbose_name="姓名")
     birthday = models.DateField(null=True, blank=True, verbose_name="出生日期")
     gender = models.CharField(max_length=10, choices=(("male", "男"), ("female", "女")), default="male",
@@ -76,6 +81,7 @@ class UserProfile(AbstractUser):
     level = models.CharField(max_length=20, verbose_name="分类")
     enjoy_company = models.DateField(null=True, blank=True, verbose_name="进集团日期")
     enjoy_wgt = models.DateField(null=True, blank=True, verbose_name="进WGT日期")
+    time_control = models.CharField(max_length=30, choices=time_choices, default="1", verbose_name="加班管控")
 
     class Meta:
         verbose_name = "用户信息"
@@ -90,7 +96,7 @@ class UserProfile(AbstractUser):
 class Notice(models.Model):
     tag = models.CharField(max_length=30, blank=True, null=True, verbose_name="标签", )
     relDate = models.DateTimeField(auto_now_add=True, verbose_name='发布日期', )
-    relContent = models.TextField(max_length=200, blank=True, null=True, verbose_name="发布内容", )
+    relContent = models.TextField(max_length=500, blank=True, null=True, verbose_name="发布内容", )
     relUser = models.CharField(max_length=30, blank=True, null=True, verbose_name="发布者", )
     other = models.CharField(max_length=60, blank=True, null=True, verbose_name="其他", )
 
@@ -99,4 +105,34 @@ class Notice(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.relContent
+        return str(self.id)
+
+
+# Accessory
+class Access(models.Model):
+    access = models.CharField(max_length=60, blank=True, null=True, verbose_name="配件平台", )
+
+    class Meta:
+        verbose_name = "配件信息"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.access
+
+
+#  测试管理的 word 文档 -- 采用 CKEditor 第三方插件
+class TestWord(models.Model):
+    '''这是word 测试说明书'''
+    title = models.CharField(max_length=50, verbose_name='标题')
+    comments = models.CharField(max_length=30, verbose_name='备注')
+    publisher = models.CharField(max_length=30, verbose_name='发布者')
+    publish_date = models.DateTimeField(auto_now_add=False, verbose_name='发布时间', default=timezone.now)
+    desc_pack = RichTextUploadingField(default='', verbose_name='测试说明内容')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = '测试说明书'
+        # db_table = verbose_name
+        verbose_name_plural = verbose_name

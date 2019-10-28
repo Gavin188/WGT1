@@ -48,7 +48,7 @@ class UserCreateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
-            'name', 'gender', 'birthday', 'username', 'mobile', 'email',
+            'name', 'gender', 'birthday', 'username', 'mobile', 'email', 'image',
             'department', 'post', 'superior', 'is_active', 'roles', 'password',
             'worknum', 'level', 'enjoy_company', 'enjoy_wgt',
         ]
@@ -95,7 +95,7 @@ class UserUpdateForm(forms.ModelForm):
         fields = [
             'name', 'gender', 'birthday', 'username', 'mobile', 'email',
             'department', 'post', 'superior', 'is_active', 'roles', 'worknum',
-            'level', 'enjoy_company', 'enjoy_wgt',
+            'level', 'enjoy_company', 'enjoy_wgt', 'time_control'
         ]
 
 

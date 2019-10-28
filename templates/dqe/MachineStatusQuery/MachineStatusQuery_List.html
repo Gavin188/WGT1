@@ -487,38 +487,38 @@
             //Initialize Select2 Elements
             $(".select2").select2();
         });
-        /*专案阶段二级联动*/
 
-        $("select[name='fk_project']").change(function () {
-
-            var fk_project_id = $("select[name='fk_project']").val();
-
-            //alert(fk_project_id);
-
-            $.ajax({
-                type: "POST",
-
-                url: "{% url 'system:basic-project-stage' %}",
-
-                data: {"fk_project_id": fk_project_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
-
-                success: function (data) {
-                    //console.log(data);
-                    //console.log(data.stages);
-                    //console.log(data.stages.length);
-
-                    var fk_st = $("select[name='fk_stage']").empty();  //.append('<option value>'+'--请选择--'+'</option>');
-                    fk_st.append('<option></option>')
-                    $.each(data.stages, function (i, val) {
-                        //console.log(i + "===" + val.id)  // #表示浏览器控制台下打印消息
-                        fk_st.append('<option value="' + val.id + '">' + val.sname + '</option>')
-                    })
-
-                }
-            });
-
-
-        });
+        {#/*专案阶段二级联动*/#}
+        {#$("select[name='fk_project']").change(function () {#}
+        {##}
+        {#    var fk_project_id = $("select[name='fk_project']").val();#}
+        {##}
+        {#    //alert(fk_project_id);#}
+        {##}
+        {#    $.ajax({#}
+        {#        type: "POST",#}
+        {##}
+        {#        url: "{% url 'system:basic-project-stage' %}",#}
+        {##}
+        {#        data: {"fk_project_id": fk_project_id, csrfmiddlewaretoken: '{{ csrf_token }}'},#}
+        {##}
+        {#        success: function (data) {#}
+        {#            //console.log(data);#}
+        {#            //console.log(data.stages);#}
+        {#            //console.log(data.stages.length);#}
+        {##}
+        {#            var fk_st = $("select[name='fk_stage']").empty();  //.append('<option value>'+'--请选择--'+'</option>');#}
+        {#            fk_st.append('<option></option>')#}
+        {#            $.each(data.stages, function (i, val) {#}
+        {#                //console.log(i + "===" + val.id)  // #表示浏览器控制台下打印消息#}
+        {#                fk_st.append('<option value="' + val.id + '">' + val.sname + '</option>')#}
+        {#            })#}
+        {##}
+        {#        }#}
+        {#    });#}
+        {##}
+        {##}
+        {# });#}
 
         //Reset功能  >> 更改为 超时的可以点击 超时按钮 >> 执行function doReset
         //$("#btnReset").click(function () { });

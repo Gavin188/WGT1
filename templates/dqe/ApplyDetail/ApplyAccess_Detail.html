@@ -1,0 +1,522 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="col-md-14">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">配件申請單({{ applylist.id }})</h3>
+
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <div class="mailbox-controls margin-b-10">
+                        <div class="btn-group margin-l-5">
+                            <button type="button" class="btn btn-danger btn-sm" title="返回" id="btnApplyReturn">
+                                <i class="fa fa-undo"> 返回</i>
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <i class="ion ion-clipboard"></i>
+                            <h3 class="box-title">申請詳情</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="box-body">
+                                <table id="dtbList" class="display" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr valign="middle">
+                                        <th><input type="checkbox" id="checkAll"></th>
+                                        <th>Apply_ID</th>
+                                        <th>Accessory</th>
+                                        <th>HW-Build</th>
+                                        <th>Comments</th>
+                                        <th>Qty</th>
+                                        <th>Keep</th>
+                                        <th>确认状态</th>
+                                        <th>申请人</th>
+                                        <th>申请小组</th>
+                                        <th>申请时间</th>
+                                        <th>确认时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="box-footer clearfix no-border">
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <i class="ion ion-clipboard"></i>
+                            <h3 class="box-title">申請詳情</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i
+                                        class="fa fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="box-body">
+                                <table id="AccessList" class="display" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr valign="middle">
+                                        <th><input type="checkbox" id="checkAll"></th>
+                                        <th>Apply_ID</th>
+                                        <th>SN</th>
+                                        <th>HW-Build</th>
+                                        <th>Config</th>
+                                        <th>Status</th>
+                                        <th>配件状态</th>
+                                        <th>借出人</th>
+                                        <th>借出时长</th>
+                                        <th>确认时间</th>
+                                        <th>退还时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="box-footer clearfix no-border">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $('#DQE-MT').addClass('active');
+            $('#{{ menu.code }}').addClass('active');
+
+        });
+
+        // 返回
+        $("#btnApplyReturn").on("click", function () {
+            window.location.href = "{% url 'dqe:mt-applydetail' %}";
+        });
+
+        //apply edit
+        function doApplyUpdate(id) {
+            layer.open({
+                type: 2,
+                title: '编辑',
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                {#content: ["{% url 'dqe:mt-apply-update' %}" + '?id=' + id],#}
+                end: function () {
+                    window.location.reload();
+
+                }
+            });
+        }
+
+        // 这里开始为申请详情
+        var oDataTable = null;
+        $(function () {
+            oDataTable = initTable();
+
+            function initTable() {
+                var oTable = $('#dtbList').DataTable($.extend(true, {},
+                    DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
+                    {
+                        ajax: {
+                            "url": "{% url 'dqe:mt-accesssorycount-list' %}",
+                            "data": function (d) {
+                                d.applyId = "{{ applylist.id }}";
+                            }
+                        },
+                        columns: [
+                            DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
+                            {
+                                data: "id",
+                                width: "7%",
+                            },
+                            {
+                                data: "accessory",
+                            },
+                            {
+                                data: "stage",
+                            },
+                            {
+                                data: "comments",
+                            },
+                            {
+                                data: "qty",
+                            },
+                            {
+                                data: "timeState",
+                            },
+                            {
+                                data: "machineState",
+                                render: function (data, type, row, meta) {
+
+                                    if (data == 1) {
+                                        return "未確認"
+                                    } else if (data == 2) {
+                                        return "確認"
+                                    } else if (data == 3) {
+                                        return "拒絕"
+                                    } else {
+                                        return ""
+                                    }
+                                }
+                            },
+                            {
+                                data: "fk_apply__applyUser",
+                            },
+                            {
+                                data: "fk_apply__applyUnit",
+                            },
+                            {
+                                data: "applyDate",
+                                render: function (data, type, full, meta) {
+                                    if (data == null) {
+                                        return '--'
+                                    } else {
+                                        return moment(data).format("YYYY-MM-DD HH:mm");
+                                    }
+                                }
+                            },
+                            {
+                                data: "lendDate",
+                                render: function (data, type, full, meta) {
+                                    if (data == null) {
+                                        return '--'
+                                    } else {
+                                        return moment(data).format("YYYY-MM-DD HH:mm");
+                                    }
+                                }
+                            },
+
+                            {
+                                data: "id",
+                                width: "10%",
+                                bSortable: "false",
+                                render: function (data, type, row, meta) {
+
+                                    if (row.machineState == 1) {
+                                        var ret = "<button title='编辑' onclick='doUpdate("
+                                            + data + ")'><i class='glyphicon glyphicon-pencil'></i></button>";
+                                        ret = ret + "<button title='删除' onclick='doDelete("
+                                            + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
+
+                                    } else {
+                                        var ret = '';
+                                    }
+                                    return ret;
+                                }
+                            }],
+                    }));
+                return oTable;
+            }
+
+        });
+
+        //以下针对 Apply 进行操作
+        //checkbox全选
+        $("#checkAll").on("click", function () {
+            if ($(this).prop("checked") === true) {
+                $("input[name='checkList']").prop("checked", $(this).prop("checked"));
+                $('#example tbody tr').addClass('selected');
+            } else {
+                $("input[name='checkList']").prop("checked", false);
+                $('#example tbody tr').removeClass('selected');
+            }
+        });
+
+        //申请详情刷新
+        $("#btnRefresh").click(function () {
+            oDataTable.ajax.reload();
+        });
+
+        //apply 新增
+        $("#btnCreate").click(function () {
+
+            var div = layer.open({
+                type: 2,
+                title: '入库',
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                {#content: ["{% url 'dqe:mt-applydetail-update' %}"],#}
+                end: function () {
+                    //关闭时做的事情
+                    oDataTable.ajax.reload();
+                }
+            });
+            //layer.full(div);
+        });
+
+
+        //apply 编辑
+        function doUpdate(id) {
+            layer.open({
+                type: 2,
+                title: '编辑',
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                content: ["{% url 'dqe:mt-borrowaccess-update' %}" + '?id=' + id + '&apply_id=' +{{ applylist.id }},],
+                end: function () {
+                    //关闭时做的事情
+                    window.location.reload();
+                }
+            });
+        }
+
+
+        //删除
+        function doDelete(id) {
+            var apply_id = {{ applylist.id }};
+            layer.alert('确定删除吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'dqe:mt-borrowaccess-delete' %}",
+                        data: {"id": id, 'apply_id': apply_id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result == 2) {
+                                layer.alert('删除成功', {icon: 1});
+                                var dtbList = $('#dtbList').DataTable();
+                                dtbList.ajax.reload();
+                            } else if (msg.result == 1) {
+                                console.log('222222', msg.result);
+                                layer.alert('没有申请的IPad,申请单将删除', {
+                                    title: '提示'
+                                    , icon: 1 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                                    , time: 0 //不自动关闭
+                                    , btn: ['YES']
+                                    , yes: function (index) {
+                                        layer.close(index);
+                                        window.location.href = '/dqe/mt/borrowapply/'
+                                    }
+                                });
+
+
+                            } else {
+                                layer.alert(msg.message, {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+
+        }
+
+        //批量删除
+        $("#btnDelete").click(function () {
+            if ($("input[name='checkList']:checked").length == 0) {
+                layer.msg("请选择要删除的记录");
+                return;
+            }
+
+            var arrId = new Array();
+            $("input[name='checkList']:checked").each(function () {
+                //alert($(this).val());
+                arrId.push($(this).val());
+            });
+
+            sId = arrId.join(',');
+
+            layer.alert('用户组下的用户也将会被删除，确定删除吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'dqe:mt-applydetail-delete' %}",
+                        data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("操作成功", {icon: 1});
+                                oDataTable.ajax.reload();
+                            } else {
+                                //alert(msg.message);
+                                layer.alert("操作失败", {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
+
+
+        $(function () {
+            $('#DQE-MT').addClass('active');
+            $('#DQE-MT-BORROWAPPLY').addClass('active');
+
+        });
+        // 这里开始为申请详情
+        var oDataTable = null;
+        $(function () {
+            oDataTable = initTable();
+
+            function initTable() {
+                var oTable = $('#AccessList').DataTable($.extend(true, {},
+                    DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
+                    {
+                        ajax: {
+                            "url": "{% url 'dqe:mt-borrowaccess-list' %}",
+                            "data": function (d) {
+                                d.applyId = "{{ applylist.id }}";
+                            }
+                        },
+                        columns: [
+                            DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
+                            {
+                                data: "fk_accesslistdetail__id",
+
+                            },
+                            {
+                                data: "id",
+
+                            },
+                            {
+                                data: "fk_accessory__sn",
+                            },
+                            {
+                                data: "fk_accessory__hw_build",
+                            },
+                            {
+                                data: "fk_accessory__config",
+                            },
+                            {
+                                data: "fk_accessory__status",
+                                render: function (data) {
+                                    if (data == 1) {
+                                        return "In Use"
+                                    } else if (data == 2) {
+                                        return "Disuse"
+                                    } else {
+                                        return 'Other'
+                                    }
+
+                                }
+                            },
+                            {
+                                data: "opeuser",
+                            },
+                            {
+                                data: "fk_accesslistdetail__timeState",
+                            },
+                            {
+                                data: "fk_accesslistdetail__lendDate",
+                                render: function (data, type, full, meta) {
+                                    console.log(data)
+                                    if (data == null) {
+                                        return '--'
+                                    } else {
+                                        return moment(data).format("YYYY-MM-DD HH:mm");
+                                    }
+                                }
+                            },
+                            {
+                                data: "returnDate",
+                                render: function (data, type, full, meta) {
+                                    if (data) {
+                                        return moment(data).format("YYYY-MM-DD HH:mm");
+                                    } else {
+                                        return '--'
+                                    }
+                                }
+                            },
+                        ],
+                    }));
+                return oTable;
+            }
+
+        });
+
+        //以下针对 Apply 进行操作
+        //checkbox全选
+        $("#checkAll1").on("click", function () {
+            if ($(this).prop("checked") === true) {
+                $("input[name='checkList']").prop("checked", $(this).prop("checked"));
+                $('#example tbody tr').addClass('selected');
+            } else {
+                $("input[name='checkList']").prop("checked", false);
+                $('#example tbody tr').removeClass('selected');
+            }
+        });
+
+
+        {#$("#btnScanApply").on("click", function () {#}
+        {#    var div = layer.open({#}
+        {#        type: 2,#}
+        {#        title: '掃碼申請',#}
+        {#        shadeClose: false,#}
+        {#        maxmin: true,#}
+        {#        area: ['800px', '400px'],#}
+        {#        //所謂的借出確認申請，就是一個操作緩存記錄#}
+        {#        content: "{% url 'dqe:mt-inventory-scanApply' %}",#}
+        {#        end: function () {#}
+        {#            //关闭时做的事情#}
+        {#            oDataTable.ajax.reload();#}
+        {#        }#}
+        {#    });#}
+        {#    //layer.full(div);#}
+        {# });#}
+    </script>
+
+
+{% endblock %}
+
+
+

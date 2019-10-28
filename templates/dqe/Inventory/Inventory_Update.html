@@ -2,147 +2,710 @@
 {% load staticfiles %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
     <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/fileinput.css' %}">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
 {% endblock %}
 
 {% block main %}
-    <div class="box box-danger">
-        <form class="form-horizontal" id="addForm" method="post">
-            {% csrf_token %}
+    <!-- Main content -->
+    <section class="content">
+        <div id="devlist">
+            <div class="box box-primary" id="my-page">
+                {#                <div class="box-header" id="my-page">#}
+                <div id="RecordUpdate" style=";margin-top: 16px">
+                    <!--显示修改记录的表单-->
+                    <form class="layui-form" method="post" enctype="multipart/form-data" id="edit_form">
+                        {% csrf_token %}
 
-            <input type="hidden" name='id' value="{{ inventory.id }}"/>
-
-            <div class="box-body">
-                <fieldset>
-                    <legend>
-                        <h4>機台入庫</h4>
-                    </legend>
-
-                    <div class="form-group has-feedback">
-                        <label class="col-sm-2 control-label">專案名稱</label>
-                        <div class="col-sm-3">
-                            <select class="form-control select2" style="width:100%;" name="fk_project">
-                                <option value="{{ inventory.fk_project.id }}">{{ inventory.fk_project | default:"--请选择--" }}</option>
-                                {% for project in projects %}
-                                    {% if project.id != inventory.fk_project.id %}
-                                        <option value="{{ project.id }}">{{ project.pname }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">PlatForm</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="platform" required lay-verify="required"
+                                       placeholder="请输入PlatForm"
+                                       autocomplete="off" class="layui-input" id="platform_input">
+                            </div>
                         </div>
-                        <label class="col-sm-2 control-label">階段名稱</label>
-                        <div class="col-sm-3">
-                            <select class="form-control select2" style="width:100%;" name="fk_stage">
-                                <option value="{{ inventory.fk_stage.id }}">{{ inventory.fk_stage | default:"--请选择--" }}</option>
-                                {% for stage in stages %}
-                                    <option value="{{ stage.id }}">{{ stage.sname }}</option>
-                                {% endfor %}
-                            </select>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Hw_build</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="hw_build" lay-verify="required" placeholder="请输入Hw build"
+                                       autocomplete="off" class="layui-input" id="hw_build_input">
+                            </div>
                         </div>
-                    </div>
-
-
-
-
-
-                    <div class="form-group has-feedback">
-                        <label class="col-sm-2 control-label">Rel編號</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" name="rel" type="text" value="{{ inventory.rel }}"/>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">WGT NO</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wgt_no" placeholder="请输入WGT_NO"
+                                       autocomplete="off" class="layui-input" id="wgt_no_input">
+                            </div>
                         </div>
-
-                        <label class="col-sm-2 control-label">SN</label>
-                        <div class="col-sm-3">
-                            <input class="form-control" name="sn" type="text" value="{{ inventory.sn }}"/>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">SN</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="sn" placeholder="请输入sn"
+                                       autocomplete="off" class="layui-input" id="sn_input">
+                            </div>
                         </div>
-                    </div>
-
-                    <!--<div class="form-group has-feedback">-->
-                    <!--<label class="col-sm-2 control-label">入庫日期</label>-->
-                    <!--<div class="col-sm-3">-->
-                    <!--<input type="text" class="form-control pull-right form_datetime" name="indate" value="{{ inventory.indate }}"/>-->
-                    <!--</div>-->
-
-                    <!--<label class="col-sm-2 control-label">入庫者</label>-->
-                    <!--<div class="col-sm-3">-->
-                    <!--<input class="form-control" name="recuser" type="text" value="{{ inventory.recuser }}"/>-->
-                    <!--</div>-->
-                    <!--</div>-->
-
-
-                    <div class="form-group has-feedback">
-                        <label class="col-sm-2 control-label">狀態</label>
-                        <div class="col-sm-3">
-                            <select class="form-control select2" style="width:100%;" name="state">
-                                <option value="{{ inventory.state }}">{{ inventory.get_state_display | default:"--请选择--" }}</option>
-                                {% for state in state_list %}
-                                    <option value="{{ state.key }}">{{ state.value }}</option>
-                                {% endfor %}
-                            </select>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Model</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="model" placeholder="请输入model"
+                                       autocomplete="off" class="layui-input" id="model_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Status Detail</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="status_detail" placeholder="请输入status_detail"
+                                       autocomplete="off" class="layui-input" id="status_detail_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Fused</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="fused" placeholder="请输入fused"
+                                       autocomplete="off" class="layui-input" id="fused_input">
+                            </div>
                         </div>
 
-                        <label class="col-sm-2 control-label">產品類別</label>
-                        <div class="col-sm-3">
-                            <select class="form-control select2" style="width:100%;" name="fk_pt">
-                                <option value="{{ inventory.fk_pt.id }}">{{ inventory.fk_pt | default:"--请选择--" }}</option>
-                                {% for prodtype in prodtypes %}
-                                    <option value="{{ prodtype.id }}">{{ prodtype.ptname }}</option>
-                                {% endfor %}
-                            </select>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Config</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="config" lay-verify="required" placeholder="请输入Config"
+                                       autocomplete="off" class="layui-input" id="config_input">
+                            </div>
                         </div>
 
-                    </div>
-                    <div class="form-group has-feedback">
-                        <label class="col-sm-2 control-label">備註</label>
-                        <div class="col-sm-8">
-                            <input class="form-control" name="remark" type="text" placeholder="機台入庫"
-                                   value="{{ inventory.remark }}"/>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Display</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="display" lay-verify="required" placeholder="请输入Display"
+                                       autocomplete="off" class="layui-input" id="disolay_input">
+                            </div>
                         </div>
-                    </div>
 
-                </fieldset>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Nand</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="nand" placeholder="请输入nand"
+                                       autocomplete="off" class="layui-input" id="nand_input">
+                            </div>
+                        </div>
 
-            </div>
-            <div class="box-footer ">
-                <div class="row span7 text-center ">
-                    <button type="button" id="btnCancel" class="btn btn-default margin-right ">重置</button>
-                    <button type="button" id="btnSave" class="btn btn-info margin-right ">保存</button>
+                        <div class="layui-input-inline">
+                            {#                            <label class="layui-form-label">Units Status</label>#}
+                            <div class="layui-input-block">
+                                <input type="hidden" name="units_status" lay-verify="required" placeholder="请输入Status"
+                                       autocomplete="off" class="layui-input" id="units_status_input" value="1">
+                                {#                            <select name="units_status" id="units_status_input" lay-verify="required" lay-search="">#}
+                                {#                                <option value="1">入库</option>#}
+                                {#                                <option value="2">已借出</option>#}
+                                {#                                <option value="3">出库</option>#}
+                                {#                                <option value="4">已损坏</option>#}
+                                {#                                <option value="5">被外借</option>#}
+                                {#                            </select>#}
+                            </div>
+                        </div>
+
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Date_in</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="date_in" lay-verify="required" placeholder="请输入入库时间"
+                                       autocomplete="off" class="layui-input" id="Date_in_input">
+                            </div>
+                        </div>
+                        {#                        <div class="layui-input-inline">#}
+                        {#                            <label class="layui-form-label">Date_out</label>#}
+                        {#                            <div class="layui-input-block">#}
+                        {#                                <input type="text" name="date_out" placeholder="请输入出库时间"#}
+                        {#                                       autocomplete="off" class="layui-input" id="Date_out_input">#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Recuser</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="recuser" lay-verify="required" placeholder="请输入recuser"
+                                       autocomplete="off" class="layui-input" id="recuser_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline" style="width: 35%">
+                            <label class="layui-form-label">Hw_Build Detail</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="hw_build_detail" placeholder="请输入Hw_Build Detail"
+                                       autocomplete="off" class="layui-input" id="hw_build_detail_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Front color</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="front_color" placeholder="请输入front_color"
+                                       autocomplete="off" class="layui-input" id="front_color_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Rear color</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="rear_color" placeholder="请输入rear_color"
+                                       autocomplete="off" class="layui-input" id="rear_color_input">
+                            </div>
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">soc</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="soc" placeholder="请输入soc"
+                                       autocomplete="off" class="layui-input" style="width: 206px"
+                                       id="soc_input">
+                            </div>
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Housing</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="housing" placeholder="请输入housing"
+                                       autocomplete="off" class="layui-input" id="housing_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">TM Gradiong</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="tm_grading" placeholder="请输入TM Gradiong"
+                                       autocomplete="off" class="layui-input" id="tm_grading_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Grape</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="grape" placeholder="请输入grape"
+                                       autocomplete="off" class="layui-input" id="grape_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Nand Type</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="nand_type" placeholder="请输入Nand Type"
+                                       autocomplete="off" class="layui-input" id="nand_type_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Die Name</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="die_name" placeholder="请输入Die Name"
+                                       autocomplete="off" class="layui-input" id="die_name_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Battery Detail</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="battery_detail" placeholder="请输入Battery Detail"
+                                       autocomplete="off" class="layui-input" id="battery_detail_input">
+                            </div>
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Battery Confirm</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="battery_confirm" placeholder="请输入battery_confirm"
+                                       autocomplete="off" class="layui-input" id="battery_confirm_input">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Mesa Flex</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="mesa_flex" placeholder="请输入mesa_flex"
+                                       autocomplete="off" class="layui-input" id="mesa_flex_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">WIFI Vender</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wifi_vender" placeholder="请输入wifi_vender"
+                                       autocomplete="off" class="layui-input" id="wifi_vender_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">WF1</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wf1" placeholder="请输入WF1"
+                                       autocomplete="off" class="layui-input" id="WF1_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">WF2</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wf2" placeholder="请输入WF2"
+                                       autocomplete="off" class="layui-input" id="WF2_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">WF3</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wf3" placeholder="请输入WF3"
+                                       autocomplete="off" class="layui-input" id="WF3_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">WF5</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wf5" placeholder="请输入WF5"
+                                       autocomplete="off" class="layui-input" id="WF5_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">WF5P</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wf5p" placeholder="请输入WF5p"
+                                       autocomplete="off" class="layui-input" id="WF5p_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">WF3 Metrocirc</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wf3_metrocirc" placeholder="请输入wf3_metrocirc"
+                                       autocomplete="off" class="layui-input" id="wf3_metrocirc_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">WF5 Metrocirc</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wf5_metrocirc" placeholder="请输入wf5_metrocirc"
+                                       autocomplete="off" class="layui-input" id="wf5_metrocirc_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">WF SW L</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wf_sw_l" placeholder="请输入wf_sw_l"
+                                       autocomplete="off" class="layui-input" id="wf_sw_l_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">WF SW R</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wf_sw_r" placeholder="请输入wf_sw_r"
+                                       autocomplete="off" class="layui-input" id="wf_sw_r_input">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Front Camera</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="front_camera" placeholder="请输入front_camera"
+                                       autocomplete="off" class="layui-input" id="front_camera_input">
+                            </div>
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Rear Camera</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="rear_camera" placeholder="请输入rear_camera"
+                                       autocomplete="off" class="layui-input" id="rear_camera_input">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Mikey Flex</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="mikey_flex" placeholder="请输入mikey_flex"
+                                       autocomplete="off" class="layui-input" id="mikey_flex_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">FH SPK</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="fh_spk" placeholder="请输入fh_spk"
+                                       autocomplete="off" class="layui-input" id="fh_spk_input">
+                            </div>
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Chin SPK</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="chin_spk" placeholder="请输入chin_spk"
+                                       autocomplete="off" class="layui-input" id="chin_spk_input">
+                            </div>
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Spv Flex</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="spv_flex" placeholder="请输入spv_flex"
+                                       autocomplete="off" class="layui-input" id="spv_flex_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">microphone</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="microphone" placeholder="请输入microphone"
+                                       autocomplete="off" class="layui-input" id="microphone_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">microphone2</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="microphone2" placeholder="请输入microphone2"
+                                       autocomplete="off" class="layui-input" id="microphone2_input">
+                            </div>
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">C3 Flex</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="c3_flex" placeholder="请输入c3_flex"
+                                       autocomplete="off" class="layui-input" id="c3_flex_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">C4 Flex</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="c4_flex" placeholder="请输入c4_flex"
+                                       autocomplete="off" class="layui-input" id="c4_flex_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">MLB</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="mlb" placeholder="请输入mlb"
+                                       autocomplete="off" class="layui-input" id="mlb_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">MLB SOC</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="mlb_soc" placeholder="请输入mlb_soc"
+                                       autocomplete="off" class="layui-input" id="mlb_soc_input">
+                            </div>
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">PCB</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="pcb" placeholder="请输入pcb"
+                                       autocomplete="off" class="layui-input" id="pcb_input">
+                            </div>
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Bash Flex</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="bash_flex" placeholder="请输入bash_flex"
+                                       autocomplete="off" class="layui-input" id="bash_flex_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Sim Flex</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="sim_flex" placeholder="请输入sim_flex"
+                                       autocomplete="off" class="layui-input" id="sim_flex_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Mimosa</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="mimosa" placeholder="请输入mimosa"
+                                       autocomplete="off" class="layui-input" id="mimosa_input">
+                            </div>
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Autobahn Flex</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="autobahn_flex" placeholder="请输入autobahn_flex"
+                                       autocomplete="off" class="layui-input" id="autobahn_flex_input">
+                            </div>
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Edp Flex</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="edp_flex" placeholder="请输入edp_flex"
+                                       autocomplete="off" class="layui-input" id="edp_flex_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">IO Bonding</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="io_bonding" placeholder="请输入io_bonding"
+                                       autocomplete="off" class="layui-input" id="io_bonding_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Gyro Type</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="gyro_type" placeholder="请输入gyro_type"
+                                       autocomplete="off" class="layui-input" id="gyro_type_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Appleoscar</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="appleoscar" placeholder="请输入appleoscar"
+                                       autocomplete="off" class="layui-input" id="appleoscar_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Dram</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="dram" placeholder="请输入dram"
+                                       autocomplete="off" class="layui-input" id="dram_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">E75</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="e75" placeholder="请输入e75"
+                                       autocomplete="off" class="layui-input" id="e75_input">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Full Lam</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="full_lam" placeholder="请输入full_lam"
+                                       autocomplete="off" class="layui-input" id="full_lam_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Unit Weight</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="unit_weight" placeholder="请输入unit_weight"
+                                       autocomplete="off" class="layui-input" id="unit_weight_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Ecid</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="ecid" placeholder="请输入ecid"
+                                       autocomplete="off" class="layui-input" id="ecid_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Apecid</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="apecid" placeholder="请输入apecid"
+                                       autocomplete="off" class="layui-input" id="apecid_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">E75</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="e75" placeholder="请输入e75"
+                                       autocomplete="off" class="layui-input" id="e75_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Snum</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="snum" placeholder="请输入snum"
+                                       autocomplete="off" class="layui-input" id="snum_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Euicccsn</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="euicccsn" placeholder="请输入euicccsn"
+                                       autocomplete="off" class="layui-input" id="euicccsn_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Unit NO</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="unit_no" placeholder="请输入unit_no"
+                                       autocomplete="off" class="layui-input" id="unit_no_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">AAPN</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="aapn" placeholder="请输入aapn"
+                                       autocomplete="off" class="layui-input" id="aapn_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">HHPN</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="hhpn" placeholder="请输入hhpn"
+                                       autocomplete="off" class="layui-input" id="hhpn_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">WO</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="wo" placeholder="请输入wo"
+                                       autocomplete="off" class="layui-input" id="wo_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Allocated To Group</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="allocatedto_group" placeholder="请输入allocatedto_group"
+                                       autocomplete="off" class="layui-input" id="allocatedto_group_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Apple Dri</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="apple_dri" placeholder="请输入apple_dri"
+                                       autocomplete="off" class="layui-input" id="apple_dri_input">
+                            </div>
+                        </div>
+
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Pt No</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="pt_no" placeholder="请输入pt_no"
+                                       autocomplete="off" class="layui-input" id="pt_no_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Apple Po</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="apple_po" placeholder="请输入apple_po"
+                                       autocomplete="off" class="layui-input" id="apple_po_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">仓码</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="boxsn" placeholder="请输入boxsn"
+                                       autocomplete="off" class="layui-input" id="boxsn_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">认证期限</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="certification" placeholder="请输入certification"
+                                       autocomplete="off" class="layui-input" id="certification_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">accessory</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="accessory" placeholder="请输入accessory"
+                                       autocomplete="off" class="layui-input" id="accessory_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">有无镭射</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="presence_laser" placeholder="请输入presence_laser"
+                                       autocomplete="off" class="layui-input" id="presence_laser_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">是否带卡</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="card" placeholder="请输入card"
+                                       autocomplete="off" class="layui-input" id="card_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">卡型号</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="card_type" placeholder="请输入card_type"
+                                       autocomplete="off" class="layui-input" id="card_type_input">
+                            </div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <label class="layui-form-label">Detail Comment</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="detail_comment" placeholder="请输入detail_comment"
+                                       autocomplete="off" class="layui-input" id="detail_comment_input">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-form-item">
+                            <input type="text" name="ID" autocomplete="off" class="layui-input" id="id_input"
+                                   style="display: none">
+                        </div>
+
+                        <div class="layui-form-item">
+                            <input type="text" name="project_id" autocomplete="off" class="layui-input"
+                                   id="project_id_input"
+                                   style="display: none">
+                        </div>
+
+                        <div class="layui-form-item" align="center">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" id="btnSave">立即提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                        <font color="#FF0000">备注：Accessory、Vender、HW Build、Config、Status、SN、Date In 为必填项</font>
+                    </form>
                 </div>
+                {#                </div>#}
             </div>
-
-        </form>
-    </div>
+        </div>
+    </section>
 
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{% static 'plugins/combo-select/jquery.combo.select.js' %}"></script>
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
     <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    {#    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>#}
     <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <script src="{% static 'bootstrap/fileinput.js' %}"></script>
+    <script src="{% static 'bootstrap/fileinput_locale_zh.js' %}"></script>
+    <script src="{% static 'layui/layui.js' %}"></script>
 
     <script type="text/javascript">
+        {#layui.use('form', function () {#}
+        {#    var form = layui.form;#}
+        {#    form.render();#}
+        {# });#}
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#Date_in_input'//指定元素
+            });
+        });
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#Date_out_input'//指定元素
+            });
+        });
 
-        $("#btnSave").click(function () {
-            var data = $("#addForm").serialize();
+        $("#btnSave").click(function (e) {
+            e.preventDefault() // 组织表单自动提交
+            var data = $("#edit_form").serialize();
             $.ajax({
-                type: $("#addForm").attr('method'),
-                url: "{% url 'dqe:inventory-update' %}",
+                type: $("#edit_form").attr('method'),
+                url: "{% url 'dqe:inventory-insert' %}",
                 data: data,
                 cache: false,
                 success: function (msg) {
+                    console.log('1111', msg.result)
                     if (msg.result) {
                         layer.alert('數據保存成功！', {icon: 1}, function (index) {
                             parent.layer.closeAll(); //关闭所有弹窗
+                            location.href = '/dqe/inventory/list'
                         });
                     } else {
                         layer.alert('數據保存失败！', {icon: 5});
-                        //$('errorMessage').html(msg.message)
                     }
                     return;
                 }
             });
+            {#return false;#}
         });
 
 
@@ -168,43 +731,14 @@
             $(this).datetimepicker('hide');
         });
 
-        // select2
-        $(function () {
-            //Initialize Select2 Elements
-            $(".select2").select2();
-        });
+        {#// select2#}
+        {#$(function () {#}
+        {#    //Initialize Select2 Elements#}
+        {#    $(".select2").select2();#}
+        {# });#}
 
         /*专案阶段二级联动*/
 
-        $("select[name='fk_project']").change(function () {
-
-            var fk_project_id = $("select[name='fk_project']").val();
-
-            //alert(fk_project_id);
-
-            $.ajax({
-                type: "POST",
-
-                url: "{% url 'system:basic-project-stage' %}",
-
-                data: {"fk_project_id": fk_project_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
-
-                success: function (data) {
-                    //console.log(data);
-                    //console.log(data.stages);
-                    //console.log(data.stages.length);
-
-                    var fk_st = $("select[name='fk_stage']").empty();  //.append('<option value>'+'--请选择--'+'</option>');
-
-                    $.each(data.stages, function (i, val) {
-                        //console.log(i + "===" + val.id)  // #表示浏览器控制台下打印消息
-                        fk_st.append('<option value="' + val.id + '">' + val.sname + '</option>')
-                    })
-
-                }
-            });
-
-        });
     </script>
 
 {% endblock %}

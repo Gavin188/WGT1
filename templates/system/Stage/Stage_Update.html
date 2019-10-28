@@ -21,18 +21,6 @@
                 </legend>
 
                 <div class="form-group has-feedback">
-                    <label class="col-sm-2 control-label">專案名</label>
-                    <div class="col-sm-3">
-                        <select class="form-control select2" style="width:100%;" name="fk_project">
-                            <option value="{{ stage.fk_project.id }}">{{ stage.fk_project.pname | default:"--请选择--" }}</option>
-                            {% for project in projects %}
-                                {%  if stage.fk_project.pname != project.pname  %}
-                                    <option value="{{ project.id }}">{{ project.pname }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                    </div>
-
                     <label class="col-sm-2 control-label">階段名</label>
                     <div class="col-sm-3">
                         <input class="form-control" name="sname" type="text" value="{{ stage.sname }}"/>

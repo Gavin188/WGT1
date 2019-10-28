@@ -1,0 +1,631 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- Main content -->
+    <section class="content">
+        <div class="box">
+            <div class="box-header with-border">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">申請詳情--({{ apply.id }})</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                            class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="box-header">
+                    <div class="btn-group pull-left">
+                        <button type="button" class="btn btn-danger btn-sm" title="返回" id="btnApplyReturn">
+                            <i class="fa fa-undo"> 返回</i>
+                        </button>
+                    </div>
+                    {#                    <div class="btn-group pull-left">&nbsp</div>#}
+                    {#                    <div class="btn-group pull-left">#}
+                    {#                        <button type="button" id="btnMachLoanConfirm" class="btn btn-primary">#}
+                    {#                            <i class="glyphicon glyphicon-arrow-right"></i>機台借出確認#}
+                    {#                        </button>#}
+                    {#                    </div>#}
+                </div>
+                <div class="box-body">
+                    <table id="dtbList" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr valign="middle">
+                            {#                            <th><input type="checkbox" id="checkAll"></th>#}
+                            <th>Apply_ID</th>
+                            <th>Platform</th>
+                            <th>HW-Build</th>
+                            <th>Model</th>
+                            <th>Fused</th>
+                            <th>Comments</th>
+                            <th>Qty</th>
+                            <th>Keep</th>
+                            <th>确认状态</th>
+                            <th>申请人</th>
+                            <th>申请小组</th>
+                            <th>申请时间</th>
+
+
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box-footer clearfix no-border">
+            </div>
+        </div>
+
+
+        <div class="box">
+            <div class="box-header with-border">
+                <i class="ion ion-clipboard"></i>
+                <h3 class="box-title">机台借出</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                            class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div class="box-header">
+
+                    <div class="btn-group pull-right">&nbsp</div>
+                    <div class="btn-group pull-right">
+                        <button type="button" id="btnScanReturn" class="btn btn-success">
+                            <i class="glyphicon glyphicon-list-alt"></i> 掃碼退还
+                        </button>
+                    </div>
+
+                    <div class="btn-group pull-left">&nbsp</div>
+
+                    <div class="btn-group pull-left">
+                        <button type="button" id="btnMachLoanConfirm" class="btn btn-primary">
+                            <i class=".glyphicon .glyphicon-thumbs-up"></i> 确认借出
+                        </button>
+                    </div>
+
+                    <div class="btn-group pull-left">&nbsp</div>
+
+                    <div class="btn-group pull-left">
+                        <button title="删除后状态变为入库" type="button" id="btnDeleteIpad" class="btn btn-warning">
+                            <i class=".glyphicon .glyphicon-thumbs-up"></i> 选择删除
+                        </button>
+                    </div>
+
+
+                    <div class="btn-group pull-right">&nbsp</div>
+
+                    <div class="btn-group pull-right">
+                        <button type="button" id="btnChoiceReturn" class="btn btn-info">
+                            <i class=".glyphicon .glyphicon-thumbs-up"></i> 选择退还
+                        </button>
+                    </div>
+
+                    <input type=hidden name="apply" id="apply_id" value={{ apply.id }}>
+                    <input type=hidden name="apply" id="apply_applyState" value={{ apply.applyState }}>
+                </div>
+                <div class="box-body">
+                    <table id="IpadList" class="display" cellspacing="0" width="100%">
+                        <thead>
+                        <tr valign="middle">
+                            <th><input type="checkbox" id="checkAll1"></th>
+                            <th>Apply_ID</th>
+                            <th>ID</th>
+                            <th>SN</th>
+                            <th>Wgt No</th>
+                            <th>Platform</th>
+                            <th>HW-Build</th>
+                            <th>Model</th>
+                            <th>Fused</th>
+                            <th>机台状态</th>
+                            <th>借出人</th>
+                            <th>借出时长</th>
+                            <th>确认时间</th>
+                            <th>退还时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box-footer clearfix no-border">
+            </div>
+        </div>
+
+        </div>
+
+    </section>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $('#DQE-MT').addClass('active');
+            $('#DQE-MT-LOANCONFIRM').addClass('active');
+
+        });
+
+        // 返回
+        $("#btnApplyReturn").on("click", function () {
+            window.location.href = "{% url 'dqe:mt-loanconfirm' %}";
+        });
+
+        // 这里开始为申请详情
+        var oDataTable = null;
+        $(function () {
+            oDataTable = initTable();
+
+            function initTable() {
+                var oTable = $('#dtbList').DataTable($.extend(true, {},
+                    DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
+                    {
+                        ajax: {
+                            "url": "{% url 'dqe:mt-loanconfirmdetail-list' %}",
+                            "data": function (d) {
+                                d.applyId = "{{ apply.id }}";
+                            }
+                        },
+                        columns: [
+                            {#DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,#}
+                            {
+                                data: "id",
+                                width: "8%",
+                            },
+                            {
+                                data: "platform",
+                            },
+                            {
+                                data: "stage",
+                            },
+                            {
+                                data: "model",
+                            },
+                            {
+                                data: "type",
+                            },
+                            {
+                                data: "comments",
+                            },
+                            {
+                                data: "qty",
+                            },
+                            {
+                                data: "timeState",
+                            },
+                            {
+                                data: "machineState",
+                                render: function (data, type, row, meta) {
+
+                                    if (data == 1) {
+                                        return "未確認"
+                                    } else if (data == 2) {
+                                        return "確認"
+                                    } else if (data == 3) {
+                                        return "拒絕"
+                                    } else {
+                                        return ""
+                                    }
+                                }
+                            },
+                            {
+                                data: "fk_apply__applyUser",
+                            },
+                            {
+                                data: "fk_apply__applyUnit",
+                            },
+                            {
+                                data: "applyDate",
+                                render: function (data, type, full, meta) {
+                                    return moment(data).format("YYYY-MM-DD HH:mm");
+                                }
+                            },
+                            {
+                                data: "id",
+                                width: "8%",
+                                bSortable: "false",
+                                render: function (data, type, row, meta) {
+
+                                    if (row.machineState == 1) {
+                                        var ret = "<button title='扫码机台'  class='btn btn-xs btn-primary' onclick='Scanipad("
+                                            + data + ")'><i class='glyphicon glyphicon-log-out'></i></button> ";
+                                        ret += "<button title='手输WGT'  class='btn btn-xs btn-primary' onclick='HandInput("
+                                            + data + ")'><i class='glyphicon glyphicon-thumbs-down'></i></button> ";
+                                    } else {
+                                        var ret = "<button title='扫码机台' disabled='disabled' class='btn btn-xs btn-primary' onclick='Scanipad("
+                                            + data + ")'><i class='glyphicon glyphicon-log-out'></i></button> ";
+                                        ret += "<button title='手输WGT' disabled='disabled' class='btn btn-xs btn-primary' onclick='HandInput("
+                                            + data + ")'><i class='glyphicon glyphicon-thumbs-down'></i></button> ";
+                                    }
+                                    return ret;
+                                }
+                            }
+                        ],
+                    }));
+                return oTable;
+            }
+
+        });
+
+        //以下针对 Apply 进行操作
+        //checkbox全选
+        $("#checkAll").on("click", function () {
+            if ($(this).prop("checked") === true) {
+                $("input[name='checkList']").prop("checked", $(this).prop("checked"));
+                $('#example tbody tr').addClass('selected');
+            } else {
+                $("input[name='checkList']").prop("checked", false);
+                $('#example tbody tr').removeClass('selected');
+            }
+        });
+
+        //机台确认借出 思路：没有勾选的机台，默认就是拒绝借出。这里弹出的备注仍然是 申请单中的备注，至于机台的备注，我们就采用后面增添一个按钮的方式，对这个单下的这台机器的详情进行备注。
+        $("#btnMachLoanConfirm").click(function () {
+
+            var apply_id = $("#apply_id").val()
+            console.log('apply_id', apply_id)
+            var apply_applyState = $("#apply_applyState").val()
+            console.log('666666apply_applyState', apply_applyState)
+            if (apply_applyState == 2 || apply_applyState == 3) {
+                return false;
+            }
+
+            if ($("input[name='checkList']:checked").length == 0) {
+                layer.msg("請勾選要借出的機台");
+                return;
+            }
+            var arrId = new Array();
+
+            $("input[name='checkList']:checked").each(function () {
+                arrId.push($(this).val());
+            });
+            sId = arrId.join(',');  // applydetail 的 id
+            console.log('-2-', sId);
+
+            layer.alert('确定借出吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'dqe:mt-loanconfirmipadlist-confirm' %}",
+                        data: {"id": sId, "apply_id": apply_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                        cache: false,
+                        success: function (msg) {
+                            console.log('1111', msg)
+                            var a = "<h5>" + "借出成功" + "</br></h5>";
+                            for (var v in msg) {
+                                console.log(v + ":" + msg[v]);
+                                if (v != "result") {
+                                    a = a + "Apply_id_ " + v + '  ' + msg[v] + "</br>";
+                                }
+
+                            }
+
+                            if (msg.result) {
+                                layer.alert(a);
+                                var page_dt = $('#dtbList').DataTable();
+                                page_dt.ajax.reload();
+                                var page_ipad = $('#IpadList').DataTable();
+                                page_ipad.ajax.reload();
+
+                            } else {
+                                layer.alert("操作失败！", {icon: 2});
+                            }
+
+                        }
+                    });
+                }
+            });
+        });
+        //批量删除
+        $("#btnDeleteIpad").click(function () {
+            var apply_applyState = $("#apply_applyState").val()
+            console.log('666666apply_applyState', apply_applyState)
+            if (apply_applyState == 2 || apply_applyState == 3) {
+                return false;
+            }
+            if ($("input[name='checkList']:checked").length == 0) {
+                layer.msg("请选择要删除的记录");
+                return;
+            }
+
+            var arrId = new Array();
+            $("input[name='checkList']:checked").each(function () {
+                //alert($(this).val());
+                arrId.push($(this).val());
+            });
+
+            sId = arrId.join(',');
+
+            layer.alert('确定删除吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'dqe:mt-loanipad-delete' %}",
+                        data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("操作成功！", {icon: 1});
+                                oDataTable.ajax.reload();
+                            } else {
+                                layer.alert("操作失败！", {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+        });
+
+        //扫码确认机台
+        function Scanipad(id) {
+            var div = layer.open({
+                type: 2,
+                title: '掃碼借出',
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                //所謂的借出確認申請，就是一個操作緩存記錄
+                content: "{% url 'dqe:mt-inventory-scanApply' %}?applyListDetailId=" + id,
+                end: function () {
+                    //关闭时做的事情
+                    oDataTable.ajax.reload();
+                }
+            });
+            //layer.full(div);
+        }
+
+        function HandInput(id) {
+            var div = layer.open({
+                type: 2,
+                title: "手动输入WGT_NO",
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                content: "{% url 'dqe:mt-inventory-handApply' %}?applyListDetailId=" + id,
+                end: function () {
+                    {#var table = $('#dtbList').val();#}
+                    {#table.ajax.reload()#}
+                    //关闭时做的事情
+                    oDataTable.ajax.reload();
+                }
+
+            });
+        }
+
+    </script>
+    <script type="text/javascript">
+
+        $(function () {
+            $('#DQE-MT').addClass('active');
+            $('#DQE-MT-LOANCONFIRM').addClass('active');
+
+        });
+
+        // 返回
+        $("#btnApplyReturn").on("click", function () {
+            window.location.href = "{% url 'dqe:mt-loanconfirm' %}";
+        });
+
+        // 这里开始为申请详情
+        var oDataTable = null;
+        $(function () {
+            oDataTable = initTable();
+
+            function initTable() {
+                var oTable = $('#IpadList').DataTable($.extend(true, {},
+                    DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
+                    {
+                        ajax: {
+                            "url": "{% url 'dqe:mt-loanipaddetail-list' %}",
+                            "data": function (d) {
+                                d.applyId = "{{ apply.id }}";
+                            }
+                        },
+                        columns: [
+                            DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
+                            {
+                                data: "fk_applylistdetail__id",
+
+                            },
+                            {
+                                data: "id",
+
+                            },
+                            {
+                                data: "fk_inventory__sn",
+                            },
+                            {
+                                data: "fk_inventory__wgt_no",
+                            },
+                            {
+                                data: "fk_inventory__platform",
+                            },
+                            {
+                                data: "fk_inventory__hw_build",
+                            },
+                            {
+                                data: "fk_inventory__model",
+                            },
+                            {
+                                data: "fk_inventory__fused",
+                            },
+                            {
+                                data: "fk_inventory__units_status",
+                                render: function (data, type, row, meta) {
+
+                                    if (data == 1) {
+                                        return "入库"
+                                    } else if (data == 2) {
+                                        return "已借出"
+                                    } else if (data == 3) {
+                                        return "出库"
+                                    } else if (data == 4) {
+                                        return "损坏"
+                                    } else {
+                                        return "被借出"
+                                    }
+                                }
+                            },
+                            {
+                                data: "opeuser",
+                            },
+                            {
+                                data: "fk_applylistdetail__timeState",
+                            },
+                            {
+                                data: "fk_applylistdetail__lendDate",
+                                render: function (data, type, full, meta) {
+                                    if (data == null) {
+                                        return '--'
+                                    } else {
+                                        return moment(data).format("YYYY-MM-DD HH:mm");
+                                    }
+                                }
+                            },
+                            {
+                                data: "returnDate",
+                                render: function (data, type, full, meta) {
+                                    if (data) {
+                                        return moment(data).format("YYYY-MM-DD HH:mm");
+                                    } else {
+                                        return '--'
+                                    }
+                                }
+                            },
+
+                        ],
+                    }));
+                return oTable;
+            }
+
+        });
+
+        //以下针对 Apply 进行操作
+        //checkbox全选
+        $("#checkAll1").on("click", function () {
+            if ($(this).prop("checked") === true) {
+                $("input[name='checkList']").prop("checked", $(this).prop("checked"));
+                $('#example tbody tr').addClass('selected');
+            } else {
+                $("input[name='checkList']").prop("checked", false);
+                $('#example tbody tr').removeClass('selected');
+            }
+        });
+
+
+        {#$("#btnScanApply").on("click", function () {#}
+        {#    var div = layer.open({#}
+        {#        type: 2,#}
+        {#        title: '掃碼申請',#}
+        {#        shadeClose: false,#}
+        {#        maxmin: true,#}
+        {#        area: ['800px', '400px'],#}
+        {#        //所謂的借出確認申請，就是一個操作緩存記錄#}
+        {#        content: "{% url 'dqe:inventory-scanApply' %}",#}
+        {#        end: function () {#}
+        {#            //关闭时做的事情#}
+        {#            oDataTable.ajax.reload();#}
+        {#        }#}
+        {#    });#}
+        {#    //layer.full(div);#}
+        {# });#}
+
+
+        //批量退还
+        $("#btnChoiceReturn").click(function () {
+
+            var apply_id = $("#apply_id").val()
+            console.log('apply_id', apply_id)
+
+            if ($("input[name='checkList']:checked").length == 0) {
+                layer.msg("请选择要退还的机台");
+                return;
+            }
+
+            var arrId = new Array();
+            $("input[name='checkList']:checked").each(function () {
+                //alert($(this).val());
+                arrId.push($(this).val());
+            });
+
+            sId = arrId.join(',');
+
+            layer.alert('确定退还吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'dqe:mt-loanconfirmdetail-return' %}",
+                        data: {"id": sId, "apply_id": apply_id, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("退还成功！", {icon: 1});
+                                var page_ipad = $('#IpadList').DataTable();
+                                page_ipad.ajax.reload();
+                            } else {
+                                layer.alert("退还失败！", {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+        });
+
+        $("#btnScanReturn").on("click", function () {
+            var id = $('#apply_id').val()
+            console.log('111', id)
+            var div = layer.open({
+                type: 2,
+                title: '掃碼退还',
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                //所謂的借出確認申請，就是一個操作緩存記錄
+                content: "{% url 'dqe:mt-inventory-scanReturn' %}?applyListDetailId=" + id,
+                end: function () {
+                    //关闭时做的事情
+                    oDataTable.ajax.reload();
+                }
+            });
+            //layer.full(div);
+        });
+
+
+    </script>
+{% endblock %}
+
+
+

@@ -1,135 +1,216 @@
-{% extends "base-layer.html" %}
+{% extends "base-left.html" %}
 {% load staticfiles %}
+
 {% block css %}
     <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
     <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
-    <link rel="stylesheet" href="{%static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
-    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="{% static 'bootstrap/fileinput.css' %}">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+    <style>
+        {#body {#}
+        {#    margin: 10px;#}
+        {# }#}
+
+        .demo-carousel {
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+        }
+
+        div[title="导出"] {
+            display: none;
+        }
+
+        div[title="打印"] {
+            display: none;
+        }
+
+        .layui-table-cell {
+        {#color: #FF7F24;#} font-size: 12px
+        }
+    </style>
+
 {% endblock %}
 
-{% block main %}
+{% block content %}
 
-    <!-- Content Header (Page header) -->
     <!-- Main content -->
     <section class="content">
         <div id="devlist">
-            <div class="box box-primary" id="liebiao">
-                <div class="box-header">
+            <div class="box box-primary" id="my-page">
+                <div class="box-header" id="my-page">
+                    <div id="upload" style="display: none">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            </br>
+                            </br>
+                            <label class="control-label">Select File</label>
+                            <input type="file" name="file" class="file" id="input-1">
+                        </form>
+                    </div>
+                    <div id="RecordUpdate" style="display: none;margin-top: 61px">
+                        <!--显示修改记录的表单-->
+                        <form class="layui-form" method="post" enctype="multipart/form-data" id="edit_form">
+                            {% csrf_token %}
 
-                    <div class="btn-group pull-left">
-                        <button type="button" id="btnRefresh" class="btn btn-default">
-                            <i class="glyphicon glyphicon-repeat"></i>刷新
-                        </button>
-                    </div>
-                    <div class="btn-group pull-left">&nbsp</div>
-                    <!--<div class="btn-group pull-left">-->
-                    <!--<button type="button" id="btnCreate" class="btn btn-default">-->
-                    <!--<i class="glyphicon glyphicon-plus"></i>新增-->
-                    <!--</button>-->
-                    <!--</div>-->
-                    <!--<div class="btn-group pull-left">&nbsp</div>-->
-                    <div class="btn-group pull-left">
-                        <button type="button" id="btnDelete" class="btn btn-danger">
-                            <i class="glyphicon glyphicon-trash"></i>删除
-                        </button>
-                    </div>
-                    <div class="btn-group pull-left">&nbsp</div>
-                    <div class="btn-group pull-left">
-                        <button type="button" id="btnApplyConfirm" class="btn btn-primary">
-                            <i class="glyphicon glyphicon-ok-circle"></i>申請確認
-                        </button>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Accessory</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Accessory" required lay-verify="required"
+                                           placeholder="请输入Accessory"
+                                           autocomplete="off" class="layui-input" id="accessory_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Vender</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Vender" placeholder="请输入Vender"
+                                           autocomplete="off" class="layui-input" id="vender_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Hw_build</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="hw_build" lay-verify="required" placeholder="请输入Hw build"
+                                           autocomplete="off" class="layui-input" id="hw_build_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Config</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Config" lay-verify="required" placeholder="请输入Config"
+                                           autocomplete="off" class="layui-input" id="config_input">
+                                </div>
+                            </div>
+
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Status</label>
+                                <div class="layui-input-block">
+                                    {#                                    <input type="text" name="Status" lay-verify="required" placeholder="请输入Status"#}
+                                    {#                                           autocomplete="off" class="layui-input" id="status_input">#}
+                                    <select name="Status" id="status_input" lay-verify="required" lay-search="">
+{#                                        <option value="">直接选择或搜索选择</option>#}
+                                        <option value="1">In Use</option>
+                                        <option value="2">Disuse</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">QTY</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="QTY" placeholder="请输入QTY"
+                                           autocomplete="off" class="layui-input" id="qty_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">盒子SN</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="box_sn" placeholder="请输入盒子SN"
+                                           autocomplete="off" class="layui-input" id="box_sn_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">SN</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="SN" lay-verify="required" placeholder="请输入SN"
+                                           autocomplete="off" class="layui-input" id="sn_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline" style="width: 35%">
+                                <label class="layui-form-label">Cont&Adds</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Contact&Address" placeholder="请输入Contact&Address"
+                                           autocomplete="off" class="layui-input" id="contact_address_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Date_in</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Date In" lay-verify="required" placeholder="请输入Date In"
+                                           autocomplete="off" class="layui-input" id="Date_in_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Date_out</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="date_out" placeholder="请输入date_out"
+                                           autocomplete="off" class="layui-input" id="date_out_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Comment</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="comment" placeholder="请输入comment"
+                                           autocomplete="off" class="layui-input" style="width: 206px"
+                                           id="comment_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">Cat_Sn</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="cat_sn" placeholder="请输入仓码"
+                                           autocomplete="off" class="layui-input" id="cat_sn_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">储位</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="Store" placeholder="请输入储位"
+                                           autocomplete="off" class="layui-input" id="store_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">AAPN</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="AAPN" placeholder="请输入AAPN"
+                                           autocomplete="off" class="layui-input" id="aapn_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">HHPN</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="HHPN" placeholder="请输入HHPN"
+                                           autocomplete="off" class="layui-input" id="hhpn_input">
+                                </div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label">WO</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="WO" placeholder="请输入WO"
+                                           autocomplete="off" class="layui-input" id="wo_input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <input type="text" name="ID" autocomplete="off" class="layui-input" id="id_input"
+                                       style="display: none">
+                            </div>
+
+                            <div class="layui-form-item">
+                                <input type="text" name="project_id" autocomplete="off" class="layui-input"
+                                       id="project_id_input"
+                                       style="display: none">
+                            </div>
+
+                            <div class="layui-form-item" align="center">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                            <font color="#FF0000">备注：Accessory、Vender、HW Build、Config、Status、SN、Date In 为必填项</font>
+                        </form>
                     </div>
                 </div>
-
-                <div class="box-header">
-
-                    <form class="form-inline" id="queryForm">
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>專案：</label>
-                            <select class="form-control inputText select2" name="fk_project" id="fk_project_id">
-                                <option></option>
-                                {% for project in projects %}
-                                    <option value="{{ project.id }}">{{ project.pname }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>階段：</label>
-                            <select class="form-control inputText select2" name="fk_stage" id="fk_stage_id">
-                                <option></option>
-                                {% for stage in stages %}
-                                    <option value="{{ stage.id }}">{{ stage.sname }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <!--<div class="form-group searchArea margin-r-5 margin-top-5">-->
-                        <!--<label>當前部門:</label>-->
-                        <!--<select class="form-control inputText select2" name="fk_structure" id="fk_structure_id">-->
-                        <!--<option></option>-->
-                        <!--{% for structure in structures %}-->
-                            <!--<option value="{{ structure.id }}">{{ structure.name }}</option>-->
-                            <!--{% endfor %}-->
-                        <!--</select>-->
-                        <!--</div>-->
-
-                        <!--<div class="form-group searchArea margin-r-5 margin-top-5">-->
-                        <!--<label>Rel編號:</label>-->
-                        <!--<input type="text" name="rel" class="form-control inputText" id="fk_inventory__rel">-->
-                        <!--</div>-->
-
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>Rel編號:</label>
-                            <input type="text" name="rel" class="form-control inputText" id="relStart">
-                        </div>
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>————</label>
-                            <input type="text" name="rel" class="form-control inputText" id="relEnd">
-                        </div>
-
-                        <button type="button" id="btnSearch" class="btn btn-default">
-                            <i class="glyphicon glyphicon-search"></i>查询
-                        </button>
-                    </form>
-
-                </div>
-
-                <div class="box-body">
-                    <table id="dtbList" class="display" cellspacing="0" width="100%">
-                        <thead>
-                        <tr valign="middle">
-                            <th><input type="checkbox" id="checkAll"></th>
-                            <th>OCT_ID</th>
-                            <th>專案</th>
-                            <th>測試階段</th>
-                            <th>Rel編號</th>
-                            <th>SN</th>
-                            <th>入庫日期</th>
-                            <th>入庫者</th>
-
-                            <th>機台狀態</th>
-                            <th>機台當前所在部門</th>
-                            <th>機台當前接收人</th>
-                            <th>機台當前入庫時間</th>
-
-                            <th>當前申請部門</th>
-                            <th>申請人</th>
-                            <th>申請時間</th>
-
-                            <th>操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <br> <br>
+                <div class="box-body" style="margin-top: -21px">
+                    <table class="layui-hide" id="demo" lay-filter="test"></table>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- /.content -->
 
 {% endblock %}
 
@@ -139,331 +220,449 @@
     <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
     <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
     <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    {#    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>#}
     <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
-    <!-- iCheck 1.0.1 -->
+    <script src="{% static 'bootstrap/fileinput.js' %}"></script>
+    <script src="{% static 'bootstrap/fileinput_locale_zh.js' %}"></script>
+    <script src="{% static 'layui/layui.js' %}"></script>
+
+
+    <!--导出excel-->
+    <script src="{% static 'export/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'export/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'export/js/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'export/js/jszip.min.js' %}"></script>
+    <script src="{% static 'export/js/pdfmake.min.js' %}"></script>
+    <script src="{% static 'export/js/vfs_fonts.js' %}"></script>
+    <script src="{% static 'export/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'export/js/buttons.print.min.js' %}"></script>
     <script type="text/javascript">
         $(function () {
-            $('#SYSTEM-RBAC').addClass('active');
-            $('#SYSTEM-RBAC-MENU').addClass('active');
+            $('#DQE-IM').addClass('active');
+            $('#DQE-IM-OCT').addClass('active');
+
         });
     </script>
+    {#    列 工具栏#}
+    <script type="text/html" id="barDemo">
+        {#        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>#}
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 
-    <script type="text/javascript">
-        var oDataTable = null;
-        $(function () {
-            oDataTable = initTable();
+    </script>
+    {#    头 工具栏#}
+    <script type="text/html" id="toolbarDemo">
 
-            function initTable() {
-                var oTable = $('#dtbList').DataTable($.extend(true, {},
-                    DATATABLES_CONSTANT.DATA_TABLES.DEFAULT_OPTION,
-                    {
-                        ajax: {
-                            "url": "{% url 'dqe:oct-list' %}",
-                            "data": function (d) {
+        <div class="layui-btn-container" style="float:left">
+            <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+            <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+            <button class="layui-btn layui-btn-sm" lay-event="upload">上传</button>
+            <button class="layui-btn layui-btn-sm" lay-event="refresh">刷新</button>
+        </div>
+        <div>
+            {#            <form class="layui-form" style="float: right">#}
+            <div class="layui-inline">
+                <input style="width: auto; height: 30px" type="text" id="select_orderId" name="select_orderId"
+                       lay-verify="required"
+                       placeholder="请输入SN" autocomplete="off" class="layui-input">
+            </div>
 
-                                d.fk_project_id = $("#fk_project_id").val();
-                                d.fk_stage_id = $("#fk_stage_id").val();
-                                d.relStart = $("#relStart").val();
-                                d.relEnd = $("#relEnd").val();
-                                //d.fk_inventory__rel=$("#fk_inventory__rel").val();
-                                //d.fk_structure_id=$("#fk_structure_id").val();
+            <button class="layui-btn layui-btn-sm" lay-submit="" id="searchBtn" data-type="getInfo" lay-event="findSN"
+                    style="float: left;">搜索
+            </button>
+            {#            </form>#}
+        </div>
 
-                            }
-                        },
+    </script>
+    <script>
+        layui.config({
+            version: true //为了更新 js 缓存，可忽略
+        });
 
-                        columns: [
-                            DATATABLES_CONSTANT.DATA_TABLES.COLUMN.CHECKBOX,
-                            {
-                                data: "id",
-                            },
-                            {
-                                data: "fk_inventory__fk_project__pname",
-                            },
-                            {
-                                data: "fk_inventory__fk_stage__sname",
-                            },
-                            {
-                                data: "fk_inventory__rel",
-                            },
-                            {
-                                data: "fk_inventory__sn",
-                            },
-                            {
-                                data: "fk_inventory__indate",
-                                render: function (data, type, full, meta) {
-                                    return moment(data).format("YYYY-MM-DD HH:mm");
-                                }
-                            },
-                            {
-                                data: "fk_inventory__recuser",
-                            },
+        layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider'], function () {
+            var laydate = layui.laydate //日machine_manage_info期
+                , laypage = layui.laypage //分页
+                , layer = layui.layer //弹层
+                , table = layui.table //表格
+                , carousel = layui.carousel //轮播
+                , upload = layui.upload //上传
+                , element = layui.element //元素操作
+                , slider = layui.slider //滑块
 
-                            {
-                                data: "fk_inventory__state",
-                                render: function (data, type, full, meta) {
-                                    if (data == 1) {
-                                        return "入庫"
-                                    } else if (data == 2) {
-                                        return "可申請"
-                                    } else if (data == 3) {
-                                        return "被申請"
-                                    } else {
-                                        return "出库"
-                                    }
-                                }
-                            },
-                            {
-                                data: "fk_inventory__fk_structure__name",
-                            },
-                            {
-                                data: "fk_inventory__currRecUser",
-                            },
-                            {
-                                data: "fk_inventory__currRecDate",
-                                render: function (data, type, full, meta) {
-                                    return moment(data).format("YYYY-MM-DD HH:mm");
-                                }
-                            },
-                            {
-                                data: "fk_structure__name",
-                            },
-                            {
-                                data: "opeuser",
-                                // render: function (data, type, row, meta) {
-                                //     var ret = "{{ request.user.name }}";
-                                //     return ret;
-                                //
-                                // }
-                            },
+            //向世界问个好
+            {#layer.msg('Hello World');#}
 
-                            {
-                                render: function (data, type, row, meta) {
-                                    var ret = "--";
-                                    return ret;
-
-                                }
-                            },
-
-                            {
-                                data: "id",
-                                width: "5%",
-                                bSortable: "false",
-                                render: function (data, type, row, meta) {
-                                    var ret = "<button title='删除' onclick='doDelete("
-                                        + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";
-                                    return ret;
-
-                                }
-                            }],
-                    }));
-                return oTable;
-            }
-
-//注釋編輯功能
-//ret=ret+"<button title='编辑' onclick='doUpdate(" + data + ")'><i class='glyphicon glyphicon-pencil'></i></button>";
-
-            //刷新
-            $("#btnRefresh").click(function () {
-                oDataTable.ajax.reload();
-            });
-
-            //查找
-            $("#btnSearch").click(function () {
-                oDataTable.ajax.reload();
-            });
-
-
-            //select选择后刷新页面GET请求
-            $("#select").change(function () {
-                //alert($("#select").val())
-                oDataTable.ajax.reload();
-            });
-
-            //checkbox全选
-            $("#checkAll").on("click", function () {
-                if ($(this).prop("checked") === true) {
-                    $("input[name='checkList']").prop("checked", $(this).prop("checked"));
-                    $('#example tbody tr').addClass('selected');
-                } else {
-                    $("input[name='checkList']").prop("checked", false);
-                    $('#example tbody tr').removeClass('selected');
-                }
-            });
-
-
-            //批量删除
-            $("#btnDelete").click(function () {
-                if ($("input[name='checkList']:checked").length == 0) {
-                    layer.msg("请选择要删除的记录");
-                    return;
-                }
-
-                var arrId = new Array();
-                $("input[name='checkList']:checked").each(function () {
-                    //alert($(this).val());
-                    arrId.push($(this).val());
-                });
-
-                sId = arrId.join(',');
-
-                layer.alert('确定删除吗？', {
-                    title: '提示'
-                    , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
-                    , time: 0 //不自动关闭
-                    , btn: ['YES', 'NO']
-                    , yes: function (index) {
-                        layer.close(index);
-                        $.ajax({
-                            type: "POST",
-                            url: "{% url 'dqe:oct-delete' %}",
-                            data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
-                            cache: false,
-                            success: function (msg) {
-                                if (msg.result) {
-                                    layer.alert("操作成功", {icon: 1});
-                                    oDataTable.ajax.reload();
-                                } else {
-                                    //alert(msg.message);
-                                    layer.alert("操作失败", {icon: 2});
-                                }
-                                return;
-                            }
-                        });
-                    }
+            //监听Tab切换
+            element.on('tab(demo)', function (data) {
+                layer.tips('切换了 ' + data.index + '：' + this.innerHTML, this, {
+                    tips: 1
                 });
             });
 
-
-        });
-
-
-        //申请确认
-        $("#btnApplyConfirm").click(function () {
-            if ($("input[name='checkList']:checked").length == 0) {
-                layer.msg("請勾選要申請的機台");
-                return;
-            }
-
-            var arrId = new Array();
-            $("input[name='checkList']:checked").each(function () {
-                //alert($(this).val());
-                arrId.push($(this).val());
-            });
-            //console.log(arrId);
-            sId = arrId.join(',');
-            //console.log(sId);
-            $.ajax({
-                type: "POST",
-                url: "{% url 'dqe:oct-applyConfirm' %}",
-                data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
-                cache: false,
-                success: function (msg) {
-                    if (msg.result) {
-
-                        oDataTable.ajax.reload();
-                        layer.alert('申請成功', {icon: 1}, function (index) {
-                            parent.layer.closeAll(); //关闭所有弹窗
-                        });
-
-                    } else {
-                        layer.alert("申請失败", {icon: 2});
-                    }
-                    return;
+            //执行一个 table 实例
+            table.render({
+                elem: '#demo'
+                , height: 820
+                , url: '/dqe/oct/list' //数据接口
+                , title: '用户表'
+                , cellMinWidth: 80
+                , page: true //开启分页
+                , id: 'idTest'//id
+                , limit: 20
+                , cache: false
+                , request: {
+                    pageName: 'pageIndex' //页码的参数名称，默认：page
+                    , limitName: 'pageSize' //每页数据量的参数名，默认：limit
                 }
-            });
-
-        });
-
-
-        //新增
-        $("#btnCreate").click(function () {
-            var div = layer.open({
-                type: 2,
-                title: '新增借入申請確認',
-                shadeClose: false,
-                maxmin: true,
-                area: ['800px', '400px'],
-                content: "{% url 'dqe:oct-update' %}",
-                end: function () {
-                    //关闭时做的事情
-                    window.location.reload();
+                , response: {
+                    statusName: 'code' //规定数据状态的字段名称，默认：code
+                    , statusCode: 0 //规定成功的状态码，默认：0
+                    , msgName: 'msg' //规定状态信息的字段名称，默认：msg
+                    , countName: 'count' //规定数据总数的字段名称，默认：count
+                    , dataName: 'data' //规定数据列表的字段名称，默认：data
                 }
-            });
-            //layer.full(div)
-        });
-
-        function doUpdate(id) {
-            var div = layer.open({
-                type: 2,
-                title: '編輯借入申請確認',
-                shadeClose: false,
-                maxmin: true,
-                area: ['800px', '400px'],
-                content: "{% url 'dqe:oct-update' %}" + '?id=' + id,
-                end: function () {
-                    //oDataTable.ajax.reload();
-                    window.location.reload();
-
-                }
-            });
-            //layer.full(div)
-        }
-
-        //删除单个数据
-        function doDelete(id) {
-            layer.alert('确定删除吗？', {
-                title: '提示'
-                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
-                , time: 0 //不自动关闭
-                , btn: ['YES', 'NO']
-                , yes: function (index) {
-                    layer.close(index);
-                    $.ajax({
-                        type: "POST",
-                        url: "{% url 'dqe:oct-delete' %}",
-                        data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
-                        cache: false,
-                        success: function (msg) {
-                            if (msg.result) {
-                                layer.alert('删除成功', {icon: 1});
-                                oDataTable.ajax.reload();
+                , toolbar: '#toolbarDemo' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+                , totalRow: true //开启合计行
+                {#, cellMinWidth: 80#}
+                , cols: [[ //表头
+                    {type: 'checkbox', fixed: 'left'}
+                    , {field: 'pk', title: 'ID', width: 65, sort: true, fixed: 'left', totalRowText: '合计：'}
+                    , {field: 'accessory', title: 'Accessory', width: 100}
+                    , {field: 'vender', title: 'Vender', width: 80, sort: true}
+                    , {field: 'hw_build', title: 'HW Build', width: 90, sort: true}
+                    , {field: 'config', title: 'Config', width: 80, sort: true}
+                    , {
+                        field: 'status', title: 'Status', width: 80, sort: true,
+                        templet: function (item) {
+                            if (item.status == '1') {
+                                return "In Use";
+                            } else if (item.status == '2') {
+                                return "Disuse";
                             } else {
-                                //alert(msg.message);
-                                layer.alert('删除失败', {icon: 2});
+                                return "Other"
                             }
-                            return;
+                        }
+                    }
+                    , {field: 'recuser', title: '入库人员', width: 80}
+                    , {field: 'qty', title: 'QTY', width: 80, totalRow: true}
+                    , {field: 'box_sn', title: '盒子SN', width: 80}
+                    , {field: 'sn', title: 'SN', width: 120, sort: true}
+                    , {field: 'contact_address', title: 'Contact&Address', width: 100, sort: true}
+                    , {field: 'date_in', title: 'Date In', width: 100, sort: true}
+                    , {field: 'date_out', title: 'Date Out', width: 120, sort: true}
+                    , {field: 'comment', title: 'Comment', width: 120, sort: true}
+                    , {field: 'ca_sn', title: '仓码', width: 75, sort: true}
+                    , {field: 'store', title: '储位', width: 75, sort: true}
+                    , {field: 'aapn', title: 'AAPN', width: 75, sort: true}
+                    , {field: 'hhpn', title: 'HHPN', width: 75, sort: true,}
+                    , {field: 'wo', title: 'WO', width: 75, sort: true,}
+                    , {fixed: 'right', title: '操作', width: 120, align: 'center', toolbar: '#barDemo'}
+                ]]
+            });
+            //监听单元格编辑
+            table.on('edit(test)', function (obj) {
+                console.log(11111)
+                var value = obj.value //得到修改后的值
+                    , data = obj.data //得到所在行所有键值
+                    , field = obj.field; //得到字段
+                layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value);
+            });
+            //监听头工具栏事件
+            table.on('toolbar(test)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id)
+                    , data = checkStatus.data; //获取选中的数据
+                console.log(data)
+                console.log(',99955', checkStatus)
+                switch (obj.event) {
+                    case 'add':
+                        layer.open({
+                            type: 1,
+                            title: '新增',
+                            shadeClose: false,
+                            maxmin: true,
+                            area: ['900px', '500px'],
+                            content: $('#RecordUpdate'),
+
+                        });
+                        layui.use('form', function () {
+                            var form = layui.form;
+                            form.render();
+                        });
+
+
+                        layui.use('laydate', function () {
+                            var laydate = layui.laydate;
+                            //执行一个laydate实例
+                            laydate.render({
+                                elem: '#Date_in_input'//指定元素
+                            });
+                        });
+                        break;
+                    case 'upload':
+                        layer.open({
+                            type: 1,
+                            title: "批量导入",
+                            closeBtn: 1,
+                            shadeClose: false,
+                            area: ['600px', '400px'],
+                            content: $("#upload"),
+                            {#complete: function () {#}
+                            {#layer.msg('上传中，请稍候...', {icon: 16, time: false, shade: 0})#}
+                            {# }#}
+                            done: function (res) {//上传完毕回调
+                                layer.closeAll('loading');
+                                layer.msg('上传中，请稍候...', {icon: 16, time: false, shade: 0})
+                            },
+                            error: function () {//请求异常回调
+                                layer.closeAll('loading');
+                                layer.msg('网络异常，请稍后重试！');
+                            }
+                        });
+                        break;
+                    case 'delete':
+                        console.log('//', checkStatus)
+                        var sId = "";
+                        for (var i = 0; i < checkStatus.data.length; i++) {
+                            sId += checkStatus.data[i].pk + ",";
+                        }
+                        console.log(',55', sId)
+                        if (data.length === 0) {
+                            layer.msg('请选择一行');
+                        } else {
+                            layer.alert('确定删除吗？', {
+                                title: '提示'
+                                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                                , time: 0 //不自动关闭
+                                , btn: ['YES', 'NO']
+                                , yes: function (index) {
+                                    layer.close(index);
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "{% url 'dqe:oct-delete' %}",
+                                        data: {"id": sId, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                                        cache: false,
+                                        success: function (msg) {
+                                            if (msg.result) {
+                                                layer.alert("删除成功", {icon: 1});
+
+                                                // 获得frame索引
+                                                {#var index = parent.layer.getFrameIndex(window.name);#}
+                                                {#//关闭当前frame#}
+                                                parent.layer.close(index);
+                                                $(".layui-laypage-btn")[0].click();
+                                                {#//修改成功后刷新父界面#}
+                                                {#window.parent.location.reload();#}
+
+                                                {#var index = parent.layer.getFrameIndex(window.name);#}
+                                                {#parent.layui.table.reload('idTest');//重载父页表格，参数为表格ID#}
+                                                {#parent.layer.close(index);#}
+
+                                                {#setTimeout('window.location.reload()', 1000);#}
+
+
+                                            } else {
+                                                //alert(msg.message);
+                                                layer.alert("操作失败", {icon: 2});
+                                            }
+                                            return;
+                                        }
+                                    });
+                                }
+                            });
+                            {#$(".layui-laypage-btn")[0].click();#}
+                        }
+                        break;
+                    case 'findSN':
+                        $('#searchBtn').on('click', function () {
+                            var type = $(this).data('type');
+                            console.log('---', type)
+                            active[type] ? active[type].call(this) : '';
+                        });
+                        // 点击获取数据
+                        var active = {
+                            getInfo: function () {
+                                var orderId = $('#select_orderId').val();
+                                console.log('111', orderId)
+                                if (orderId) {
+                                    var index = layer.msg('查询中，请稍候...', {icon: 16, time: false, shade: 0});
+                                    setTimeout(function () {
+                                        console.log(456)
+                                        table.reload('idTest', {
+                                            {#id: 'demo',#}
+                                            //表格的id
+                                            url: '/dqe/oct/selectByOrderId',
+                                            {#, url: '/dqe/inventory/list' //数据接口#}
+                                            where: {
+                                                'orderId': $.trim(orderId)
+                                            }
+                                        });
+                                        layer.close(index);
+                                    }, 800);
+                                } else {
+                                    layer.msg("请输入sn");
+                                }
+                            },
+                        };
+                        //监听回车事件,扫描枪一扫描或者按下回车键就直接执行查询
+                        $("#select_orderId").bind("keyup", function (e) {
+                            if (e.keyCode == 13) {
+                                var type = "getInfo";
+                                active[type] ? active[type].call(this) : '';
+                            }
+                        });
+                        break;
+                    case 'refresh':
+
+                        window.location.reload()
+
+                        break;
+                }
+                ;
+            });
+
+            //监听行工具事件
+            table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data;//获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值
+                var id = data.pk;
+
+                if (layEvent === 'detail') {
+                    layer.msg('查看操作');
+                } else if (layEvent === 'del') {
+                    layer.alert('确定删除吗？', {
+                        title: '提示'
+                        , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                        , time: 0 //不自动关闭
+                        , btn: ['YES', 'NO']
+                        , yes: function (index) {
+                            layer.close(index);
+                            $.ajax({
+                                type: "POST",
+                                url: "{% url 'dqe:oct-onedelete' %}",
+                                data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
+                                cache: false,
+                                success: function (msg) {
+                                    if (msg.result) {
+                                        layer.alert('删除成功', {icon: 1});
+                                        $(".layui-laypage-btn")[0].click();
+                                        {#location.href = '/machine/inventory/'#}
+                                    } else {
+                                        //alert(msg.message);
+                                        layer.alert('删除失败', {icon: 2});
+                                    }
+                                    return;
+                                }
+                            });
                         }
                     });
+                } else if (layEvent === 'edit') {
+
+                    layer.open({
+                        type: 1,
+                        title: '编辑',
+                        shadeClose: false,
+                        maxmin: true,
+                        area: ['900px', '500px'],
+                        content: $('#RecordUpdate'),
+                    });
+                    layui.use('form', function () {
+                        var form = layui.form;
+                        form.render();
+                    });
+                    layui.use('laydate', function () {
+                        var laydate = layui.laydate;
+                        //执行一个laydate实例
+                        laydate.render({
+                            elem: '#Date_in_input'//指定元素
+                        });
+                    });
+
+                    $.ajax({
+                        url: "{% url 'dqe:oct-update' %}",
+                        type: 'post',
+                        async: true,
+                        data: {
+                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                            "id": id,
+                        },
+                        dataType: 'json',
+                        success: function (result) {
+                            $("#id_input").val(id);
+                            $("#accessory_input").val(result.record.accessory);
+                            $("#vender_input").val(result.record.vender);
+                            $("#hw_build_input").val(result.record.hw_build);
+                            $("#config_input").val(result.record.config);
+                            $("#status_input").val(result.record.status);
+                            $("#qty_input").val(result.record.qty);
+                            $("#box_sn_input").val(result.record.box_sn);
+                            $("#sn_input").val(result.record.sn);
+                            $("#contact_address_input").val(result.record.contact_address);
+                            $("#Date_in_input").val(result.record.date_in);
+                            $("#date_out_input").val(result.record.date_out);
+                            $("#comment_input").val(result.record.comment);
+                            $("#cat_sn_input").val(result.record.ca_sn);
+                            $("#store_input").val(result.record.store);
+                            $("#aapn_input").val(result.record.aapn);
+                            $("#hhpn_input").val(result.record.hhpn);
+                            $("#wo_input").val(result.record.wo);
+
+                        }
+                    });
+                    $(".layui-laypage-btn")[0].click();
                 }
             });
 
-        }
+            //执行一个轮播实例
+            carousel.render({
+                elem: '#test1'
+                , width: '100%' //设置容器宽度
+                , height: 200
+                , arrow: 'none' //不显示箭头
+                , anim: 'fade' //切换动画方式
+            });
 
+            //将日期直接嵌套在指定容器中
+            var dateIns = laydate.render({
+                elem: '#laydateDemo'
+                , position: 'static'
+                , calendar: true //是否开启公历重要节日
+                , mark: { //标记重要日子
+                    '0-10-14': '生日'
+                    , '2018-08-28': '新版'
+                    , '2018-10-08': '神秘'
+                }
+                , done: function (value, date, endDate) {
+                    if (date.year == 2017 && date.month == 11 && date.date == 30) {
+                        dateIns.hint('一不小心就月底了呢');
+                    }
+                }
+                , change: function (value, date, endDate) {
+                    layer.msg(value)
+                }
+            });
 
-    </script>
+            //分页
+            laypage.render({
+                elem: 'pageDemo' //分页容器的id
+                , count: 100 //总页数
+                , skin: '#1E9FFF' //自定义选中色值
+                //,skip: true //开启跳页
+                , jump: function (obj, first) {
+                    if (!first) {
+                        layer.msg('第' + obj.curr + '页', {offset: 'b'});
+                    }
+                }
+            });
 
-    <script>
+            slider.render({
+                elem: '#sliderDemo'
+                , input: true //输入框
+            });
 
-        /*input 时间输入选择*/
-        $(".form_datetime").datetimepicker({
-            language: 'zh',
-            minView: 'month', //选择范围知道日期，不选择时分
-            //weekStart: 1,
-            //todayBtn: 1,
-            autoclose: 1,
-            todayHighlight: 1,
-            //startView: 2,
-            forceParse: 0,
-            showMeridian: 1,
-            format: 'yyyy-mm-dd'
-        }).on('changeDate', function (ev) {
-            $(this).datetimepicker('hide');
+            {#//底部信息#}
+            {#var footerTpl = lay('#footer')[0].innerHTML;#}
+            {#lay('#footer').html(layui.laytpl(footerTpl).render({}))#}
+            {#    .removeClass('layui-hide');#}
         });
-
-        $(function () {
-            //Initialize Select2 Elements
-            $(".select2").select2();
-        });
     </script>
-
 {% endblock %}

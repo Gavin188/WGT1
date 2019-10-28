@@ -12,7 +12,7 @@
         <form class="form-horizontal" id="addForm" method="post">
             {% csrf_token %}
 
-            <input type="hidden" name='id' value="{{ project.id }}"/>
+            <input type="hidden" name='applyid' id='applyid' value={{ applyDetailId }}>
 
             <div class="box-body">
                 <fieldset>
@@ -63,26 +63,21 @@
             }
 
             var data = $("#addForm").serialize();
+            var id = $('#applyid').val()
+            console.log('id---', id)
             $.ajax({
                 type: $("#addForm").attr('method'),
-                url: "{% url 'dqe:inventory-scanApply' %}",
+                url: "{% url 'dqe:mt-inventory-scanReturn' %}?id=" + id,
                 data: data,
                 cache: false,
                 success: function (msg) {
                     console.log(msg)
                     if (msg.result == 1) {
-                        layer.alert('勾選機台成功，請到借入申請確認繼續操作！', {icon: 1}, function (index) {
+                        layer.alert('还机台成功！', {icon: 1}, function (index) {
                             parent.layer.closeAll(); //关闭所有弹窗
                         });
                     } else if (msg.result == 2) {
-
-
-                        //layer.alert(
-                        //    '部分機台勾選成功，未申請成功的SN信息如下! </br>' + '被申請的機台SN編號: [' + msg.invState3SN + '] </br>出庫的機台SN編號: [' + msg.invState4SN + '] </br>無效機台SN編號: [' + msg.invNotSN + ']', {icon: 3}, function (index) {
-                        //        parent.layer.closeAll(); //关闭所有弹窗
-                        //    });
-
-                        layer.alert('以下機台信息有誤，請確認后再試 </br>' + '被申請的機台SN編號: [' + msg.invState3SN + ']</br>已借出的機台SN編號: [' + msg.invState2SN + '] </br>出庫的機台SN編號: [' + msg.invState4SN + '] </br>無效機台SN編號: [' + msg.invNotSN + ']', {
+                        layer.alert('無效機台SN編號: [' + msg.invalidSn + ']', {
                             title: '提示'
                             , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
                             , time: 0 //不自动关闭

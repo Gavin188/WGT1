@@ -63,23 +63,38 @@
             </div>
             <div class="col-md-9">
                 <div class="box box-primary">
-                    <form class="form-horizontal" id="addForm" method="post">
+                    <form class="form-horizontal" id="addForm" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <input type="hidden" name='id' value="{{ user.id }}"/>
-                        <input type="hidden" name='user' value="save"/>
+                        <input type="hidden" name='id' id="id" value="{{ user.id }}"/>
+                        <input type="hidden" name='user' id="user" value="save"/>
                         <div class="box-body">
                             <fieldset>
+                                <legend>
+                                    <h4>修改头像</h4>
+                                </legend>
+                                <div class="form-group">
+                                    <div style="position: relative;border: 5px solid lightblue;width: 150px;height:150px;margin: 5px auto;border-radius: 50%;">
+                                        <img src="/media/{{ request.user.image }}" alt="选择并上传头像" id="avatar_img"
+                                             style="width: 140px;height: 140px;left:0;top: 0;border-radius: 50%;"/>
+                                        <input type="file" id="avatar" name="avatar"
+                                               accept="image/jpg,image/jpeg,image/png,image/gif"
+                                               class="form-control-file"
+                                               style="width: 100%;height:100%;opacity: 0;position: absolute;left:0;top: 0;"/>
+                                    </div>
+                                </div>
+
                                 <legend>
                                     <h4>基本信息</h4>
                                 </legend>
                                 <div class="form-group has-feedback">
                                     <label class="col-sm-2 control-label">姓名</label>
                                     <div class="col-sm-3">
-                                        <input class="form-control" name="name" type="text" value="{{ user.name }}"/>
+                                        <input class="form-control" name="name" id="name" type="text"
+                                               value="{{ user.name }}"/>
                                     </div>
                                     <label class="col-sm-2 control-label">性别</label>
                                     <div class="col-sm-3">
-                                        <select class="form-control" name="gender">
+                                        <select class="form-control" name="gender" id="gender">
                                             <option value={{ user.gender }}> {{ user.get_gender_display }} </option>
                                             <option value="male">男</option>
                                             <option value="famale">女</option>
@@ -92,11 +107,13 @@
                                     <label class="col-sm-2 control-label">生日</label>
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control pull-right form_datetime" name="birthday"
+                                               id="birthday"
                                                value="{{ user.birthday|date:"Y-m-d" }}"/>
                                     </div>
                                     <label class="col-sm-2 control-label">用户名</label>
                                     <div class="col-sm-3">
                                         <input type="text" class="form-control" name="username" readonly="readonly"
+                                               id="username"
                                                value="{{ user.username }}"/>
                                     </div>
                                 </div>
@@ -106,12 +123,14 @@
                                 <div class="form-group has-feedback">
                                     <label class="col-sm-2 control-label">手机</label>
                                     <div class="col-sm-3">
-                                        <input class="form-control" name="mobile" readonly="readonly" type="text"
+                                        <input class="form-control" name="mobile" type="text"
+                                               id="mobile"
                                                value="{{ user.mobile }}"/>
                                     </div>
                                     <label class="col-sm-2 control-label">邮箱</label>
                                     <div class="col-sm-3">
-                                        <input class="form-control" name="email" type="text" value="{{ user.email }}"/>
+                                        <input class="form-control" name="email" id="email" type="text"
+                                               value="{{ user.email }}"/>
                                     </div>
                                 </div>
                                 <legend>
@@ -120,12 +139,14 @@
                                 <div class="form-group has-feedback">
                                     <label class="col-sm-2 control-label">工號</label>
                                     <div class="col-sm-3">
-                                        <input type="text" readonly="readonly" class="form-control" name="joined_date"
+                                        <input type="text" readonly="readonly" class="form-control" name="worknum"
+                                               id="worknum"
                                                value="{{ user.worknum }}"/>
                                     </div>
                                     <label class="col-sm-2 control-label">部门</label>
                                     <div class="col-sm-3">
                                         <input class="form-control" name="department" type="text" readonly="readonly"
+                                               id="department"
                                                value="{{ user.department.name }}"/>
                                     </div>
 
@@ -133,12 +154,14 @@
                                 <div class="form-group has-feedback">
                                     <label class="col-sm-2 control-label">岗位</label>
                                     <div class="col-sm-3">
-                                        <input class="form-control" name="post" type="text" readonly="readonly"
+                                        <input class="form-control" name="post" id="post" type="text"
+                                               readonly="readonly"
                                                value="{{ user.post }}"/>
                                     </div>
                                     <label class="col-sm-2 control-label">上级</label>
                                     <div class="col-sm-3">
-                                        <input class="form-control" readonly="readonly" name="superior" type="text"
+                                        <input class="form-control" readonly="readonly" name="superior" id="superior"
+                                               type="text"
                                                value="{{ user.superior.name }}"/>
                                     </div>
                                 </div>
@@ -193,6 +216,8 @@
     <script src="{% static 'plugins/fileinput/fileinput.js' %}"></script>
     <script src="{% static 'plugins/fileinput/zh.js' %}"></script>
 
+
+
     <script type="text/javascript">
         $(function () {
             $('#PERSONAL-USERINFO').addClass('active');
@@ -202,16 +227,43 @@
     <script type="text/javascript">
         //修改用户信息
         $("#btnSave").click(function () {
-            var data = $("#addForm").serialize();
+            var form_data = new FormData();
+            var file_info = $('#avatar')[0].files[0];
+            form_data.append('file', file_info);
+
+
+            form_data.append('name', $('#name').val());
+            form_data.append('gender', $('#gender').val());
+            form_data.append('birthday', $('#birthday').val());
+            form_data.append('username', $('#username').val());
+            form_data.append('mobile', $('#mobile').val());
+            form_data.append('email', $('#email').val());
+            form_data.append('worknum', $('#worknum').val());
+            {#form_data.append('password', $('#password').val());#}
+            {#form_data.append('confirm_password', $('#confirm_password').val());#}
+            {#form_data.append('enjoy_company', $('#enjoy_company').val());#}
+            {#form_data.append('enjoy_wgt', $('#enjoy_wgt').val());#}
+            {#form_data.append('department', $('#department').val());#}
+            form_data.append('post', $('#post').val());
+            {#form_data.append('superior', $('#superior').val());#}
+
+            {#form_data.append('is_active', $('#is_active').val());#}
+            {#form_data.append('roles', $('#roles').val());#}
+            {#form_data.append('level', $('#level').val());#}
+            form_data.append('id', $('#id').val());
             $.ajax({
                 type: $("#addForm").attr('method'),
                 url: "{% url 'system:basic-user-user_info' %}",
-                data: data,
+                data: form_data,
                 cache: false,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
                 success: function (msg) {
                     if (msg.status == 'success') {
                         layer.alert('数据保存成功！', {icon: 1}, function (index) {
                             parent.layer.closeAll(); //关闭所有弹窗
+                            window.location.reload();
                         });
                     } else if (msg.status == 'fail') {
                         layer.alert('数据保存失败', {icon: 5});
@@ -253,6 +305,24 @@
         /*select 支持输入检索*/
         $(function () {
             $('select').comboSelect();
+        });
+
+        // 头像预览
+        $("#avatar").change(function () {
+            // 获取上传文件对象
+            var file = $(this)[0].files[0];
+            {#console.log('111---', file)#}
+            // 读取文件URL
+            var reader = new FileReader();
+            {#console.log('111----', reader)#}
+            reader.readAsDataURL(file);
+            // 阅读文件完成后触发的事件
+            reader.onload = function () {
+                // 读取的URL结果：this.result
+                $("#avatar_img").attr("src", this.result);
+                {#console.log('22----', this.result)#}
+                {#console.log('22----', $("#avatar_img").attr("src", this.result))#}
+            }
         });
 
 

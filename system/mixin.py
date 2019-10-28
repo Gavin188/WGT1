@@ -1,5 +1,5 @@
-# @Time   : 2018/10/17 15:15
-# @Author : RobbieHan
+# @Time   : 2019/07/29 15:15
+# @Author : Gavin
 # @File   : mixin.py.py
 
 from django.contrib.auth.decorators import login_required
@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 class LoginRequiredMixin(object):
     pass
+
     @classmethod  # 类方法（不需要实例化类就可以被类本身调用）
     def as_view(cls, **init_kwargs):
         view = super(LoginRequiredMixin, cls).as_view(**init_kwargs)

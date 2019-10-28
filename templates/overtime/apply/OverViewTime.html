@@ -1,0 +1,476 @@
+{% extends "base-left.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link href="{% static 'jquery.bsgrid-master/plugins/bootstrap/2.3.2/css/bootstrap-responsive.min.css ' %}"
+          rel="stylesheet">
+    <link href="{% static 'jquery.bsgrid-master/builds/css/skins/grid_bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.css' %}" rel="stylesheet">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <style>
+
+        .box-header {
+            margin-top: 25px;
+        }
+
+    </style>
+
+{% endblock %}
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div id="devlist">
+            <div class="box box-primary" id="liebiao">
+                <div class="box-header">
+                    <form class="form-inline" id="queryForm">
+
+                        <div class="form-group searchArea margin-r-5 margin-top-5">
+                            <label>申請人:</label>
+                            <input type="text" name="applyUser" class="form-control inputText" id="applyUser">
+                        </div>
+
+
+                        <div class="form-group searchArea margin-r-5 margin-top-5 ">
+                            <label>加班年份:</label>
+                            <input type="text" name="applyDate" class="form-control" id="date"
+                                   value={{ data.next_date }}>
+                        </div>
+
+                        <div class="form-group searchArea margin-r-5 margin-top-5 " style="width: 15%">
+                            <label>加班月份:</label>
+                            {#                            <div class="col-sm-3">#}
+                            <select class="form-control" name="moth" style="width: 50%"
+                                    id="moth">
+                                <option value={{ data.next_moth }}>{{ data.next_moth }}</option>
+                                <option value="01">1</option>
+                                <option value="02">2</option>
+                                <option value="03">3</option>
+                                <option value="04">4</option>
+                                <option value="05">5</option>
+                                <option value="06">6</option>
+                                <option value="07">7</option>
+                                <option value="08">8</option>
+                                <option value="09">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            {#                            </div>#}
+                        </div>
+
+                        <button type="button" onclick="btnSearch()" class="btn btn-default" style="margin-left: 3%">
+                            <i class="glyphicon glyphicon-search"></i>查询
+                        </button>
+
+                        <button type="button" onclick="btnAllConfirm()" class="btn btn-success btn-group pull-right"
+                                style="margin-left: 3%">
+                            <i class="glyphicon glyphicon-ok"></i>一键同意
+                        </button>
+                    </form>
+                </div>
+
+                <div class="box-body">
+                    <table id="searchTable" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th w_index="id" w_hidden="true">单号</th>
+                            <th w_index="user_worknum">工号</th>
+                            <th w_index="user_name">姓名</th>
+                            <th w_index="01" w_align="left">1</th>
+                            <th w_index="02">2</th>
+                            <th w_index="03">3</th>
+                            <th w_index="04">4</th>
+                            <th w_index="05">5</th>
+                            <th w_index="06">6</th>
+                            <th w_index="07">7</th>
+                            <th w_index="08">8</th>
+                            <th w_index="09">9</th>
+                            <th w_index="10">10</th>
+                            <th w_index="11">11</th>
+                            <th w_index="12">12</th>
+                            <th w_index="13">13</th>
+                            <th w_index="14">14</th>
+                            <th w_index="15">15</th>
+                            <th w_index="16">16</th>
+                            <th w_index="17">17</th>
+                            <th w_index="18">18</th>
+                            <th w_index="19">19</th>
+                            <th w_index="20">20</th>
+                            <th w_index="21">21</th>
+                            <th w_index="22">22</th>
+                            <th w_index="23">23</th>
+                            <th w_index="24">24</th>
+                            <th w_index="25">25</th>
+                            <th w_index="26">26</th>
+                            <th w_index="27">27</th>
+                            <th w_index="28">28</th>
+                            <th w_index="29">29</th>
+                            <th w_index="30">30</th>
+                            <th w_index="31">31</th>
+                            <th w_index="G1">G1</th>
+                            <th w_index="G2">G2</th>
+                            <th w_index="G3">G3</th>
+                            <th w_index="Count">总计</th>
+                            <th w_index="type" w_hidden="true">状态</th>
+                            <th w_index="user_worknum" w_render="operate" width="3%;">操作</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            {#                            <td class="aggcorlor"></td>#}
+                            {#                            <td class="aggcorlor"></td>#}
+                            <td style="color:red;font-weight:bold" class="aggcorlor">合计</td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Count,user_name"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,01"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,02"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,03"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,04"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,05"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,06"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,07"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,08"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,09"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,10"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,11"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,12"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,13"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,14"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,15"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,16"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,17"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,18"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,19"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,20"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,21"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,22"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,23"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,24"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,25"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,26"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,27"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,28"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,29"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,30"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,31"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,G1"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,G2"></td>
+                            <td class="aggcorlor" style="color:red;" w_agg="Sum,G3"></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <form id="searchForm">
+                        <input type="button" onclick="doExport();" value="Export"/>
+                        {#                        <font color="#FF0000" class="pull-right">备注：状态1->未签核，状态2->已签核</font>#}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <script src="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.js' %}"></script>
+    <script src="{% static 'jquery.bsgrid-master/builds/js/lang/grid.zh-CN.min.js' %}"></script>
+
+
+    <!-- iCheck 1.0.1 -->
+    <script type="text/javascript">
+        $(function () {
+            $('#OVERTIME-OV').addClass('active');
+            $('#OVERTIME-OV-OVERVIEWTIME-DETAIL').addClass('active');
+
+        });
+
+    </script>
+    <script>
+        var gridObj;
+        $(function () {
+            gridObj = $.fn.bsgrid.init('searchTable', {
+                url: "{% url 'overtime:ov-overviewmonth-list' %}",   //json文件url
+                ajaxType: 'POST',      //请求方式
+                pageSizeSelect: true,   //是否显示分页大小选择下拉框，默认false
+                autoLoad: true,
+                pageSize: 15,
+                {#stripeRows: true,//隔行变色#}
+                rowHoverColor: true,//划过行变色
+                pageName: 'pageIndex', //页码的参数名称，默认：page
+                ageAll: false,
+                {#displayBlankRows: false,//不显示空白行#}
+                extend: {
+                    settings: {
+                        supportGridEdit: true, // default false, if support extend grid edit
+                        supportGridEditTriggerEvent: '', // default 'rowClick', values: ''(means no need Trigger), 'rowClick', 'rowDoubleClick', 'cellClick', 'cellDoubleClick'
+                        gridEditConfigs: {
+                            datetime: {
+                                build: function (edit, value, record, rowIndex, colIndex, tdObj, trObj, options) {
+                                    // Laydate v1.1 may not render display none input, so use onclick
+                                    return value + '<input id="date_' + rowIndex + '_' + colIndex + '" class="bsgrid_editgrid_hidden laydate-icon" style="width:12%" value="' + value + '" onclick="viewDatetimeChoose(this)" />';
+                                },
+                                val: function (formObj) {
+                                    return formObj.val();
+                                }
+                            }
+                        }
+                    }
+                },//分页大小，默认20
+                {#beforeSend: function (options, XMLHttpRequest) {#}
+                {#    $('#searchParams_view').html('Search params: ' + gridObj.getPageCondition(gridObj.getCurPage()));#}
+                {# }#}
+            });
+            btnSearch();
+        });
+
+        function btnSearch() {
+            gridObj.clearGridBodyData();
+            var date = $('#date').val();
+            var moth = $('#moth').val();
+            var person = $('#applyUser').val();
+            var d1 = new Date(date, moth - 1, 1);
+            var d2 = new Date(date, moth, 1);
+            var week;
+            var j = 3;
+
+            var week_arr = '<tr class="trcl"><td></td><td></td>';
+            for (var i = d1.getTime(); i < d2.getTime(); i += 24 * 60 * 60 * 1000) {
+                var d3 = new Date(i);
+                document.getElementById('searchTable').rows[0].cells[j].innerHTML = d3.getDate();
+                if (d3.getDay() == 0) {
+                    week = '<font color="green">' + "周日" + '</font>';
+                }
+                if (d3.getDay() == 1) {
+                    week = "周一";
+                }
+                if (d3.getDay() == 2) {
+                    week = "周二";
+                }
+                if (d3.getDay() == 3) {
+                    week = "周三";
+                }
+                if (d3.getDay() == 4) {
+                    week = "周四";
+                }
+                if (d3.getDay() == 5) {
+                    week = "周五";
+                }
+                if (d3.getDay() == 6) {
+                    week = "周六";
+                }
+
+                {#document.getElementById('searchTable').rows[1].cells[j].innerHTML = week;#}
+                {#$('#searchTable > thead').before('<tr><td>11111</td></tr>');#}
+                week_arr += '<td>' + week + '</td>'
+                {#console.log('12313',$('#searchTable thead'))#}
+                j++
+            }
+            week_arr += '</tr>'
+            $('.trcl ').remove();
+            $('#searchTable > thead').before(week_arr);
+            data_dict = {'date': date, 'moth': moth, 'person': person};
+            gridObj.search(data_dict);
+
+
+        }
+
+
+        {#            /*input 时间输入选择*/#}
+        $(".form_datetime").datetimepicker({
+            language: 'zh',
+            minView: 'month', //选择范围知道日期，不选择时分
+            //weekStart: 1,
+            //todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            //startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            format: 'yyyy'
+        }).on('changeDate', function (ev) {
+            $(this).datetimepicker('hide');
+        });
+
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+
+        function doExport() {
+            var year = $('#date').val();
+            var moth = $('#moth').val();
+            window.location.href = '{% url 'overtime:ov-overviewtime-export' %}?year=' + year + '&moth=' + moth;
+            {#layer.alert('确定导出吗？', {#}
+            {#    title: '提示'#}
+            {#    , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸#}
+            {#    , time: 0 //不自动关闭#}
+            {#    , btn: ['YES', 'NO']#}
+            {#    , yes: function (index) {#}
+            {#        layer.close(index);#}
+            {#        $.ajax({#}
+            {#            type: "POST",#}
+            {#            url: "{% url 'overtime:ov-overviewtime-export' %}",#}
+            {#            data: {#}
+            {#                "year": year,#}
+            {#                "moth": moth#}
+            {#            },#}
+            {#            cache: false,#}
+            {#            success: function (msg) {#}
+            {#                if (msg.result) {#}
+            {#                    window.location.href = '{% url 'overtime:ov-overviewtime-export' %}';#}
+            {#                    layer.alert("导出成功", {icon: 1}, function (index) {#}
+            {#                        parent.layer.closeAll();#}
+            {#                    });#}
+            {#                } else {#}
+            {#                    layer.alert("导出失败", {icon: 2});#}
+            {#                }#}
+            {#                return#}
+            {#            }#}
+            {##}
+            {#        })#}
+            {#    }#}
+            {# });#}
+        }
+
+
+        function viewDatetimeChoose(formObj) {
+            laydate({
+                elem: '#' + $.bsgrid.adaptAttrOrProp($(formObj), 'id'),
+                format: 'YYYY',
+                istime: true,
+                choose: function (newVal) {
+                    // Laydate v1.1 may prevent input date change event, so trigger it manually
+                    $(formObj).val(newVal).change(); // only trigger change, and value may not change
+                }
+            });
+        }
+
+        function operate(record, rowIndex, colIndex, options, options) {
+            {#var ret = '<a href="#" id="confirm" onclick="doConfirm(' + rowIndex + ');">同意</a>';#}
+            {#ret = ret + '&emsp;<a href="#" id="fused" onclick="doFused(' + rowIndex + ');">拒绝</a>';#}
+            {#console.log(rowIndex.type)#}
+            console.log(record['type'])
+            if (record['type'] == '未签核') {
+                var ret = '<a href="#" id="confirm" onclick="doConfirm(' + rowIndex + ');">同意</a>';
+                ret = ret + '&emsp;<a href="#" id="fused" onclick="doFused(' + rowIndex + ');">拒绝</a>';
+            } else if ((record['type'] == '已签核')) {
+                {#var ret = '<a href="#" id="confirm" onclick="doConfirm(' + rowIndex + ');">同意</a>';#}
+
+            }
+            return ret
+        }
+
+
+        function doConfirm(rowIndex) {
+            year = $('#date').val();
+            month = $('#moth').val();
+            data = gridObj.getRecord(rowIndex);
+            layer.alert('确定同意加班吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['Yes', 'No']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'overtime:ov-overviewconfirm-list' %}?year= " + year + '&month=' + month,
+                        data: data,
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("操作成功！", {icon: 1});
+                                $('#fused').remove();
+                                gridObj.refreshPage();
+                            } else {
+                                layer.alert("操作失败！", {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+
+
+        }
+
+        function doFused(rowIndex) {
+            data = gridObj.getRecord(rowIndex);
+            year = $('#date').val();
+            month = $('#moth').val();
+            layer.alert('确定拒绝加班吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['Yes', 'No']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'overtime:ov-overviewfused-detail' %}?year= " + year + '&month=' + month,
+                        data: data,
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("操作成功！", {icon: 1});
+                                gridObj.refreshPage();
+                            } else {
+                                layer.alert("操作失败！", {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+        }
+
+        function btnAllConfirm() {
+            year = $('#date').val();
+            month = $('#moth').val();
+            var parameters = new Array();
+            var rows = gridObj.getAllRecords();
+            {#console.log(rows[id]);#}
+            for (var row = 0; row < rows.length; row++) {
+                var apply_id = rows[row]['id'];
+                parameters.push(apply_id);
+            }
+            {#var data = JSON.stringify(parameters);#}
+
+            {#var data = gridObj.getAllRecords();#}
+            {#console.log(data)#}
+            layer.alert('确定加班状态', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['Yes', 'No']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'overtime:ov-overviewallconfirm-list' %}?year= " + year + '&month=' + month,
+                        data: {'data': parameters},
+                        {#dataType: JSON,#}
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("操作成功！", {icon: 1});
+                                gridObj.refreshPage();
+                            } else {
+                                layer.alert("操作失败！", {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+        }
+
+
+    </script>
+{% endblock %}

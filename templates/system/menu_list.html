@@ -36,6 +36,7 @@
                             <th>URL</th>
                             <th>图标</th>
                             <th>父菜单</th>
+                            <th>序号</th>
                             <th>操作</th>
 
                         </tr>
@@ -70,14 +71,15 @@
         var oDataTable = null;
         var data = [
             {% for menu in menu_all %}
-            {
-                "id": "{{ menu.id }}",
-                "name": "{{ menu.name }}",
-                "code": "{{ menu.code }}",
-                "url":  "{{ menu.url | default_if_none:'' }}",
-                "icon": "{{ menu.icon | default_if_none:'' }}",
-                "parent": "{{ menu.parent.name }}"
-            },
+                {
+                    "id": "{{ menu.id }}",
+                    "name": "{{ menu.name }}",
+                    "code": "{{ menu.code }}",
+                    "url": "{{ menu.url | default_if_none:'' }}",
+                    "icon": "{{ menu.icon | default_if_none:'' }}",
+                    "parent": "{{ menu.parent.name }}",
+                    "number": "{{ menu.number }}"
+                },
             {% endfor %}
         ];
 
@@ -111,6 +113,9 @@
                                 data: "parent",
                             },
                             {
+                                data: "number",
+                            },
+                            {
                                 data: "id",
                                 bSortable: "false",
                                 render: function (data, type, row, meta) {
@@ -127,38 +132,38 @@
 
         });
 
-    $("#btnRefresh").click(function () {
+        $("#btnRefresh").click(function () {
             window.location.reload();
         });
 
-    $("#btnCreate").click(function () {
-        layer.open({
-            type: 2,
-            title: '新增',
-            shadeClose: false,
-            maxmin: true,
-            area: ['800px', '400px'],
-            content: "{% url 'system:rbac-menu-create' %}",
-            end: function () {
-                //关闭时做的事情
-                window.location.reload();
-            }
+        $("#btnCreate").click(function () {
+            layer.open({
+                type: 2,
+                title: '新增',
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                content: "{% url 'system:rbac-menu-create' %}",
+                end: function () {
+                    //关闭时做的事情
+                    window.location.reload();
+                }
+            });
         });
-    });
 
-     function doUpdate(id) {
-        layer.open({
-            type: 2,
-            title: '编辑',
-            shadeClose: false,
-            maxmin: true,
-            area: ['800px', '400px'],
-            content: ["{% url 'system:rbac-menu-update' %}" + '?id=' + id, 'no'],
-            end: function () {
-                //关闭时做的事情
-                window.location.reload();
-            }
-        });
-    }
+        function doUpdate(id) {
+            layer.open({
+                type: 2,
+                title: '编辑',
+                shadeClose: false,
+                maxmin: true,
+                area: ['800px', '400px'],
+                content: ["{% url 'system:rbac-menu-update' %}" + '?id=' + id, 'no'],
+                end: function () {
+                    //关闭时做的事情
+                    window.location.reload();
+                }
+            });
+        }
     </script>
 {% endblock %}

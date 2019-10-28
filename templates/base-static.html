@@ -4,7 +4,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html>
+<html style="height: auto">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{% static 'plugins/font-awesome/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
     <link rel="stylesheet" href="{% static 'dist/css/myself.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/css/jquery-ui.css' %}">
     <link rel="stylesheet" href="{% static 'dist/css/skins/skin-blue.min.css' %}">
+    {#    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">#}
 
     {% block css %} {% endblock %}
 
@@ -24,7 +26,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <![endif]-->
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" style="height: auto">
 <div class="wrapper">
 
     {% block main %}
@@ -50,16 +52,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
                             <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">UCS</h4>
+                                <h4 class="control-sidebar-subheading">WGT</h4>
 
-                                <p>機台控制流轉系統</p>
+                                <p>WGT工作平台系统</p>
                             </div>
                         </a>
                     </li>
                     <li>
                         <a href="javascript:;">
                             <div class="menu-info">
-                                <p>乘风破浪前程广，鼎立创新步步高</p>
+                                <p style="font-size: large">未曾相逢先一笑</p>
+                                <p style="font-size: large">初会便已许平生</p>
                             </div>
                         </a>
                     </li>
@@ -76,11 +79,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Settings tab content -->
             <div class="tab-pane" id="control-sidebar-settings-tab">
                 <form method="post">
-                    <h3 class="control-sidebar-heading">npi-software</h3>
+                    <h3 class="control-sidebar-heading"></h3>
 
-                    <div class="form-group">
+                    <div class="form-group" style="font-size: 16px">
                         <p>
-                            乘风破浪前程广，鼎立创新步步高
+                            人生最好的三个词
+                        </p>
+                        <p>久别重逢、失而复得、虚惊一场。</p>
+
+                        <p> 但却没有「和好如初」。</p>
+
+                        <p>
+                            只因和好容易，如初太难。
                         </p>
                     </div>
                     <!-- /.form-group -->
@@ -100,12 +110,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- jQuery 2.2.3 -->
 <script src="{% static 'plugins/jQuery/jquery-2.2.3.min.js' %}"></script>
+<script src="{% static 'plugins/jQueryUI/jquery-ui.js' %}"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'dist/js/app.min.js' %}"></script>
 
 <script src="{% static 'js/messageNotice.js' %}"></script>
+<script src="{% static 'js/OvertimeNotice.js' %}"></script>
 
 {% block javascripts %}
 

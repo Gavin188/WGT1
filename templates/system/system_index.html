@@ -1,85 +1,214 @@
 {% extends "base-left.html" %}
 {% load staticfiles %}
-
+{% block css %}
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+    <style>
+        .layui-card-header {
+        {#float: left;#} font-size: large;
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
 
-<div class="pad margin no-print">
-    <div class="callout callout-info" style="margin-bottom: 0!important;">
-        <h4><i class="fa  fa-info-circle"></i>系統管理：</h4>
-        系統管理模塊包含：系統許可權管理和系統設置，系統許可權管理可實現基於角色組的許可權管理，可根據角色組許可權動態生成URL導航菜單。
-    </div>
-</div>
-<!-- Main content -->
-<section class="invoice">
-    <div class="row">
-        <div class="col-xs-12">
-            <h2 class="page-header">
-                <i class="fa fa-github"></i> 公告信息展示
-            </h2>
+    <div style="padding: 20px; background-color: #F2F2F2;">
+        <div class="layui-row layui-col-space15" style="height: 900px">
+
+            <div class="layui-col-md8 ">
+                <div class="layui-row layui-col-space10 ">
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+                            <div class="layui-card-header">公告栏</div>
+                            <div class="layui-card-body" style=" height:450px; overflow:auto;">
+                                <table class="layui-table" lay-skin="line">
+                                    <thead>
+                                    <tr>
+                                        <th>發佈者</th>
+                                        <th>標題</th>
+                                        <th>內容</th>
+                                        <th>發佈時間</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if datas %}
+                                        {% for data in datas %}
+                                            <tr>
+                                                <td style="color:#040202; width: 12%">{{ data.relUser }}</td>
+                                                <td style="color:#060001; width: 12%">{{ data.tag }}</td>
+                                                <td style="color:#0000ff; width: 55%">{{ data.relContent }}</td>
+                                                <td style="color:#0d0101;">{{ data.relDate }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="4" style="color:cornflowerblue;">今日無公告</td>
+                                        </tr>
+
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-col-md12">
+                        <div class="layui-card" style="height: 150px">
+                            <div class="layui-card-header"><a href="/dqe/testManage/is/currenttest">今日测试</a></div>
+                            <div class="layui-card-body">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-col-md4">
+                        <div class="layui-card" style="height: 189px">
+                            <div class="layui-card-header">版本概览</div>
+                            <div class="layui-card-body">
+                                郭文娜1.1<br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md4">
+                        <div class="layui-card" style="height: 189px">
+                            <div class="layui-card-header">考勤概览</div>
+                            <div class="layui-card-body">
+                                郭文娜迟到<br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md4">
+                        <div class="layui-card" style="height: 189px">
+                            <div class="layui-card-header">值日概览</div>
+                            <div class="layui-card-body">
+                                郭志航刷碗拖地<br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-md2">
+                <div class="layui-card" style="height: 850px">
+                    <div class="layui-card-header">工程师今日排名</div>
+                    <div class="layui-card-body" style=" align:center ; height:800px; overflow:auto;">
+                        <table class="layui-table" lay-skin="row" id="usedTable" lay-filter="used">
+                            <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>次数</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if sub_count %}
+                                {% for data in sub_count %}
+                                    <tr>
+                                        <td>{{ data.sub_per }}</td>
+                                        <td>{{ data.count }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-md2">
+                <div class="layui-card" style="height: 850px">
+                    <div class="layui-card-header">测试员今日排名</div>
+                    <div class="layui-card-body" style=" height:800px; overflow:auto;">
+                        <table class="layui-table" lay-skin="row" id="usedTable" lay-filter="used">
+                            <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>次数</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if count %}
+                                {% for data in count %}
+                                    <tr>
+                                        <td>{{ data.find_per }}</td>
+                                        <td>{{ data.count }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
-        <!-- /.col -->
     </div>
-    <div class="row">
-
-        <div class="col-xs-12 table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>標題</th>
-                    <th>內容</th>
-                    <th>發佈者</th>
-                    <th>發佈時間</th>
-                </tr>
-                </thead>
-
-                <tbody>
 
 
-                {% if datas %}
-                    {% for data in datas %}
-                        <tr>
-                            <td style="color:#ed0d18;">{{data.tag}}</td>
-                            <td style="color:#ed0d18;">{{data.relContent}}</td>
-                            <td style="color:#ed0d18;">{{data.relUser}}</td>
-                            <td style="color:#ed0d18;">{{data.relDate}}</td>
-                        </tr>
-                    {% endfor %}
-                {% else %}
-                   <tr>
-                        <td colspan="4" style="color:cornflowerblue;">今日無公告</td>
-                        <!--<td></td>-->
-                        <!--<td></td>-->
-                        <!--<td></td>-->
-                    </tr>
 
-                {% endif %}
+    <!-- <script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script> -->
+    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+    <!-- <script type="text/javascript">
+         layui.use(['element', 'table', 'form', 'jquery', 'layer', 'laypage'], function () {
+                var $ = layui.jquery;
+                var element = layui.element;
+                var form = layui.form;
+                var upload = layui.upload;
+                var laypage = layui.laypage;
+                var layer = layui.layer;
+                var table = layui.table;
 
+                // 表格渲染
+                table.render({
+                    elem: '#usedTable',
+                    url: '', //数据接口
+                    id: 'usedTable',
+                    height: 'auto',
+                    width: 800,
+                    align: 'right',
+                    loading: true,
+                    page: true,
+                    limit: 20,
+                    limits: [20, 30, 50],
+                    cols: [
+                        [{
+                                field: 'id',
+                                width: '10%',
+                                align: 'center',
+                                title: 'ID',
+                                sort: true,
+                                fixed: 'left',
+                                templet: '#titleid'
+                            },
 
-                </tbody>
-            </table>
-        </div>
-        <!-- /.col -->
-    </div>
-    <!-- /.row -->
-    <div class="row">
-        <!-- accepted payments column -->
-        <div class="col-xs-12">
-            <p class="lead">其他信息：</p>
+                            {
+                                field: 'project',
+                                width: '40%',
+                                align: 'center',
+                                title: 'Project'
+                            },
 
-            <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                <strong>庫存管理：</strong>進去可直接觀察本部門下的機台，也可查詢其他部門的機台；<br>
-                <strong>機台轉賬：</strong>機台申請可以直接在庫存中進行機台申請操作，在轉賬中查詢歷史轉賬信息；<br>
-                <strong>狀態查詢：</strong>輸入機台SN或者rel編號可直接查詢機台信息，當前存在部門以及停留時間；<br>
-                <strong>時間分析：</strong>統計該機台被哪些部門借過，以及在每個部門下的停留時間。<br>
-            </p>
+                            {
+                                field: 'build',
+                                width: '40%',
+                                align: 'center',
+                                title: 'Build'
+                            },
 
-        </div>
-        <!-- /.col -->
-    </div>
-</section>
-<!-- /.content -->
-<div class="clearfix"></div>
+                            {
+                             fixed: 'right',
+                             align: 'center',
+                             title: 'Action',
+                             toolbar: '#barDemo',
+                             width: '10%'
+                         }
+                        ]
+                    ]
+                });
+
+    </script>
+     -->
+
 
 {% endblock %}
 

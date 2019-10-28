@@ -34,28 +34,58 @@
                     <ul class="nav navbar-nav">
 
                         <!-- Notifications Menu -->
+
                         <li class="dropdown notifications-menu">
                             <!-- Menu toggle button -->
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-bell-o"></i>
-                                <span class="label label-danger" id="todo"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">信息：</li>
-                                <li>
-                                    <!-- Inner Menu: contains the notifications -->
-                                    <ul class="menu">
-                                        <li><!-- start notification -->
-                                            <a href="#">
-                                                <i class="fa fa-users text-aqua"></i>
-                                                <span id="message"></span>
-                                            </a>
-                                        </li>
-                                        <!-- end notification -->
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="{% url 'dqe:mt-loanconfirm' %}">前往處理</a></li>
-                            </ul>
+                            {% if request.user.department_id == 7 %}
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span class="label label-danger" id="todo"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="header">信息:</li>
+                                    <li>
+                                        <!-- Inner Menu: contains the notifications -->
+                                        <ul class="menu">
+                                            <li><!-- start notification -->
+                                                <a href="#">
+                                                    <i class="fa fa-users text-aqua"></i>
+                                                    <span id="message"></span>
+                                                </a>
+                                            </li>
+                                            <!-- end notification -->
+                                        </ul>
+                                    </li>
+
+                                    <li class="footer"><a href="{% url 'dqe:mt-loanconfirm' %}">前往處理</a></li>
+                                </ul>
+                            {% endif %}
+                            {% if request.user.department_id == 5 %}
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span class="label label-danger" id="todo_over"
+                                          style="width: 34%;font-size: small;"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="header">信息:</li>
+                                    <li>
+                                        <!-- Inner Menu: contains the notifications -->
+                                        <ul class="menu">
+                                            <li><!-- start notification -->
+                                                <a href="#">
+                                                    <i class="fa fa-users text-aqua"></i>
+                                                    <span id="message_over"></span>
+                                                </a>
+                                            </li>
+                                            <!-- end notification -->
+                                        </ul>
+                                    </li>
+
+                                    <li class="footer"><a href="{% url 'overtime:ov-applyleader-list' %}">前往處理</a></li>
+                                </ul>
+                            {% endif %}
+
+
                         </li>
 
 
@@ -78,7 +108,7 @@
 
                                 <p>
                                     {{ request.user.name }} - {{ request.user.department.title }}
-                                    <small>{{ request.user.email }}</small>
+                                    <small>{{ request.user.worknum }}</small>
                                 </p>
                             </li>
                         {% endif %}

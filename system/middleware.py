@@ -13,6 +13,7 @@ class MenuCollection(MiddlewareMixin):
     def get_menu_from_role(self, request, user=None):
         if user is None:
             user = self.get_user(request)
+            # print(user)
         try:
             menus = user.roles.values(
                 'permissions__id',
@@ -28,6 +29,7 @@ class MenuCollection(MiddlewareMixin):
 
     def get_permission_url(self, request):
         role_menus = self.get_menu_from_role(request)
+        # print('role_menus-->', role_menus)
         if role_menus is not None:
             permission_url_list = [menu['permissions__url'] for menu in role_menus]
             return permission_url_list
@@ -54,11 +56,14 @@ class MenuCollection(MiddlewareMixin):
         top_menu = []
         permission_menu_dict = {}
         request_url = request.path_info
+        # print('request_url--', request_url)
         permission_menu_list = self.get_permission_menu(request)
+        # print('permission_menu_list -- ', permission_menu_list)
         if permission_menu_list is not None:
             for menu in permission_menu_list:
 
                 url = menu['url']
+                # print('url--', url)
                 if url and re.match(url, request_url):
                     menu['status'] = True
                 if menu['parent'] is None:
@@ -66,15 +71,24 @@ class MenuCollection(MiddlewareMixin):
                 permission_menu_dict[menu['id']] = menu
 
             menu_data = []
+            # print('permission_menu_dict--', permission_menu_dict)
+
             for i in permission_menu_dict:
+                # print('21222', i)
+                # print('45646546', permission_menu_dict[i]['parent'])
+
                 if permission_menu_dict[i]['parent']:
                     pid = permission_menu_dict[i]['parent']
+                    # print('pid---->>', pid)
                     parent_menu = permission_menu_dict[pid]
+                    # print('parent_menu--->', parent_menu)
                     parent_menu['sub_menu'].append(permission_menu_dict[i])
+                    # print('parent_sub_menu---->', parent_menu['sub_menu'])
                 else:
                     menu_data.append(permission_menu_dict[i])
             if [menu['sub_menu'] for menu in menu_data if menu['url'] in request_url]:
                 reveal_menu = [menu['sub_menu'] for menu in menu_data if menu['url'] in request_url][0]
+                # print(reveal_menu)
             else:
                 reveal_menu = None
             return top_menu, reveal_menu

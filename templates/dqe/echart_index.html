@@ -15,40 +15,44 @@
         <!--<li><a href="#">數據看板</a></li>-->
         <!--</ol>-->
     </section>
-
+    {#{'Project': ['BV7', 'BV8', 'BG0', 'BGP'], 'datas': {'BV7': 11, 'BV8': 10, 'BG0': 5, 'BGP': 0}}#}
     <section class="content">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            {% for structure in structures %}
-                <div class="col-lg-3 col-xs-6">
+            {% for project in Project %}
+                <div class="col-lg-2 col-xs-6">
                     <!-- small box -->
                     <div class="small-box
-                {% if forloop.counter|get_mod:'4' == 1 %}
+                {% if forloop.counter|get_mod:'5' == 1 %}
                     bg-aqua
                 {% endif %}
 
-                {% if forloop.counter|get_mod:'4' == 2 %}
+                {% if forloop.counter|get_mod:'5' == 2 %}
                     bg-yellow
                 {% endif %}
 
-                {% if forloop.counter|get_mod:'4' == 3 %}
+                {% if forloop.counter|get_mod:'5' == 3 %}
                     bg-green
                 {% endif %}
 
-                {% if forloop.counter|get_mod:'4' == 0 %}
+                {% if forloop.counter|get_mod:'5' == 4 %}
                     bg-gray
+                {% endif %}
+
+                {% if forloop.counter|get_mod:'5' == 0 %}
+                    bg-red
                 {% endif %}
             ">
                         <div class="inner">
                             <h3>
-                                {% for data in datas %}
-                                    {% if data.fk_structure__name == structure.name %}
-                                        {{ data.count | default:"0" }}
+                                {% for data , value in datas.items %}
+                                    {% if data == project %}
+                                        {{ value | default:"0" }}
                                     {% endif %}
                                 {% endfor %}
                             </h3>
 
-                            <p>{{ structure.name | default:"--" }}</p>
+                            <p>{{ project | default:"--" }}</p>
                         </div>
                         <div class="icon">
 
@@ -75,62 +79,13 @@
                     </div>
                 </div>
             {% endfor %}
-
-            <!---->
-            <!-- ./col -->
-            <!--<div class="col-lg-3 col-xs-6">-->
-            <!--&lt;!&ndash; small box &ndash;&gt;-->
-            <!--<div class="small-box bg-yellow ">-->
-            <!--<div class="inner">-->
-            <!--<h3>{{ work_order_2 | default:"0"}}</h3>-->
-            <!--<p>FA</p>-->
-            <!--</div>-->
-            <!--<div class="icon">-->
-            <!--<i class="fa fa-send-o"></i>-->
-            <!--</div>-->
-            <!--<a href="#" class="small-box-footer">{{ time | date:'Y年m月d日' | default:"&#45;&#45;&#45;&#45;年&#45;&#45;月&#45;&#45;日"}}</a>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--&lt;!&ndash; ./col &ndash;&gt;-->
-            <!--<div class="col-lg-3 col-xs-6">-->
-            <!--&lt;!&ndash; small box &ndash;&gt;-->
-            <!--<div class="small-box bg-green">-->
-            <!--<div class="inner">-->
-            <!--<h3>{{ work_order_3 | default:"0"}}</h3>-->
-
-            <!--<p>MINILINE</p>-->
-            <!--</div>-->
-            <!--<div class="icon">-->
-            <!--<i class="glyphicon glyphicon-play"></i>-->
-            <!--</div>-->
-            <!--<a href="#" class="small-box-footer">{{ time | date:'Y年m月d日' | default:"&#45;&#45;&#45;&#45;年&#45;&#45;月&#45;&#45;日"}}</a>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--&lt;!&ndash; ./col &ndash;&gt;-->
-            <!--<div class="col-lg-3 col-xs-6">-->
-            <!--&lt;!&ndash; small box &ndash;&gt;-->
-            <!--<div class="small-box bg-gray">-->
-            <!--<div class="inner">-->
-            <!--<h3>{{ work_order_4 | default:"0"}}</h3>-->
-
-            <!--<p>EQC</p>-->
-            <!--</div>-->
-            <!--<div class="icon">-->
-            <!--<i class="fa fa-check"></i>-->
-            <!--</div>-->
-            <!--<a href="#" class="small-box-footer">{{ time | date:'Y年m月d日' | default:"&#45;&#45;&#45;&#45;年&#45;&#45;月&#45;&#45;日"}}</a>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!-- ./col -->
-            <!---->
-
         </div>
         <!-- /.row -->
         <div class="row" style="margin-top: 20px;">
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">機台數據統計</h3>
+                        <h3 class="box-title">机台數據統計</h3>
                         <div class="box-tools pull-right">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown"
@@ -177,12 +132,13 @@
 
         /*---柱形图---*/
         //echarts
+        //{#{'Project': ['BV7', 'BV8', 'BG0', 'BGP'], 'datas': {'BV7': 11, 'BV8': 10, 'BG0': 5, 'BGP': 0}}#}
         var bar_dom = document.getElementById("bar_container");
         var myBarChart = echarts.init(bar_dom);
         option = null;
         option = {
             title: {
-                text: '部門機台統計',
+                text: '测试平台機台統計',
                 subtext: ''
             },
             tooltip: {
@@ -190,8 +146,7 @@
             },
             legend: {
                 data: [
-                    {% for data in datas %}'{{ data.fk_structure__name }}',{% endfor %}
-                    //{% for data in datas %}'{{ data.fk_structure__name }}',{% endfor %}
+                    {% for data,value in datas.items %}'{{ value }}',{% endfor %}
                 ]
             },
 
@@ -207,8 +162,7 @@
             xAxis: [
                 {
                     type: 'category',
-                    data: [{% for data in datas %}'{{ data.fk_structure__name }}',{% endfor %}] //'1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'
-                    //{% for data in datas %}'{{ data.fk_structure__name }}',{% endfor %}
+                    data: [{% for data in Project %}'{{ data}}',{% endfor %}] //'1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'
                 }
             ],
             yAxis: [
@@ -223,8 +177,8 @@
                     name: '访问来源', //作用用于点选隐藏的
                     type: 'bar',
                     data: [
-                        {% for data in datas %}
-                            {value:{{ data.count }}, name: '{{ data.fk_structure__name }}'},
+                        {% for data,value in datas.items %}
+                            {value:{{ value }}, name: '{{ data }}'},
                         {% endfor %}
                     ],
 
@@ -236,49 +190,6 @@
                     },
 
                 },
-
-
-                // {
-                //     name: 'ECharts2 - 2k数据',
-                //     type: 'bar',
-                //     itemStyle: {normal: {color: 'rgba(193,35,43,1)', label: {show: true}}},
-                //
-                //     data: [40, 155, 95, 75,],
-                //     markPoint: {
-                //         data: [
-                //             {type: 'max', name: '最大值'},
-                //             {type: 'min', name: '最小值'}
-                //         ]
-                //     },
-                // },
-                // {
-                //     name: 'ECharts2 - 2w数据',
-                //     type: 'bar',
-                //     itemStyle: {normal: {color: 'rgba(181,195,52,1)', label: {show: true, textStyle: {color: '#27727B'}}}},
-                //     data: [100, 200, 105, 100, ]
-                // },
-                // {
-                //     name: 'FA',
-                //     type: 'bar',
-                //     itemStyle: {normal: {color: 'rgba(252,206,16,1)', label: {show: true, textStyle: {color: '#E87C25'}}}},
-                //     data: [900, 911, 908, 778, ]
-                // },
-                //
-                // {
-                //     name: 'DQE',
-                //     type: 'bar',
-                //     itemStyle: {
-                //         normal: {
-                //             color: 'rgba(193,35,43,0.5)', label: {
-                //                 show: true, formatter: function (p) {
-                //                     return p.value > 0 ? (p.value + '\n') : '';
-                //                 }
-                //             }
-                //         }
-                //     },
-                //     data: [96, 224, 164, 124, ]
-                // }
-
             ]
         };
         if (option && typeof option === "object") {
@@ -308,9 +219,7 @@
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: [{% for data in datas %}'{{ data.fk_structure__name }}',{% endfor %}]
-                //'直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'
-                //{% for data in datas %}'{{ data.fk_structure__name }}',{% endfor %}
+                data: [{% for data in datas.items %}'{{ data }}',{% endfor %}]
             },
             series: [
                 {
@@ -325,14 +234,11 @@
                         // {value: 135, name: '视频广告'},
                         // {value: 1548, name: '搜索引擎'}
 
-                        {% for data in datas %}
-                            {value:{{ data.count }}, name: '{{ data.fk_structure__name }}'},
+                        {% for data,value in datas.items%}
+                            {value:{{ value }}, name: '{{ data }}'},
                         {% endfor %}
 
                     ],
-                    // {% for data in year_work_order_count %}
-                        //     {value:{{ data.count }}, name:'{{ data.name }}'},
-                        // {% endfor %}
                     itemStyle: {
                         emphasis: {
                             shadowBlur: 10,

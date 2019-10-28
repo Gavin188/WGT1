@@ -9,23 +9,36 @@
 
 {% block main %}
     <div class="box box-danger">
-        <form class="form-horizontal" id="addForm" method="post">
+        <form class="form-horizontal" id="addForm" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="hidden" name='id' value="{{ user.id }}"/>
             <input type="hidden" name='user' value="save"/>
             <div class="box-body">
                 <fieldset>
                     <legend>
+                        <h4>修改头像</h4>
+                    </legend>
+                    <div class="form-group">
+                        <div style="position: relative;border: 5px solid lightblue;width: 150px;height:150px;margin: 5px auto;border-radius: 50%;">
+                            <img src="/media/image/default.jpg" alt="选择并上传头像" id="avatar_img"
+                                 style="width: 140px;height: 140px;left:0;top: 0;border-radius: 50%;"/>
+                            <input type="file" id="avatar" name="avatar"
+                                   accept="image/jpg,image/jpeg,image/png,image/gif"
+                                   class="form-control-file"
+                                   style="width: 100%;height:100%;opacity: 0;position: absolute;left:0;top: 0;"/>
+                        </div>
+                    </div>
+                    <legend>
                         <h4>基本信息</h4>
                     </legend>
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label">姓名</label>
                         <div class="col-sm-3">
-                            <input class="form-control" name="name" type="text" value=""/>
+                            <input class="form-control" name="name" id="name" type="text" value=""/>
                         </div>
                         <label class="col-sm-2 control-label">性别</label>
                         <div class="col-sm-3">
-                            <select class="form-control" name="gender">
+                            <select class="form-control" name="gender" id="gender">
                                 <option value="male">男</option>
                                 <option value="female">女</option>
                             </select>
@@ -36,11 +49,12 @@
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label">生日</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control pull-right form_datetime" name="birthday"/>
+                            <input type="text" class="form-control pull-right form_datetime" name="birthday"
+                                   id="birthday"/>
                         </div>
                         <label class="col-sm-2 control-label">手机</label>
                         <div class="col-sm-3">
-                            <input class="form-control" name="mobile" type="text"/>
+                            <input class="form-control" name="mobile" id="mobile" type="text"/>
                         </div>
                     </div>
 
@@ -50,21 +64,22 @@
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label">登錄賬號</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" name="username" placeholder="填寫工號"/>
+                            <input type="text" class="form-control" name="username" id="username" placeholder="填寫工號"/>
                         </div>
                         <label class="col-sm-2 control-label">英文名</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" name="worknum"/>
+                            <input type="text" class="form-control" name="worknum" id="worknum"/>
                         </div>
                     </div>
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label">密碼</label>
                         <div class="col-sm-3">
-                            <input class="form-control" name="password" type="password" value=""/>
+                            <input class="form-control" name="password" id="password" type="password" value=""/>
                         </div>
                         <label class="col-sm-2 control-label">確認密碼</label>
                         <div class="col-sm-3">
-                            <input class="form-control" name="confirm_password" type="password" value=""/>
+                            <input class="form-control" name="confirm_password" id="confirm_password" type="password"
+                                   value=""/>
                         </div>
                     </div>
 
@@ -75,21 +90,23 @@
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label">入职日期</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control pull-right form_datetime" name="enjoy_company"/>
+                            <input type="text" class="form-control pull-right form_datetime" name="enjoy_company"
+                                   id="enjoy_company"/>
                         </div>
                         <label class="col-sm-2 control-label">入WGT日期</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control pull-right form_datetime" name="enjoy_wgt"/>
+                            <input type="text" class="form-control pull-right form_datetime" name="enjoy_wgt"
+                                   id="enjoy_wgt"/>
                         </div>
                     </div>
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label">岗位</label>
                         <div class="col-sm-3">
-                            <input class="form-control" name="post" type="text"/>
+                            <input class="form-control" name="post" id="post" type="text"/>
                         </div>
                         <label class="col-sm-2 control-label">上级</label>
                         <div class="col-sm-3">
-                            <select class="form-control select2" style="width:100%;" name="superior">
+                            <select class="form-control select2" style="width:100%;" name="superior" id="superior">
                                 <option value="">--上级--</option>
                                 {% for user in users %}
                                     <option value="{{ user.id }}">{{ user.name }}</option>
@@ -102,11 +119,11 @@
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label">邮箱</label>
                         <div class="col-sm-3">
-                            <input class="form-control" name="email" type="text"/>
+                            <input class="form-control" name="email" id="email" type="text"/>
                         </div>
                         <label class="col-sm-2 control-label">小组</label>
                         <div class="col-sm-3">
-                            <select class="form-control select2" style="width:100%;" name="department">
+                            <select class="form-control select2" style="width:100%;" name="department" id="department">
                                 <option value="">--小组--</option>
                                 {% for structure in structures %}
                                     <option value="{{ structure.id }}">{{ structure.name }}</option>
@@ -117,8 +134,17 @@
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label">资位</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" name="level"
+                            <input type="text" class="form-control" name="level" id="level"
                                    placeholder="师级/员级"/>
+                        </div>
+                        <label class="col-sm-2 control-label">加班管控</label>
+                        <div class="col-sm-3">
+                            <select class="form-control select2" style="width:100%;" name="time_control"
+                                    id="time_control">
+                                {% for applyState in time %}
+                                    <option value="{{ applyState.key }}">{{ applyState.value }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
 
@@ -129,7 +155,8 @@
                         <label class="col-sm-2 control-label">启用状态</label>
                         <div class="col-sm-6">
                             <label class="control-label">
-                                <input type="radio" class="minimal" name="is_active" value="True" checked>启用
+                                <input type="radio" class="minimal" name="is_active" id="is_active" value="True"
+                                       checked>启用
                             </label>
                             <label class="control-label">
                                 <input type="radio" class="minimal" name="is_active" value="False">禁用
@@ -142,7 +169,7 @@
                         <div class="col-sm-6">
                             {% for role in roles %}
                                 <label class="control-label">
-                                    <input type="checkbox" class="minimal" name="roles" value="{{ role.id }}"
+                                    <input type="checkbox" class="minimal" name="roles" id="roles" value="{{ role.id }}"
                                            {% if role in user_roles %}checked{% endif %}>
                                     {{ role.name }}
                                 </label>
@@ -170,12 +197,42 @@
     <script type="text/javascript">
 
         $("#btnSave").click(function () {
-            var data = $("#addForm").serialize();
+            {#var data = $("#addForm").serialize();#}
+            {#form_data.append('data', data);#}
+
+            var form_data = new FormData();
+            var file_info = $('#avatar')[0].files[0];
+            form_data.append('file', file_info);
+
+
+            form_data.append('name', $('#name').val());
+            form_data.append('gender', $('#gender').val());
+            form_data.append('birthday', $('#birthday').val());
+            form_data.append('username', $('#username').val());
+            form_data.append('worknum', $('#worknum').val());
+            form_data.append('password', $('#password').val());
+            form_data.append('confirm_password', $('#confirm_password').val());
+            form_data.append('enjoy_company', $('#enjoy_company').val());
+            form_data.append('enjoy_wgt', $('#enjoy_wgt').val());
+            form_data.append('department', $('#department').val());
+            form_data.append('post', $('#post').val());
+            form_data.append('superior', $('#superior').val());
+            form_data.append('email', $('#email').val());
+            form_data.append('mobile', $('#mobile').val());
+            form_data.append('is_active', $('#is_active').val());
+            form_data.append('roles', $('#roles').val());
+            form_data.append('level', $('#level').val());
+            form_data.append('time_control', $('#time_control').val());
+
+            console.log(form_data);
             $.ajax({
                 type: $("#addForm").attr('method'),
                 url: "{% url 'system:basic-user-create' %}",
-                data: data,
+                data: form_data,
                 cache: false,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
                 success: function (msg) {
                     if (msg.status == 'success') {
                         layer.alert('用户添加成功！', {icon: 1}, function (index) {
@@ -189,7 +246,23 @@
                 }
             });
         });
-
+        // 头像预览
+        $("#avatar").change(function () {
+            // 获取上传文件对象
+            var file = $(this)[0].files[0];
+            {#console.log('111---', file)#}
+            // 读取文件URL
+            var reader = new FileReader();
+            {#console.log('111----', reader)#}
+            reader.readAsDataURL(file);
+            // 阅读文件完成后触发的事件
+            reader.onload = function () {
+                // 读取的URL结果：this.result
+                $("#avatar_img").attr("src", this.result);
+                {#console.log('22----', this.result)#}
+                {#console.log('22----', $("#avatar_img").attr("src", this.result))#}
+            }
+        });
 
         /*点取消刷新新页面*/
         $("#btnCancel").click(function () {

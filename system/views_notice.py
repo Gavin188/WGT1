@@ -13,9 +13,10 @@ from custom import BreadcrumbMixin
 from system.forms import NoticeCreateForm
 from system.models import Notice
 from system.mixin import LoginRequiredMixin
-from system.models import Structure,Menu
+from system.models import Structure, Menu
 
-#专案界面
+
+# 专案界面
 class NoticeView(LoginRequiredMixin, View):
     def get(self, request):
         res = dict(data=Notice.objects.all())
@@ -27,38 +28,41 @@ class NoticeView(LoginRequiredMixin, View):
         menu = Menu.get_menu_by_request_url(url=self.request.path_info)
         if menu is not None:
             res.update(menu)
-        return render(request, 'system/Notice/Notice_List.html',res)
+        return render(request, 'system/Notice/Notice_List.html', res)
 
-#申请详情列表
+
+# 申请详情列表
 class NoticeListView(LoginRequiredMixin, View):
     def get(self, request):
+        fields = ['id', 'tag', 'relDate', 'relContent', 'relUser', 'other', ]
+        searchFields = ['relDate', ]  # 与数据库字段一致
+        filters = {i + '__icontains': request.GET.get(i, '') for i in searchFields if
+                   request.GET.get(i, '')}  # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
 
-        fields = ['id', 'tag','relDate', 'relContent','relUser', 'other',]
-        searchFields = ['relDate', ] #与数据库字段一致
-        filters = {i + '__icontains': request.GET.get(i,'') for i in searchFields if request.GET.get(i, '') }  #此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
-
-        res = dict(data=list(Notice.objects.filter(**filters).values(*fields)))
+        res = dict(data=list(Notice.objects.filter(**filters).values(*fields).order_by('-relDate')))
 
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
 
 
-#專案 新增 和 修改
+# 專案 新增 和 修改
 class NoticeUpdateView(LoginRequiredMixin, View):
-    #注意：编辑页面中type=hidden隐藏的id，目的就是为了标识是编辑/增加操作
+    # 注意：编辑页面中type=hidden隐藏的id，目的就是为了标识是编辑/增加操作
     def get(self, request):
         res = dict()
+        # print('id=--=', request.GET.get('id'))
         if 'id' in request.GET and request.GET['id']:
             notice = get_object_or_404(Notice, pk=request.GET.get('id'))
             res['notice'] = notice
         else:
             notices = Notice.objects.all()
             res['notices'] = notices
-
+        # print('res,', res)
         return render(request, 'system/Notice/Notice_Update.html', res)
 
     def post(self, request):
         res = dict(result=False)
-        if 'id' in request.POST and request.POST['id']:  #id的存在，就是为了说明是新增数据还是编辑数据
+        # print('id==', request.POST['id'])
+        if 'id' in request.POST and request.POST['id']:  # id的存在，就是为了说明是新增数据还是编辑数据
             notice = get_object_or_404(Notice, pk=request.POST.get('id'))
         else:
             notice = Notice()
@@ -73,7 +77,8 @@ class NoticeUpdateView(LoginRequiredMixin, View):
 
         return HttpResponse(json.dumps(res), content_type='application/json')
 
-#库存删除
+
+# 库存删除
 class NoticeDeleteView(LoginRequiredMixin, View):
     def post(self, request):
         res = dict(result=False)
@@ -85,5 +90,3 @@ class NoticeDeleteView(LoginRequiredMixin, View):
             res['result'] = True
 
         return HttpResponse(json.dumps(res), content_type='application/json')
-
-
