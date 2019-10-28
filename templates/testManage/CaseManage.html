@@ -60,14 +60,12 @@
                     <table id="searchTable" style="width: 100%">
                         <thead>
                         <tr>
-                            <th w_index="id">用例编号</th>
-                            <th w_index="function">功能</th>
-                            <th w_index="oper_step">操作步骤</th>
-                            <th w_index="expect">预期结果</th>
-                            <th w_index="test">测试结果</th>
-                            <th w_index="radar_id">Radar ID</th>
-                            <th w_index="comments">备注</th>
-                            {#                            <th w_index="comments" width="35%">Comments</th>#}
+                            <th w_index="id" width="10%">用例编号</th>
+                            <th w_index="function" w_render="fun">测试项</th>
+                            <th w_index="dri">负责人</th>
+                            <th w_index="test_iro">测试说明</th>
+                            <th w_index="id" w_render="operate" width="8%;">操作</th>
+
                         </tr>
                         </thead>
                     </table>
@@ -83,7 +81,7 @@
     <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
     <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
-    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+
     {#    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>#}
     <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
     <script src="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.js' %}"></script>
@@ -92,6 +90,7 @@
     <script src="{% static 'bootstrap/fileinput.js' %}"></script>
     <script src="{% static 'bootstrap/fileinput_locale_zh.js' %}"></script>
     <script src="{% static 'layui/layui.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
 
 
     <!--导出excel-->
@@ -156,6 +155,17 @@
         {#    gridObj.search(data_dict);#}
         {# }#}
 
+        function operate(record, rowIndex, colIndex, options) {
+            var ret = '<a href="#" id="btnupdate" onclick="doConfirm(' + rowIndex + ');">修改</a>';
+            ret = ret + '&nbsp';
+            ret = ret + '&emsp;<a href="#" id="btndelete" onclick="doFused(' + rowIndex + ');">删除</a>';
+            return ret
+        }
+
+        function fun(record, rowIndex, colIndex, options) {
+            return '<a href="#" id="btnupdate" onclick="btnFind(' + rowIndex + ');">' + record.function + '</a>';
+        }
+
         function btnExport() {
             layer.open({
                 type: 1,
@@ -167,12 +177,24 @@
             });
         }
 
+        function btnFind(row_id) {
+            {#console.log('6666', typeof (row_id));#}
+            layer.open({
+                type: 2,
+                title: "查看测试项",
+                closeBtn: 1,
+                shadeClose: false,
+                area: ['900px', '600px'],
+                content: ["{% url 'testManage:is-casefind-list' %}" + "?id=" + row_id],
+            });
+        }
+
+
         // on操作的追加后的元素， click无法选中，用on追踪
         $("#qwer").on("click", ".fileinput-upload-button", function () {
             var form_data = new FormData();
             var file_info = $('#input-1')[0].files[0];
             form_data.append('file', file_info);
-            {#console.log(1232212);#}
             $.ajax({
                 type: "POST",
                 url: "{% url 'testManage:is-taskarrange' %}",
@@ -181,13 +203,11 @@
                 processData: false,
                 contentType: false,
                 success: function (msg) {
-                    {#console.log(msg)#}
                     if (msg.result) {
                         layer.alert(msg.msg, {icon: 1}, function (index) {
                             parent.layer.closeAll(); //关闭所有弹窗
                             window.location.reload();
                         });
-
                     } else {
                         layer.alert(msg.msg, {icon: 2});
                     }

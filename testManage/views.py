@@ -25,7 +25,8 @@ class TaskArrangeView(LoginRequiredMixin, View):
     def post(self, request):
         res = dict(result=False)
         file = request.FILES.get("file")
-        print(file)
+        print(request.user.username)
+        print(request.user)
         if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
             df = pd.read_excel(file)
             df.fillna('', inplace=True)
@@ -44,6 +45,7 @@ class TaskArrangeView(LoginRequiredMixin, View):
                     arrange.test_build = df.loc[i, 'Test Build']
                     arrange.tester = df.loc[i, 'Tester']
                     arrange.comments = df.loc[i, 'Comments']
+                    arrange.upload_user = request.user
                     arrange.save()
                     res['msg'] = '上传成功！'
                     res['result'] = True
@@ -62,7 +64,7 @@ class TaskArrangeListView(LoginRequiredMixin, View):
                "totalRows": "",
                "curPage": "",
                "data": " "}
-        fields = ['id', 'wgt_no', 'serial_no', 'fused', 'nand', 'test_build', 'tester', 'comments',
+        fields = ['id', 'wgt_no', 'serial_no', 'fused', 'nand', 'test_build', 'tester', 'comments', 'upload_user',
                   'task_date__pub_date']
 
         searchFields = ['tester', 'wgt_no', 'task_date__pub_date']  # 与数据库字段一致 'find_per', 'indate'

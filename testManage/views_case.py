@@ -25,32 +25,23 @@ class CasemanageListView(LoginRequiredMixin, View):
 
         data = [{
             'id': '1.1.1',
-            'function': 'phontos',
-            'oper_step': '先快而慢',
-            'expect': 'bad',
-            # 'radar_id': 'DLXWC018JYN3',
-            # 'desc': '文件',
-            # 'comments': '的尚方宝剑',
+            'function': 'photos',
+            'dri': '郭志航',
+            'test_iro': '摄像头',
 
         }, {
 
             'id': '1.1.2',
             'function': 'camera',
-            'oper_step': '由远至今',
-            'expect': 'good',
-            # 'radar_id': 'DLXWC018JYN2',
-            # 'desc': '长相',
-            # 'comments': '大帅府',
+            'dri': '余帅',
+            'test_iro': '照相机',
 
         }, {
 
             'id': '1.1.3',
-            'function': 'axia',
-            'oper_step': '重力',
-            'expect': 'well',
-            # 'radar_id': 'DLXWC018JYN1',
-            # 'desc': '声音',
-            # 'comments': '张三',
+            'function': 'house',
+            'dri': '郭文娜',
+            'test_iro': '后盖',
 
         }]
         res['data'] = data
@@ -59,3 +50,18 @@ class CasemanageListView(LoginRequiredMixin, View):
         res['totalRows'] = 10
         print(res)
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
+
+
+class CaseFunFindView(LoginRequiredMixin, View):
+    '''案例管理 - 显示测试项的具体测试功能'''
+
+    def get(self, request):
+        id = request.GET.get('id')
+        print(id)
+        context = {
+            'id': id
+        }
+        return render(request, 'testManage/Case_fun.html', context)
+
+    def post(self, request):
+        pass

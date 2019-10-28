@@ -192,3 +192,5 @@ class BugRemarkListView(LoginRequiredMixin, View):
         res['totalRows'] = count
         res['curPage'] = pageIndex
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
+
+

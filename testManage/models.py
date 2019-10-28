@@ -25,6 +25,7 @@ class TaskArrange(models.Model):
     test_build = models.CharField(max_length=30, blank=True, null=True, verbose_name="Test Build")
     tester = models.CharField(max_length=30, blank=True, null=True, verbose_name="Tester")
     comments = models.CharField(max_length=100, blank=True, null=True, verbose_name="Comments")
+    upload_user = models.CharField(max_length=30, blank=True, null=True, verbose_name="上传者")
     task_date = models.ForeignKey("TimeArrange", blank=True, null=True, on_delete=models.CASCADE, verbose_name="安排时间")
 
     class Meta:

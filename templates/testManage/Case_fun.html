@@ -1,0 +1,156 @@
+{% extends 'base-layer.html' %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+
+    <link href="{% static 'jquery.bsgrid-master/builds/css/skins/grid_bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="box box-danger">
+        <form class="form-horizontal" id="addForm" method="post">
+            {% csrf_token %}
+
+            <input type="hidden" name='id' value="{{ id }}"/>
+            <input type="hidden" name='apply_id' value="{{ apply_id }}"/>
+
+            <div class="box-body">
+                <fieldset>
+                    <legend>
+                        <h4>具体测试功能-{{ apply_list.id }}</h4>
+                    </legend>
+                    <div class="box-body">
+                        <table id="searchTable" style="width: 100%">
+                            <thead>
+                            <tr>
+                                <th w_index="id" width="10%">用例编号</th>
+                                <th w_index="function" width="10%">功能</th>
+                                <th w_index="oper_step" width="10%">操作步骤</th>
+                                <th w_index="expect" width="10%">预期结果</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                </fieldset>
+
+            </div>
+            <div class="box-footer ">
+                <div class="row span7 text-center ">
+                    <button type="button" id="btnCancel" class="btn btn-default margin-right ">重置</button>
+                    <button type="button" id="btnSave" class="btn btn-info margin-right ">保存</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/combo-select/jquery.combo.select.js' %}"></script>
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <script src="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.js' %}"></script>
+    <script src="{% static 'jquery.bsgrid-master/builds/js/lang/grid.zh-CN.min.js' %}"></script>
+
+    <script type="text/javascript">
+        var gridObj;
+        $(function () {
+            gridObj = $.fn.bsgrid.init('searchTable', {
+                url: "{% url 'testManage:is-currenttest-list' %}",   //json文件url
+                ajaxType: 'POST',      //请求方式
+                pageSizeSelect: true,   //是否显示分页大小选择下拉框，默认false
+                autoLoad: true,
+                pageSize: 20,
+                stripeRows: true,//隔行变色
+                rowHoverColor: true,//划过行变色
+                pageName: 'pageIndex', //页码的参数名称，默认：page
+                ageAll: false,
+                displayBlankRows: false,//不显示空白行
+                extend: {
+                    settings: {
+                        supportGridEdit: true, // default false, if support extend grid edit
+                        supportGridEditTriggerEvent: '', // default 'rowClick', values: ''(means no need Trigger), 'rowClick', 'rowDoubleClick', 'cellClick', 'cellDoubleClick'
+                        gridEditConfigs: {
+                            datetime: {
+                                build: function (edit, value, record, rowIndex, colIndex, tdObj, trObj, options) {
+                                    // Laydate v1.1 may not render display none input, so use onclick
+                                    return value + '<input id="date_' + rowIndex + '_' + colIndex + '" class="bsgrid_editgrid_hidden laydate-icon" style="width:12%" value="' + value + '" onclick="viewDatetimeChoose(this)" />';
+                                },
+                                val: function (formObj) {
+                                    return formObj.val();
+                                }
+                            }
+                        }
+                    }
+                },//分页大小，默认20
+            });
+            {#btnSearch();#}
+        });
+
+        {#function btnSearch() {#}
+        {#    var tester = $('#tester').val();#}
+        {#    var wgt_no = $('#wgt_no').val();#}
+        {#    data_dict = {'tester': tester, 'wgt_no': wgt_no};#}
+        {#    gridObj.search(data_dict);#}
+        {# }#}
+
+
+        $("#btnSave").click(function () {
+            var data = $("#addForm").serialize();
+            $.ajax({
+                type: $("#addForm").attr('method'),
+                url: "{% url 'dqe:mt-applydetail-update' %}",
+                data: data,
+                cache: false,
+                success: function (msg) {
+                    if (msg.result) {
+                        layer.alert('數據保存成功！', {icon: 1}, function (index) {
+                            parent.layer.closeAll(); //关闭所有弹窗
+                            oDataTable.ajax.reload();
+                        });
+                    } else {
+                        layer.alert('數據保存失败！', {icon: 5});
+                        //$('errorMessage').html(msg.message)
+                    }
+                    return;
+                }
+            });
+        });
+
+
+        /*点取消刷新新页面*/
+        $("#btnCancel").click(function () {
+            window.location.reload();
+
+        });
+
+        /*input 时间输入选择*/
+        $(".form_datetime").datetimepicker({
+            language: 'zh',
+            minView: 'month', //选择范围知道日期，不选择时分
+            //weekStart: 1,
+            //todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            //startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            format: 'yyyy-mm-dd'
+        }).on('changeDate', function (ev) {
+            $(this).datetimepicker('hide');
+        });
+
+        // select2
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+    </script>
+
+{% endblock %}

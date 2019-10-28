@@ -1,665 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9e306cd-0955-49bc-aacd-d59e92e713f2" name="Default Changelist" comment="update inventory">
-      <change afterPath="$PROJECT_DIR$/dqe/views_accessory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/overtime/abnormal_report.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/overtime/absent_report.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/overtime/addtime_report.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/overtime/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/overtime/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/overtime/views_abnormal.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/overtime/views_absent.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/overtime/views_addtime.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/overtime/views_apply.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/CHANGE-LOG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/form.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/grid.extend.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/grid.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/grid.paging.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/icon.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/skins/grid_access.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/skins/grid_blue.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/skins/grid_bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/skins/grid_easyui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/skins/grid_flexigrid.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/skins/grid_gray.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/skins/grid_jqgrid.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/skins/grid_pure_gray.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/css/skins/grid_sky_blue.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/arrow-refresh.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/configure-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/dialog-accept-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/document-print-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/document-save-6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/documentation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/download.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/edit-copy-7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/edit-cut-7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/edit-delete-6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/edit-delete-7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/edit-find-8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/edit-paste-7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/flag.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/help-about-3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/help.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/list-add-6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/mail-generic.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/mimetypes/silk_style/page-white_acrobat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/mimetypes/silk_style/page-white_excel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/mimetypes/silk_style/page-white_text.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/mimetypes/silk_style/page-white_word.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/mimetypes/silk_style/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/page-edit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/paging/go-first-view.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/paging/go-jump-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/paging/go-last-view.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/paging/go-next-view.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/paging/go-previous-view.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/paging/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/paging/view-refresh-3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/sort-view.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/system-config-boot.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/system-search-6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/view-list-details-5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/view-sort-ascending-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/view-sort-descending-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/window-close-4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/icons/window-close.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/loading.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/access/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/access/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/blue/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/blue/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/bootstrap/glyphicons-halflings.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/bootstrap/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/default/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/easyui/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/easyui/layout_button_right.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/easyui/pagination_first.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/easyui/pagination_last.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/easyui/pagination_load.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/easyui/pagination_next.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/easyui/pagination_prev.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/easyui/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/flexigrid/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/flexigrid/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/gray/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/gray/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/jqgrid/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/jqgrid/ui-bg_glass_1x400.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/jqgrid/ui-icons_256x240.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/sky_blue/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/skins/sky_blue/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/sort-asc.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/sort-desc.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/sort-view.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/images/white.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/js/common.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/js/export.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/js/form.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/js/grid.extend.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/js/grid.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/js/grid.paging.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/js/lang/grid.en.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/js/lang/grid.zh-CN.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/js/lang/grid.zh-TW.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/js/util.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/merged/bsgrid.all.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/merged/bsgrid.all.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/merged/form.all.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/merged/form.all.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/merged/grid.all.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/merged/grid.all.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/merged/grid.simple.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/merged/grid.simple.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/builds/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/documention/documention.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/documention/documention.zh-CN.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/documention/feedback.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/documention/images/donate/alipay.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/documention/images/donate/weixin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/documention/images/pagination.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/documention/images/simple.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/documention/images/themes.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/documention/source.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/documention/themes.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/donate.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/artDialog/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/artDialog/gridAndForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/artDialog/override.grid.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/artDialog/override.pop.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/artDialog/override/artDialog.plugin.override.en.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/artDialog/override/artDialog.plugin.override.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/artDialog/override/artDialog.plugin.override.zh-CN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/artDialog/override/artDialog.plugin.override.zh-TW.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/artDialog/override/artDialog.skins.override.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/artDialog/pop.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/bootstrap/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/bootstrap/grid_example.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/button/button.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/en.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/example.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/simple.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/standard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/validation-ajax.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/validation-ajax.json.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/validation.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/validationEngine-addition-rules.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/validationEngine/css/validationEngine.jquery.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/validationEngine/js/jquery.validationEngine.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/validationEngine/js/languages/jquery.validationEngine-en.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/validationEngine/js/languages/jquery.validationEngine-zh_CN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/validationEngine/js/languages/jquery.validationEngine-zh_TW.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/form/validationEngine/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/checkbox-custom.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/checkbox-extend.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/data/dynamic-header.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/data/json.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/data/nested.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/data/no-data.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/data/simple.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/data/simple.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/data/userdata.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/data/userdata.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/dynamic-header.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/edit-advanced.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/edit.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/event.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/export.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/extend.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/fixed-header/fixed-header-custom.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/fixed-header/fixed-header-extend.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/fixed-header/simple.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/foot.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/jsonp.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/load-time-test.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/local/json.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/local/xml.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/move-column-custom.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/move-column-extend.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/multi-extend.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/multi-header.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/multi-sort.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/multi.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/nested-json.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/no-data.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/no-display-blank-rows.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/no-pagation.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/paging.button.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/paging.little.button.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/paging.little.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/row-hover.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/search.en.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/search.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/select-row-event.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/simple-conditions.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/simple-fixed-width.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/simple-with-images.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/simple-xml.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/simple.en.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/simple.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/sort.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/standard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/standard.zh-CN.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/stripe-row.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/themes/access.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/themes/blue.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/themes/bootstrap.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/themes/custom.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/themes/easyui.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/themes/flexigrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/themes/gray.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/themes/jqgrid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/themes/pure_gray.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/themes/sky_blue.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/userdata-xml.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/grid/userdata.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/html5/grid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/images/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/images/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/images/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/images/image_loop-baidu_baijia-_prev_btn.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/images/image_loop-baidu_baijia-next_btn.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/images/image_loop-baidu_news.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/layui/laydate.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/layui/layer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/layui/laypage-adapter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/layui/laypage.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/loading2.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPages/adapter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPages/css/jPages.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPages/js/jPages.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPages/sample-adapter.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPages/sample.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginate/adapter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginate/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginate/images/next.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginate/images/previous.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginate/images/snext.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginate/images/sprevious.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginate/js/jquery.paginate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginate/sample-adapter.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginate/sample.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginator/adapter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginator/css/jPaginator.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginator/img/btn_precedent.bmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginator/img/btn_precedent_max.bmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginator/img/btn_suivant.bmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginator/img/btn_suivant_max.bmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginator/js/jPaginator-min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginator/js/jquery-ui-1.9.2.custom.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginator/sample-adapter.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginator/sample.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jPaginator/sample.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jqPagination/adapter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jqPagination/css/jqpagination.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jqPagination/js/jquery.jqpagination.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jqPagination/sample-adapter.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jqPagination/sample.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jquery-1.6.4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jquery-1.7.2.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jquery-1.8.3.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jquery_pagination/adapter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jquery_pagination/css/pagination.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jquery_pagination/js/jquery.pagination.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jquery_pagination/sample-adapter.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/jquery_pagination/sample.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/smartpaginator/adapter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/smartpaginator/css/smartpaginator.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/smartpaginator/js/smartpaginator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/smartpaginator/sample-adapter.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/pagination/smartpaginator/sample.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/paging/image_loop-baidu_baijia.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/paging/image_loop-baidu_news.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/paging/least.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/paging/simple.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/paging/simple.little.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/test/dom-load.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/util/util.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/examples/zh-CN.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/artDialog/artDialog.plugins.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/artDialog/jquery.artDialog.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/artDialog/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/artDialog/skins/blue.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/artDialog/skins/blue/bg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/artDialog/skins/blue/bg2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/artDialog/skins/blue/bg_css3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/artDialog/skins/blue/bg_css3_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/artDialog/skins/loading.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/bootstrap/2.3.2/css/bootstrap-responsive.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/bootstrap/2.3.2/css/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/bootstrap/2.3.2/img/glyphicons-halflings-white.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/bootstrap/2.3.2/img/glyphicons-halflings.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/bootstrap/2.3.2/js/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/bootstrap/2.3.2/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/html5shiv/html5shiv-printshiv.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/html5shiv/html5shiv.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/html5shiv/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/jquery-1.11.2.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/jquery-1.4.4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/laydate/laydate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/laydate/need/laydate.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/laydate/skins/default/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/laydate/skins/default/laydate.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/layer/extend/layer.ext.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/layer/layer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/layer/skin/default/icon-ext.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/layer/skin/default/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/layer/skin/default/loading-0.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/layer/skin/default/loading-1.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/layer/skin/default/loading-2.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/layer/skin/layer.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/layer/skin/layer.ext.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/laypage/laypage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/laypage/skin/laypage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/layui/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/responsive-nav.js/demo/debut_dark.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/responsive-nav.js/demo/debut_dark_@2X.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/responsive-nav.js/demo/hamburger-retina.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/responsive-nav.js/demo/hamburger.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/responsive-nav.js/demo/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/responsive-nav.js/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/responsive-nav.js/responsive-nav.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/responsive-nav.js/responsive-nav.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/sidemenu/arrowblue.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/sidemenu/arrowgray.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/sidemenu/arrowgreen.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/sidemenu/arrowsidemenu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/sidemenu/ddaccordion.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/plugins/sidemenu/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/pqgrid.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/copyright.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/form.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/grid.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/grid.extend.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/grid.paging.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/icon.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/skins/grid_access.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/skins/grid_blue.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/skins/grid_bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/skins/grid_easyui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/skins/grid_flexigrid.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/skins/grid_gray.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/skins/grid_jqgrid.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/skins/grid_pure_gray.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/skins/grid_sky_blue.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/css/skins/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/arrow-refresh.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/configure-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/dialog-accept-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/document-print-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/document-save-6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/documentation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/download.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/edit-copy-7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/edit-cut-7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/edit-delete-6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/edit-delete-7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/edit-find-8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/edit-paste-7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/flag.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/help-about-3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/help.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/list-add-6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/mail-generic.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/mimetypes/silk_style/page-white_acrobat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/mimetypes/silk_style/page-white_excel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/mimetypes/silk_style/page-white_text.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/mimetypes/silk_style/page-white_word.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/mimetypes/silk_style/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/page-edit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/paging/go-first-view.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/paging/go-jump-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/paging/go-last-view.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/paging/go-next-view.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/paging/go-previous-view.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/paging/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/paging/view-refresh-3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/sort-view.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/system-config-boot.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/system-search-6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/view-list-details-5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/view-sort-ascending-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/view-sort-descending-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/window-close-4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/icons/window-close.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/loading.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/access/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/access/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/blue/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/blue/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/bootstrap/glyphicons-halflings.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/bootstrap/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/default/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/easyui/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/easyui/layout_button_right.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/easyui/pagination_first.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/easyui/pagination_last.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/easyui/pagination_load.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/easyui/pagination_next.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/easyui/pagination_prev.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/easyui/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/flexigrid/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/flexigrid/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/gray/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/gray/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/jqgrid/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/jqgrid/ui-bg_glass_1x400.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/jqgrid/ui-icons_256x240.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/sky_blue/bg.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/skins/sky_blue/readme" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/sort-asc.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/sort-desc.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/sort-view.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/images/white.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/js/common.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/js/export.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/js/form.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/js/grid.extend.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/js/grid.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/js/grid.paging.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/js/lang/grid.en.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/js/lang/grid.zh-CN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/js/lang/grid.zh-TW.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/jquery.bsgrid-master/sources/js/util.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/OvertimeNotice.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/all.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/calTit.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/layui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/layui.mobile.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/modules/code.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/modules/laydate/default/laydate.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/modules/layer/default/icon-ext.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/modules/layer/default/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/modules/layer/default/layer.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/modules/layer/default/loading-0.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/modules/layer/default/loading-1.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/modules/layer/default/loading-2.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/table.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/css/tool-sprites.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/font/iconfont.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/font/iconfont.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/font/iconfont.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/font/iconfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/0.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/1.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/10.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/11.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/12.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/13.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/14.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/15.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/16.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/17.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/18.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/19.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/2.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/20.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/21.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/22.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/23.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/24.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/25.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/26.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/27.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/28.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/29.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/3.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/30.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/31.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/32.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/33.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/34.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/35.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/36.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/37.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/38.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/39.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/4.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/40.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/41.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/42.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/43.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/44.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/45.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/46.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/47.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/48.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/49.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/5.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/50.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/51.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/52.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/53.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/54.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/55.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/56.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/57.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/58.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/59.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/6.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/60.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/61.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/62.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/63.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/64.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/65.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/66.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/67.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/68.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/69.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/7.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/70.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/71.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/8.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/images/face/9.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/carousel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/code.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/colorpicker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/element.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/flow.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/form.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/jquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/laydate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/layedit.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/layer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/laypage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/laytpl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/mobile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/rate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/slider.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/table.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/tree.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/upload.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/modules/util.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/lay/times.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/layui.all.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/layui/layui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/system/views_access.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/system/views_fused.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/system/views_word.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dqe/Accessory/accessory.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dqe/ApplyDetail/Access_Update.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyAccess_Detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dqe/Inventory/HandApply.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dqe/LoanConfirm/AccessReturn.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dqe/LoanConfirm/HandApply.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dqe/LoanConfirm/LoanConfirmAccess_Detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dqe/LoanConfirm/LoanConfirmIpad_Detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dqe/LoanConfirm/ScanReturn.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dqe/LoanConfirm/WgtReturn.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/dqe/OperateCacheTable/Accessory_upload_info.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/overtime/Abnormal/abnormalist.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/overtime/Absent/absentlist.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/overtime/AddTime/addTime.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/overtime/apply/AbnormalLeader_detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/overtime/apply/Abnormal_detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/overtime/apply/AbsentLeader_detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/overtime/apply/Absent_detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/overtime/apply/AddTimeLeader_detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/overtime/apply/AddTime_detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/overtime/apply/ApplyLeader_List.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/overtime/apply/Apply_List.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/overtime/apply/OverViewTime.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/system/Fused/Fused_List.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/system/Fused/Fused_Update.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/system/Test_Word/DetailWord.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/system/Test_Word/UpdateWord.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/system/Test_Word/WordList.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/testManage/BugRegister.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/testManage/BugRemark.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/testManage/CaseManage.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/testManage/CurrentTest.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/testManage/TaskArrange.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testManage/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testManage/views_bug.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testManage/views_case.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testManage/views_current.py" afterDir="false" />
+    <list default="true" id="c9e306cd-0955-49bc-aacd-d59e92e713f2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/testManage/Case_fun.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WGT1/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/WGT1/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WGT1/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/WGT1/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/get_mode.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/get_mode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/overtime/time_transformation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/views_apply.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views_apply.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/views_applydetail.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views_applydetail.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/views_borrowapply.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views_borrowapply.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/views_inventory.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views_inventory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/views_loanconfirm.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views_loanconfirm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/views_msq.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views_msq.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/views_oct.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views_oct.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/views_ow.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views_ow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/req0319.txt" beforeDir="false" afterPath="$PROJECT_DIR$/req0319.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/dist/css/AdminLTE.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/css/AdminLTE.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/messageNotice.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/messageNotice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/plugins/ckeditor/samples/toolbarconfigurator/lib/codemirror/javascript.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/plugins/ckeditor/samples/toolbarconfigurator/lib/codemirror/javascript.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/plugins/datatables/jquery.dataTables.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/plugins/datatables/jquery.dataTables.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/plugins/select2/select2.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/plugins/select2/select2.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/plugins/zTree/css/demo.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/plugins/zTree/css/demo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/middleware.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/middleware.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/mixin.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/mixin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/views_notice.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/views_notice.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/views_prodtype.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/views_prodtype.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/views_project.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/views_project.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/views_stage.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/views_stage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/views_user.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/views_user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base-layer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base-layer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base-static.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base-static.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/calendar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/Apply/Apply_Detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/Apply/Apply_Detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/Apply/Apply_List.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/Apply/Apply_List.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/Apply/Apply_Update.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/Apply/Apply_Update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyDetail_List.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyDetail_List.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyDetail_Update.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyDetail_Update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/BorrowApply/BorrowApply_Detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/BorrowApply/BorrowApply_Detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/BorrowApply/BorrowApply_List.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/BorrowApply/BorrowApply_List.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/Inventory/Inventory_Detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/Inventory/Inventory_Detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/Inventory/Inventory_List.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/Inventory/Inventory_List.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/Inventory/Inventory_Update.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/Inventory/Inventory_Update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/Inventory/Inventory_upload_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/Inventory/Inventory_upload_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/Inventory/ScanApply.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/Inventory/ScanApply.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/Inventory/ScanReturn.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/Inventory/ScanReturn.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/LoanConfirm/ApplyDetailRemark.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/LoanConfirm/ApplyRemark.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/LoanConfirm/ApplyRemark.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/LoanConfirm/LoanConfirm_Detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyIpad_Detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/LoanConfirm/LoanConfirm_List.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/LoanConfirm/LoanConfirm_List.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/MachineStatusQuery/MachineStatusQuery_List.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/MachineStatusQuery/MachineStatusQuery_List.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/OperateCacheTable/OperateCacheTable_List.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/OperateCacheTable/OperateCacheTable_List.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/echart_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/echart_index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/head-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/head-footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/Notice/Notice_List.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/Notice/Notice_List.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/Notice/Notice_Update.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/Notice/Notice_Update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/ProductType/ProductType_List.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/ProductType/ProductType_List.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/ProductType/ProductType_Update.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/ProductType/ProductType_Update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/Stage/Stage_List.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/Stage/Stage_List.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/Stage/Stage_Update.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/Stage/Stage_Update.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/menu_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/menu_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/role.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/role.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/role_role2menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/role_role2menu.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/system/system_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/system_index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/user_info/user_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/user_info/user_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/users/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/users/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/users/user-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/users/user-base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/users/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/users/user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/users/user_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/users/user_create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/users/user_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/users/user_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/testManage/CaseManage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/testManage/CaseManage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/testManage/CurrentTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/testManage/CurrentTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/testManage/TaskArrange.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/testManage/TaskArrange.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testManage/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/testManage/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testManage/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/testManage/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testManage/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/testManage/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testManage/views_bug.py" beforeDir="false" afterPath="$PROJECT_DIR$/testManage/views_bug.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testManage/views_case.py" beforeDir="false" afterPath="$PROJECT_DIR$/testManage/views_case.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -688,87 +41,48 @@
     <favorites_list name="WGT1" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/dqe/ApplyDetail/Access_Update.html">
+        <entry file="file://$PROJECT_DIR$/templates/testManage/CaseManage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1581">
-              <caret line="93" column="44" selection-start-line="93" selection-start-column="44" selection-end-line="93" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dqe/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="85" column="33" selection-start-line="85" selection-start-column="11" selection-end-line="85" selection-end-column="33" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" column="13" lean-forward="true" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+            <state relative-caret-position="196">
+              <caret line="187" column="85" lean-forward="true" selection-start-line="187" selection-start-column="85" selection-end-line="187" selection-end-column="85" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor>
-                <caret selection-end-line="4" />
-              </first_editor>
-              <second_editor />
+        <entry file="file://$PROJECT_DIR$/templates/testManage/CurrentTest.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="19" column="50" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dqe/views_applydetail.py">
+        <entry file="file://$PROJECT_DIR$/templates/testManage/Case_fun.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4182">
-              <caret line="257" selection-start-line="257" selection-end-line="257" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="181">
+              <caret line="67" selection-start-line="67" selection-end-line="67" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyAccess_Detail.html">
+        <entry file="file://$PROJECT_DIR$/testManage/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5780">
-              <caret line="340" column="35" selection-start-line="331" selection-start-column="32" selection-end-line="340" selection-end-column="35" />
+            <state relative-caret-position="194">
+              <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyIpad_Detail.html">
+        <entry file="file://$PROJECT_DIR$/testManage/views_case.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6154">
-              <caret line="362" column="35" selection-start-line="362" selection-start-column="35" selection-end-line="362" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dqe/views_accessory.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2720">
-              <caret line="171" selection-start-line="171" selection-end-line="171" selection-end-column="86" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="414">
+              <caret line="63" column="50" lean-forward="true" selection-start-line="63" selection-start-column="50" selection-end-line="63" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -785,10 +99,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>截图.png</find>
-      <find>box-body</find>
-      <find>table_div_fa</find>
-      <find>cache</find>
       <find>select</find>
       <find>searchBtn</find>
       <find>User</find>
@@ -813,8 +123,12 @@
       <find>btnDelete</find>
       <find>mt/applylistdetail/list</find>
       <find>mt/applylist/detail</find>
-      <find>doUpdate</find>
       <find>doDetail</find>
+      <find>user_worknum</find>
+      <find>operate</find>
+      <find>btnExport</find>
+      <find>doUpdate</find>
+      <find>onclick</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -831,18 +145,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/calendar.html" />
-        <option value="$PROJECT_DIR$/templates/base-static.html" />
-        <option value="$PROJECT_DIR$/templates/testManage/BugRemark.html" />
-        <option value="$PROJECT_DIR$/templates/system/Notice/Notice_List.html" />
-        <option value="$PROJECT_DIR$/custom.py" />
-        <option value="$PROJECT_DIR$/system/views_word.py" />
-        <option value="$PROJECT_DIR$/system/models.py" />
-        <option value="$PROJECT_DIR$/templates/overtime/apply/OverViewTime.html" />
-        <option value="$PROJECT_DIR$/templates/system/system_index.html" />
-        <option value="$PROJECT_DIR$/templates/overtime/AddTime/addTime.html" />
-        <option value="$PROJECT_DIR$/templates/testManage/TaskArrange.html" />
-        <option value="$PROJECT_DIR$/testManage/views.py" />
         <option value="$PROJECT_DIR$/templates/dqe/Inventory/Inventory_List.html" />
         <option value="$PROJECT_DIR$/templates/dqe/OperateCacheTable/OperateCacheTable_List.html" />
         <option value="$PROJECT_DIR$/static/plugins/select2/select2.min.css" />
@@ -882,12 +184,24 @@
         <option value="$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyAccess_Detail.html" />
         <option value="$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyIpad_Detail.html" />
         <option value="$PROJECT_DIR$/dqe/views_applydetail.py" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/templates/system/system_index.html" />
+        <option value="$PROJECT_DIR$/testManage/models.py" />
+        <option value="$PROJECT_DIR$/templates/testManage/TaskArrange.html" />
+        <option value="$PROJECT_DIR$/testManage/views.py" />
+        <option value="$PROJECT_DIR$/templates/overtime/apply/OverViewTime.html" />
+        <option value="$PROJECT_DIR$/testManage/urls.py" />
+        <option value="$PROJECT_DIR$/testManage/views_bug.py" />
+        <option value="$PROJECT_DIR$/testManage/views_case.py" />
+        <option value="$PROJECT_DIR$/templates/testManage/Case_fun.html" />
+        <option value="$PROJECT_DIR$/templates/testManage/CaseManage.html" />
+        <option value="$PROJECT_DIR$/templates/testManage/CurrentTest.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="106" />
-    <option name="y" value="114" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="153" />
+    <option name="y" value="128" />
     <option name="width" value="1731" />
     <option name="height" value="1054" />
   </component>
@@ -897,6 +211,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -904,34 +219,67 @@
               <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
               <item name="WGT1" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
+              <item name="dqe" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="dqe" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="dqe" type="462c0819:PsiDirectoryNode" />
+              <item name="ApplyDetail" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="testManage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
+              <item name="testManage" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/dqe/ApplyDetail" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/testManage" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.django.DjangoModulesConfigurable" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/templates/dqe/ApplyDetail" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/templates/system/Test_Word" />
-      <recent name="$PROJECT_DIR$/templates/system" />
-      <recent name="$PROJECT_DIR$/system" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates/testManage" />
       <recent name="$PROJECT_DIR$/templates/overtime/Absent" />
       <recent name="$PROJECT_DIR$/dqe" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/testManage" />
+      <recent name="$PROJECT_DIR$/templates/dqe/ApplyDetail" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/templates/system/Test_Word" />
+      <recent name="$PROJECT_DIR$/templates/system" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -946,117 +294,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Django server.WGT1">
-    <configuration name="middleware" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="WGT1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/system" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/system/middleware.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="views_accessory" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="WGT1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/dqe" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dqe/views_accessory.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="views_addtime" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="WGT1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/overtime" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/overtime/views_addtime.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="views_apply" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="WGT1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/dqe" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dqe/views_apply.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="views_loanconfirm" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="WGT1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/dqe" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dqe/views_loanconfirm.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="WGT1" type="Python.DjangoServer" factoryName="Django server" singleton="false">
       <module name="WGT1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -1065,9 +303,9 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="WGT1.settings" />
       </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
@@ -1081,26 +319,9 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Django server.WGT1" />
-      <item itemvalue="Python.middleware" />
-      <item itemvalue="Python.views_accessory" />
-      <item itemvalue="Python.views_addtime" />
-      <item itemvalue="Python.views_apply" />
-      <item itemvalue="Python.views_loanconfirm" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.views_addtime" />
-        <item itemvalue="Python.views_loanconfirm" />
-        <item itemvalue="Python.views_accessory" />
-        <item itemvalue="Python.views_apply" />
-        <item itemvalue="Python.middleware" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
-    <configuration />
+    <configuration>$USER_HOME$/.subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -1140,6 +361,8 @@
       <workItem from="1571023327828" duration="58396000" />
       <workItem from="1571985917446" duration="8506000" />
       <workItem from="1572081639878" duration="1250000" />
+      <workItem from="1572223993521" duration="4280000" />
+      <workItem from="1572245499402" duration="8024000" />
     </task>
     <task id="LOCAL-00001" summary="update dqe">
       <created>1562028066391</created>
@@ -1162,17 +385,24 @@
       <option name="project" value="LOCAL" />
       <updated>1562200770042</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update readme">
+      <created>1572231590323</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1572231590323</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1429737000" />
+    <option name="totallyTimeSpent" value="1442041000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="106" y="114" width="1731" height="1054" extended-state="1" />
+    <frame x="153" y="128" width="1731" height="1054" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49619484" visible="true" weight="0.24061942" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49619484" visible="true" weight="0.24776652" />
       <window_info id="Favorites" order="1" sideWeight="0.50380516" side_tool="true" weight="0.2857143" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" order="0" />
@@ -1183,7 +413,7 @@
       <window_info anchor="bottom" id="Docker" order="5" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.328125" />
-      <window_info anchor="bottom" id="Run" order="8" sideWeight="0.49625188" visible="true" weight="0.30222693" />
+      <window_info active="true" anchor="bottom" id="Run" order="8" sideWeight="0.49625188" visible="true" weight="0.3223754" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.4127967" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
@@ -1202,7 +432,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update dqe" />
     <MESSAGE value="update inventory" />
-    <option name="LAST_COMMIT_MESSAGE" value="update inventory" />
+    <MESSAGE value="update readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="update readme" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1223,156 +454,6 @@
     <SUITE FILE_PATH="coverage/WGT1$middleware.coverage" NAME="middleware Coverage Results" MODIFIED="1561626502743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/system" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/overtime/views_addtime.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="285" column="47" selection-start-line="285" selection-start-column="47" selection-end-line="285" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/overtime/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="68" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/core/servers/basehttp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="76" column="46" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/overtime/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="25" column="51" selection-start-line="25" selection-start-column="51" selection-end-line="25" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/overtime/apply/Apply_List.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="202" column="91" selection-start-line="202" selection-start-column="91" selection-end-line="202" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/overtime/apply/ApplyLeader_List.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2026">
-          <caret line="268" column="92" selection-start-line="268" selection-start-column="92" selection-end-line="268" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/overtime/views_apply.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="61" column="18" selection-start-line="61" selection-start-column="18" selection-end-line="61" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dqe/views_oct.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="250" selection-start-line="250" selection-end-line="250" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dqe/OperateCacheTable/OperateCacheTable_List.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="580" column="47" selection-start-line="580" selection-start-column="47" selection-end-line="580" selection-end-column="47" />
-          <folding>
-            <element signature="e#1741#1779#0#HTML" expanded="true" />
-            <element signature="e#11262#11283#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dqe/Accessory/accessory.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="75" column="40" lean-forward="true" selection-start-line="73" selection-start-column="28" selection-end-line="75" selection-end-column="40" />
-          <folding>
-            <element signature="e#2384#2409#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/wsgiref/handlers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="343" selection-start-line="343" selection-end-line="343" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/wsgiref/util.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/wsgiref/simple_server.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dqe/views_apply.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="26" column="30" lean-forward="true" selection-start-line="24" selection-start-column="10" selection-end-line="26" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#46#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/overtime/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="11" column="30" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/overtime/views_abnormal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dqe/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="85" selection-start-line="85" selection-end-line="92" />
-          <folding>
-            <element signature="e#73#97#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dqe/BorrowApply/BorrowApply_List.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3706">
-          <caret line="218" column="44" lean-forward="true" selection-start-line="218" selection-start-column="44" selection-end-line="218" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dqe/LoanConfirm/LoanConfirmIpad_Detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="179" column="60" lean-forward="true" selection-start-line="179" selection-start-column="60" selection-end-line="179" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dqe/BorrowApply/BorrowApply_Detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-329" />
-      </provider>
-    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/socket.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
@@ -1480,20 +561,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dqe/LoanConfirm/LoanConfirm_List.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="266" column="64" lean-forward="true" selection-start-line="266" selection-start-column="64" selection-end-line="266" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyDetail_List.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="358" column="60" lean-forward="true" selection-start-line="358" selection-start-column="60" selection-end-line="358" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyDetail_Update.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -1541,13 +608,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dqe/views_applydetail.py">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4182">
-          <caret line="257" selection-start-line="257" selection-end-line="257" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="544">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1555,13 +619,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5780">
           <caret line="340" column="35" selection-start-line="331" selection-start-column="32" selection-end-line="340" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyIpad_Detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6154">
-          <caret line="362" column="35" selection-start-line="362" selection-start-column="35" selection-end-line="362" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -1575,30 +632,187 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="17">
+            <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/system/system_index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="12" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/views_current.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-473">
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="27" column="90" selection-start-line="27" selection-start-column="87" selection-end-line="27" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="88" column="47" lean-forward="true" selection-start-line="88" selection-start-column="47" selection-end-line="88" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/overtime/apply/OverViewTime.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-351">
+          <caret line="366" column="9" lean-forward="true" selection-start-line="353" selection-start-column="8" selection-end-line="366" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/testManage/BugRegister.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1398" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/testManage/BugRemark.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-839" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/testManage/TaskArrange.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1252">
+          <caret line="136" column="48" selection-start-line="136" selection-start-column="48" selection-end-line="136" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/jquery.bsgrid-master/examples/layui/layer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="39" column="44" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/jquery.bsgrid-master/examples/layui/laydate.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1198" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/jquery.bsgrid-master/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4787" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/dqe/LoanConfirm/LoanConfirm_List.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2833">
+          <caret line="370" column="61" selection-start-line="370" selection-start-column="26" selection-end-line="370" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/dqe/Apply/Apply_List.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1113">
+          <caret line="12" column="25" lean-forward="true" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/dqe/Apply/Apply_Update.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/dqe/Apply/Apply_Detail.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dqe/views_applydetail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-242">
+          <caret line="163" column="6" selection-start-line="163" selection-start-column="6" selection-end-line="163" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/dqe/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="85" column="33" selection-start-line="85" selection-start-column="11" selection-end-line="85" selection-end-column="33" />
+        <state relative-caret-position="272">
+          <caret line="76" column="117" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="117" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/testManage/views_bug.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="13" lean-forward="true" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+        <state relative-caret-position="482">
+          <caret line="196" selection-start-line="196" selection-end-line="196" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor>
-            <caret selection-end-line="4" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyDetail_List.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2153">
+          <caret line="358" column="60" lean-forward="true" selection-start-line="358" selection-start-column="60" selection-end-line="358" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyIpad_Detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="167" column="9" lean-forward="true" selection-start-line="153" selection-start-column="8" selection-end-line="167" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/views_case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="63" column="50" lean-forward="true" selection-start-line="63" selection-start-column="50" selection-end-line="63" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/testManage/Case_fun.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="67" selection-start-line="67" selection-end-line="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/testManage/CaseManage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="187" column="85" lean-forward="true" selection-start-line="187" selection-start-column="85" selection-end-line="187" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/testManage/CurrentTest.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="19" column="50" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
         </state>
       </provider>
     </entry>
