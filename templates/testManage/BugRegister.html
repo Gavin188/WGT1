@@ -362,58 +362,7 @@
             $(this).datetimepicker('hide');
         });
 
-        {#function getRowsChangedColumnsValue() {#}
-        {#    var records = gridObj.getChangedRowsOldRecords();   // 获取修改的id#}
-        {#    var ids = [];#}
-        {#    for (var i = 0; i < records.length; i++) {#}
-        {#        ids.push(gridObj.getRecordIndexValue(records[i], 'id'));#}
-        {#    }#}
-        {#    console.log('333', ids);#}
-        {##}
-        {##}
-        {#    var valsStr = '';#}
-        {#    var valsARrr = [];#}
-        {#    var cckey = [];#}
-        {#    var value = [];#}
-        {#    $.each(gridObj.getRowsChangedColumnsValue(), function (key, object) {#}
-        {#        $.each(object, function (ckey, cvalue) {#}
-        {#            cckey.push(ckey)#}
-        {#            value.push(cvalue)#}
-        {#        });#}
-        {#    });#}
-        {#console.log((valsStr.length > 0 ? valsStr.substring(1) : ''));#}
-        {##}
-        {##}
-        {#    console.log('111', cckey);#}
-        {#    console.log('222', value);#}
-        {#    $.ajax({#}
-        {#        type: "POST",#}
-        {#        url: "{% url 'testManage:bug-bugregister-update' %}",#}
-        {#        data: {#}
-        {#            'cvalsStr': valsARrr,#}
-        {#            'id': ids#}
-        {#        },#}
-        {#        cache: false,#}
-        {#processData: false,#}
-        {#contentType: false,#}
-        {#dataType: 'JSON',#}
-        {#        success: function (msg) {#}
-        {#console.log(msg)#}
-        {#            if (msg.result) {#}
-        {#                layer.alert("修改成功", {icon: 1}, function (index) {#}
-        {#                    parent.layer.closeAll(); //关闭所有弹窗#}
-        {#                    window.location.reload();#}
-        {#                });#}
-        {##}
-        {#            } else {#}
-        {#                layer.alert("修改失败", {icon: 2});#}
-        {#            }#}
-        {#            return;#}
-        {#        }#}
-        {#    });#}
-        {##}
-        {# }#}
-
+        //保存修改
         $("#SaveUpdate").click(function () {
             var returnA = 0;
             var records = gridObj.getChangedRowsOldRecords(); // 获取修改行原来的数据

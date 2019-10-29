@@ -1,9 +1,11 @@
 from django.db import models
 
-
 # Create your models here.
 
 # 时间安排
+import system
+
+
 class TimeArrange(models.Model):
     pub_date = models.DateField(auto_now_add=False, verbose_name='发布时间')
 
@@ -54,3 +56,50 @@ class BugRegister(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+# 案例管理
+class CaseRegister(models.Model):
+    # case_id = models.CharField(max_length=50, verbose_name='用例编号')
+    function = models.CharField(max_length=50, verbose_name='测试项')
+    dri = models.CharField(max_length=50, verbose_name='负责人')
+    desc = models.CharField(max_length=50, verbose_name='测试说明')
+
+    # desc = models.ForeignKey('system.TestWord', blank=True, null=True, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "案例管理"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return str(self.id)
+
+
+# class CaseModel(models.Model):
+#     '''创建案例管理 - 测试项'''
+#     cname = models.CharField(max_length=50, verbose_name='测试项')
+#
+#     class Meta:
+#         verbose_name = "测试项"
+#         verbose_name_plural = verbose_name
+#
+#     def __str__(self):
+#         return self.cname
+
+
+class TestFun(models.Model):
+    '''创建案例管理 - 测试项 - 测试模块'''
+    fk_case = models.ForeignKey('CaseRegister', on_delete=models.CASCADE)
+    function = models.CharField(max_length=50, verbose_name='测试模块')
+    oper_step = models.CharField(max_length=80, verbose_name='操作步骤')
+    expect = models.CharField(max_length=50, verbose_name='期望值')
+    test_results = models.CharField(max_length=50, verbose_name='测试结果')
+    radar_id = models.CharField(max_length=50, verbose_name='雷达ID')
+    comments = models.CharField(max_length=50, verbose_name='comments')
+
+    class Meta:
+        verbose_name = "测试项模块"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.fk_case.function

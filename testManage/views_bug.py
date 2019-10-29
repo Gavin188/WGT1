@@ -83,8 +83,6 @@ class BugRegisterSaveView(LoginRequiredMixin, View):
     def post(self, request):
         res = dict(result=False)
         data = dict(request.POST)
-        print(data['group'][0])
-
         if len(data['radar_id'][0]) != 0:
             bug_register = BugRegister()
             bug_register.date = data['date'][0]
@@ -99,8 +97,7 @@ class BugRegisterSaveView(LoginRequiredMixin, View):
 
         else:
             res['msg'] = '雷达不能为空'
-        print(data)
-        print(res)
+
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
 
 
@@ -192,5 +189,3 @@ class BugRemarkListView(LoginRequiredMixin, View):
         res['totalRows'] = count
         res['curPage'] = pageIndex
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
-
-

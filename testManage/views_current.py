@@ -8,8 +8,10 @@ from django.views import View
 
 from system.mixin import LoginRequiredMixin
 
-
 #  今日测试
+from testManage.models import TestFun
+
+
 class CurrentTestView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'testManage/CurrentTest.html')
@@ -23,36 +25,7 @@ class CurrentTestListView(LoginRequiredMixin, View):
                "curPage": "",
                "data": " ", }
 
-        data = [{
-            'id': '1.1.1',
-            'function': 'phontos',
-            'oper_step': '先快而慢',
-            'expect': 'bad',
-            # 'radar_id': 'DLXWC018JYN3',
-            # 'desc': '文件',
-            # 'comments': '的尚方宝剑',
-
-        }, {
-
-            'id': '1.1.2',
-            'function': 'camera',
-            'oper_step': '由远至今',
-            'expect': 'good',
-            # 'radar_id': 'DLXWC018JYN2',
-            # 'desc': '长相',
-            # 'comments': '大帅府',
-
-        }, {
-
-            'id': '1.1.3',
-            'function': 'axia',
-            'oper_step': '重力',
-            'expect': 'well',
-            # 'radar_id': 'DLXWC018JYN1',
-            # 'desc': '声音',
-            # 'comments': '张三',
-
-        }]
+        data = list(TestFun.objects.all().values())
         res['data'] = data
         res['success'] = True
         res['curPage'] = 1

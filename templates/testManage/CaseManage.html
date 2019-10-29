@@ -8,8 +8,27 @@
     <link href="{% static 'jquery.bsgrid-master/builds/css/skins/grid_bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'bootstrap/fileinput.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
     {#    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">#}
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <style>
+        <!--
+        新增的table页面
+
+        -->
+        .bsgrid_form table {
+            width: 100%;
+            border-collapse: collapse;
+        {#margin-top: 10%;#}
+        }
+
+        .bsgrid_form table td {
+            padding: 9px;
+            line-height: 230%;
+            border: solid 3px #eee;
+        }
+
+    </style>
 
 {% endblock %}
 {% block content %}
@@ -18,7 +37,7 @@
     <section class="content">
         <div id="devlist">
             <div class="box box-primary" id="liebiao">
-                <div class="box-header">
+                <div class="box-header" style="margin-top: 1%">
                     <form class="form-inline" id="queryForm">
                         <div class="form-group searchArea margin-r-5 margin-top-5">
                             <label>测试日期:</label>
@@ -35,14 +54,24 @@
                             <input type="text" name="test_sn" class="form-control inputText" id="test_sn">
                         </div>
 
-                        {#                        <button type="button" onclick="btnSearch()" class="btn btn-default" style="margin-left: 3%">#}
-                        {#                            <i class="glyphicon glyphicon-search"></i>查询#}
-                        {#                        </button>#}
-
-
-                        <button type="button" onclick="btnExport()" class="btn btn-success btn-group pull-right"
-                                style="margin-left: 3%"></i>导入
+                        <button type="button" onclick="btnSearch()" class="btn btn-default" style="margin-left: 3%">
+                            <i class="glyphicon glyphicon-search"></i>查询
                         </button>
+
+                        <div class="btn-group pull-right">
+                            <button type="button" title="保存修改值" onclick="btnExport()"
+                                    class="btn btn-success btn-group pull-right"
+                                    style="margin-left: 3%"></i>保存
+                            </button>
+                        </div>
+                        <div class="btn-group pull-right">&nbsp</div>
+                        <div class="btn-group pull-right">
+                            <button type="button" onclick="doAdd()"
+                                    class="btn btn-success btn-group pull-right"
+                                    style="margin-left: 3%"></i>新增
+                            </button>
+                        </div>
+
                     </form>
                     <div id="upload" style="display: none">
                         <form method="post" enctype="multipart/form-data" id="qwer" onsubmit="return false">
@@ -63,12 +92,49 @@
                             <th w_index="id" width="10%">用例编号</th>
                             <th w_index="function" w_render="fun">测试项</th>
                             <th w_index="dri">负责人</th>
-                            <th w_index="test_iro">测试说明</th>
+                            <th w_index="desc" w_render="desc_iro">测试说明</th>
                             <th w_index="id" w_render="operate" width="8%;">操作</th>
 
                         </tr>
                         </thead>
                     </table>
+
+                    <div id="layer-gridForm" style="display: none;">
+                        <form id="gridForm" class="bsgrid_form">
+                            <table>
+                                {#                                <tr>#}
+                                {#                                    <td class="formLabel"><span class="require">*</span>用例编号:</td>#}
+                                {##}
+                                {#                                    <td class="formInput"><input name="id" type="text" style="height: 25%"/></td>#}
+                                {#                                </tr>#}
+                                <tr>
+                                    <td class="formLabel"><span class="require">*</span>测试项:</td>
+
+                                    <td class="formInput"><input name="function" type="text" style="height: 25%"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="formLabel"><span class="require">*</span>负责人:</td>
+
+                                    <td class="formInput"><input name="dri" type="text" style="height: 25%"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="formLabel"><span class="require">*</span>测试说明:</td>
+
+                                    <td class="formInput"><input name="desc" type="text" style="height: 25%"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"
+                                        style="text-align: center; border-left-width: 0; border-right-width: 0; border-bottom-width: 0;">
+                                        <input type="button" value="Save" onclick="doCommit();"/>
+                                        &emsp;
+                                        <input type="button" value="Cancel"
+                                               onclick="doCancel();"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+
                 </div>
             </div>
 
@@ -81,7 +147,7 @@
     <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
     <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
-
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
     {#    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>#}
     <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
     <script src="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.js' %}"></script>
@@ -90,7 +156,6 @@
     <script src="{% static 'bootstrap/fileinput.js' %}"></script>
     <script src="{% static 'bootstrap/fileinput_locale_zh.js' %}"></script>
     <script src="{% static 'layui/layui.js' %}"></script>
-    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
 
 
     <!--导出excel-->
@@ -103,7 +168,6 @@
     <script src="{% static 'export/js/buttons.html5.min.js' %}"></script>
     <script src="{% static 'export/js/buttons.print.min.js' %}"></script>
 
-
     <!-- iCheck 1.0.1 -->
     <script type="text/javascript">
         $(function () {
@@ -115,6 +179,8 @@
     </script>
     <script>
         var gridObj;
+        var gridFormObject;
+        var layerGridFormIndex;
         $(function () {
             gridObj = $.fn.bsgrid.init('searchTable', {
                 url: "{% url 'testManage:is-casemanage-list' %}",   //json文件url
@@ -146,6 +212,9 @@
                 },//分页大小，默认20
             });
             {#btnSearch();#}
+            gridFormObject = $.fn.bsgrid_form.init('gridForm', {});
+
+            {#doAdd();#}
         });
 
         {#function btnSearch() {#}
@@ -155,15 +224,43 @@
         {#    gridObj.search(data_dict);#}
         {# }#}
 
+        function doAdd() {
+            layerGridFormIndex = layer.open({
+                type: 1,
+                title: '新增',
+                shadeClose: false,
+                area: ['400px', '380px'],
+                content: $('#layer-gridForm'),
+                cancel: function (index) {
+                    layer.closeAll();
+                    return false;
+                }
+            });
+
+        }
+
+        function doCancel() {
+            {#window.location.reload();#}
+            layer.closeAll();
+        }
+
+        //显示操作功能
         function operate(record, rowIndex, colIndex, options) {
-            var ret = '<a href="#" id="btnupdate" onclick="doConfirm(' + rowIndex + ');">修改</a>';
-            ret = ret + '&nbsp';
-            ret = ret + '&emsp;<a href="#" id="btndelete" onclick="doFused(' + rowIndex + ');">删除</a>';
+            var ret = '<a href="#" id="btndelete" onclick="doConfirm(' + rowIndex + ');">删除</a>';
+            {#ret = ret + '&nbsp';#}
+            {#ret = ret + '&emsp;<a href="#" id="btndelete" onclick="doFused(' + rowIndex + ');">删除</a>';#}
             return ret
         }
 
+        // 显示测试项的数据 将数据变成超链接
         function fun(record, rowIndex, colIndex, options) {
-            return '<a href="#" id="btnupdate" onclick="btnFind(' + rowIndex + ');">' + record.function + '</a>';
+            return '<a href="#" id="btnupdate" onclick="btnFind(' + record.id + ');">' + record.function + '</a>';
+        }
+
+        //显示测试说明里的数据
+        function desc_iro(record, rowIndex, colIndex, options) {
+            {#console.log('id = = ', rowIndex)#}
+            return '<a href="#" id="btnDesc" onclick="btnDesc(' + record.id + ');">' + record.desc + '</a>';
         }
 
         function btnExport() {
@@ -186,6 +283,18 @@
                 shadeClose: false,
                 area: ['900px', '600px'],
                 content: ["{% url 'testManage:is-casefind-list' %}" + "?id=" + row_id],
+            });
+        }
+
+        function btnDesc(row_id) {
+            {#console.log('6666', typeof (row_id));#}
+            layer.open({
+                type: 2,
+                title: "测试说明",
+                closeBtn: 1,
+                shadeClose: false,
+                area: ['1200px', '800px'],
+                content: ["{% url 'testManage:is-casedesc-list' %}" + "?id=" + row_id],
             });
         }
 
@@ -214,6 +323,33 @@
                     return;
                 }
             });
-        })
+        });
+
+        //新增 保存
+        function doCommit() {
+            data = $('#gridForm').serialize();
+            console.log('0---', data)
+            $.ajax({
+                type: "POST",
+                url: "{% url 'testManage:is-casemodel-insert' %}",
+                data: data,
+                cache: false,
+                success: function (msg) {
+                    if (msg.result) {
+                        layer.alert("保存成功", {icon: 1}, function (index) {
+                            parent.layer.closeAll(); //关闭所有弹窗
+                            gridObj.refreshPage();
+                            {#window.location.reload();#}
+                        });
+
+                    } else {
+                        layer.alert(msg.message, {icon: 2});
+                    }
+                    return;
+                }
+            });
+        }
+
+
     </script>
 {% endblock %}

@@ -15,8 +15,14 @@ urlpatterns = [
 
     url(r'^is/casemanagelist$', views_case.CasemanageListView.as_view(), name='is-casemanage-list'),
 
+    # 新增 案例管理测试项
+    url(r'^is/casemodel/insert$', views_case.CaseModelInsertView.as_view(), name='is-casemodel-insert'),
+
     # 案例管理 - 显示测试项的具体测试功能
     url(r'^is/casefind/list$', views_case.CaseFunFindView.as_view(), name='is-casefind-list'),
+
+    # 案例管理 - 显示测试说明的测试文档
+    url(r'^is/casedesc/list$', views_case.CaseDescIroView.as_view(), name='is-casedesc-list'),
 
     #     任务安排
     url(r'^is/taskarrange$', views.TaskArrangeView.as_view(), name='is-taskarrange'),

@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
     <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+
 {% endblock %}
 
 {% block main %}
@@ -17,24 +18,55 @@
                 {#                <h2>发布者：{{ obj.publisher }}</h2>#}
                 <h3>备注：{{ obj.comments }}</h3>
                 <div>&nbsp;</div>
-{#                <div>&nbsp;</div>#}
+                {#                <div>&nbsp;</div>#}
                 <hr>
                 {#                <div>&nbsp;</div>#}
 
                 {{ obj.desc_pack | safe }}
 
             {% endfor %}
-
         </div>
+        <div style="margin-left: 36% ;margin-top: 3%">
+            {% if errmsg %}
+                <div style="font-size: large; color: #c9302c">{{ errmsg }}</div>
+                <div>
+                    <button type="button" id="btnAdd" class="btn btn-info">
+                        <i class="glyphicon glyphicon-import"></i>现在添加
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+
     </div>
 
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{% static 'plugins/combo-select/jquery.combo.select.js' %}"></script>
-    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    {#    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>#}
     <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
-    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 
+    <script>
+        //新增
+        $("#btnAdd").click(function () {
+            layer.open({
+                type: 2,
+                title: '测试说明添加',
+                shadeClose: false,
+                maxmin: true,
+                area: ['1200px', '750px'],
+                content: "{% url 'system:basic-word-update' %}",
+                end: function () {
+                    {#console.log(121232)#}
+                    //关闭时做的事情
+                    {#window.location.reload();#}
+                    oDataTable.ajax.reload();
+                }
+            });
+        });
 
+    </script>
 {% endblock %}
