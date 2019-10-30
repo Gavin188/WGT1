@@ -75,15 +75,15 @@ class WordDetailView(View):
     def get(self, request):
         fields = ['id', 'title', 'publisher', 'comments', 'desc_pack']
         all_obj = []
-        print(request.GET)
+        # 测试说明 id 查询
         if 'id' in request.GET and request.GET['id']:
             word_id = request.GET.get('id')
             all_obj = list(TestWord.objects.filter(id=word_id).values(*fields))
+        # 今日测试 中 标题查询
         elif 'title' in request.GET and request.GET['title']:
-            print(1111)
             title = request.GET.get('title')
+            print(title)
             all_obj = list(TestWord.objects.filter(title=title).values(*fields))
-        print(all_obj)
 
         return render(request, 'system/Test_Word/DetailWord.html', {'all': all_obj})
 

@@ -16,8 +16,11 @@ from testManage.models import TaskArrange, TimeArrange
 
 
 class TaskArrangeView(LoginRequiredMixin, View):
+    '''任务安排首页'''
+
     def get(self, request):
         res = dict()
+        # 获取当前时间
         today = datetime.datetime.now().strftime('%Y-%m-%d')
         res['data'] = today
         return render(request, 'testManage/TaskArrange.html', {'data': res})
@@ -25,8 +28,7 @@ class TaskArrangeView(LoginRequiredMixin, View):
     def post(self, request):
         res = dict(result=False)
         file = request.FILES.get("file")
-        print(request.user.username)
-        print(request.user)
+        # 上传Excel 文件
         if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
             df = pd.read_excel(file)
             df.fillna('', inplace=True)
@@ -85,7 +87,6 @@ class TaskArrangeListView(LoginRequiredMixin, View):
 
         data = list(TaskArrange.objects.filter(**filters).values(*fields))
         count = len(data)
-        print(filters)
         pageIndex = request.POST.get('curPage')
         pageSize = request.POST.get('pageSize')
         pageInator = Paginator(data, pageSize)

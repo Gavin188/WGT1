@@ -24,6 +24,14 @@ urlpatterns = [
     # 案例管理 - 显示测试说明的测试文档
     url(r'^is/casedesc/list$', views_case.CaseDescIroView.as_view(), name='is-casedesc-list'),
 
+    # 案例管理 - 测试具体功能显示
+    url(r'^is/casefun/(?P<case_id>\d+)/$', views_case.CaseFunListView.as_view(), name='is-casefun-list'),
+
+    # 案例管理 - 删除测试功能
+    url(r'^is/casefun/delete$', views_case.CaseFunDelView.as_view(), name='is-casefun-delete'),
+
+
+
     #     任务安排
     url(r'^is/taskarrange$', views.TaskArrangeView.as_view(), name='is-taskarrange'),
 
@@ -34,6 +42,7 @@ urlpatterns = [
     url(r'^is/taskarrangerearchwgt$', views.TaskArrangeRearchWGTView.as_view(), name='is-taskarrange-rearchwgt'),
 
     url(r'^is/taskarrangelist$', views.TaskArrangeListView.as_view(), name='is-taskarrange-list'),
+
     # 删除任务
     url(r'^is/taskarrangedelete$', views.TaskArrangeDeleteView.as_view(), name='is-taskarrange-delete'),
 

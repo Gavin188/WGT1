@@ -60,7 +60,6 @@ class BugRegister(models.Model):
 
 # 案例管理
 class CaseRegister(models.Model):
-    # case_id = models.CharField(max_length=50, verbose_name='用例编号')
     function = models.CharField(max_length=50, verbose_name='测试项')
     dri = models.CharField(max_length=50, verbose_name='负责人')
     desc = models.CharField(max_length=50, verbose_name='测试说明')
@@ -89,13 +88,15 @@ class CaseRegister(models.Model):
 
 class TestFun(models.Model):
     '''创建案例管理 - 测试项 - 测试模块'''
-    fk_case = models.ForeignKey('CaseRegister', on_delete=models.CASCADE)
-    function = models.CharField(max_length=50, verbose_name='测试模块')
-    oper_step = models.CharField(max_length=80, verbose_name='操作步骤')
+    case_id = models.CharField(max_length=50, blank=True, null=True, verbose_name='用例编号')
+    fk_case = models.ForeignKey('CaseRegister', blank=True, null=True, on_delete=models.CASCADE)
+    function = models.CharField(max_length=50, blank=True, null=True, verbose_name='测试模块')
+    oper_step = models.CharField(max_length=80, blank=True, null=True, verbose_name='操作步骤')
     expect = models.CharField(max_length=50, verbose_name='期望值')
     test_results = models.CharField(max_length=50, verbose_name='测试结果')
     radar_id = models.CharField(max_length=50, verbose_name='雷达ID')
     comments = models.CharField(max_length=50, verbose_name='comments')
+    upload_user = models.CharField(max_length=30, blank=True, null=True, verbose_name="上传者")
 
     class Meta:
         verbose_name = "测试项模块"

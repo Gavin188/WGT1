@@ -328,7 +328,6 @@
         //新增 保存
         function doCommit() {
             data = $('#gridForm').serialize();
-            console.log('0---', data)
             $.ajax({
                 type: "POST",
                 url: "{% url 'testManage:is-casemodel-insert' %}",
@@ -339,7 +338,6 @@
                         layer.alert("保存成功", {icon: 1}, function (index) {
                             parent.layer.closeAll(); //关闭所有弹窗
                             gridObj.refreshPage();
-                            {#window.location.reload();#}
                         });
 
                     } else {

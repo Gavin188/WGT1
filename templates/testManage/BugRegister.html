@@ -103,23 +103,25 @@
                             <table>
                                 <tr showType="false">
                                     <td class="formLabel">ID:</td>
-                                    <td class="formInput"><input name="ID" type="text"/></td>
+                                    <td class="formInput"><input name="ID" disabled="disabled" type="text"/></td>
                                 </tr>
                                 <tr>
                                     <td class="formLabel"><span class="require">*</span>日期:</td>
                                     <td class="formInput">
-                                        <input name="date" id="date" type="text" value="{{ time }}"/>
+                                        <input name="date" id="date" disabled="disabled" type="text"
+                                               value="{{ time }}"/>
                                         {#                                        <span class="inputTip" showType="add">Must unique</span>#}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="formLabel">组别:</td>
-                                    <td class="formInput"><input name="group" type="text"
+                                    <td class="formInput"><input name="group" type="text" disabled="disabled"
                                                                  value="{{ user.department }}"/></td>
                                 </tr>
                                 <tr>
                                     <td class="formLabel">发现人:</td>
-                                    <td class="formInput"><input name="find_per" type="text" value="{{ user.name }}"/>
+                                    <td class="formInput"><input name="find_per" disabled="disabled" type="text"
+                                                                 value="{{ user.name }}"/>
                                     </td>
                                 </tr>
                                 <tr>

@@ -15,7 +15,7 @@
         <form class="form-horizontal" id="addForm" method="post">
             {% csrf_token %}
 
-            {#            <input type="hidden" name='id' value="{{ id }}"/>#}
+            <input type="hidden" name='case_id' id="case_id" value="{{ case.id }}"/>
             {#            <input type="hidden" name='apply_id' value="{{ apply_id }}"/>#}
 
             <div class="box-body">
@@ -28,15 +28,23 @@
                                     style="margin-left: 3%"></i>导入
                             </button>
                         </div>
+                        <div class="btn-group pull-right">&nbsp;</div>
+                        <div class="btn-group pull-right" style="margin-top: -3%">
+                            <button type="button" onclick="btnDelete()"
+                                    class="btn btn-success btn-group pull-right"
+                                    style="margin-left: 3%"></i>删除
+                            </button>
+                        </div>
                     </legend>
                     <div class="box-body">
-                        <table id="searchTable" style="width: 100%">
+                        <table id="searchTable" style="width: 100% ;margin-top: -3%">
                             <thead>
                             <tr>
-                                <th w_index="id" width="10%">用例编号</th>
+                                <th w_index="case_id" width="10%">用例编号</th>
                                 <th w_index="function" width="10%">功能</th>
                                 <th w_index="oper_step" width="10%">操作步骤</th>
                                 <th w_index="expect" width="10%">预期结果</th>
+                                <th w_index="upload_user" width="10%">上传者</th>
                             </tr>
                             </thead>
                         </table>
@@ -81,11 +89,11 @@
         var gridObj;
         $(function () {
             gridObj = $.fn.bsgrid.init('searchTable', {
-                url: "{% url 'testManage:is-currenttest-list' %}",   //json文件url
+                url: "{% url 'testManage:is-casefun-list' case_id=case.id %}",   //json文件url
                 ajaxType: 'POST',      //请求方式
                 pageSizeSelect: true,   //是否显示分页大小选择下拉框，默认false
                 autoLoad: true,
-                pageSize: 20,
+                pageSize: 10,
                 stripeRows: true,//隔行变色
                 rowHoverColor: true,//划过行变色
                 pageName: 'pageIndex', //页码的参数名称，默认：page
@@ -181,6 +189,69 @@
                 content: $("#upload"),
             });
         }
+
+        // on操作的追加后的元素， click无法选中，用on追踪
+        $("#qwer").on("click", ".fileinput-upload-button", function () {
+            var form_data = new FormData();
+            var file_info = $('#input-1')[0].files[0];
+            var case_id = $('#case_id').val();
+            form_data.append('file', file_info);
+            form_data.append('case_id', case_id);
+            $.ajax({
+                type: "POST",
+                url: "{% url 'testManage:is-casefind-list' %}",
+                data: form_data,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (msg) {
+                    {#console.log(msg)#}
+                    if (msg.result) {
+                        layer.alert(msg.msg, {icon: 1}, function (index) {
+                            parent.layer.closeAll(); //关闭所有弹窗
+                            window.location.reload();
+                        });
+
+                    } else {
+                        layer.alert(msg.msg, {icon: 2});
+                    }
+                    return;
+                }
+            });
+        });
+
+        function btnDelete() {
+            var case_id = $('#case_id').val();
+            layer.alert('确定删除吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'testManage:is-casefun-delete' %}",
+                        data: {"case_id": case_id},
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("删除成功", {icon: 1}, function (index) {
+                                    parent.layer.closeAll(); //关闭所有弹窗
+                                    {#gridObj.refreshPage(); // 刷新整个table#}
+                                    window.location.reload();
+                                });
+                            } else {
+                                layer.alert("删除失败", {icon: 2});
+                            }
+                            return
+                        }
+
+                    })
+                }
+            });
+        }
+
     </script>
 
 {% endblock %}

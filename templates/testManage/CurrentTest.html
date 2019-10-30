@@ -18,36 +18,41 @@
 
     <!-- Main content -->
     <section class="content" style="margin-top: -2%">
-        <div><H3>Photos</H3></div>
+        <input type="hidden" id="case_id" value="{{ case_id.id }}"/>
+        <div><H3 id="title">{{ arrange }}</H3></div>
+        {% if errmsg %}
+            <H3>{{ errmsg }}</H3>
+        {% endif %}
         <div id="devlist">
             <div class="box box-primary" id="liebiao">
                 <div class="box-header">
                     <div class="form-inline">
-                        <div class="form-group  margin-r-5 margin-top-8">
-                            <h5 style="color: #00a157" id="TestPurpose">测试范围与目的</h5>
+                        <div class="form-group  margin-r-5 margin-top-9">
+                            <h5 style="color: #00a157" id="TestPurpose" class="btn btn-group pull-left">
+                                测试说明</h5>
                         </div>
-                        <div class="form-group  margin-r-5 margin-top-8">
-                            <h5 style="color: #00a157" id="TestPurpose">测试环境与辅助工具</h5>
-                        </div>
-                        <div class="form-group  margin-r-5 margin-top-8">
-                            <h5 style="color: #00a157" id="TestPurpose">其他</h5>
-                        </div>
-                    </div>
-                    <form class="form-inline" id="queryForm">
-                        <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>测试日期:</label>
-                            <input type="text" name="date" class="form-control form_datetime" id="date">
-                        </div>
-
-
-                        <div class="form-group searchArea margin-r-5 margin-top-5 ">
-                            <label>测试版本:</label>
-                            <input type="text" name="test_ver" class="form-control inputText" id="test_ver">
-                        </div>
-                        <div class="form-group searchArea margin-r-5 margin-top-5 ">
-                            <label>测试机台:</label>
-                            <input type="text" name="test_sn" class="form-control inputText" id="test_sn">
-                        </div>
+                        {#                        <div class="form-group  margin-r-5 margin-top-8">#}
+                        {#                            <h5 style="color: #00a157" id="TestPurpose">测试环境与辅助工具</h5>#}
+                        {#                        </div>#}
+                        {#                        <div class="form-group  margin-r-5 margin-top-8">#}
+                        {#                            <h5 style="color: #00a157" id="TestPurpose">其他</h5>#}
+                        {#                        </div>#}
+                        {#                    </div>#}
+                        {#                    <form class="form-inline" id="queryForm">#}
+                        {#                        <div class="form-group searchArea margin-r-5 margin-top-5">#}
+                        {#                            <label>测试日期:</label>#}
+                        {#                            <input type="text" name="date" class="form-control form_datetime" id="date">#}
+                        {#                        </div>#}
+                        {##}
+                        {##}
+                        {#                        <div class="form-group searchArea margin-r-5 margin-top-5 ">#}
+                        {#                            <label>测试版本:</label>#}
+                        {#                            <input type="text" name="test_ver" class="form-control inputText" id="test_ver">#}
+                        {#                        </div>#}
+                        {#                        <div class="form-group searchArea margin-r-5 margin-top-5 ">#}
+                        {#                            <label>测试机台:</label>#}
+                        {#                            <input type="text" name="test_sn" class="form-control inputText" id="test_sn">#}
+                        {#                        </div>#}
 
                         {#                        <button type="button" onclick="btnSearch()" class="btn btn-default" style="margin-left: 3%">#}
                         {#                            <i class="glyphicon glyphicon-search"></i>查询#}
@@ -57,37 +62,37 @@
                         {#                        <button type="button" onclick="btnExport()" class="btn btn-success btn-group pull-right"#}
                         {#                                style="margin-left: 3%"></i>导入#}
                         {#                        </button>#}
-                    </form>
-                    <div id="upload" style="display: none">
-                        <form method="post" enctype="multipart/form-data" id="qwer" onsubmit="return false">
-                            {% csrf_token %}
-                            </br>
-                            </br>
-                            <label class="control-label">Select File</label>
-                            <input type="file" name="file" class="file" id="input-1">
-                        </form>
+                        {#                    </form>#}
+                        {#                        <div id="upload" style="display: none">#}
+                        {#                            <form method="post" enctype="multipart/form-data" id="qwer" onsubmit="return false">#}
+                        {#                                {% csrf_token %}#}
+                        {#                                </br>#}
+                        {#                                </br>#}
+                        {#                                <label class="control-label">Select File</label>#}
+                        {#                                <input type="file" name="file" class="file" id="input-1">#}
+                        {#                            </form>#}
+                        {##}
+                        {#                        </div>#}
+                    </div>
 
+                    <div class="box-body">
+                        <table id="searchTable" style="width: 100%">
+                            <thead>
+                            <tr>
+                                <th w_index="case_id">用例编号</th>
+                                <th w_index="function">功能</th>
+                                <th w_index="oper_step">操作步骤</th>
+                                <th w_index="expect">预期结果</th>
+                                <th w_index="test_results">测试结果</th>
+                                <th w_index="radar_id">Radar ID</th>
+                                <th w_index="comments">备注</th>
+                                {#                            <th w_index="comments" width="35%">Comments</th>#}
+                            </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
-
-                <div class="box-body">
-                    <table id="searchTable" style="width: 100%">
-                        <thead>
-                        <tr>
-                            <th w_index="id">用例编号</th>
-                            <th w_index="function">功能</th>
-                            <th w_index="oper_step">操作步骤</th>
-                            <th w_index="expect">预期结果</th>
-                            <th w_index="test_results">测试结果</th>
-                            <th w_index="radar_id">Radar ID</th>
-                            <th w_index="comments">备注</th>
-                            {#                            <th w_index="comments" width="35%">Comments</th>#}
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
             </div>
-
         </div>
     </section>
 
@@ -136,7 +141,7 @@
                 ajaxType: 'POST',      //请求方式
                 pageSizeSelect: true,   //是否显示分页大小选择下拉框，默认false
                 autoLoad: true,
-                pageSize: 20,
+                pageSize: 15,
                 stripeRows: true,//隔行变色
                 rowHoverColor: true,//划过行变色
                 pageName: 'pageIndex', //页码的参数名称，默认：page
@@ -228,15 +233,17 @@
             //Initialize Select2 Elements
             $(".select2").select2();
         });
+
         $("#TestPurpose").on("click", function () {
-            var title = 'Photos';
+            var case_id = $('#case_id').val();
+            console.log(case_id)
             layer.open({
                 type: 2,
-                title: '测试范围与目的',
+                title: '测试说明',
                 shadeClose: false,
                 maxmin: true,
                 area: ['1200px', '800px'],
-                content: ["{% url 'system:basic-word-detail' %}" + '?title=' + title],
+                content: ["{% url 'testManage:is-casedesc-list' %}" + '?id=' + case_id],
                 end: function () {
                     {#console.log(121232)#}
                     //关闭时做的事情
