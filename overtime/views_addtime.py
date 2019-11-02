@@ -1,7 +1,6 @@
 # Create your views here.
 import datetime
 import json
-import re
 
 from dateutil.relativedelta import relativedelta
 from django.core.paginator import Paginator
@@ -28,52 +27,56 @@ from system.models import UserProfile
 
 
 class TimeListView(LoginRequiredMixin, View):
+    '''加班首页'''
+
     def get(self, request):
         name = request.user.username
         time_control = list(UserProfile.objects.filter(username=name).values('time_control'))[0]['time_control']
         res = dict(data=TimeType.objects.filter(time_control=time_control).all())
-        # apply_id = list(
-        #     AddTime.objects.filter(fk_apply__fk_month__month=datetime.date.today().strftime('%Y-%m'),
-        #                            fk_apply__applyState=2,
-        #                            username__username=request.user.username).values(
-        #         'fk_apply_id'))[0]['fk_apply_id']
-        # print('ID --- ', apply_id)
-        # res['apply_id'] = apply_id
         return render(request, 'overtime/AddTime/addTime.html', res)
 
-    #  {'2019-8-3': ['10'], '2019-8-10': ['10'], '2019-8-24': ['10'], '2019-8-5': ['2'], '2019-8-12': ['2'], '2019-8-19': ['2'], 'tic': ['36']}
     def post(self, request):
-
+        res = dict(result=False)
         # 获取当前用户的 加班管控
         name = request.user.username
+        # 查看用户是否被管控
         time_control = list(UserProfile.objects.filter(username=name).values('time_control'))[0]['time_control']
-
-        day_Exceed = []
-        res = dict(result=False)
-        data = dict(request.POST)
+        # 获取用户ID
         id = request.POST.get('user_id')
         user = UserProfile.objects.get(id=id)
 
-        # 获取所有人的个数
+        day_Exceed = []
+
+        data = dict(request.POST)
+        # 获取提报的日期 2019-12
+        year_month = data['YM'][0]
+        # 获取提报日期的节假日
+        fesday = data['fesDay[]']
+
+        # 获取所有人的个数 为了下步算出比例
         user_count = UserProfile.objects.count()
 
         #  根据提报的当天日期，求出下个月的时间
         today = datetime.date.today()
-        date = today.strftime('%d')  # 当前年份月份
+
+        # 当前年份月份
+        date = today.strftime('%d')
+
+        # 获取下个月的日期 2019-12-02
         ne_today = today - relativedelta(months=-1)
+
+        # 获取下个月份 2019-12
         next_today = ne_today.strftime('%Y-%m')
-        year_month = data['YM'][0]
-        print('year ---', year_month)
+
         #  管理员管控的加班权限 ，加班比例
         scale = list(TimeType.objects.filter(time_control=time_control).values('tscale'))[0]['tscale']
+
         #  管理员管控的加班权限 ，加班提报日期
         tdate = list(TimeType.objects.filter(time_control=time_control).values('tdate'))[0]['tdate']
-        fesday = data['fesDay[]']
+
         del data['user_id']
         del data['tic']
         del data['YM']
-        # del data['apply_id']
-        print('-->', data)
         del data['fesDay[]']
         # 获取后台时间判断是否提报的下一个月的加班，
         # 并且将后台传来的时间转换成相应的格式 2019-8 ->  2019-08
@@ -81,20 +84,25 @@ class TimeListView(LoginRequiredMixin, View):
             year_month = list(year_month)
             year_month.insert(5, '0')
             year_month = ''.join(year_month)
-        if date == tdate:
-            if year_month == next_today:  # 2019-10
 
+        # 判断是否是提报日期
+        if date == tdate:
+            # 判断提报的是否是下个月的加班
+            if year_month == next_today:
+                # 判断加班状态 是否确认
                 state = list(ApplyList.objects.filter(applyUser=request.user.username,
                                                       fk_month__month=year_month).values(
                     'applyState').distinct())
+                # 将签核的状态 放在一起
                 state = [i['applyState'] for i in state]
-                if '2' not in state:
-                    # 获取下个月的时间
-                    today = datetime.date.today() - relativedelta(months=-1)
+                # [1,2,3] 三种状态，如果1 或者 2 存在则提示信息
+                if ('2' not in state) and ('1' not in state):
+                    # 将下个月的加班保存到数据库中
                     add_month = AddMonth()
-                    add_month.month = str(today)[0:7]
+                    add_month.month = next_today
                     add_month.save()
-                    # print(today)
+
+                    # 循环提报的 加班时间
                     for day in data.keys():
                         # 排除周六
                         if int(data[day][0]) < 8:
@@ -103,20 +111,23 @@ class TimeListView(LoginRequiredMixin, View):
                              从数据库查询 某一天的人数
                              用 人数 / 总数 = 概率 
                             '''
-                            data_count = AddTime.objects.filter(fk_apply__fk_month__month=next_today,
-                                                                fk_apply__applyState=2,
-                                                                data_time=day).count()
+                            # 获取到提报 加班日期 的加班人数 2019-12-04 -> 4 人
+                            data_count = AddTime.objects.filter(Q(fk_apply__applyState=1) | Q(fk_apply__applyState=2),
+                                                                fk_apply__fk_month__month=next_today,
+                                                                data_time=time_tran(day)).count()
+                            # 比例  加班日的人数/ 总人数
                             percentage = (data_count + 1) / user_count  # 总数
-                            # print('percentage', str(percentage)[:3])
+                            # 如果比例超过 规定的比例 则通过 ，否则则提示加班日期超过比例
                             if str(percentage)[:4] < scale:
                                 pass
                             else:
                                 day_Exceed.append(day)
-                    # print(day_Exceed)
+                    # 如果没有超过加班比例则继续，否则提示
                     if len(day_Exceed) == 0:
-                        # print(1111)
+                        # 创建 序列号
                         apply_num = str(request.user.name) + "-" + '加班' + "-" + str(
                             datetime.datetime.now().strftime('%Y%m%d_%H%M'))
+                        # 创建申请单
                         applyList = ApplyList()
                         applyList.applyUser = request.user.username
                         applyList.applyUnit = request.user.department  # 申請單位
@@ -126,8 +137,9 @@ class TimeListView(LoginRequiredMixin, View):
                         applyList.applyType = 3  # ('1', '请假'),('2','异常'),("3","加班")
                         applyList.fk_month = add_month
                         applyList.save()
-
+                        # 循环 加班提报的日期
                         for k, v in data.items():
+                            # 保存G1 的加班
                             if int(v[0]) == 2:
                                 add_time = AddTime()
                                 add_time.fk_apply = applyList
@@ -140,6 +152,7 @@ class TimeListView(LoginRequiredMixin, View):
                                 add_time.save()
 
                             elif 2 < int(v[0]) <= 10:
+                                # 保存G3 的加班
                                 if k in fesday:
                                     add_time = AddTime()
                                     add_time.fk_apply = applyList
@@ -153,6 +166,7 @@ class TimeListView(LoginRequiredMixin, View):
                                     add_time.save()
 
                                 else:
+                                    # 保存G2 的加班
                                     add_time = AddTime()
                                     add_time.fk_apply = applyList
                                     add_time.username = user
@@ -162,15 +176,17 @@ class TimeListView(LoginRequiredMixin, View):
                                     add_time.data_hour = int(v[0])
                                     add_time.data_type = 'G2'
                                     add_time.save()
-
                         res['result'] = 1
                     else:
                         res['result'] = 2
                         res['day_Exceed'] = day_Exceed
+                elif '1' in state:
+                    res['result'] = 7
+                    res['message'] = '你已经了提报下个月加班'
                 else:
                     res['result'] = 7
                     res['message'] = year_month + '加班已经确认，请下个月修改'
-
+            # 修改下个月的加班
             elif year_month == today.strftime("%Y-%m"):
                 '''
                 1、 获取今天的日期  today
@@ -196,7 +212,7 @@ class TimeListView(LoginRequiredMixin, View):
                     ApplyList.objects.filter(applyUser=request.user.username, fk_month__month=today).values(
                         'applyState').distinct())
                 state = [i['applyState'] for i in state]
-                print('state--', state)
+                # 判断 如果申请单中状态是 未签核则 提示信息
                 if '1' not in state:
 
                     #  时间：本月的时间， 状态：已经签核， 用户： 本人，
@@ -210,24 +226,30 @@ class TimeListView(LoginRequiredMixin, View):
                         'data_hour',
                         'data_type'))
 
+                    # 存放 超过今天的日期
                     before_list = []
+                    # 存放加班小时
                     time_list = []
+                    # 循环本月的加班
                     for i in month:
                         #  判断 如果 提报时间 小于 今天的日期， 放到 before_list
                         if i['data_time'] < str(time):
                             date_dict = {}
                             date_dict[i['data_time']] = i['data_hour']
                             before_list.append(date_dict)
+
                         #  将上个月提报的本月加班，所有的时间和小时 以字典的形式显示 - - >  为了求出今天以前的加班时数，和缺少的加班时数
                         time_dict = {}
                         time_dict[i['data_time']] = i['data_hour']
                         time_list.append(time_dict)
+
                     #  通过加班管控，求出本人这个月加班的总时数，
                     control_time = list(TimeType.objects.filter(time_control=time_control).values('tname'))[0][
                         'tname']
 
-                    # print(control_time)
+                    # 已经加班的时数
                     before_tiem = 0
+
                     # 判断 今天以前的加班时数  before_tiem
                     for i in before_list:
                         for k, v in i.items():
@@ -236,6 +258,7 @@ class TimeListView(LoginRequiredMixin, View):
                     #  本月加班的总时数 -  已经加班时数
                     after_time = int(control_time) - before_tiem  # 为加班时数
 
+                    # 算出剩下的小时数
                     count = 0
                     flag = False
                     #  循环 提报的本月的加班时数 求出 系统修改 提报的时数  count
@@ -248,7 +271,8 @@ class TimeListView(LoginRequiredMixin, View):
                         else:
                             flag = True
                             count = count + int(v[0])
-                    # print('count--', count)
+
+                    # 如果提报的加班时间 > 提报日期  满足
                     if flag:
                         # 如果提报的时数大于 未加班时数
                         if count > after_time:
@@ -264,10 +288,12 @@ class TimeListView(LoginRequiredMixin, View):
                                      从数据库查询 某一天的人数
                                      用 人数 / 总数 = 概率 
                                     '''
-                                    data_count = AddTime.objects.filter(fk_apply__fk_month__month=today,
-                                                                        fk_apply__applyState=2,
-                                                                        data_time=time_tran(day)).count()
-
+                                    # 算出加班人数
+                                    data_count = AddTime.objects.filter(
+                                        Q(fk_apply__applyState=1) | Q(fk_apply__applyState=2)
+                                        , fk_apply__fk_month__month=today,
+                                        data_time=time_tran(day)).count()
+                                    # 人员占比
                                     percentage = data_count / user_count  # 总数
 
                                     if str(percentage)[:4] < scale:
@@ -278,10 +304,15 @@ class TimeListView(LoginRequiredMixin, View):
                             #  如果没有超过加班管控的天数 ；
                             if len(day_Exceed) == 0:
                                 #  求出 上个月提报的 申请单 ID
-                                apply_id = list(
-                                    AddTime.objects.filter(fk_apply__fk_month__month=today, fk_apply__applyState=2,
-                                                           username__username=request.user.username).values(
-                                        'fk_apply_id'))[0]['fk_apply_id']
+                                try:
+                                    apply_id = list(
+                                        AddTime.objects.filter(fk_apply__fk_month__month=today, fk_apply__applyState=2,
+                                                               username__username=request.user.username).values(
+                                            'fk_apply_id'))[0]['fk_apply_id']
+                                except Exception:
+                                    res['message'] = '你没有提到本月的加班，无法修改'
+                                    return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder),
+                                                        content_type='application/json')
                                 res['apply_id'] = apply_id
                                 #  将以前提报的加班改成 已取消  同意的话将 已取消 -> 已修改   拒绝 已取消-> 已签核
                                 ApplyList.objects.filter(id=apply_id).update(applyState=3)
@@ -359,8 +390,6 @@ class TimeListView(LoginRequiredMixin, View):
         else:
             res['result'] = 4
             res['message'] = '当前时间：' + str(today)
-
-        print(res)
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
 
 

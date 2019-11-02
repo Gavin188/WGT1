@@ -614,6 +614,13 @@
                                     , btn: ['YES']
 
                                 });
+                            } else {
+                                layer.alert('错误原因: ' + msg.message + '', {
+                                    title: '提示'
+                                    , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                                    , time: 0 //不自动关闭
+                                    , btn: ['YES']
+                                });
                             }
                             return false;
                         }

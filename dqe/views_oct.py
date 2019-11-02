@@ -98,9 +98,6 @@ class OperateCacheTableView(LoginRequiredMixin, View):
 
                             accessDetails.save()
 
-
-
-
                         else:
                             msg = "重复机台"
                             repeat_unit.append(df.loc[i].tolist())
