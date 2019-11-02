@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.views import View
 
 from system.models import TestWord
+from testManage.models import CaseRegister
 
 
 class WordView(View):
@@ -38,7 +39,9 @@ class WordUpdateView(View):
     ''' 测试说明书 新建 和 更新'''
 
     def get(self, request):
-        return render(request, 'system/Test_Word/UpdateWord.html')
+        id = request.GET.get('id')
+        title = list(CaseRegister.objects.filter(id=id).values('desc'))[0]['desc']
+        return render(request, 'system/Test_Word/UpdateWord.html', {'title': title})
 
     def post(self, request):
         res = dict(result='创建失败')
@@ -46,10 +49,9 @@ class WordUpdateView(View):
         publisher = request.POST.get('publisher')
         comments = request.POST.get('comments')
         editor = request.POST.get('editor')
-
+        # id = request.GET.get('id')
+        # title = list(CaseRegister.objects.filter(id=id).values('desc'))[0]['desc']
         data = [i['title'] for i in list(TestWord.objects.filter().values('title'))]
-        print(data)
-
         if title == '':
             res['result'] = '创建失败，标题不能为空！！！'
         elif title in data:

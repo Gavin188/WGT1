@@ -9,18 +9,17 @@ from django.shortcuts import render
 from django.views import View
 
 from system.mixin import LoginRequiredMixin
-#  今日测试
-from system.models import TestWord
 from testManage.models import TestFun, TaskArrange, CaseRegister
 
 
 class CurrentTestView(LoginRequiredMixin, View):
+    '''今日测试首页'''
+
     def get(self, request):
         user = request.user
         time = datetime.datetime.now().strftime('%Y-%m-%d')
         errmsg = ''
         arrange = list(TaskArrange.objects.filter(tester=user, task_date__pub_date=str(time)).values('comments'))
-        print(arrange)
         if arrange:
             comments = []
             for i in arrange:
@@ -31,14 +30,19 @@ class CurrentTestView(LoginRequiredMixin, View):
                 errmsg = '今日的测试项重复，请检查'
 
             comment = comments[0]
-            case_id = list(CaseRegister.objects.filter(function=comment).values())[0]
+            print('***--', comment)
+            try:
+                case_id = list(CaseRegister.objects.filter(function=comment).values())[0]
+            except Exception:
+                errmsg = comment + '还没有上传案例管理,稍等'
+                case_id = ''
+
             context = {
                 'arrange': comment,
                 'errmsg': errmsg,
                 'case_id': case_id
             }
-            print(comment)
-            print(case_id)
+
         else:
             context = {
                 'arrange': '今日还没有上传测试任务',
@@ -47,15 +51,17 @@ class CurrentTestView(LoginRequiredMixin, View):
         return render(request, 'testManage/CurrentTest.html', context)
 
 
-#   今日测试列表
 class CurrentTestListView(LoginRequiredMixin, View):
+    '''今日测试首页 列表'''
+
     def post(self, request):
         res = {"success": "",
                "totalRows": "",
                "curPage": "",
                "data": " ", }
-
-        data = list(TestFun.objects.all().values())
+        # 获取今日 的测试项ID
+        c_id = int(request.GET.get('id'))
+        data = list(TestFun.objects.filter(fk_case__id=c_id).values())
         count = len(data)
         pageIndex = request.POST.get('curPage')
         pageSize = request.POST.get('pageSize')

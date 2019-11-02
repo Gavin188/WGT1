@@ -5,20 +5,21 @@
     <style>
         .layui-card-header {
         {#float: left;#} font-size: large;
+        {#    border: solid 1px #eee;#}
         }
     </style>
 {% endblock %}
 
 {% block content %}
 
-    <div style="padding: 20px; background-color:#c5c5c5;">
-        <div class="layui-row layui-col-space15" style="height: 900px">
+    <div style="padding: 20px; background-color:#c5c5c5; margin-top: 2%">
+        <div class="layui-row layui-col-space15" style="height: 850px">
 
             <div class="layui-col-md8 ">
                 <div class="layui-row layui-col-space10 ">
                     <div class="layui-col-md12">
                         <div class="layui-card">
-                            <div class="layui-card-header">公告栏</div>
+                            <div class="layui-card-header"><span> <i class="fa fa-twitch"></i>  公告栏</span></div>
                             <div class="layui-card-body" style=" height:450px; overflow:auto;">
                                 <table class="layui-table" lay-skin="line">
                                     <thead>
@@ -52,17 +53,31 @@
                     </div>
 
                     <div class="layui-col-md12">
-                        <div class="layui-card" style="height: 150px">
-                            <div class="layui-card-header"><a href="/dqe/testManage/is/currenttest">今日测试</a></div>
+                        <div class="layui-card" style="height: 100px">
+                            <div class="layui-card-header"><span><i class="fa fa-text-height"></i>  今日测试 </span></div>
                             <div class="layui-card-body">
+                                {% if arrange %}
+                                    {% for arr in arrange %}
+                                        <tr>
+                                            <td><a
+                                                    href="{% url 'testManage:is-currenttest' %}"><span
+                                                    style="color: #0063dc">{{ arr.comments }}</span></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4"><span style="color: #666666;">今日还未上传测试</span></td>
+                                    </tr>
 
+                                {% endif %}
                             </div>
                         </div>
                     </div>
 
                     <div class="layui-col-md4">
                         <div class="layui-card" style="height: 189px">
-                            <div class="layui-card-header">版本概览</div>
+                            <div class="layui-card-header"><span><i class="fa fa-list"></i>  版本概览</span></div>
                             <div class="layui-card-body">
                                 郭文娜1.1<br>
                             </div>
@@ -70,7 +85,7 @@
                     </div>
                     <div class="layui-col-md4">
                         <div class="layui-card" style="height: 189px">
-                            <div class="layui-card-header">考勤概览</div>
+                            <div class="layui-card-header"><span><i class="fa fa-list"></i>  考勤概览</span></div>
                             <div class="layui-card-body">
                                 郭文娜迟到<br>
                             </div>
@@ -78,7 +93,7 @@
                     </div>
                     <div class="layui-col-md4">
                         <div class="layui-card" style="height: 189px">
-                            <div class="layui-card-header">值日概览</div>
+                            <div class="layui-card-header"><span><i class="fa fa-list"></i>  值日概览</span></div>
                             <div class="layui-card-body">
                                 郭志航刷碗拖地<br>
                             </div>
@@ -88,9 +103,9 @@
             </div>
 
             <div class="layui-col-md2">
-                <div class="layui-card" style="height: 850px">
-                    <div class="layui-card-header">工程师今日排名</div>
-                    <div class="layui-card-body" style=" align:center ; height:800px; overflow:auto;">
+                <div class="layui-card" style="height: 800px">
+                    <div class="layui-card-header"><span><i class="fa fa-user-circle-o"></i> 工程师今日排名</span></div>
+                    <div class="layui-card-body" style=" align:center ; height:750px; overflow:auto;">
                         <table class="layui-table" lay-skin="row" id="usedTable" lay-filter="used">
                             <thead>
                             <tr>
@@ -114,9 +129,9 @@
             </div>
 
             <div class="layui-col-md2">
-                <div class="layui-card" style="height: 850px">
-                    <div class="layui-card-header">测试员今日排名</div>
-                    <div class="layui-card-body" style=" height:800px; overflow:auto;">
+                <div class="layui-card" style="height: 800px">
+                    <div class="layui-card-header"><span><i class="fa fa-user-circle-o"></i> 测试员今日排名</span></div>
+                    <div class="layui-card-body" style=" height:750px; overflow:auto;">
                         <table class="layui-table" lay-skin="row" id="usedTable" lay-filter="used">
                             <thead>
                             <tr>

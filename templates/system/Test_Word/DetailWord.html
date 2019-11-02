@@ -58,11 +58,10 @@
                 shadeClose: false,
                 maxmin: true,
                 area: ['1200px', '750px'],
-                content: "{% url 'system:basic-word-update' %}",
+                {#content: "{% url 'system:basic-word-update' %}",#}
+                content: ["{% url 'system:basic-word-update' %}" + '?id=' + {{ id }}],
                 end: function () {
-                    {#console.log(121232)#}
-                    //关闭时做的事情
-                    {#window.location.reload();#}
+
                     oDataTable.ajax.reload();
                 }
             });

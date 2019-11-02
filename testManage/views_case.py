@@ -112,6 +112,7 @@ class CaseDescIroView(LoginRequiredMixin, View):
                 errmsg = '还没有添加测试说明'
 
             context = {
+                'id': id,
                 'all': all_obj,
                 'errmsg': errmsg
             }

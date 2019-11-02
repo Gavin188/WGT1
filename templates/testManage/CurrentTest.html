@@ -21,7 +21,7 @@
         <input type="hidden" id="case_id" value="{{ case_id.id }}"/>
         <div><H3 id="title">{{ arrange }}</H3></div>
         {% if errmsg %}
-            <H3>{{ errmsg }}</H3>
+            <H3 style="color: #c9302c">{{ errmsg }}</H3>
         {% endif %}
         <div id="devlist">
             <div class="box box-primary" id="liebiao">
@@ -137,7 +137,7 @@
         var gridObj;
         $(function () {
             gridObj = $.fn.bsgrid.init('searchTable', {
-                url: "{% url 'testManage:is-currenttest-list' %}",   //json文件url
+                url: "/dqe/testManage/is/currenttestlist/" + '?id=' + {{ case_id.id }},   //json文件url
                 ajaxType: 'POST',      //请求方式
                 pageSizeSelect: true,   //是否显示分页大小选择下拉框，默认false
                 autoLoad: true,

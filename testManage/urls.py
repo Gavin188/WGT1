@@ -9,7 +9,7 @@ urlpatterns = [
     #     今日测试
     url(r'^is/currenttest$', views_current.CurrentTestView.as_view(), name='is-currenttest'),
 
-    url(r'^is/currenttestlist$', views_current.CurrentTestListView.as_view(), name='is-currenttest-list'),
+    url(r'^is/currenttestlist/$', views_current.CurrentTestListView.as_view(), name='is-currenttest-list'),
     #     案例管理
     url(r'^is/casemanage$', views_case.CasemanageView.as_view(), name='is-casemanage'),
 

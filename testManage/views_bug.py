@@ -83,6 +83,7 @@ class BugRegisterSaveView(LoginRequiredMixin, View):
     def post(self, request):
         res = dict(result=False)
         data = dict(request.POST)
+        print(data)
         if len(data['radar_id'][0]) != 0:
             bug_register = BugRegister()
             bug_register.date = data['date'][0]
