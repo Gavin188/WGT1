@@ -2,12 +2,11 @@ import json
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.shortcuts import render, render_to_response
 from django.views import View
 
+from system.forms import UEditorTestModelForm
 from system.models import TestWord
-from testManage.models import CaseRegister
 
 
 class WordView(View):
@@ -22,7 +21,7 @@ class WordListView(View):
 
     def get(self, request):
         res = {}
-        fields = ['id', 'title', 'comments', 'publisher', 'publish_date']
+        fields = ['id', 'title','publisher', 'publish_date']
         #
         searchFields = ['publish_date']  # 与数据库字段一致
 
@@ -39,43 +38,37 @@ class WordUpdateView(View):
     ''' 测试说明书 新建 和 更新'''
 
     def get(self, request):
-        id = request.GET.get('id')
-        title = list(CaseRegister.objects.filter(id=id).values('desc'))[0]['desc']
-        return render(request, 'system/Test_Word/UpdateWord.html', {'title': title})
+        # id = request.GET.get('id')
+        # title = list(CaseRegister.objects.filter(id=id).values('desc'))[0]['desc']
+
+        form = UEditorTestModelForm(
+            initial={'Description': '请输入：'}
+        )
+        context = {
+            # 'title': title,
+            'form': form,
+        }
+        return render(request, 'system/Test_Word/UpdateWord.html', context)
 
     def post(self, request):
         res = dict(result='创建失败')
-        title = request.POST.get('title')
-        publisher = request.POST.get('publisher')
-        comments = request.POST.get('comments')
-        editor = request.POST.get('editor')
-        # id = request.GET.get('id')
-        # title = list(CaseRegister.objects.filter(id=id).values('desc'))[0]['desc']
-        data = [i['title'] for i in list(TestWord.objects.filter().values('title'))]
-        if title == '':
-            res['result'] = '创建失败，标题不能为空！！！'
-        elif title in data:
-            res['result'] = '创建失败，标题已经存在'
+        print(request.POST)
+        form = UEditorTestModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print('OK')
+            return render_to_response('system/Test_Word/UpdateWord.html', {'form': form})
         else:
-            try:
-                test_word = TestWord()
-                test_word.title = title
-                test_word.publisher = publisher
-                test_word.comments = comments
-                test_word.desc_pack = editor
-                test_word.save()
-                res['result'] = '创建成功'
-            except Exception:
-                res['result'] = '未知错误'
+            return HttpResponse(u"数据校验错误")
 
-        return HttpResponse(res.values(), content_type='application/json')
+        # return HttpResponse(res.values(), content_type='application/json')
 
 
 class WordDetailView(View):
     '''显示 创建的测试word内容'''
 
     def get(self, request):
-        fields = ['id', 'title', 'publisher', 'comments', 'desc_pack']
+        fields = ['id', 'title', 'publisher', 'desc_pack']
         all_obj = []
         # 测试说明 id 查询
         if 'id' in request.GET and request.GET['id']:

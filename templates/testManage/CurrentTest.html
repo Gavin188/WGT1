@@ -19,60 +19,44 @@
     <!-- Main content -->
     <section class="content" style="margin-top: -2%">
         <input type="hidden" id="case_id" value="{{ case_id.id }}"/>
-        <div><H3 id="title">{{ arrange }}</H3></div>
+
+        {#        {% for foo in comments %}#}
+        {#            <td><H3 id="title">{{ foo }}</H3></td>#}
+        {#        {% endfor %}#}
+
+
+        {#        {% if comments|length < 2 %}#}
+        {#            {% for foo in comments %}#}
+        {#                <td><H3 id="title">{{ foo }}</H3></td>#}
+        {#            {% endfor %}#}
+        {#        {% else %}#}
+        <form class="form-horizontal" id="addForm" method="post">
+            <div>
+                <select class="form-control select2" style="width:23%;font-size: 22px" id="comments"
+                        name="comments">
+                    {#                        <option value="{{ apply_list.stage }}">{{ apply_list.stage }}</option>#}
+                    {% for foo in comments %}
+                        <option value="{{ foo }}">{{ foo }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="button" onclick="btnSearch()" class="btn btn-default">
+                    <i class="glyphicon glyphicon-search"></i>查询
+                </button>
+            </div>
+        </form>
+        {#        {% endif %}#}
         {% if errmsg %}
             <H3 style="color: #c9302c">{{ errmsg }}</H3>
         {% endif %}
         <div id="devlist">
-            <div class="box box-primary" id="liebiao">
+            <div class="box box-primary" id="liebiao" style="margin-top: 1%">
                 <div class="box-header">
                     <div class="form-inline">
                         <div class="form-group  margin-r-5 margin-top-9">
                             <h5 style="color: #00a157" id="TestPurpose" class="btn btn-group pull-left">
                                 测试说明</h5>
                         </div>
-                        {#                        <div class="form-group  margin-r-5 margin-top-8">#}
-                        {#                            <h5 style="color: #00a157" id="TestPurpose">测试环境与辅助工具</h5>#}
-                        {#                        </div>#}
-                        {#                        <div class="form-group  margin-r-5 margin-top-8">#}
-                        {#                            <h5 style="color: #00a157" id="TestPurpose">其他</h5>#}
-                        {#                        </div>#}
-                        {#                    </div>#}
-                        {#                    <form class="form-inline" id="queryForm">#}
-                        {#                        <div class="form-group searchArea margin-r-5 margin-top-5">#}
-                        {#                            <label>测试日期:</label>#}
-                        {#                            <input type="text" name="date" class="form-control form_datetime" id="date">#}
-                        {#                        </div>#}
-                        {##}
-                        {##}
-                        {#                        <div class="form-group searchArea margin-r-5 margin-top-5 ">#}
-                        {#                            <label>测试版本:</label>#}
-                        {#                            <input type="text" name="test_ver" class="form-control inputText" id="test_ver">#}
-                        {#                        </div>#}
-                        {#                        <div class="form-group searchArea margin-r-5 margin-top-5 ">#}
-                        {#                            <label>测试机台:</label>#}
-                        {#                            <input type="text" name="test_sn" class="form-control inputText" id="test_sn">#}
-                        {#                        </div>#}
-
-                        {#                        <button type="button" onclick="btnSearch()" class="btn btn-default" style="margin-left: 3%">#}
-                        {#                            <i class="glyphicon glyphicon-search"></i>查询#}
-                        {#                        </button>#}
-
-
-                        {#                        <button type="button" onclick="btnExport()" class="btn btn-success btn-group pull-right"#}
-                        {#                                style="margin-left: 3%"></i>导入#}
-                        {#                        </button>#}
-                        {#                    </form>#}
-                        {#                        <div id="upload" style="display: none">#}
-                        {#                            <form method="post" enctype="multipart/form-data" id="qwer" onsubmit="return false">#}
-                        {#                                {% csrf_token %}#}
-                        {#                                </br>#}
-                        {#                                </br>#}
-                        {#                                <label class="control-label">Select File</label>#}
-                        {#                                <input type="file" name="file" class="file" id="input-1">#}
-                        {#                            </form>#}
-                        {##}
-                        {#                        </div>#}
                     </div>
 
                     <div class="box-body">
@@ -137,7 +121,8 @@
         var gridObj;
         $(function () {
             gridObj = $.fn.bsgrid.init('searchTable', {
-                url: "/dqe/testManage/is/currenttestlist/" + '?id=' + {{ case_id.id }},   //json文件url
+                {#url: "/dqe/testManage/is/currenttestlist/" + '?id=' + {{ case_id.id }},   //json文件url#}
+                url: "{% url 'testManage:is-currenttest-list' %}",   //json文件url
                 ajaxType: 'POST',      //请求方式
                 pageSizeSelect: true,   //是否显示分页大小选择下拉框，默认false
                 autoLoad: true,
@@ -165,15 +150,15 @@
                     }
                 },//分页大小，默认20
             });
-            {#btnSearch();#}
+            btnSearch();
         });
 
-        {#function btnSearch() {#}
-        {#    var tester = $('#tester').val();#}
-        {#    var wgt_no = $('#wgt_no').val();#}
-        {#    data_dict = {'tester': tester, 'wgt_no': wgt_no};#}
-        {#    gridObj.search(data_dict);#}
-        {# }#}
+        function btnSearch() {
+            var comments = $('#comments').val();
+            {#var title = $('#title').val();#}
+            data_dict = {'comments': comments,};
+            gridObj.search(data_dict);
+        }
 
         function btnExport() {
             layer.open({
@@ -235,15 +220,15 @@
         });
 
         $("#TestPurpose").on("click", function () {
-            var case_id = $('#case_id').val();
-            console.log(case_id)
+            var comment = $('#comments').val();
+            console.log(comment)
             layer.open({
                 type: 2,
                 title: '测试说明',
                 shadeClose: false,
                 maxmin: true,
                 area: ['1200px', '800px'],
-                content: ["{% url 'testManage:is-casedesc-list' %}" + '?id=' + case_id],
+                content: ["{% url 'testManage:is-casedesc-list' %}" + '?comment=' + comment],
                 end: function () {
                     {#console.log(121232)#}
                     //关闭时做的事情
@@ -252,5 +237,12 @@
                 }
             });
         });
+        // select2
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+
     </script>
+
 {% endblock %}

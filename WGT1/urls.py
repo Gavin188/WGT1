@@ -13,6 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import os
+
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, re_path, include
 from django.views.static import serve
@@ -44,9 +47,11 @@ urlpatterns = [
     # 测试管理
     path('dqe/testManage/', include('testManage.urls', namespace='testManage')),
 
+    path('ueditor/', include('DjangoUeditor.urls')),
+
 ]
 
 if settings.DEBUG:
-    urlpatterns += [
-        re_path(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
-    ]
+    media_root = os.path.join(settings.BASE_DIR, settings.MEDIA_ROOT)
+
+    urlpatterns += static(settings.MEDIA_URL, document_root=media_root)

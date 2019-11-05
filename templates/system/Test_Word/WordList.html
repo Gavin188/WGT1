@@ -60,7 +60,7 @@
                             <th>标题</th>
                             <th>發佈者</th>
                             <th>發佈日期</th>
-                            <th>备注</th>
+{#                            <th>备注</th>#}
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -124,9 +124,9 @@
                                     return moment(data).format("YYYY-MM-DD HH:mm");
                                 }
                             },
-                            {
-                                data: "comments",
-                            },
+                            {#{#}
+                            {#    data: "comments",#}
+                            {# },#}
                             {
                                 data: "id",
                                 width: "10%",

@@ -14,6 +14,8 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # 项目的所在的路径
+import sys
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -30,10 +32,9 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'DjangoUeditor',
     'dqe',
     'overtime',
-    'ckeditor',
-    'ckeditor_uploader',
     'system',
     'testManage',
     # 'django_adminlte',
@@ -144,8 +145,7 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 # 媒体
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
@@ -197,53 +197,79 @@ CELERYBEAT_SCHEDULE = {
 
 """ django作为broker """
 
-# 定時設置
-BROKER_URL = 'django://localhost:8000//'
+# # 定時設置
+# BROKER_URL = 'django://localhost:8000//'
 
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+# CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
-CELERY_TIMEZONE = 'Asia/Shanghai'
+# CELERY_TIMEZONE = 'Asia/Shanghai'
 
-CELERYD_MAX_TASKS_PER_CHILD = 10
+# CELERYD_MAX_TASKS_PER_CHILD = 10
 
 # 媒体文件配置
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-CKEDITOR_UPLOAD_PATH = "upload/"  # 上传图片保存路径，如果没有图片存储或者使用自定义存储位置，那么则直接写  ' ' ,如果是使用django本身的存储方式，那么你就指名一个目录用来存储即可。
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# 富文本编辑器ckeditor配置
-CKEDITOR_CONFIGS = {
-    # （1）默认配置
-    # 'default': {
-    #     'toolbar': 'full',  # 工具条功能
-    #     'height': 300,  # 编辑器高度
-    #     'width': 800,  # 编辑器宽
-    # },
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-    # （3）自定义配置带代码块显示
-    'default': {
-        'toolbar': (
-            ['div', 'Source', '-', 'Save', 'NewPage', 'Preview', '-', 'Templates'],
-            ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Print', 'SpellChecker', 'Scayt'],
-            ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'],
-            ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
-            ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote'],
-            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink', 'Anchor'],
-            ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
-            ['Styles', 'Format', 'Font', 'FontSize'],
-            ['TextColor', 'BGColor'],
-            ['Maximize', 'ShowBlocks', '-', 'About', 'pbckcode'],
-            ['Blockquote', 'CodeSnippet'],
-        ),
-        'width': 'auto',
-        # 添加按钮在这里
-        'toolbar_Custom': [
-            ['NumberedList', 'BulletedList'],
-            ['Blockquote', 'CodeSnippet'],
-        ],
-        # 插件
-        'extraPlugins': ','.join(['codesnippet', 'widget', 'lineutils', ]),
-    },
-}
+
+# CKEDITOR_UPLOAD_PATH = "upload/"  # 上传图片保存路径，如果没有图片存储或者使用自定义存储位置，那么则直接写  ' ' ,如果是使用django本身的存储方式，那么你就指名一个目录用来存储即可。
+
+# CKEDITOR_UPLOAD_PATH = "uploads/"
+# CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+# # 富文本编辑器ckeditor配置
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'update': ['Image', 'Update', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'],
+#         'skin': 'moono',
+#         'toolbar_Basic': [
+#             ['Source', '-', 'Bold', 'Italic']
+#         ],
+#         'toolbar_YourCustomToolbarConfig': [
+#             {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+#             {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+#             {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+#             {'name': 'forms',
+#              'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
+#                        'HiddenField']},
+#             '/',
+#             {'name': 'basicstyles',
+#              'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+#             {'name': 'paragraph',
+#              'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+#                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+#                        'Language']},
+#             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+#             {'name': 'insert',
+#              'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+#             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+#             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+#             {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
+#             {'name': 'yourcustomtools', 'items': [
+#                 # 自定义控件
+#                 'Preview',
+#                 'Maximize',
+#             ]},
+#         ],
+#         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
+#         'tabSpaces': 4,
+#         'extraPlugins': ','.join(
+#             [
+#                 # your extra plugins here
+#                 'div',
+#                 'autolink',
+#                 'autoembed',
+#                 'embedsemantic',
+#                 'autogrow',
+#                 # 'devtools',
+#                 'widget',
+#                 'lineutils',
+#                 'clipboard',
+#                 'dialog',
+#                 'dialogui',
+#                 'elementspath'
+#             ]),
+#     }
+# }

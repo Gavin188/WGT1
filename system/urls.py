@@ -105,7 +105,7 @@ urlpatterns = [
                   url(r'^basic/access/delete$', views_access.AccessDeleteView.as_view(), name='basic-access-delete'),
 
                   # 富文本编辑器 保存 测试文档说明书
-                  url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+                  path('ueditor/', include('DjangoUeditor.urls')),
                   url(r'^basic/word/$', views_word.WordView.as_view(), name='basic-test-word'),
                   url(r'^basic/word/list$', views_word.WordListView.as_view(), name='basic-word-list'),
                   url(r'^basic/word/update$', views_word.WordUpdateView.as_view(), name='basic-word-update'),

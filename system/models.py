@@ -1,9 +1,8 @@
-import datetime
-
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+
+from DjangoUeditor.models import UEditorField
 
 
 class Menu(models.Model):
@@ -124,15 +123,18 @@ class Access(models.Model):
 class TestWord(models.Model):
     '''这是word 测试说明书'''
     title = models.CharField(max_length=50, verbose_name='标题')
-    comments = models.CharField(max_length=30, verbose_name='备注')
     publisher = models.CharField(max_length=30, verbose_name='发布者')
     publish_date = models.DateTimeField(auto_now_add=False, verbose_name='发布时间', default=timezone.now)
-    desc_pack = RichTextUploadingField(default='', verbose_name='测试说明内容')
+    desc_pack = UEditorField(width=600, height=500, toolbars="full", imagePath="images/", filePath="files/",
+
+                                       upload_settings={"imageMaxSize": 1204000},
+
+                                       settings={}, verbose_name='内容', )
 
     def __str__(self):
         return self.title
 
     class Meta:
+        db_table = 'TestWord'
         verbose_name = '测试说明书'
-        # db_table = verbose_name
         verbose_name_plural = verbose_name

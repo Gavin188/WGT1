@@ -32,49 +32,49 @@ class TaskArrangeView(LoginRequiredMixin, View):
             df = pd.read_excel(file)
             df.fillna('', inplace=True)
             if list(df.columns) == ['WGT No.', 'Serial No', 'Fused', 'NAND', 'Test Build', 'Tester', 'Comments']:
-                data_list = []
-                # 将数据中所有的人和测试项 提取出来，判断是否有重复的测试人
+                # data_list = []
+                # # 将数据中所有的人和测试项 提取出来，判断是否有重复的测试人
+                # for i in range(len(df)):
+                #     data1 = df.iloc[i, df.columns.get_indexer(['Tester', 'Comments'])]
+                #     tester = data1['Tester']
+                #     comments = data1['Comments']
+                #     # 将测试项和测试人 保存成字典类型
+                #     data_dict = dict(key=tester, value=comments)
+                #     if data_dict not in data_list:
+                #         data_list.append(data_dict)
+                # # 判断是否存在 一人 -> 多个测试项
+                # flag = True
+                # tester_list = []
+                # tester1_list = []
+                # for i in data_list:
+                #     tester = i['key']
+                #     if tester in tester_list:
+                #         flag = False
+                #         tester1_list.append(tester)
+                #     else:
+                #         tester_list.append(tester)
+                # if flag:
+                time_arrange = TimeArrange()
+                time_arrange.pub_date = datetime.date.today()
+                time_arrange.save()
                 for i in range(len(df)):
-                    data1 = df.iloc[i, df.columns.get_indexer(['Tester', 'Comments'])]
-                    tester = data1['Tester']
-                    comments = data1['Comments']
-                    # 将测试项和测试人 保存成字典类型
-                    data_dict = dict(key=tester, value=comments)
-                    if data_dict not in data_list:
-                        data_list.append(data_dict)
-                # 判断是否存在 一人 -> 多个测试项
-                flag = True
-                tester_list = []
-                tester1_list = []
-                for i in data_list:
-                    tester = i['key']
-                    if tester in tester_list:
-                        flag = False
-                        tester1_list.append(tester)
-                    else:
-                        tester_list.append(tester)
-                if flag:
-                    time_arrange = TimeArrange()
-                    time_arrange.pub_date = datetime.date.today()
-                    time_arrange.save()
-                    for i in range(len(df)):
-                        # 写入数据库
-                        arrange = TaskArrange()
-                        arrange.task_date = time_arrange
-                        arrange.wgt_no = df.loc[i, 'WGT No.']
-                        arrange.serial_no = df.loc[i, 'Serial No'].replace(' ', '')
-                        arrange.fused = df.loc[i, 'Fused']
-                        arrange.nand = df.loc[i, 'NAND'].replace(' ', '')
-                        arrange.test_build = df.loc[i, 'Test Build']
-                        arrange.tester = df.loc[i, 'Tester']
-                        arrange.comments = df.loc[i, 'Comments']
-                        arrange.upload_user = request.user
-                        arrange.save()
-                        res['msg'] = '上传成功！'
-                        res['result'] = True
-                else:
-                    res['msg'] = str(tester1_list) + "测试员对应多个测试项，请检查"
-                    res['result'] = False
+                    # 写入数据库
+                    arrange = TaskArrange()
+                    arrange.task_date = time_arrange
+                    arrange.wgt_no = df.loc[i, 'WGT No.']
+                    arrange.serial_no = df.loc[i, 'Serial No'].replace(' ', '')
+                    arrange.fused = df.loc[i, 'Fused']
+                    arrange.nand = df.loc[i, 'NAND'].replace(' ', '')
+                    arrange.test_build = df.loc[i, 'Test Build']
+                    arrange.tester = df.loc[i, 'Tester']
+                    arrange.comments = df.loc[i, 'Comments']
+                    arrange.upload_user = request.user
+                    arrange.save()
+                    res['msg'] = '上传成功！'
+                    res['result'] = True
+                # else:
+            #     res['msg'] = str(tester1_list) + "测试员对应多个测试项，请检查"
+            #     res['result'] = False
             else:
                 res['msg'] = "表格格式有誤"
                 res['result'] = False

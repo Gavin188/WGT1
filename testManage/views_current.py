@@ -19,28 +19,45 @@ class CurrentTestView(LoginRequiredMixin, View):
         user = request.user
         time = datetime.datetime.now().strftime('%Y-%m-%d')
         errmsg = ''
-        arrange = list(TaskArrange.objects.filter(tester=user, task_date__pub_date=str(time)).values('comments'))
+        arrange = list(
+            TaskArrange.objects.filter(tester=user, task_date__pub_date=str(time)).values('comments').distinct())
         if arrange:
             comments = []
             for i in arrange:
                 if i['comments'] not in comments:
                     comments.append(i['comments'])
 
-            if len(comments) != 1:
-                errmsg = '今日的测试项重复，请检查'
+            # if len(comments) != 1:
+            #     errmsg = '今日的测试项重复，请检查'
 
-            comment = comments[0]
-            print('***--', comment)
-            try:
-                case_id = list(CaseRegister.objects.filter(function=comment).values())[0]
-            except Exception:
-                errmsg = comment + '还没有上传案例管理,稍等'
-                case_id = ''
-
+            # # comment = comments[0]
+            # print('***--', comments)
+            # print(len(comments))
+            #
+            # try:
+            #     case_id = list(CaseRegister.objects.filter(function=comments[0]).values())[0]
+            # except Exception:
+            #     errmsg = str(comments[0]) + '还没有上传案例管理,稍等'
+            #     case_id = ''
+            # # if len(comments) == 1:
+            #     comment = comments[0]
+            #     try:
+            #         case_id = list(CaseRegister.objects.filter(function=comment).values())[0]
+            #     except Exception:
+            #         errmsg = str(comment) + '还没有上传案例管理,稍等'
+            #         case_id = ''
+            # else:
+            #     comment = comments
+            #     try:
+            #         case_id = list(CaseRegister.objects.filter(function__in=comment).values())[0]
+            #     except Exception:
+            #         errmsg = str(comment) + '还没有上传案例管理,稍等'
+            #         case_id = ''
+            # print(case_id)
             context = {
-                'arrange': comment,
+                'comments': comments,
                 'errmsg': errmsg,
-                'case_id': case_id
+                # 'case_id': case_id
             }
 
         else:
@@ -59,9 +76,12 @@ class CurrentTestListView(LoginRequiredMixin, View):
                "totalRows": "",
                "curPage": "",
                "data": " ", }
-        # 获取今日 的测试项ID
-        c_id = int(request.GET.get('id'))
-        data = list(TestFun.objects.filter(fk_case__id=c_id).values())
+        # 获取 测试项
+        comments = request.POST.get('comments')
+        # 获取 案例管理 - 测试项
+        data = list(TestFun.objects.filter(fk_case__function=comments).values())
+
+        # 分页
         count = len(data)
         pageIndex = request.POST.get('curPage')
         pageSize = request.POST.get('pageSize')

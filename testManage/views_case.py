@@ -116,6 +116,24 @@ class CaseDescIroView(LoginRequiredMixin, View):
                 'all': all_obj,
                 'errmsg': errmsg
             }
+        if 'id' in request.GET and request.GET['id']:
+            id = request.GET.get('id')
+        # 获取测试项的名称
+        try:
+            title = list(CaseRegister.objects.filter(id=id).values('desc'))[0]['desc']
+        except Exception:
+            errmsg = '用例编号不存在'
+        # 判断 测试说明文档中是否存在 相应的文档
+        all_obj = list(TestWord.objects.filter(title=title).values(*fields))
+        # 如果没有存在则提示
+        if len(all_obj) == 0:
+            errmsg = '还没有添加测试说明'
+
+        context = {
+            'id': id,
+            'all': all_obj,
+            'errmsg': errmsg
+        }
         return render(request, 'system/Test_Word/DetailWord.html', context)
 
 

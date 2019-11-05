@@ -1,7 +1,9 @@
 import re
 from django import forms
 from django.contrib.auth import get_user_model
-from .models import Structure, Menu, Notice
+
+from DjangoUeditor.forms import UEditorModelForm
+from .models import Structure, Menu, Notice, TestWord
 
 User = get_user_model()
 
@@ -127,4 +129,10 @@ class PasswordChangeForm(forms.Form):
 class MenuForm(forms.ModelForm):
     class Meta:
         model = Menu
+        fields = '__all__'
+
+
+class UEditorTestModelForm(UEditorModelForm):
+    class Meta:
+        model = TestWord
         fields = '__all__'
