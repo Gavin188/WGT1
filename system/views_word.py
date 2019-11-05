@@ -21,13 +21,13 @@ class WordListView(View):
 
     def get(self, request):
         res = {}
-        fields = ['id', 'title','publisher', 'publish_date']
+        fields = ['id', 'title', 'publisher', 'publish_date']
         #
         searchFields = ['publish_date']  # 与数据库字段一致
 
         filters = {i + '__icontains': request.GET.get(i, '') for i in searchFields if
                    request.GET.get(i, '')}
-        print(filters)
+        # print(filters)
         all_obj = list(TestWord.objects.filter(**filters).values(*fields).order_by('-publish_date'))
         res['data'] = all_obj
 
@@ -38,7 +38,7 @@ class WordUpdateView(View):
     ''' 测试说明书 新建 和 更新'''
 
     def get(self, request):
-        # id = request.GET.get('id')
+        # title = request.GET.get('title')
         # title = list(CaseRegister.objects.filter(id=id).values('desc'))[0]['desc']
 
         form = UEditorTestModelForm(
@@ -51,13 +51,13 @@ class WordUpdateView(View):
         return render(request, 'system/Test_Word/UpdateWord.html', context)
 
     def post(self, request):
-        res = dict(result='创建失败')
-        print(request.POST)
+        # res = dict(result='创建失败')
+        # print(request.POST)
         form = UEditorTestModelForm(request.POST)
         if form.is_valid():
             form.save()
-            print('OK')
-            return render_to_response('system/Test_Word/UpdateWord.html', {'form': form})
+            # print('OK')
+            return HttpResponse(u"上传成功！")
         else:
             return HttpResponse(u"数据校验错误")
 

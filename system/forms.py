@@ -136,3 +136,4 @@ class UEditorTestModelForm(UEditorModelForm):
     class Meta:
         model = TestWord
         fields = '__all__'
+        exclude = ['publish_date']

@@ -8,8 +8,9 @@ from django.shortcuts import render
 # Create your views here.
 from django.views import View
 
+from system.forms import UEditorTestModelForm
 from system.mixin import LoginRequiredMixin
-from testManage.models import TestFun, TaskArrange, CaseRegister
+from testManage.models import TestFun, TaskArrange
 
 
 class CurrentTestView(LoginRequiredMixin, View):
@@ -26,38 +27,11 @@ class CurrentTestView(LoginRequiredMixin, View):
             for i in arrange:
                 if i['comments'] not in comments:
                     comments.append(i['comments'])
+            print(comments)
 
-            # if len(comments) != 1:
-            #     errmsg = '今日的测试项重复，请检查'
-
-            # # comment = comments[0]
-            # print('***--', comments)
-            # print(len(comments))
-            #
-            # try:
-            #     case_id = list(CaseRegister.objects.filter(function=comments[0]).values())[0]
-            # except Exception:
-            #     errmsg = str(comments[0]) + '还没有上传案例管理,稍等'
-            #     case_id = ''
-            # # if len(comments) == 1:
-            #     comment = comments[0]
-            #     try:
-            #         case_id = list(CaseRegister.objects.filter(function=comment).values())[0]
-            #     except Exception:
-            #         errmsg = str(comment) + '还没有上传案例管理,稍等'
-            #         case_id = ''
-            # else:
-            #     comment = comments
-            #     try:
-            #         case_id = list(CaseRegister.objects.filter(function__in=comment).values())[0]
-            #     except Exception:
-            #         errmsg = str(comment) + '还没有上传案例管理,稍等'
-            #         case_id = ''
-            # print(case_id)
             context = {
                 'comments': comments,
-                'errmsg': errmsg,
-                # 'case_id': case_id
+                # 'errmsg': errmsg,
             }
 
         else:
@@ -96,3 +70,31 @@ class CurrentTestListView(LoginRequiredMixin, View):
         res['curPage'] = pageIndex
         # print(res)
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
+
+
+class TestWordView(LoginRequiredMixin, View):
+    '''今日测试 - 显示 测试说明'''
+
+    def get(self, request):
+        # 获取显示测试项
+        title = request.GET.get('title')
+        # 页面显示的内容
+        form = UEditorTestModelForm(
+            initial={'Description': '请输入：',
+                     'title': title}
+        )
+        # 上传的前端
+        context = {
+            'form': form,
+        }
+        return render(request, 'system/Test_Word/UpdateWord.html', context)
+
+    def post(self, request):
+        # 获取前端传来的数据，放入model中
+        form = UEditorTestModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # print('OK')
+            return HttpResponse(u"上传成功！")
+        else:
+            return HttpResponse(u"数据校验错误")

@@ -9,6 +9,12 @@ urlpatterns = [
     #     今日测试
     url(r'^is/currenttest$', views_current.CurrentTestView.as_view(), name='is-currenttest'),
 
+    # 显示今日测试 测试说明
+    url(r'^is/currentword/list$', views_current.TestWordView.as_view(), name='is-current-word'),
+
+
+
+
     url(r'^is/currenttestlist/$', views_current.CurrentTestListView.as_view(), name='is-currenttest-list'),
     #     案例管理
     url(r'^is/casemanage$', views_case.CasemanageView.as_view(), name='is-casemanage'),
@@ -29,8 +35,6 @@ urlpatterns = [
 
     # 案例管理 - 删除测试功能
     url(r'^is/casefun/delete$', views_case.CaseFunDelView.as_view(), name='is-casefun-delete'),
-
-
 
     #     任务安排
     url(r'^is/taskarrange$', views.TaskArrangeView.as_view(), name='is-taskarrange'),

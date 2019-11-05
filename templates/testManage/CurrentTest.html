@@ -221,13 +221,12 @@
 
         $("#TestPurpose").on("click", function () {
             var comment = $('#comments').val();
-            console.log(comment)
             layer.open({
                 type: 2,
                 title: '测试说明',
                 shadeClose: false,
                 maxmin: true,
-                area: ['1200px', '800px'],
+                area: ['800px', '800px'],
                 content: ["{% url 'testManage:is-casedesc-list' %}" + '?comment=' + comment],
                 end: function () {
                     {#console.log(121232)#}

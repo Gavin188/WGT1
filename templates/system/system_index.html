@@ -59,9 +59,8 @@
                                 {% if arrange %}
                                     {% for arr in arrange %}
                                         <tr>
-                                            <td><a
-                                                    href="{% url 'testManage:is-currenttest' %}"><span
-                                                    style="color: #0063dc">{{ arr.comments }}</span></a>
+                                            <td><a href="{% url 'testManage:is-currenttest' %}"><span
+                                                    style="color: #0063dc">{{ arr.comments }} ,  </span></a>
                                             </td>
                                         </tr>
                                     {% endfor %}

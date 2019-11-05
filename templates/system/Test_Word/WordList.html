@@ -60,7 +60,7 @@
                             <th>标题</th>
                             <th>發佈者</th>
                             <th>發佈日期</th>
-{#                            <th>备注</th>#}
+                            {#                            <th>备注</th>#}
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -172,7 +172,7 @@
                     title: '新增',
                     shadeClose: false,
                     maxmin: true,
-                    area: ['1200px', '800px'],
+                    area: ['800px', '800px'],
                     content: "{% url 'system:basic-word-update' %}",
                     end: function () {
                         {#console.log(121232)#}
@@ -234,7 +234,7 @@
                 title: '编辑',
                 shadeClose: false,
                 maxmin: true,
-                area: ['1200px', '800px'],
+                area: ['800px', '800px'],
                 content: ["{% url 'system:basic-word-detail' %}" + '?id=' + id,],
                 end: function () {
                     //关闭时做的事情

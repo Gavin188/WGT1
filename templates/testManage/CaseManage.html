@@ -259,7 +259,7 @@
 
         //显示测试说明里的数据
         function desc_iro(record, rowIndex, colIndex, options) {
-            {#console.log('id = = ', rowIndex)#}
+            console.log('id = = ', record)
             return '<a href="#" id="btnDesc" onclick="btnDesc(' + record.id + ');">' + record.desc + '</a>';
         }
 
@@ -292,7 +292,7 @@
                 title: "测试说明",
                 closeBtn: 1,
                 shadeClose: false,
-                area: ['1200px', '800px'],
+                area: ['800px', '800px'],
                 content: ["{% url 'testManage:is-casedesc-list' %}" + "?id=" + row_id],
             });
         }

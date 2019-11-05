@@ -10,13 +10,14 @@
 
 {% block main %}
     <div class="box box-danger">
+        <input type="hidden" id="title" value="{{ title }}"/>
         <div>
             {% for obj in all %}
                 <hr>
                 {#                <h2>第{{ forloop.counter }}篇：</h2>#}
                 <h2>标题：{{ obj.title }}</h2>
                 {#                <h2>发布者：{{ obj.publisher }}</h2>#}
-{#                <h3>备注：{{ obj.comments }}</h3>#}
+                {#                <h3>备注：{{ obj.comments }}</h3>#}
                 <div>&nbsp;</div>
                 {#                <div>&nbsp;</div>#}
                 <hr>
@@ -27,13 +28,15 @@
             {% endfor %}
         </div>
         <div style="margin-left: 36% ;margin-top: 3%">
-            {% if errmsg %}
+            {% if result %}
                 <div style="font-size: large; color: #c9302c">{{ errmsg }}</div>
-                <div>
-                    <button type="button" id="btnAdd" class="btn btn-info">
-                        <i class="glyphicon glyphicon-import"></i>现在添加
-                    </button>
-                </div>
+                {% if flag %}
+                    <div>
+                        <button type="button" id="btnAdd" class="btn btn-info">
+                            <i class="glyphicon glyphicon-import"></i>现在添加
+                        </button>
+                    </div>
+                {% endif %}
             {% endif %}
         </div>
 
@@ -52,14 +55,15 @@
     <script>
         //新增
         $("#btnAdd").click(function () {
+            var title = $('#title').val();
             layer.open({
                 type: 2,
                 title: '测试说明添加',
                 shadeClose: false,
                 maxmin: true,
-                area: ['1200px', '750px'],
+                area: ['800px', '750px'],
                 {#content: "{% url 'system:basic-word-update' %}",#}
-                content: ["{% url 'system:basic-word-update' %}" + '?id=' + {{ id }}],
+                content: ["{% url 'testManage:is-current-word' %}" + '?title=' + title],
                 end: function () {
 
                     oDataTable.ajax.reload();

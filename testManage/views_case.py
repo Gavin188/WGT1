@@ -94,10 +94,13 @@ class CaseDescIroView(LoginRequiredMixin, View):
     '''案例管理 - 显示测试说明的测试文档'''
 
     def get(self, request):
+        print(request.GET)
         # 测试说明的文档字段
-        fields = ['id', 'title', 'publisher', 'comments', 'desc_pack']
+        fields = ['id', 'title', 'publisher', 'desc_pack']
         errmsg = ''
-        # 获取相对应的测试项测试说明，名称
+        flag = ''
+        result = ''
+        # # todo: 案例管理： 获取相对应的测试项测试说明，名称
         if 'id' in request.GET and request.GET['id']:
             id = request.GET.get('id')
             # 获取测试项的名称
@@ -105,35 +108,49 @@ class CaseDescIroView(LoginRequiredMixin, View):
                 title = list(CaseRegister.objects.filter(id=id).values('desc'))[0]['desc']
             except Exception:
                 errmsg = '用例编号不存在'
+                result = True
             # 判断 测试说明文档中是否存在 相应的文档
             all_obj = list(TestWord.objects.filter(title=title).values(*fields))
             # 如果没有存在则提示
             if len(all_obj) == 0:
                 errmsg = '还没有添加测试说明'
+                flag = True
+                result = True
+        # todo: 今日测试 - 获取测试项
+        if 'comment' in request.GET and request.GET['comment']:
+            comment = request.GET.get('comment')
+            print('comment --', comment)
+            # 获取测试项的名称
+            try:
+                title = list(CaseRegister.objects.filter(function=comment).values('desc'))[0]['desc']
+            except Exception:
+                errmsg = '用例编号不存在'
+                result = True
+                title = ''
+            # 判断 测试说明文档中是否存在 相应的文档
+            # print('titie--', title)
+            print(errmsg)
+            print(result)
+            if result:
+                print(1111)
+                all_obj = ''
 
-            context = {
-                'id': id,
-                'all': all_obj,
-                'errmsg': errmsg
-            }
-        if 'id' in request.GET and request.GET['id']:
-            id = request.GET.get('id')
-        # 获取测试项的名称
-        try:
-            title = list(CaseRegister.objects.filter(id=id).values('desc'))[0]['desc']
-        except Exception:
-            errmsg = '用例编号不存在'
-        # 判断 测试说明文档中是否存在 相应的文档
-        all_obj = list(TestWord.objects.filter(title=title).values(*fields))
-        # 如果没有存在则提示
-        if len(all_obj) == 0:
-            errmsg = '还没有添加测试说明'
+            else:
+                all_obj = list(TestWord.objects.filter(title=title).values(*fields))
+            # 如果没有存在则提示
+            if len(all_obj) == 0:
+                errmsg = '还没有添加测试说明'
+                flag = False
+                result = True
 
         context = {
-            'id': id,
+            'flag': flag,
+            'title': title,
             'all': all_obj,
+            'result': result,
             'errmsg': errmsg
         }
+
         return render(request, 'system/Test_Word/DetailWord.html', context)
 
 
