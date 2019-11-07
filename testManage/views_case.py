@@ -13,6 +13,7 @@ from system.mixin import LoginRequiredMixin
 #  案例管理
 from system.models import TestWord
 from testManage.models import CaseRegister, TestFun
+from testManage.tests import dynamicUpdateObjFields
 
 
 class CasemanageView(LoginRequiredMixin, View):
@@ -27,8 +28,21 @@ class CasemanageListView(LoginRequiredMixin, View):
                "totalRows": "",
                "curPage": "",
                "data": " ", }
-
-        data = list(CaseRegister.objects.all().values())
+        # 模糊查询
+        filters = {}
+        # searchFields = ['function', 'dri', 'desc']  # 与数据库字段一致 'find_per', 'indate'
+        # # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
+        # filters = {i + '__icontains': request.POST.get(i, '') for i in searchFields if
+        #            i not in searchFields}
+        # print('3333', filters)
+        # 通过id筛选数据，id必须是确定的，如果id不存在，那么不将该条件放入
+        if request.POST.get('function'):
+            filters['function__contains'] = request.POST.get('function')
+        if request.POST.get('dri'):
+            filters['dri__contains'] = request.POST.get('dri')
+        if request.POST.get('desc'):
+            filters['desc__contains'] = request.POST.get('desc')
+        data = list(CaseRegister.objects.filter(**filters).values())
         count = len(data)
         pageIndex = request.POST.get('curPage')
         pageSize = request.POST.get('pageSize')
@@ -224,9 +238,77 @@ class CaseFunDelView(LoginRequiredMixin, View):
     def post(self, request):
         res = dict(result=False)
         case_id = request.POST.get('case_id')
-        try:
+        print(case_id)
+        if case_id:
             TestFun.objects.filter(fk_case__id=case_id).delete()
             res['result'] = True
+        else:
+            res['result'] = False
+        return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
+
+
+class CaseDetailDelView(LoginRequiredMixin, View):
+    '''案例管理 - 删除测试项'''
+
+    def post(self, request):
+        res = dict(result=False)
+        case_id = request.POST.get('case_id')
+        title = list(CaseRegister.objects.filter(id=case_id).values('function'))[0]['function']
+        print(title)
+        print(case_id)
+        if case_id:
+            CaseRegister.objects.filter(id=case_id).delete()
+            TestWord.objects.filter(title=title).delete()
+            res['result'] = True
+        else:
+            res['result'] = False
+        return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
+
+
+class TestFunDelView(LoginRequiredMixin, View):
+    '''# 案例管理 - 测试项 - 删除测试步骤'''
+
+    def post(self, request):
+        res = dict(result=False)
+        test_id = request.POST.get('id')
+        # case_id = request.POST.get('case_id')
+        if test_id:
+            TestFun.objects.filter(id=int(test_id)).delete()
+            res['result'] = True
+        else:
+            res['result'] = False
+        return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
+
+
+class TestFunUpdView(LoginRequiredMixin, View):
+    '''# 案例管理 - 测试项 - 更新测试步骤'''
+
+    def post(self, request):
+        res = dict(result=False)
+        # 获取 修改的数据
+        id = request.POST.get('id')
+        function = request.POST.get('function')
+        oper_step = request.POST.get('oper_step')
+        expect = request.POST.get('expect')
+
+        # 获取前端的ID 连接数据库
+        try:
+            test = TestFun.objects.get(id=id)
         except Exception:
             res['result'] = False
+            return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
+        # 如果修改了function 则保存，一下同理
+        if function != '[object Object]':
+            dynamicUpdateObjFields(obj=test, fieldName='function',
+                                   fieldValue=str(function))
+            res['result'] = True
+        if oper_step != '[object Object]':
+            dynamicUpdateObjFields(obj=test, fieldName='oper_step',
+                                   fieldValue=str(oper_step))
+            res['result'] = True
+        if expect != '[object Object]':
+            dynamicUpdateObjFields(obj=test, fieldName='expect',
+                                   fieldValue=str(expect))
+            res['result'] = True
+
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')

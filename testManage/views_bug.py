@@ -107,6 +107,7 @@ class BugRegisterUpdateView(LoginRequiredMixin, View):
     def post(self, request):
         res = dict(result=False)
         data222 = request.POST
+        print('data2222', data222)
         data = dict(data222)
         obj = BugRegister.objects.get(id=int(data['id'][0]))
         radar_id = data['radar_id'][0]

@@ -31,8 +31,14 @@
                         <div class="btn-group pull-right">&nbsp;</div>
                         <div class="btn-group pull-right" style="margin-top: -3%">
                             <button type="button" onclick="btnDelete()"
-                                    class="btn btn-success btn-group pull-right"
+                                    class="btn btn-warning btn-group pull-right"
                                     style="margin-left: 3%"></i>删除
+                            </button>
+                        </div>
+                        <div class="btn-group pull-right">&nbsp;</div>
+                        <div class="btn-group pull-right" style="margin-top: -3%">
+                            <button type="button" id="SaveUpdate"
+                                    class="btn btn-info btn-group pull-left" style="margin-left: 3%">保存修改
                             </button>
                         </div>
                     </legend>
@@ -40,11 +46,13 @@
                         <table id="searchTable" style="width: 100% ;margin-top: -3%">
                             <thead>
                             <tr>
+                                <th w_index="id" w_hidden="true" width="10%">编号</th>
                                 <th w_index="case_id" width="10%">用例编号</th>
-                                <th w_index="function" width="10%">功能</th>
-                                <th w_index="oper_step" width="10%">操作步骤</th>
-                                <th w_index="expect" width="10%">预期结果</th>
+                                <th w_index="function" w_edit="text">功能</th>
+                                <th w_index="oper_step" w_edit="text">操作步骤</th>
+                                <th w_index="expect" w_edit="text">预期结果</th>
                                 <th w_index="upload_user" width="10%">上传者</th>
+                                <th w_index="id" w_render="operate" width="8%;">操作</th>
                             </tr>
                             </thead>
                         </table>
@@ -53,14 +61,6 @@
                 </fieldset>
 
             </div>
-            {#            <div class="box-footer ">#}
-            {#                <div class="row span7 text-center ">#}
-            {#                    <button type="button" id="btnCancel" class="btn btn-default margin-right ">重置</button>#}
-            {#                    <button type="button" id="btnSave" class="btn btn-info margin-right ">保存</button>#}
-            {#                </div>#}
-            {#            </div>#}
-
-
         </form>
         <div id="upload" style="display: none">
             <form method="post" enctype="multipart/form-data" id="qwer" onsubmit="return false">
@@ -72,6 +72,12 @@
             </form>
 
         </div>
+        <form id="addOptions" class="form-horizontal" method="post">
+            <input type="text" class="hidden" id="id" name="id"/>
+            <input type="text" class="hidden" id="function" name="function"/>
+            <input type="text" class="hidden" id="oper_step" name="oper_step"/>
+            <input type="text" class="hidden" id="expect" name="expect"/>
+        </form>
     </div>
 
 {% endblock %}
@@ -118,6 +124,7 @@
                 },//分页大小，默认20
             });
             {#btnSearch();#}
+            gridFormObject = $.fn.bsgrid_form.init('gridForm', {});
         });
 
         {#function btnSearch() {#}
@@ -127,6 +134,44 @@
         {#    gridObj.search(data_dict);#}
         {# }#}
 
+        //显示操作功能
+        function operate(record, rowIndex, colIndex, options) {
+            var ret = '<a href="#" id="btndelete" onclick="deleteFun(' + record.id + ');">删除</a>';
+            {#ret = ret + '&nbsp';#}
+            {#ret = ret + '&emsp;<a href="#" id="btndelete" onclick="doFused(' + rowIndex + ');">删除</a>';#}
+            return ret
+        }
+
+        function deleteFun(rowIndex) {
+
+            {#var case_id = $('#case_id').val();#}
+            layer.alert('确定删除吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['Yes', 'No']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'testManage:is-testfun-delete' %}",
+                        data: {'id': rowIndex},
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("删除成功！", {icon: 1});
+                                gridObj.refreshPage();
+                            } else {
+                                layer.alert("删除失败！", {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+
+
+                }
+            })
+        }
 
         $("#btnSave").click(function () {
             var data = $("#addForm").serialize();
@@ -251,6 +296,50 @@
                 }
             });
         }
+
+        //保存修改
+        $("#SaveUpdate").click(function () {
+            var returnA = 0;
+            var records = gridObj.getChangedRowsOldRecords(); // 获取修改行原来的数据
+
+            $.each(gridObj.getRowsChangedColumnsValue(), function (key1, object1) {
+                returnA++;
+                $('#function').val(records[returnA - 1], 'function');
+                $('#oper_step').val(records[returnA - 1], 'oper_step');
+                $('#expect').val(records[returnA - 1], 'expect');
+
+                {#console.log('111', $('#oper_step').val(records[returnA - 1], oper_step))#}
+
+                var rowIndex = key1.split('_');
+
+                var ArrayID = gridObj.getColumnValue(rowIndex[1], 'id');
+
+                $('#id').val(ArrayID);
+
+                $.each(object1, function (ckey1, cvalue1) {
+                    var idName = "#" + ckey1;
+                    $(idName).val(cvalue1);
+
+                });
+                var data = $("#addOptions").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'testManage:is-testfun-update' %}",
+                    data: data,
+                    cache: false,
+                    success: function (msg) {
+                        if (msg.result) {
+                            layer.msg("修改成功");
+                            gridObj.refreshPage();
+
+                        } else {
+                            layer.alert("修改失败", {icon: 2});
+                        }
+                        return;
+                    }
+                });
+            })
+        });
 
     </script>
 

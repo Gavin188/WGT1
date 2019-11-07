@@ -3,13 +3,12 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
-    <link href="{% static 'jquery.bsgrid-master/plugins/bootstrap/2.3.2/css/bootstrap-responsive.min.css ' %}"
-          rel="stylesheet">
     <link href="{% static 'jquery.bsgrid-master/builds/css/skins/grid_bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'jquery.bsgrid-master/plugins/bootstrap/2.3.2/css/bootstrap-responsive.min.css' %}"
+          rel="stylesheet">
     <link href="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'bootstrap/fileinput.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
-    {#    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">#}
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <style>
         <!--
@@ -40,18 +39,18 @@
                 <div class="box-header" style="margin-top: 1%">
                     <form class="form-inline" id="queryForm">
                         <div class="form-group searchArea margin-r-5 margin-top-5">
-                            <label>测试日期:</label>
-                            <input type="text" name="date" class="form-control form_datetime" id="date">
+                            <label>测试项:</label>
+                            <input type="text" name="function" class="form-control form_datetime" id="function">
                         </div>
 
 
                         <div class="form-group searchArea margin-r-5 margin-top-5 ">
-                            <label>测试版本:</label>
-                            <input type="text" name="test_ver" class="form-control inputText" id="test_ver">
+                            <label>负责人:</label>
+                            <input type="text" name="dri" class="form-control inputText" id="dri">
                         </div>
                         <div class="form-group searchArea margin-r-5 margin-top-5 ">
-                            <label>测试机台:</label>
-                            <input type="text" name="test_sn" class="form-control inputText" id="test_sn">
+                            <label>测试说明:</label>
+                            <input type="text" name="test_iro" class="form-control inputText" id="test_iro">
                         </div>
 
                         <button type="button" onclick="btnSearch()" class="btn btn-default" style="margin-left: 3%">
@@ -211,20 +210,23 @@
                     }
                 },//分页大小，默认20
             });
-            {#btnSearch();#}
+            btnSearch();
             gridFormObject = $.fn.bsgrid_form.init('gridForm', {});
 
             {#doAdd();#}
         });
 
-        {#function btnSearch() {#}
-        {#    var tester = $('#tester').val();#}
-        {#    var wgt_no = $('#wgt_no').val();#}
-        {#    data_dict = {'tester': tester, 'wgt_no': wgt_no};#}
-        {#    gridObj.search(data_dict);#}
-        {# }#}
+        function btnSearch() {
+            var fun = $('#function').val();
+            var dri = $('#dri').val();
+            var test_iro = $('#test_iro').val();
+            data_dict = {'function': fun, 'dri': dri, 'desc': test_iro};
+            gridObj.search(data_dict);
+        }
 
         function doAdd() {
+            //清空数据
+            $('#gridForm')[0].reset();
             layerGridFormIndex = layer.open({
                 type: 1,
                 title: '新增',
@@ -246,7 +248,7 @@
 
         //显示操作功能
         function operate(record, rowIndex, colIndex, options) {
-            var ret = '<a href="#" id="btndelete" onclick="doConfirm(' + rowIndex + ');">删除</a>';
+            var ret = '<a href="#" id="btndelete" onclick="btnDelete(' + record.id + ');">删除</a>';
             {#ret = ret + '&nbsp';#}
             {#ret = ret + '&emsp;<a href="#" id="btndelete" onclick="doFused(' + rowIndex + ');">删除</a>';#}
             return ret
@@ -259,7 +261,6 @@
 
         //显示测试说明里的数据
         function desc_iro(record, rowIndex, colIndex, options) {
-            console.log('id = = ', record)
             return '<a href="#" id="btnDesc" onclick="btnDesc(' + record.id + ');">' + record.desc + '</a>';
         }
 
@@ -343,6 +344,38 @@
                         layer.alert(msg.message, {icon: 2});
                     }
                     return;
+                }
+            });
+        }
+
+        function btnDelete(rowIndex) {
+            {#var case_id = $('#case_id').val();#}
+            layer.alert('确定删除吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'testManage:is-casedetail-delete' %}",
+                        data: {"case_id": rowIndex},
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert("删除成功", {icon: 1}, function (index) {
+                                    parent.layer.closeAll(); //关闭所有弹窗
+                                    {#gridObj.refreshPage(); // 刷新整个table#}
+                                    window.location.reload();
+                                });
+                            } else {
+                                layer.alert("删除失败", {icon: 2});
+                            }
+                            return
+                        }
+
+                    })
                 }
             });
         }

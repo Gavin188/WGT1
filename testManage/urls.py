@@ -9,13 +9,15 @@ urlpatterns = [
     #     今日测试
     url(r'^is/currenttest$', views_current.CurrentTestView.as_view(), name='is-currenttest'),
 
-    # 显示今日测试 测试说明
+    # 今日测试 -测试说明
     url(r'^is/currentword/list$', views_current.TestWordView.as_view(), name='is-current-word'),
 
-
-
-
+    # 今日测试 - 列表
     url(r'^is/currenttestlist/$', views_current.CurrentTestListView.as_view(), name='is-currenttest-list'),
+
+    # 今日测试  - 保存数据
+    url(r'^is/current/update$', views_current.CurrentUpdView.as_view(), name='is-current-update'),
+
     #     案例管理
     url(r'^is/casemanage$', views_case.CasemanageView.as_view(), name='is-casemanage'),
 
@@ -33,8 +35,16 @@ urlpatterns = [
     # 案例管理 - 测试具体功能显示
     url(r'^is/casefun/(?P<case_id>\d+)/$', views_case.CaseFunListView.as_view(), name='is-casefun-list'),
 
-    # 案例管理 - 删除测试功能
+    # 案例管理 - 删除测试项
+    url(r'^is/casedetail/delete$', views_case.CaseDetailDelView.as_view(), name='is-casedetail-delete'),
+
+    # 案例管理 -- 测试项 -  删除测试功能
     url(r'^is/casefun/delete$', views_case.CaseFunDelView.as_view(), name='is-casefun-delete'),
+
+    # 案例管理 - 测试项 - 删除测试步骤
+    url(r'^is/testfun/delete$', views_case.TestFunDelView.as_view(), name='is-testfun-delete'),
+    # 案例管理 - 测试项 - 更新测试步骤
+    url(r'^is/testfun/update$', views_case.TestFunUpdView.as_view(), name='is-testfun-update'),
 
     #     任务安排
     url(r'^is/taskarrange$', views.TaskArrangeView.as_view(), name='is-taskarrange'),
@@ -58,6 +68,7 @@ urlpatterns = [
     url(r'^bug/bugregistersave$', views_bug.BugRegisterSaveView.as_view(), name='bug-bugregister-save'),
     # bug数据修改
     url(r'^bug/bugregisterupdate$', views_bug.BugRegisterUpdateView.as_view(), name='bug-bugregister-update'),
+
     #  bug 数据删除
     url(r'^bug/bugregisterdelete$', views_bug.BugRegisterDeleteView.as_view(), name='bug-bugregister-delete'),
 

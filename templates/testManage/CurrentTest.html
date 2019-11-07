@@ -3,7 +3,7 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
-    <link href="{% static 'jquery.bsgrid-master/plugins/bootstrap/2.3.2/css/bootstrap-responsive.min.css ' %}"
+    <link href="{% static 'jquery.bsgrid-master/plugins/bootstrap/2.3.2/css/bootstrap-responsive.min.css' %}"
           rel="stylesheet">
     <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
     <link href="{% static 'jquery.bsgrid-master/builds/css/skins/grid_bootstrap.min.css' %}" rel="stylesheet">
@@ -32,7 +32,7 @@
         {#        {% else %}#}
         <form class="form-horizontal" id="addForm" method="post">
             <div>
-                <select class="form-control select2" style="width:23%;font-size: 22px" id="comments"
+                <select class="form-control select2" style="width:23%;font-size: 22px" id="comment"
                         name="comments">
                     {#                        <option value="{{ apply_list.stage }}">{{ apply_list.stage }}</option>#}
                     {% for foo in comments %}
@@ -57,19 +57,26 @@
                             <h5 style="color: #00a157" id="TestPurpose" class="btn btn-group pull-left">
                                 测试说明</h5>
                         </div>
+                        <div class="btn-group pull-right">
+                            <button type="button" id="SaveUpdate"
+                                    class="btn btn-info btn-group pull-left" style="margin-left: -20%;margin-top: 20%">
+                                保存
+                            </button>
+                        </div>
                     </div>
 
                     <div class="box-body">
                         <table id="searchTable" style="width: 100%">
                             <thead>
                             <tr>
+                                <th w_index="id" w_hidden="true" width="10%">ID</th>
                                 <th w_index="case_id">用例编号</th>
                                 <th w_index="function">功能</th>
                                 <th w_index="oper_step">操作步骤</th>
                                 <th w_index="expect">预期结果</th>
-                                <th w_index="test_results">测试结果</th>
-                                <th w_index="radar_id">Radar ID</th>
-                                <th w_index="comments">备注</th>
+                                <th w_index="test_results" w_edit="text">测试结果</th>
+                                <th w_index="radar_id" w_edit="text">Radar ID</th>
+                                <th w_index="comments" w_edit="text">备注</th>
                                 {#                            <th w_index="comments" width="35%">Comments</th>#}
                             </tr>
                             </thead>
@@ -77,6 +84,12 @@
                     </div>
                 </div>
             </div>
+            <form id="addOptions" class="form-horizontal" method="post">
+                <input type="text" class="hidden" id="id" name="id"/>
+                <input type="text" class="hidden" id="test_results" name="test_results"/>
+                <input type="text" class="hidden" id="radar_id" name="radar_id"/>
+                <input type="text" class="hidden" id="comments" name="comments"/>
+            </form>
         </div>
     </section>
 
@@ -154,7 +167,7 @@
         });
 
         function btnSearch() {
-            var comments = $('#comments').val();
+            var comments = $('#comment').val();
             {#var title = $('#title').val();#}
             data_dict = {'comments': comments,};
             gridObj.search(data_dict);
@@ -220,7 +233,7 @@
         });
 
         $("#TestPurpose").on("click", function () {
-            var comment = $('#comments').val();
+            var comment = $('#comment').val();
             layer.open({
                 type: 2,
                 title: '测试说明',
@@ -240,6 +253,50 @@
         $(function () {
             //Initialize Select2 Elements
             $(".select2").select2();
+        });
+
+        //保存修改
+        $("#SaveUpdate").click(function () {
+            var returnA = 0;
+            var records = gridObj.getChangedRowsOldRecords(); // 获取修改行原来的数据
+
+            $.each(gridObj.getRowsChangedColumnsValue(), function (key1, object1) {
+                returnA++;
+                $('#test_results').val(records[returnA - 1], 'test_results');
+                $('#radar_id').val(records[returnA - 1], 'radar_id');
+                $('#comments').val(records[returnA - 1], 'comments');
+
+                var rowIndex = key1.split('_');
+
+                var ArrayID = gridObj.getColumnValue(rowIndex[1], 'id');
+
+                $('#id').val(ArrayID);
+
+                $.each(object1, function (ckey1, cvalue1) {
+                    var idName = "#" + ckey1;
+                    $(idName).val(cvalue1);
+                    console.log('idName--', idName)
+                    console.log('cvalue1--', cvalue1)
+
+                });
+                var data = $("#addOptions").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'testManage:is-current-update' %}",
+                    data: data,
+                    cache: false,
+                    success: function (msg) {
+                        if (msg.result) {
+                            layer.msg("修改成功");
+                            gridObj.refreshPage();
+
+                        } else {
+                            layer.alert("修改失败", {icon: 2});
+                        }
+                        return;
+                    }
+                });
+            })
         });
 
     </script>

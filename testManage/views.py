@@ -94,17 +94,18 @@ class TaskArrangeListView(LoginRequiredMixin, View):
                "data": " "}
         fields = ['id', 'wgt_no', 'serial_no', 'fused', 'nand', 'test_build', 'tester', 'comments', 'upload_user',
                   'task_date__pub_date']
-
-        searchFields = ['tester', 'wgt_no', 'task_date__pub_date']  # 与数据库字段一致 'find_per', 'indate'
-        filters = {i + '__icontains': request.POST.get(i, '') for i in searchFields if
-                   i not in ['tester', 'wgt_no',
-                             'task_date__pub_date', ]}  # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
+        filters = {}
+        # searchFields = ['tester', 'wgt_no', 'task_date__pub_date']  # 与数据库字段一致 'find_per', 'indate'
+        # filters = {i + '__icontains': request.POST.get(i, '') for i in searchFields if
+        #            i not in ['tester', 'wgt_no',
+        #                      'task_date__pub_date', ]}
+        # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
 
         # 通过id筛选数据，id必须是确定的，如果id不存在，那么不将该条件放入
         if request.POST.get('tester'):
-            filters['tester'] = request.POST.get('tester')
+            filters['tester__contains'] = request.POST.get('tester')
         if request.POST.get('wgt_no'):
-            filters['wgt_no'] = request.POST.get('wgt_no')
+            filters['wgt_no__contains'] = request.POST.get('wgt_no')
 
         if request.POST.get('pub_date'):
             filters['task_date__pub_date'] = request.POST.get('pub_date')

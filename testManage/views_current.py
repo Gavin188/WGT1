@@ -11,6 +11,7 @@ from django.views import View
 from system.forms import UEditorTestModelForm
 from system.mixin import LoginRequiredMixin
 from testManage.models import TestFun, TaskArrange
+from testManage.tests import dynamicUpdateObjFields
 
 
 class CurrentTestView(LoginRequiredMixin, View):
@@ -98,3 +99,39 @@ class TestWordView(LoginRequiredMixin, View):
             return HttpResponse(u"上传成功！")
         else:
             return HttpResponse(u"数据校验错误")
+
+
+class CurrentUpdView(LoginRequiredMixin, View):
+    '''今日测试  - 保存数据'''
+
+    def post(self, request):
+        res = dict(result=False)
+
+        print(request.POST)
+        # 获取 修改的数据
+        id = request.POST.get('id')
+        test_results = request.POST.get('test_results')
+        radar_id = request.POST.get('radar_id')
+        comments = request.POST.get('comments')
+
+        # 获取前端的ID 连接数据库
+        try:
+            test = TestFun.objects.get(id=id)
+        except Exception:
+            res['result'] = False
+            return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
+        # 如果修改了function 则保存，一下同理
+        if test_results != '[object Object]':
+            dynamicUpdateObjFields(obj=test, fieldName='test_results',
+                                   fieldValue=str(test_results))
+            res['result'] = True
+        if radar_id != '[object Object]':
+            dynamicUpdateObjFields(obj=test, fieldName='radar_id',
+                                   fieldValue=str(radar_id))
+            res['result'] = True
+        if comments != '[object Object]':
+            dynamicUpdateObjFields(obj=test, fieldName='comments',
+                                   fieldValue=str(comments))
+            res['result'] = True
+
+        return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
