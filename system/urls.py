@@ -2,7 +2,7 @@ from django.conf.urls.static import static
 from django.urls import path, include
 
 from WGT1 import settings
-from system import views_fused, views_access
+from system import views_fused, views_access, views_daily
 from .views import SystemView
 from . import views_structure, views_user, views_menu, views_role
 
@@ -105,11 +105,18 @@ urlpatterns = [
                   url(r'^basic/access/delete$', views_access.AccessDeleteView.as_view(), name='basic-access-delete'),
 
                   # 富文本编辑器 保存 测试文档说明书
-                  path('ueditor/', include('DjangoUeditor.urls')),
+                  # path('ueditor/', include('DjangoUeditor.urls')),
                   url(r'^basic/word/$', views_word.WordView.as_view(), name='basic-test-word'),
                   url(r'^basic/word/list$', views_word.WordListView.as_view(), name='basic-word-list'),
                   url(r'^basic/word/update$', views_word.WordUpdateView.as_view(), name='basic-word-update'),
                   url(r'^basic/word/detail$', views_word.WordDetailView.as_view(), name='basic-word-detail'),
                   url(r'^basic/word/delete$', views_word.WordDeleteView.as_view(), name='basic-word-delete'),
+
+                  # 上传首页 各种EXCEL表格    /system/daily/ver/
+                  url(r'^daily/ver/$', views_daily.ExcelUpload.as_view(), name='daily-excel'),
+                  # url(r'^daily/excel_handle/$', views_daily.ExcelUpload.as_view(), name='basic-ver'),
+                  # url(r'^basic/access/list$', views_access.AccessListView.as_view(), name='basic-access-list'),
+                  # url(r'^basic/access/update$', views_access.AccessUpdateView.as_view(), name='basic-access-update'),
+                  # url(r'^basic/access/delete$', views_access.AccessDeleteView.as_view(), name='basic-access-delete'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  ## 没有这一句无法显示上传的图片

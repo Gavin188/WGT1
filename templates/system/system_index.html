@@ -77,24 +77,68 @@
                     <div class="layui-col-md4">
                         <div class="layui-card" style="height: 189px">
                             <div class="layui-card-header"><span><i class="fa fa-list"></i>  版本概览</span></div>
-                            <div class="layui-card-body">
-                                郭文娜1.1<br>
+                            <div class="layui-card-body" style=" margin-left: -3%;height:140px;overflow:auto;">
+                                <table class="layui-table" lay-skin="nob" id="usedTable" lay-filter="used"
+                                       style="margin-top: -3%">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                    {% if version %}
+                                        {% for ver in version %}
+                                            <tr>
+                                                <td style="margin-left: 3%;font-size: xx-small">{{ ver.date|date:'Y-m-d' }}</td>
+                                                <td style="font-size: xx-small">{{ ver.version }}</td>
+                                                <td style="font-size: xx-small">{{ ver.platform }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                     <div class="layui-col-md4">
                         <div class="layui-card" style="height: 189px">
                             <div class="layui-card-header"><span><i class="fa fa-list"></i>  考勤概览</span></div>
-                            <div class="layui-card-body">
-                                郭文娜迟到<br>
+                            <div class="layui-card-body" style=" align:center;height:140px;overflow:auto;">
+                                <table class="layui-table" lay-skin="nob" id="usedTable" lay-filter="used"
+                                       style="margin-top: -3%">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                    {% if abnormal %}
+                                        {% for data in abnormal %}
+                                            <tr>
+                                                <td style="font-size: x-small">{{ data.username__name }}</td>
+                                                <td style="font-size: x-small">{{ data.endTime }}</td>
+                                                <td style="font-size: x-small">{{ data.lengh_time }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                     <div class="layui-col-md4">
                         <div class="layui-card" style="height: 189px">
                             <div class="layui-card-header"><span><i class="fa fa-list"></i>  值日概览</span></div>
-                            <div class="layui-card-body">
-                                郭志航刷碗拖地<br>
+                            <div class="layui-card-body" style=" align:center;height:140px;overflow:auto;">
+                                <table class="layui-table" lay-skin="nob" id="usedTable" lay-filter="used"
+                                       style="margin-top: -3%">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                    {% if duty %}
+                                        {% for du in duty %}
+                                            <tr>
+                                                <td style="font-size: x-small">{{ du.weekend }}</td>
+                                                <td style="font-size: x-small">{{ du.name }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -116,7 +160,7 @@
                             {% if sub_count %}
                                 {% for data in sub_count %}
                                     <tr>
-                                        <td>{{ data.sub_per }}</td>
+                                        <td>{{ data.name }}</td>
                                         <td>{{ data.count }}</td>
                                     </tr>
                                 {% endfor %}
@@ -157,72 +201,6 @@
 
         </div>
     </div>
-
-
-
-    <!-- <script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script> -->
-    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-    <!-- <script type="text/javascript">
-         layui.use(['element', 'table', 'form', 'jquery', 'layer', 'laypage'], function () {
-                var $ = layui.jquery;
-                var element = layui.element;
-                var form = layui.form;
-                var upload = layui.upload;
-                var laypage = layui.laypage;
-                var layer = layui.layer;
-                var table = layui.table;
-
-                // 表格渲染
-                table.render({
-                    elem: '#usedTable',
-                    url: '', //数据接口
-                    id: 'usedTable',
-                    height: 'auto',
-                    width: 800,
-                    align: 'right',
-                    loading: true,
-                    page: true,
-                    limit: 20,
-                    limits: [20, 30, 50],
-                    cols: [
-                        [{
-                                field: 'id',
-                                width: '10%',
-                                align: 'center',
-                                title: 'ID',
-                                sort: true,
-                                fixed: 'left',
-                                templet: '#titleid'
-                            },
-
-                            {
-                                field: 'project',
-                                width: '40%',
-                                align: 'center',
-                                title: 'Project'
-                            },
-
-                            {
-                                field: 'build',
-                                width: '40%',
-                                align: 'center',
-                                title: 'Build'
-                            },
-
-                            {
-                             fixed: 'right',
-                             align: 'center',
-                             title: 'Action',
-                             toolbar: '#barDemo',
-                             width: '10%'
-                         }
-                        ]
-                    ]
-                });
-
-    </script>
-     -->
-
 
 {% endblock %}
 

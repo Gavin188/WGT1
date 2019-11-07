@@ -127,9 +127,9 @@ class TestWord(models.Model):
     publish_date = models.DateTimeField(auto_now_add=False, verbose_name='发布时间', default=timezone.now)
     desc_pack = UEditorField(width=600, height=500, toolbars="full", imagePath="images/", filePath="files/",
 
-                                       upload_settings={"imageMaxSize": 1204000},
+                             upload_settings={"imageMaxSize": 1204000},
 
-                                       settings={}, verbose_name='内容', )
+                             settings={}, verbose_name='内容', )
 
     def __str__(self):
         return self.title
@@ -137,4 +137,47 @@ class TestWord(models.Model):
     class Meta:
         db_table = 'TestWord'
         verbose_name = '测试说明书'
+        verbose_name_plural = verbose_name
+
+
+class EngineerRank(models.Model):
+    '''工程师排名'''
+    name = models.CharField(max_length=50, verbose_name='姓名')
+    count = models.CharField(max_length=50, verbose_name='次数')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        # db_table = 'EngineerRank'
+        verbose_name = '工程师排名'
+        verbose_name_plural = verbose_name
+
+
+class VersionView(models.Model):
+    '''版本概览'''
+    date = models.DateTimeField(auto_now_add=False, verbose_name='版本时间', default=timezone.now)
+    version = models.CharField(max_length=50, verbose_name='版本')
+    platform = models.TextField(max_length=80, verbose_name='平台')
+
+    def __str__(self):
+        return self.version
+
+    class Meta:
+        # db_table = 'EngineerRank'
+        verbose_name = '版本概览'
+        verbose_name_plural = verbose_name
+
+
+class DutyView(models.Model):
+    '''值日概览'''
+    weekend = models.CharField(max_length=50, verbose_name='日期')
+    name = models.TextField(max_length=80, verbose_name='名字')
+
+    def __str__(self):
+        return self.weekend
+
+    class Meta:
+        # db_table = 'EngineerRank'
+        verbose_name = '值日概览'
         verbose_name_plural = verbose_name
