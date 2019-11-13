@@ -360,7 +360,7 @@ class InventoryselectByOrderIdView(LoginRequiredMixin, View):
         orderId = request.GET.get('orderId')
 
         if orderId:
-            data = serializers.serialize("json", IpadDetails.objects.filter(sn=orderId).all())
+            data = serializers.serialize("json", IpadDetails.objects.filter(sn__contains=orderId).all())
             # print('232', data)
             data = json.loads(data)
             # print('data------', data)

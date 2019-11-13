@@ -38,8 +38,7 @@ class BorrowApplyView(LoginRequiredMixin, View):
 # 借入申請列表
 class BorrowApplyListView(LoginRequiredMixin, View):
     def get(self, request):
-        fields = ['id', 'applyNum', 'applyName', 'applyUser', 'applyDate', 'applyUnit', 'applyState',
-                  'lendRemark']
+        fields = ['id', 'applyNum', 'applyName', 'applyUser', 'applyDate', 'applyUnit', 'applyState']
         searchFields = ['applyDate', 'applyUnit', 'applyUser', 'applyState']  # 与数据库字段一致
         # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
         filters = {i + '__icontains': request.GET.get(i, '') for i in searchFields if
@@ -89,7 +88,11 @@ class BorrowApplyDeleteView(LoginRequiredMixin, View):
 #  退还所有的机台
 class BorrowApplyReturnView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'dqe/LoanConfirm/ScanReturn.html', None)
+        res = dict()
+        menu = Menu.get_menu_by_request_url(url=self.request.path_info)
+        if menu is not None:
+            res.update(menu)
+        return render(request, 'dqe/LoanConfirm/ScanReturn.html', res)
 
     def post(self, request):
         res = dict(result=False)
@@ -148,7 +151,11 @@ class BorrowApplyReturnView(LoginRequiredMixin, View):
 
 class BorrowWGTReturnView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'dqe/LoanConfirm/WgtReturn.html', None)
+        res = dict()
+        menu = Menu.get_menu_by_request_url(url=self.request.path_info)
+        if menu is not None:
+            res.update(menu)
+        return render(request, 'dqe/LoanConfirm/WgtReturn.html', res)
 
     def post(self, request):
         res = dict(result=False)

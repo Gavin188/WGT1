@@ -265,6 +265,7 @@
                                         var ret = "<button title='详情' onclick='doAddtimeDetail("
                                             + data + ")'><i class='glyphicon glyphicon-list-alt'></i></button>";
                                     }
+                                    ret = ret + "&nbsp";
                                     if (row.applyState != 3) {
                                         ret = ret + "<button  class='btn btn-sm btn-danger' title='删除' onclick='doDelete("
                                             + data + ")'><i class='glyphicon glyphicon-trash'></i></button>";

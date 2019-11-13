@@ -60,11 +60,11 @@
                             <th><input type="checkbox" id="checkAll"></th>
                             <th>ID</th>
                             <th>姓名</th>
+                            <th>雷达名字</th>
                             <th>小组</th>
                             <th>性别</th>
                             <th>手机</th>
                             <th>邮箱</th>
-
                             <th>登录账号</th>
                             <th>工號</th>
                             <th>资位</th>
@@ -124,6 +124,10 @@
                             },
                             {
                                 data: "name",//parent
+                                width: "6%",
+                            },
+                            {
+                                data: "radar",//parent
                                 width: "8%",
                             },
                             {
@@ -142,27 +146,34 @@
                             },
                             {
                                 data: "mobile",
+                                width: "8%",
                             },
                             {
                                 data: "email",
+                                width: "8%",
                             },
                             {
                                 data: "username",
+                                width: "8%",
                             },
                             {
                                 data: "worknum",
                             },
                             {
                                 data: "level",
+                                width: "8%",
                             },
                             {
                                 data: "post",
+                                width: "6%",
                             },
                             {
                                 data: "superior__name",
+                                width: "6%",
                             },
                             {
                                 data: "time_control",
+                                width: "8%",
                                 render: function (data) {
                                     if (data == 1) {
                                         return "管控";
@@ -173,6 +184,7 @@
                             },
                             {
                                 data: "is_active",
+                                width: "6%",
                                 render: function (data) {
                                     if (data == true) {
                                         return "启用";

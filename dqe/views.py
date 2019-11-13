@@ -76,7 +76,7 @@ class DqeView(LoginRequiredMixin, View):
         #                                                                                                 'count').order_by(
         #     '-count')
 
-        sub_count = list(EngineerRank.objects.all().values().order_by('-count'))
+        sub_count = list(EngineerRank.objects.filter(date=today).values().order_by('-count'))
 
         res['sub_count'] = sub_count
 
@@ -89,10 +89,12 @@ class DqeView(LoginRequiredMixin, View):
         res['arrange'] = arrange
 
         # [{'lengh_time': '4', 'endTime': '2019-11-06', 'username__name': '杨玉春'}, ]
+
         # 获取请假异常
         abnormal = list(
             Abnormal.objects.filter(Q(fk_apply__applyState=1) | Q(fk_apply__applyState=2), endTime__gte=today).values(
                 'lengh_time',
+                'startTime',
                 'endTime',
                 'username__name').order_by(
                 'lengh_time'))

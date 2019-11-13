@@ -52,13 +52,14 @@ class UserCreateForm(forms.ModelForm):
         fields = [
             'name', 'gender', 'birthday', 'username', 'mobile', 'email', 'image',
             'department', 'post', 'superior', 'is_active', 'roles', 'password',
-            'worknum', 'level', 'enjoy_company', 'enjoy_wgt',
+            'worknum', 'level', 'enjoy_company', 'enjoy_wgt', 'radar',
         ]
 
         error_messages = {
             "name": {"required": "姓名不能为空"},
             "username": {"required": "用户名不能为空"},
             "email": {"required": "邮箱不能为空"},
+            "radar": {"required": "雷达名字不能为空"},
             "mobile": {
                 "required": "手机号码不能为空",
                 "max_length": "输入有效的手机号码",
@@ -97,7 +98,7 @@ class UserUpdateForm(forms.ModelForm):
         fields = [
             'name', 'gender', 'birthday', 'username', 'mobile', 'email',
             'department', 'post', 'superior', 'is_active', 'roles', 'worknum',
-            'level', 'enjoy_company', 'enjoy_wgt', 'time_control'
+            'level', 'enjoy_company', 'enjoy_wgt', 'time_control', 'radar'
         ]
 
 

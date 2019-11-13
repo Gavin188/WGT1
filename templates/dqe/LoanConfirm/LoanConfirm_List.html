@@ -86,15 +86,7 @@
                             <th>申請單位</th>
                             <th>申請時長</th>
                             <th>申請單狀態</th>
-                            <th>借出备注</th>
-                            <!--<th>確認人</th>-->
-                            <!--<th>借出時間</th>-->
-                            <!--<th>借出時長</th>-->
-                            <!--<th>機台確認狀態</th>-->
-                            <!--<th>機台申請前狀態（入庫、可申請）</th>-->
-                            <!--<th>借出單位</th> -->
-                            <!--<th>機台拒收備註</th>-->
-
+{#                            <th>签核时间</th>#}
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -193,17 +185,17 @@
                                     }
                                 }
                             },
-                            {
-                                data: "lendRemark",
-                                render: function (data, type, row, meta) {
-
-                                    if (data) {
-                                        return data
-                                    } else {
-                                        return "--"
-                                    }
-                                }
-                            },
+                            {#{#}
+                            {#    data: "lendRemark",#}
+                            {#    render: function (data, type, row, meta) {#}
+                            {##}
+                            {#        if (data) {#}
+                            {#            return data#}
+                            {#        } else {#}
+                            {#            return "--"#}
+                            {#        }#}
+                            {#    }#}
+                            {# },#}
                             {
                                 data: "id",
                                 width: "10%",

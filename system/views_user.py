@@ -81,7 +81,7 @@ class UserView(LoginRequiredMixin, BreadcrumbMixin, TemplateView):
 class UserListView(LoginRequiredMixin, View):
     def get(self, request):
         fields = ['id', 'name', 'gender', 'mobile', 'email', 'department__name', 'post', 'superior__name', 'is_active',
-                  'worknum', 'level', 'username', 'time_control']
+                  'worknum', 'level', 'username', 'time_control', 'radar']
         filters = dict()
         if 'select' in request.GET and request.GET['select']:
             filters['is_active'] = request.GET['select']
@@ -201,7 +201,7 @@ class UserInfoView(LoginRequiredMixin, View):
             user.mobile = request.POST.get('mobile')
             user.email = request.POST.get('email')
             user.worknum = request.POST.get('worknum')
-            # user.department = request.POST.get('department')
+            user.radar = request.POST.get('radar')
             user.post = request.POST.get('post')
             # user.superior = request.POST.get('superior')
             if 'file' in request.FILES:

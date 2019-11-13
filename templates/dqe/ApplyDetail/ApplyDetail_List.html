@@ -80,7 +80,7 @@
                             <th>申請單位</th>
                             <th>申請時長</th>
                             <th>申請單狀態</th>
-                            <th>借出备注</th>
+{#                            <th>借出备注</th>#}
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -179,17 +179,17 @@
                                     }
                                 }
                             },
-                            {
-                                data: "lendRemark",
-                                render: function (data, type, row, meta) {
-
-                                    if (data) {
-                                        return data
-                                    } else {
-                                        return "--"
-                                    }
-                                }
-                            },
+                            {#{#}
+                            {#    data: "lendRemark",#}
+                            {#    render: function (data, type, row, meta) {#}
+                            {##}
+                            {#        if (data) {#}
+                            {#            return data#}
+                            {#        } else {#}
+                            {#            return "--"#}
+                            {#        }#}
+                            {#    }#}
+                            {# },#}
                             {
                                 data: "id",
                                 width: "10%",

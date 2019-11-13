@@ -38,11 +38,13 @@ class LoanConfirmView(LoginRequiredMixin, View):
 # 借出确认 列表
 class LoanConfirmListView(LoginRequiredMixin, View):
     def get(self, request):
-        fields = ['id', 'applyNum', 'applyName', 'applyUser', 'applyDate', 'applyUnit', 'applyState', 'lendRemark']
-        searchFields = ['applyDate', 'applyUnit', 'applyUser', 'applyState']  # 与数据库字段一致
+        fields = ['id', 'applyNum', 'applyName', 'applyUser', 'applyDate', 'applyUnit', 'applyState']
+        # 与数据库字段一致
+        searchFields = ['applyDate', 'applyUnit', 'applyUser', 'applyState']
+        # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
         filters = {i + '__icontains': request.GET.get(i, '') for i in searchFields if
-                   i not in ['', ] and request.GET.get(i,
-                                                       '')}  # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
+                   i not in ['', ] and request.GET.get(i, '')}
+
         res = dict(data=list(ApplyList.objects.filter(**filters).values(*fields).order_by('-applyState')))
 
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
@@ -77,7 +79,7 @@ class LoanConfirmDetailListView(LoginRequiredMixin, View):
         fields = ['id', 'machineState', 'lendUnit', 'qty',
                   'comments', 'model', 'timeState', 'platform',
                   'stage', 'type', 'fk_apply__applyUser', 'fk_apply__applyUnit',
-                  'applyDate', 'fk_apply__lendRemark']
+                  'applyDate']
         searchFields = ['platform', 'machineState', ]
         filters = {i + '__icontains': request.GET.get(i, '') for i in searchFields if
                    request.GET.get(i, '')}  # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
@@ -97,7 +99,7 @@ class LoanConfirmAcessListView(LoginRequiredMixin, View):
         fields = ['id', 'machineState', 'lendUnit', 'qty',
                   'comments', 'accessory', 'timeState',
                   'stage', 'fk_apply__applyUser', 'fk_apply__applyUnit',
-                  'applyDate', 'fk_apply__lendRemark', 'lendDate']
+                  'applyDate', 'lendDate']
         searchFields = ['platform', 'machineState', ]
         filters = {i + '__icontains': request.GET.get(i, '') for i in searchFields if
                    request.GET.get(i, '')}  # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去

@@ -78,6 +78,7 @@ class UserProfile(AbstractUser):
     roles = models.ManyToManyField("role", verbose_name="角色", blank=True)
     worknum = models.CharField(max_length=20, verbose_name="工號")
     level = models.CharField(max_length=20, verbose_name="分类")
+    radar = models.CharField(max_length=30, verbose_name="雷达英文名")
     enjoy_company = models.DateField(null=True, blank=True, verbose_name="进集团日期")
     enjoy_wgt = models.DateField(null=True, blank=True, verbose_name="进WGT日期")
     time_control = models.CharField(max_length=30, choices=time_choices, default="1", verbose_name="加班管控")
@@ -144,6 +145,7 @@ class EngineerRank(models.Model):
     '''工程师排名'''
     name = models.CharField(max_length=50, verbose_name='姓名')
     count = models.CharField(max_length=50, verbose_name='次数')
+    date = models.CharField(max_length=30, blank=True, null=True, verbose_name="上传时间")
 
     def __str__(self):
         return self.name

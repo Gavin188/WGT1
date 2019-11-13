@@ -17,13 +17,11 @@ import os
 
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, re_path, include
-from django.views.static import serve
+from django.urls import path, include
 
 from WGT1 import settings
 from dqe.views import DqeView
 from system.views_user import LoginView, LogoutView, IndexView
-from testManage import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),

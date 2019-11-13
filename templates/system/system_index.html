@@ -11,8 +11,9 @@
 {% endblock %}
 
 {% block content %}
-
-    <div style="padding: 20px; background-color:#c5c5c5; margin-top: 2%">
+    {#    <body style="">#}
+    <div style="padding: 20px;  margin-top: 2% ;background-image: url(/static/img/webchat.jpg); background-attachment:fixed;
+    background-position:center; background-size:100% 100%; ">
         <div class="layui-row layui-col-space15" style="height: 850px">
 
             <div class="layui-col-md8 ">
@@ -110,6 +111,7 @@
                                         {% for data in abnormal %}
                                             <tr>
                                                 <td style="font-size: x-small">{{ data.username__name }}</td>
+                                                <td style="font-size: x-small">{{ data.startTime }}</td>
                                                 <td style="font-size: x-small">{{ data.endTime }}</td>
                                                 <td style="font-size: x-small">{{ data.lengh_time }}</td>
                                             </tr>
@@ -147,7 +149,8 @@
 
             <div class="layui-col-md2">
                 <div class="layui-card" style="height: 800px">
-                    <div class="layui-card-header"><span><i class="fa fa-user-circle-o"></i> 工程师今日排名</span></div>
+                    <div class="layui-card-header"><span><i class="fa fa-user-circle-o"></i> <a
+                            id="btnFun" onclick="btnFun();">工程师今日排名</a></span></div>
                     <div class="layui-card-body" style=" align:center ; height:750px; overflow:auto;">
                         <table class="layui-table" lay-skin="row" id="usedTable" lay-filter="used">
                             <thead>
@@ -206,5 +209,31 @@
 
 
 {% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    {#    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>#}
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <script src="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.js' %}"></script>
+    <script src="{% static 'jquery.bsgrid-master/builds/js/lang/grid.zh-CN.min.js' %}"></script>
+
+    <script src="{% static 'bootstrap/fileinput.js' %}"></script>
+    <script src="{% static 'bootstrap/fileinput_locale_zh.js' %}"></script>
+    <script src="{% static 'layui/layui.js' %}"></script>
+    <script>
+        function btnFun() {
+            console.log(0)
+            layer.open({
+                type: 2,
+                title: "查看测试项",
+                closeBtn: 1,
+                shadeClose: false,
+                area: ['1000px', '700px'],
+                content: ["{% url 'system:history-man' %}"],
+            });
+
+        }
+    </script>
 
 {% endblock %}

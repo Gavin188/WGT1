@@ -495,7 +495,7 @@ class OverViewMonthListView(LoginRequiredMixin, View):
         res["curPage"] = pageIndex
 
         res['success'] = True
-        # print(res['data'])
+        print(res['data'])
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
 
 

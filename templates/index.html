@@ -1,21 +1,86 @@
 {% extends "base-left.html" %}
 {% load staticfiles %}
-
-
+{% block css %}
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+    <style>
+        .layui-card-header {
+        {#float: left;#} font-size: large;
+        {#    border: solid 1px #eee;#}
+        }
+    </style>
+{% endblock %}
 {% block content %}
 
     <!-- Main content -->
-  <section class="content">
+    {#    <body>#}
+    <div style="padding: 20px;  margin-top: 2% ;background-image: url(/static/img/webchat.jpg); background-attachment:fixed;
+    background-position:center; background-size:100% 100%; ">
+        <section class="content">
 
-    歡迎來到WGT系統 ！！！
+            <div class="container" style="height: 650px; margin-top: 50px; padding: 0px;">
+                <div class="layui-row layui-col-space15" style="height: 850px">
 
-  </section>
+                    <div class="layui-col-md8 ">
+                        <div class="layui-row layui-col-space10 ">
+                            <div class="layui-col-md12">
+                                <div class="layui-card">
+                                    <div class="layui-card-header"><span> <i class="fa fa-twitch"></i>  分享栏</span></div>
+                                    <div class="layui-card-body" style=" height:450px; overflow:auto;">
+                                        <table class="layui-table" lay-skin="line">
+                                            <thead>
+                                            <tr>
+                                                <th>發佈者</th>
+                                                <th>標題</th>
+                                                <th>內容</th>
+                                                <th>發佈時間</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% if datas %}
+                                                {% for data in datas %}
+                                                    <tr>
+                                                        <td style="color:#040202; width: 12%">{{ data.relUser }}</td>
+                                                        <td style="color:#060001; width: 12%">{{ data.tag }}</td>
+                                                        <td style="color:#0000ff; width: 55%">{{ data.relContent }}</td>
+                                                        <td style="color:#0d0101;">{{ data.relDate }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="4" style="color:cornflowerblue;">今日無分享</td>
+                                                </tr>
 
+                                            {% endif %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+    </div>
+
+
+
+    {#    </body>#}
     <!-- /.content -->
 
 {% endblock %}
 
 
+
 {% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
 
 {% endblock %}

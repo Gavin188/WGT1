@@ -133,7 +133,7 @@ class CaseDescIroView(LoginRequiredMixin, View):
         # todo: 今日测试 - 获取测试项
         if 'comment' in request.GET and request.GET['comment']:
             comment = request.GET.get('comment')
-            print('comment --', comment)
+            # print('comment --', comment)
             # 获取测试项的名称
             try:
                 title = list(CaseRegister.objects.filter(function=comment).values('desc'))[0]['desc']
@@ -143,8 +143,8 @@ class CaseDescIroView(LoginRequiredMixin, View):
                 title = ''
             # 判断 测试说明文档中是否存在 相应的文档
             # print('titie--', title)
-            print(errmsg)
-            print(result)
+            # print(errmsg)
+            # print(result)
             if result:
                 print(1111)
                 all_obj = ''

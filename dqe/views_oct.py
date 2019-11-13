@@ -300,27 +300,19 @@ class AcceselectByOrderIdView(LoginRequiredMixin, View):
         orderId = request.GET.get('orderId')
 
         if orderId:
-            data = serializers.serialize("json", AccessDetails.objects.filter(sn=orderId).all())
-            print('232', data)
+            data = serializers.serialize("json", AccessDetails.objects.filter(sn__contains=orderId).all())
             data = json.loads(data)
-            print('data------', data)
             all_page = []
             for record in data:
                 record['fields']['pk'] = record['pk']
                 fields = record['fields']
                 all_page.append(fields)
             '''显示 分页'''
-            # print('all_page', all_page)
             pageIndex = request.GET.get('pageIndex')  # pageIndex = request.POST.get('pageIndex')
             pageSize = request.GET.get('pageSize')  # pageSize = request.POST.get('pageSize')
             pageInator = Paginator(all_page, pageSize)
 
             contacts = pageInator.page(pageIndex)
-
-            # print('1', pageIndex)
-            # print('2', pageSize)
-            # print('3', pageInator)
-            # print('4', contacts)
 
             list = []  # 最终返回的结果集合
             for contact in contacts:
@@ -331,6 +323,5 @@ class AcceselectByOrderIdView(LoginRequiredMixin, View):
             res['msg'] = True
         else:
             res['msg'] = False
-        print('sn1--', res)
 
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')

@@ -1,0 +1,248 @@
+{% extends 'base-layer.html' %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link href="{% static 'jquery.bsgrid-master/plugins/bootstrap/2.3.2/css/bootstrap-responsive.min.css ' %}"
+          rel="stylesheet">
+    <link href="{% static 'jquery.bsgrid-master/builds/css/skins/grid_bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    <div class="box box-danger">
+        {#                <div id="devlist">#}
+        {#        <div class="box box-primary" id="liebiao">#}
+        <div class="box-header" style="margin-top: 1%">
+            <form class="form-inline" id="queryForm">
+
+                <div class="form-group searchArea margin-r-5 margin-top-5">
+                    <label>申請人:</label>
+                    <input type="text" name="applyUser" class="form-control inputText" id="applyUser">
+                </div>
+
+
+                <div class="form-group searchArea margin-r-5 margin-top-5 ">
+                    <label>加班年份:</label>
+                    <input type="text" name="applyDate" class="form-control" id="date"
+                           value={{ next_date }}>
+                </div>
+
+                <div class="form-group searchArea margin-r-5 margin-top-5 " style="width: 15%">
+                    <label>加班月份:</label>
+                    {#                            <div class="col-sm-3">#}
+                    <select class="form-control" name="moth" style="width: 50%"
+                            id="moth">
+                        <option value={{ next_moth }}>{{ next_moth }}</option>
+                        <option value="01">1</option>
+                        <option value="02">2</option>
+                        <option value="03">3</option>
+                        <option value="04">4</option>
+                        <option value="05">5</option>
+                        <option value="06">6</option>
+                        <option value="07">7</option>
+                        <option value="08">8</option>
+                        <option value="09">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    {#                            </div>#}
+                </div>
+
+                <button type="button" onclick="btnSearch()" class="btn btn-default" style="margin-left: 3%">
+                    <i class="glyphicon glyphicon-search"></i>查询
+                </button>
+
+            </form>
+            <div class="box-body">
+                <table id="searchTable" style="width: 100%">
+                    <thead>
+                    <tr>
+                        {#                        <th w_index="id" w_hidden="true">单号</th>#}
+                        <th w_index="username">姓名</th>
+                        <th w_index="name">雷达</th>
+                        <th w_index="01">1</th>
+                        <th w_index="02">2</th>
+                        <th w_index="03">3</th>
+                        <th w_index="04">4</th>
+                        <th w_index="05">5</th>
+                        <th w_index="06">6</th>
+                        <th w_index="07">7</th>
+                        <th w_index="08">8</th>
+                        <th w_index="09">9</th>
+                        <th w_index="10">10</th>
+                        <th w_index="11">11</th>
+                        <th w_index="12">12</th>
+                        <th w_index="13">13</th>
+                        <th w_index="14">14</th>
+                        <th w_index="15">15</th>
+                        <th w_index="16">16</th>
+                        <th w_index="17">17</th>
+                        <th w_index="18">18</th>
+                        <th w_index="19">19</th>
+                        <th w_index="20">20</th>
+                        <th w_index="21">21</th>
+                        <th w_index="22">22</th>
+                        <th w_index="23">23</th>
+                        <th w_index="24">24</th>
+                        <th w_index="25">25</th>
+                        <th w_index="26">26</th>
+                        <th w_index="27">27</th>
+                        <th w_index="28">28</th>
+                        <th w_index="29">29</th>
+                        <th w_index="30">30</th>
+                        <th w_index="31">31</th>
+                        <th w_index="Count">总计</th>
+                        {#                        <th w_index="user_worknum" w_render="operate" width="3%;">操作</th>#}
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    {#                    <tr>#}
+                    {#                        <td style="color:red;font-weight:bold" class="aggcorlor">合计</td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Count,user_name"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,01"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,02"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,03"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,04"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,05"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,06"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,07"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,08"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,09"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,10"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,11"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,12"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,13"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,14"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,15"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,16"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,17"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,18"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,19"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,20"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,21"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,22"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,23"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,24"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,25"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,26"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,27"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,28"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,29"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,30"></td>#}
+                    {#                        <td class="aggcorlor" style="color:red;" w_agg="Sum,31"></td>#}
+                    {#                    </tr>#}
+                    </tfoot>
+                </table>
+            </div>
+            {#            </div>#}
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/combo-select/jquery.combo.select.js' %}"></script>
+    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <script src="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.js' %}"></script>
+    <script src="{% static 'jquery.bsgrid-master/builds/js/lang/grid.zh-CN.min.js' %}"></script>
+    <script src="{% static 'bootstrap/fileinput.js' %}"></script>
+    <script src="{% static 'bootstrap/fileinput_locale_zh.js' %}"></script>
+
+    <script type="text/javascript">
+        var gridObj;
+        $(function () {
+            gridObj = $.fn.bsgrid.init('searchTable', {
+                url: "{% url 'system:history-man' %}",   //json文件url
+                ajaxType: 'POST',      //请求方式
+                pageSizeSelect: true,   //是否显示分页大小选择下拉框，默认false
+                autoLoad: true,
+                pageSize: 15,
+                {#stripeRows: true,//隔行变色#}
+                rowHoverColor: true,//划过行变色
+                pageName: 'pageIndex', //页码的参数名称，默认：page
+                ageAll: false,
+                {#displayBlankRows: false,//不显示空白行#}
+                extend: {
+                    settings: {
+                        supportGridEdit: true, // default false, if support extend grid edit
+                        supportGridEditTriggerEvent: '', // default 'rowClick', values: ''(means no need Trigger), 'rowClick', 'rowDoubleClick', 'cellClick', 'cellDoubleClick'
+                        gridEditConfigs: {
+                            datetime: {
+                                build: function (edit, value, record, rowIndex, colIndex, tdObj, trObj, options) {
+                                    // Laydate v1.1 may not render display none input, so use onclick
+                                    return value + '<input id="date_' + rowIndex + '_' + colIndex + '" class="bsgrid_editgrid_hidden laydate-icon" style="width:12%" value="' + value + '" onclick="viewDatetimeChoose(this)" />';
+                                },
+                                val: function (formObj) {
+                                    return formObj.val();
+                                }
+                            }
+                        }
+                    }
+                },//分页大小，默认20
+            });
+            btnSearch();
+        });
+
+        function btnSearch() {
+            gridObj.clearGridBodyData();
+            var date = $('#date').val();
+            var moth = $('#moth').val();
+            var person = $('#applyUser').val();
+            var d1 = new Date(date, moth - 1, 1);
+            var d2 = new Date(date, moth, 1);
+            var week;
+            var j = 2;
+
+            var week_arr = '<tr class="trcl"><td></td><td></td>';
+            for (var i = d1.getTime(); i < d2.getTime(); i += 24 * 60 * 60 * 1000) {
+                var d3 = new Date(i);
+                document.getElementById('searchTable').rows[0].cells[j].innerHTML = d3.getDate();
+                if (d3.getDay() == 0) {
+                    week = '<font color="green">' + "日" + '</font>';
+                }
+                if (d3.getDay() == 1) {
+                    week = "一";
+                }
+                if (d3.getDay() == 2) {
+                    week = "二";
+                }
+                if (d3.getDay() == 3) {
+                    week = "三";
+                }
+                if (d3.getDay() == 4) {
+                    week = "四";
+                }
+                if (d3.getDay() == 5) {
+                    week = "五";
+                }
+                if (d3.getDay() == 6) {
+                    week = "六";
+                }
+
+                {#document.getElementById('searchTable').rows[1].cells[j].innerHTML = week;#}
+                {#$('#searchTable > thead').before('<tr><td>11111</td></tr>');#}
+                week_arr += '<td>' + week + '</td>';
+                {#console.log('12313',$('#searchTable thead'))#}
+                j++
+            }
+            week_arr += '</tr>'
+            $('.trcl ').remove();
+            $('#searchTable > thead').before(week_arr);
+            data_dict = {'date': date, 'moth': moth, 'person': person};
+            gridObj.search(data_dict);
+
+
+        }
+
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+    </script>
+
+{% endblock %}

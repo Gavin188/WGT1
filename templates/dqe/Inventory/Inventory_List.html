@@ -302,7 +302,6 @@
 
             //监听单元格编辑
             table.on('edit(test)', function (obj) {
-                console.log(11111)
                 var value = obj.value //得到修改后的值
                     , data = obj.data //得到所在行所有键值
                     , field = obj.field; //得到字段
@@ -410,14 +409,12 @@
                     case 'findSN':
                         $('#searchBtn').on('click', function () {
                             var type = $(this).data('type');
-                            console.log('---', type)
                             active[type] ? active[type].call(this) : '';
                         });
                         // 点击获取数据
                         var active = {
                             getInfo: function () {
                                 var orderId = $('#select_orderId').val();
-                                console.log('111', orderId);
                                 if (orderId) {
                                     var index = layer.msg('查询中，请稍候...', {icon: 16, time: false, shade: 0});
                                     setTimeout(function () {

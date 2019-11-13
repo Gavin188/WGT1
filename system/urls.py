@@ -119,4 +119,7 @@ urlpatterns = [
                   # url(r'^basic/access/update$', views_access.AccessUpdateView.as_view(), name='basic-access-update'),
                   # url(r'^basic/access/delete$', views_access.AccessDeleteView.as_view(), name='basic-access-delete'),
 
+                  # 显示工程师历史消息
+                  url(r'^history/man/$', views_daily.HistoryManView.as_view(), name='history-man'),
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  ## 没有这一句无法显示上传的图片
