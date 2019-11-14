@@ -57,6 +57,7 @@
                                     <tr valign="middle">
                                         <th><input type="checkbox" id="checkAll"></th>
                                         <th>Apply_ID</th>
+                                        <th>SN</th>
                                         <th>Platform</th>
                                         <th>HW-Build</th>
                                         <th>Model</th>
@@ -187,6 +188,16 @@
                             {
                                 data: "id",
                                 width: "5%",
+                            },
+                            {
+                                data: "sn",
+                                render: function (data, type, full, meta) {
+                                    if (data == null) {
+                                        return '--'
+                                    } else {
+                                        return data
+                                    }
+                                }
                             },
                             {
                                 data: "platform",

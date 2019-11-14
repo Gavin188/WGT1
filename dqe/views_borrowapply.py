@@ -48,6 +48,8 @@ class BorrowApplyListView(LoginRequiredMixin, View):
         if not request.GET.get('applyUnit'):
             filters['applyUnit'] = str(request.user.department)
 
+        filters['applyUser'] = request.user
+
         # 查询Apply所有结果
         # res = dict(data=list(Apply.objects.values(*fields)))
 

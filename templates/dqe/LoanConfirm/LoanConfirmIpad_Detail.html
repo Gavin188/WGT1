@@ -39,6 +39,7 @@
                         <tr valign="middle">
                             {#                            <th><input type="checkbox" id="checkAll"></th>#}
                             <th>Apply_ID</th>
+                            <th>SN</th>
                             <th>Platform</th>
                             <th>HW-Build</th>
                             <th>Model</th>
@@ -50,8 +51,6 @@
                             <th>申请人</th>
                             <th>申请小组</th>
                             <th>申请时间</th>
-
-
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -187,6 +186,17 @@
                             {
                                 data: "id",
                                 width: "8%",
+                            },
+                            {
+                                data: "sn",
+                                width: "8%",
+                                render: function (data, type, full, meta) {
+                                    if (data == null) {
+                                        return '--'
+                                    } else {
+                                        return data
+                                    }
+                                }
                             },
                             {
                                 data: "platform",

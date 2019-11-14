@@ -18,6 +18,10 @@ urlpatterns = [
     # 今日测试  - 保存数据
     url(r'^is/current/update$', views_current.CurrentUpdView.as_view(), name='is-current-update'),
 
+    #  首页 - 今日测试 一键申请
+    url(r'^is/current/apply$', views_current.CurrentApplyView.as_view(), name='is-current-apply'),
+
+
     #     案例管理
     url(r'^is/casemanage$', views_case.CasemanageView.as_view(), name='is-casemanage'),
 

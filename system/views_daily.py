@@ -131,26 +131,25 @@ class HistoryManView(LoginRequiredMixin, View):
 
     def post(self, request):
         filters = {}
-        # 获取 后台 查找 u用户
-        # person = request.POST.get('person')
-        print(request.POST)
-        # if request.POST.get('person'):
-        #     filters['username__name'] = person
-        fields = ['id', 'name', 'count', 'date']
+
         res = {"success": "",
                "totalRows": "",
                "curPage": 1,
                "data": " "}
+        # 获取 后台 查找 u用户
+        person = request.POST.get('person')
+        if request.POST.get('person'):
+            filters['name__contains'] = person
+        fields = ['id', 'name', 'count', 'date']
         # 获取查找的时间
         date = request.POST.get('date')
         moth = request.POST.get('moth')
         next_today = date + '-' + moth + '-01'
         month = time_tran(next_today)[0:7]
-        # filters['date'] = datetime.date.today()
-
         #  查询出 未签核 和 已签核 加班时间
+        filters['date__startswith'] = month
         datas = list(
-            EngineerRank.objects.filter(date__startswith=month).values(*fields))
+            EngineerRank.objects.filter(**filters).values(*fields))
 
         #  先查询出 加班的所有用户 放入 arr_per
         data_list = []

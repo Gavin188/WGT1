@@ -55,7 +55,10 @@
 
                     <div class="layui-col-md12">
                         <div class="layui-card" style="height: 100px">
-                            <div class="layui-card-header"><span><i class="fa fa-text-height"></i>  今日测试 </span></div>
+                            <div class="layui-card-header"><span><i class="fa fa-text-height"></i><a href="#"
+                                                                                                     id="btnVer"
+                                                                                                     onclick="btnVer();">  今日测试</a> </span>
+                            </div>
                             <div class="layui-card-body">
                                 {% if arrange %}
                                     {% for arr in arrange %}
@@ -149,8 +152,10 @@
 
             <div class="layui-col-md2">
                 <div class="layui-card" style="height: 800px">
-                    <div class="layui-card-header"><span><i class="fa fa-user-circle-o"></i> <a
-                            id="btnFun" onclick="btnFun();">工程师今日排名</a></span></div>
+                    <div class="layui-card-header"><span><i class="fa fa-user-circle-o"></i> <a href="#"
+                                                                                                id="btnFun"
+                                                                                                onclick="btnFun();">工程师今日排名</a></span>
+                    </div>
                     <div class="layui-card-body" style=" align:center ; height:750px; overflow:auto;">
                         <table class="layui-table" lay-skin="row" id="usedTable" lay-filter="used">
                             <thead>
@@ -223,14 +228,25 @@
     <script src="{% static 'layui/layui.js' %}"></script>
     <script>
         function btnFun() {
-            console.log(0)
             layer.open({
                 type: 2,
-                title: "查看测试项",
+                title: "工程师历史记录",
                 closeBtn: 1,
                 shadeClose: false,
                 area: ['1000px', '700px'],
                 content: ["{% url 'system:history-man' %}"],
+            });
+
+        }
+
+        function btnVer() {
+            layer.open({
+                type: 2,
+                title: "一键申请",
+                closeBtn: 1,
+                shadeClose: false,
+                area: ['1000px', '700px'],
+                content: ["{% url 'testManage:is-current-apply' %}"],
             });
 
         }

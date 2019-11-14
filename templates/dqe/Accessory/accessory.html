@@ -89,9 +89,6 @@
                                 <option value="{{ timeState.value }}">{{ timeState.value }}</option>
                             {% endfor %}
                         </select></td>
-                        </td>
-
-
                     </tr>
                     </tbody>
                 </table>
@@ -280,7 +277,8 @@
                     '<td><select size="1" id="access_id" name="accessory">\n' +
                     '                     <option style=\'text-align:center\' value=\'\'></option>\n' +
                     '                            {% for access in access %}\n'+
-                        '                                <option value="{{ access.access }}">{{ access.access }}</option>\n'+
+                        '                                <option value="{{ access.access }}">{{ access.access }}</option>\n'
+                        +
                         '                            {% endfor %}' +
                     '</select></td>',
                     '<td><select size="1" id="hw_build_id" name="hw_build">\n' +
@@ -316,7 +314,6 @@
             $('#submit1').click(function () {
                 var data = $("#addForm1").serialize();
                 {#var data = t.$('input, select').serialize();#}
-                console.log('1111', data)
 
                 $.ajax({
                     type: 'POST',

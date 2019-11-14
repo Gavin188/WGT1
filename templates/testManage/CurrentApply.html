@@ -1,0 +1,113 @@
+{% extends 'base-layer.html' %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'plugins/datatables/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'js/plugins/layer/skin/layer.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+{% endblock %}
+
+{% block main %}
+    <div class="box box-danger">
+        <div class="box-header" style="margin-top: 1%">
+            <div class="layui-card">
+                {% if message %}
+                    <div>
+                        <input type="button" name="submit1" id="submit1" value="一键申请"
+                               style="width: 20%;height: 30px;float: right"/>
+                    </div>
+                {% endif %}
+
+                <form class="form-horizontal" id="addForm1" method="post">
+                    <table class="layui-table" lay-skin="line">
+                        <thead>
+                        <tr>
+                            <th>WGT NO.</th>
+                            <th>Serial NO</th>
+                            <th>Fused</th>
+                            <th>Nand</th>
+                            <th>Test Build</th>
+                            <th>Comments</th>
+                            <th>State</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if ipads %}
+                            {% for data in ipads %}
+                                <tr>
+                                    <td style="color:#040202;">{{ data.wgt_no }}</td>
+                                    <td style="color:#060001;">{{ data.serial_no }}</td>
+                                    <td style="color:#0d0101;">{{ data.fused }}</td>
+                                    <td style="color:#0d0101;">{{ data.nand }}</td>
+                                    <td style="color:#0d0101;">{{ data.test_build }}</td>
+                                    <td style="color:#0000ff;">{{ data.comments }}</td>
+                                    {% if data.state == '1' %}
+                                        <td style="color:#0d0101;">未申请</td>
+                                    {% else %}
+                                        <td style="color:#c9302c;">已申请</td>
+                                    {% endif %}
+
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4" style="color:cornflowerblue;">还没有上传今日测试</td>
+                            </tr>
+
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/dataTables.const.js' %}"></script>
+    <script src="{% static 'plugins/datatables/moment.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.js' %}"></script>
+    {#    <script src="{% static 'plugins/select2/select2.full.min.js' %}"></script>#}
+    <script src="{% static 'bootstrap/js/bootstrap-datetimepicker.js' %}"></script>
+    <script src="{% static 'jquery.bsgrid-master/builds/merged/bsgrid.all.min.js' %}"></script>
+    <script src="{% static 'jquery.bsgrid-master/builds/js/lang/grid.zh-CN.min.js' %}"></script>
+
+    <script src="{% static 'bootstrap/fileinput.js' %}"></script>
+    <script src="{% static 'bootstrap/fileinput_locale_zh.js' %}"></script>
+    <script src="{% static 'layui/layui.js' %}"></script>
+
+    <script>
+        $('#submit1').click(function () {
+            {#var data = $("#addForm1").serialize();#}
+            {#var data = t.$('input, select').serialize();#}
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'testManage:is-current-apply' %}',
+                {#data: data,#}
+                cache: false,
+                success: function (msg) {
+                    if (msg.result) {
+                        layer.alert('申请成功！', {icon: 1}, function (index) {
+                            parent.layer.closeAll(); //关闭所有弹窗
+                            window.location.href = '/dqe/mt/applydetail/list';
+                        });
+                    } else {
+                        layer.alert(msg.message, {icon: 5});
+                        //$('errorMessage').html(msg.message)
+                    }
+                    return;
+                }
+            });
+        });
+    </script>
+
+
+{% endblock %}

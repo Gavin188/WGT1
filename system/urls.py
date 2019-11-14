@@ -122,4 +122,5 @@ urlpatterns = [
                   # 显示工程师历史消息
                   url(r'^history/man/$', views_daily.HistoryManView.as_view(), name='history-man'),
 
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  ## 没有这一句无法显示上传的图片

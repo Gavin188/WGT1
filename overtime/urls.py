@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.urls import path
 
 from overtime import views_abnormal, views_apply, views_absent, views_addtime
-from overtime.views import calendarView
+
 
 app_name = 'overtime'
 
@@ -10,7 +10,7 @@ urlpatterns = [
     # path('', PersonalView.as_view(), name='login'),
     # path('', DqeView.as_view(), name='ucsLogin'),
     # path('', DqeView.as_view(), name='ucsLogin'),
-    path('calendar/', calendarView.as_view(), name='calendar'),
+
 
     # @Gavin 异常  申请
     url(r'^ov/abnormal/list$', views_abnormal.AbnormalListView.as_view(), name='ov-abnormal-list'),
@@ -109,6 +109,8 @@ urlpatterns = [
     url(r'^ov/applyabnormal/export$', views_addtime.AbnormalExport.as_view(), name='ov-applyabnormal-export'),
     # @Gavin 异常加班 - 导出
     url(r'^ov/applyabsent/export$', views_addtime.AbsentExport.as_view(), name='ov-applyabsent-export'),
+
+
 
 
 

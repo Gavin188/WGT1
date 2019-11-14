@@ -54,8 +54,7 @@ class ApplyDetailListView(LoginRequiredMixin, View):
 
         # 此处的if语句有很大作用，如remark中数据为None,可通过if request.GET.get('')将传入为''的不将条件放入进去
         filters = {i + '__icontains': request.GET.get(i, '') for i in searchFields if
-                   i not in ['', ] and request.GET.get(i,
-                                                       '')}
+                   i not in ['', ] and request.GET.get(i, '')}
         # 根据条件 查询的数据
         res = dict(data=list(ApplyList.objects.filter(**filters).values(*fields).order_by('-applyDate')))
 
@@ -118,7 +117,7 @@ class ApplyIpadListView(LoginRequiredMixin, View):
     '''Ipad申请详情列表'''
 
     def get(self, request):
-        fields = ['id', 'machineState', 'lendUnit', 'qty',
+        fields = ['id', 'sn', 'machineState', 'lendUnit', 'qty',
                   'comments', 'model', 'timeState', 'platform',
                   'stage', 'type', 'fk_apply__applyUser', 'fk_apply__applyUnit',
                   'applyDate', 'fk_apply__lendRemark', 'lendDate']

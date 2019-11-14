@@ -91,6 +91,7 @@ class ApplyListDetail(models.Model):
     # fk_project = models.ForeignKey(Project, blank=True, null=True, on_delete=models.SET_NULL, verbose_name="测试平台")
     # fk_stage = models.ForeignKey(Stage, blank=True, null=True, on_delete=models.SET_NULL, verbose_name="阶段")
     # fk_fused = models.ForeignKey(Fused, blank=True, null=True, on_delete=models.SET_NULL, verbose_name="类型")
+    sn = models.CharField(max_length=30, blank=True, null=True, verbose_name="sn")
     platform = models.CharField(max_length=30, blank=True, null=True, verbose_name="测试平台")
     stage = models.CharField(max_length=30, blank=True, null=True, verbose_name="阶段")
     type = models.CharField(max_length=30, blank=True, null=True, verbose_name="类型")

@@ -17,9 +17,16 @@ class TimeArrange(models.Model):
         return self.pub_date
 
 
-#  测试安排
+#  任务安排
 class TaskArrange(models.Model):
-    # ['WGT No.', 'Serial No', 'Fused', 'NAND', 'Test Build', 'Tester']:
+    '''
+    state :
+         一键申请 判断是否已经申请，
+         已经申请，提示状态，防止重复申请
+    '''
+    NAME_TYPE = (("1", "未申请"), ("2", "已申请"))
+    state = models.CharField(max_length=30, choices=NAME_TYPE, default="1", blank=True, null=True,
+                             verbose_name="申請状态")
     wgt_no = models.CharField(max_length=30, blank=True, null=True, verbose_name="WGT No.")
     serial_no = models.CharField(max_length=30, blank=True, null=True, verbose_name="Serial No")
     fused = models.CharField(max_length=30, blank=True, null=True, verbose_name="Fused")
@@ -96,6 +103,7 @@ class TestFun(models.Model):
     test_results = models.CharField(max_length=50, verbose_name='测试结果')
     radar_id = models.CharField(max_length=50, verbose_name='雷达ID')
     comments = models.CharField(max_length=50, verbose_name='comments')
+    fk_time = models.ForeignKey("TimeArrange", blank=True, null=True, on_delete=models.CASCADE, verbose_name="上传时间")
     upload_user = models.CharField(max_length=30, blank=True, null=True, verbose_name="上传者")
 
     class Meta:

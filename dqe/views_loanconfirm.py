@@ -76,7 +76,7 @@ class LoanConfirmAccessView(LoginRequiredMixin, View):
 class LoanConfirmDetailListView(LoginRequiredMixin, View):
     # Ipad申请详情列表
     def get(self, request):
-        fields = ['id', 'machineState', 'lendUnit', 'qty',
+        fields = ['id', 'sn', 'machineState', 'lendUnit', 'qty',
                   'comments', 'model', 'timeState', 'platform',
                   'stage', 'type', 'fk_apply__applyUser', 'fk_apply__applyUnit',
                   'applyDate']
@@ -239,9 +239,10 @@ class LoanConfirmIpadList(LoginRequiredMixin, View):
                                                             fk_inventory__units_status=2).count()
                 current_list.append(num_list)
 
-            # print('current_list-', current_list)
+            print('current_list-', current_list)
             current_data = dict(zip(count_id, current_list))
-            # print('current_data:', current_data)
+            print('current_data:', current_data)
+            print('qty_data:', qty_data)
 
             for k in qty_data:
                 for m in current_data:
