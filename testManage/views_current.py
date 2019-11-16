@@ -1,3 +1,4 @@
+import ast
 import datetime
 import json
 
@@ -11,7 +12,7 @@ from django.views import View
 from dqe.models import ApplyList, ApplyListDetail
 from system.forms import UEditorTestModelForm
 from system.mixin import LoginRequiredMixin
-from testManage.models import TestFun, TaskArrange, TimeArrange
+from testManage.models import TestFun, TaskArrange, TimeArrange, TestRestful
 from testManage.tests import dynamicUpdateObjFields
 
 
@@ -23,16 +24,36 @@ class CurrentTestView(LoginRequiredMixin, View):
         time = datetime.datetime.now().strftime('%Y-%m-%d')
         errmsg = ''
         arrange = list(
-            TaskArrange.objects.filter(tester=user, task_date__pub_date=str(time)).values('comments').distinct())
+            TaskArrange.objects.filter(tester__icontains=user, task_date__pub_date=str(time)).values(
+                'comments', 'test_build').distinct())
         if arrange:
-            comments = []
+            # 将测试项 和测试版本 一起上传
+            data_list = []
             for i in arrange:
-                if i['comments'] not in comments:
-                    comments.append(i['comments'])
-            print(comments)
+                data_dict = {}
+                data_dict[i['comments']] = i['test_build']
+                data_list.append(data_dict)
+
+            #  将 含有& 区分开来
+            da_list = []
+            for i in data_list:
+                for k, v in i.items():
+                    if '&' in k:
+                        da2 = k.split('&')
+                        for j in da2:
+                            da_dict = {}
+                            # 去除KEY 的前后空格
+                            da_dict[str(j).strip()] = v
+                            da_list.append(da_dict)
+                    else:
+                        da_dict = {}
+                        da_dict[k] = v
+                        da_list.append(da_dict)
+
+            print('da_list -- ', da_list)
 
             context = {
-                'comments': comments,
+                'comments': da_list,
                 # 'errmsg': errmsg,
             }
 
@@ -43,23 +64,57 @@ class CurrentTestView(LoginRequiredMixin, View):
             }
         return render(request, 'testManage/CurrentTest.html', context)
 
-
-class CurrentTestListView(LoginRequiredMixin, View):
-    '''今日测试首页 列表'''
-
     def post(self, request):
         res = {"success": "",
                "totalRows": "",
                "curPage": "",
                "data": " ", }
         today = datetime.date.today()
-        # print('854584684--', today)
+        print('now - ', today)
+        fields = ['fk_restful__test_results', 'fk_restful__radar_id', 'fk_restful__comments', 'function', 'oper_step',
+                  'expect',
+                  'case_id', 'upload_user']
         # 获取 测试项
         comments = request.POST.get('comments')
-        # 获取 案例管理 - 测试项
-        data = list(TestFun.objects.filter(fk_case__function=comments).values())
+        print('ww1--', comments)
+        # 将字符串 转换成 字典   # 获取字典的一个键
 
-        print('---', data)
+        if comments != 'null':
+            comment = list(ast.literal_eval(comments))[0]
+
+            # 如果时间段存在数据库则不保存
+            try:
+                time_arrange = TimeArrange.objects.get(pub_date=today)
+            except Exception:
+                time_arrange = TimeArrange()
+                time_arrange.pub_date = today
+                time_arrange.save()
+
+            test = TestFun.objects.filter(fk_case__function=comment)
+            print('test -- ', len(test))
+            for i in test:
+                restful = TestRestful()
+                restful.fk_time = time_arrange
+                # restful.save()
+                i.fk_restful = restful
+                # i.save()
+
+            # data = list(TestFun.objects.filter(fk_case__function=comment).values(*fields))
+            #
+            # idList = data[0]['id']
+            #
+            # testRestfulData = list(
+            #     TestRestful.objects.filter(fk_test_id__in=idList, create_time='2019-11-16').values(*fields))
+            #
+            # for i in testRestfulData:
+            #     print(i)
+
+            # data = list(TestRestful.objects.filter(fk_test__fk_case__function=comment).values(*fields))
+        else:
+            data = list()
+        # 获取 案例管理 - 测试项
+
+        # data = list(TestRestful.objects.filter(fk_test__fk_case__function=comments).values())
 
         # 分页
         count = len(data)
@@ -76,6 +131,14 @@ class CurrentTestListView(LoginRequiredMixin, View):
         res['curPage'] = pageIndex
         # print(res)
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
+
+
+#
+# class CurrentTestListView(LoginRequiredMixin, View):
+#     '''今日测试首页 列表'''
+#
+#
+# pass
 
 
 class TestWordView(LoginRequiredMixin, View):
@@ -139,6 +202,7 @@ class CurrentUpdView(LoginRequiredMixin, View):
 
         if res['result']:
             today = datetime.date.today()
+            # 如果时间段存在数据库则不保存
             try:
                 time_arrange = TimeArrange.objects.get(pub_date=today)
             except Exception:

@@ -32,11 +32,15 @@
         {#        {% else %}#}
         <form class="form-horizontal" id="addForm" method="post">
             <div>
-                <select class="form-control select2" style="width:23%;font-size: 22px" id="comment"
+                <select class="form-control select2" style="width:32%;font-size: 22px" id="comment"
                         name="comments">
                     {#                        <option value="{{ apply_list.stage }}">{{ apply_list.stage }}</option>#}
-                    {% for foo in comments %}
-                        <option value="{{ foo }}">{{ foo }}</option>
+                    {% for comment in comments %}
+                        {% for k,v in comment.items %}
+                            <option value="{{ comment }}">{{ k }} -- {{ v }}</option>
+                        {% endfor %}
+
+
                     {% endfor %}
                 </select>
 
@@ -74,9 +78,9 @@
                                 <th w_index="function">功能</th>
                                 <th w_index="oper_step">操作步骤</th>
                                 <th w_index="expect">预期结果</th>
-                                <th w_index="test_results" w_edit="text">测试结果</th>
-                                <th w_index="radar_id" w_edit="text">Radar ID</th>
-                                <th w_index="comments" w_edit="text">备注</th>
+                                <th w_index="fk_restful__test_results" w_edit="text">测试结果</th>
+                                <th w_index="fk_restful__radar_id" w_edit="text">Radar ID</th>
+                                <th w_index="fk_restful__comments" w_edit="text">备注</th>
                                 {#                            <th w_index="comments" width="35%">Comments</th>#}
                             </tr>
                             </thead>
@@ -135,7 +139,7 @@
         $(function () {
             gridObj = $.fn.bsgrid.init('searchTable', {
                 {#url: "/dqe/testManage/is/currenttestlist/" + '?id=' + {{ case_id.id }},   //json文件url#}
-                url: "{% url 'testManage:is-currenttest-list' %}",   //json文件url
+                url: "{% url 'testManage:is-currenttest' %}",   //json文件url
                 ajaxType: 'POST',      //请求方式
                 pageSizeSelect: true,   //是否显示分页大小选择下拉框，默认false
                 autoLoad: true,

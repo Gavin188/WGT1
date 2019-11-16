@@ -84,7 +84,7 @@ class DqeView(LoginRequiredMixin, View):
 
         # 获取测试安排
         arrange = list(
-            TaskArrange.objects.filter(tester=request.user, task_date__pub_date=str(time)).values(
+            TaskArrange.objects.filter(tester__icontains=request.user, task_date__pub_date=str(time)).values(
                 'comments').distinct())
         res['arrange'] = arrange
 

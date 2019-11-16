@@ -1,4 +1,5 @@
 # Create your views here.
+import ast
 import json
 
 import pandas as pd
@@ -108,7 +109,6 @@ class CaseDescIroView(LoginRequiredMixin, View):
     '''案例管理 - 显示测试说明的测试文档'''
 
     def get(self, request):
-        print(request.GET)
         # 测试说明的文档字段
         fields = ['id', 'title', 'publisher', 'desc_pack']
         errmsg = ''
@@ -133,7 +133,9 @@ class CaseDescIroView(LoginRequiredMixin, View):
         # todo: 今日测试 - 获取测试项
         if 'comment' in request.GET and request.GET['comment']:
             comment = request.GET.get('comment')
-            # print('comment --', comment)
+            # 提取key 键
+            comment = list(ast.literal_eval(comment))[0]
+            print('comment --', comment)
             # 获取测试项的名称
             try:
                 title = list(CaseRegister.objects.filter(function=comment).values('desc'))[0]['desc']
@@ -143,10 +145,7 @@ class CaseDescIroView(LoginRequiredMixin, View):
                 title = ''
             # 判断 测试说明文档中是否存在 相应的文档
             # print('titie--', title)
-            # print(errmsg)
-            # print(result)
             if result:
-                print(1111)
                 all_obj = ''
 
             else:

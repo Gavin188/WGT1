@@ -12,8 +12,8 @@ urlpatterns = [
     # 今日测试 -测试说明
     url(r'^is/currentword/list$', views_current.TestWordView.as_view(), name='is-current-word'),
 
-    # 今日测试 - 列表
-    url(r'^is/currenttestlist/$', views_current.CurrentTestListView.as_view(), name='is-currenttest-list'),
+    # # 今日测试 - 列表
+    # url(r'^is/currenttestlist/$', views_current.CurrentTestListView.as_view(), name='is-currenttest-list'),
 
     # 今日测试  - 保存数据
     url(r'^is/current/update$', views_current.CurrentUpdView.as_view(), name='is-current-update'),
