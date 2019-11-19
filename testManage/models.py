@@ -55,8 +55,6 @@ class BugRegister(models.Model):
     desc = models.CharField(max_length=30, blank=True, null=True, verbose_name="描述")
     comments = models.CharField(max_length=100, blank=True, null=True, verbose_name="备注")
 
-    # fk_TimeArrange = models.ForeignKey("TimeArrange", blank=True, null=True, on_delete=models.CASCADE, verbose_name="安排时间")
-
     class Meta:
         verbose_name = "测试安排"
         verbose_name_plural = verbose_name
@@ -71,26 +69,12 @@ class CaseRegister(models.Model):
     dri = models.CharField(max_length=50, verbose_name='负责人')
     desc = models.CharField(max_length=50, verbose_name='测试说明')
 
-    # desc = models.ForeignKey('system.TestWord', blank=True, null=True, on_delete=models.CASCADE)
-
     class Meta:
         verbose_name = "案例管理"
         verbose_name_plural = verbose_name
 
     def __str__(self):
         return str(self.id)
-
-
-# class CaseModel(models.Model):
-#     '''创建案例管理 - 测试项'''
-#     cname = models.CharField(max_length=50, verbose_name='测试项')
-#
-#     class Meta:
-#         verbose_name = "测试项"
-#         verbose_name_plural = verbose_name
-#
-#     def __str__(self):
-#         return self.cname
 
 
 class TestFun(models.Model):
@@ -100,11 +84,6 @@ class TestFun(models.Model):
     function = models.CharField(max_length=50, blank=True, null=True, verbose_name='测试模块')
     oper_step = models.CharField(max_length=80, blank=True, null=True, verbose_name='操作步骤')
     expect = models.CharField(max_length=50, verbose_name='期望值')
-    # test_results = models.CharField(max_length=50, verbose_name='测试结果')
-    # radar_id = models.CharField(max_length=50, verbose_name='雷达ID')
-    # comments = models.CharField(max_length=50, verbose_name='comments')
-    # fk_time = models.ForeignKey("TimeArrange", blank=True, null=True, on_delete=models.CASCADE, verbose_name="上传时间")
-    # fk_test = models.ForeignKey("TestRestful", blank=True, null=True, on_delete=models.CASCADE, verbose_name="测试结果")
     upload_user = models.CharField(max_length=30, blank=True, null=True, verbose_name="上传者")
 
     class Meta:
@@ -123,7 +102,7 @@ class TestRestful(models.Model):
     # fk_time = models.ForeignKey("TimeArrange", blank=True, null=True, on_delete=models.CASCADE, verbose_name="上传时间")
 
     fk_test = models.ForeignKey("TestFun", blank=True, null=True, on_delete=models.CASCADE, verbose_name="案例管理")
-    create_time = models.DateField(auto_now_add=False, verbose_name='发布时间')
+    create_time = models.DateField(auto_now_add=False, verbose_name='创建时间')
 
     class Meta:
         verbose_name = "测试结果"

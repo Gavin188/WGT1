@@ -2,32 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9e306cd-0955-49bc-aacd-d59e92e713f2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/testManage/CurrentApply.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WGT1/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/WGT1/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/views_applydetail.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views_applydetail.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/views_borrowapply.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views_borrowapply.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dqe/views_loanconfirm.py" beforeDir="false" afterPath="$PROJECT_DIR$/dqe/views_loanconfirm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/overtime/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/overtime/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/overtime/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/overtime/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system/views_daily.py" beforeDir="false" afterPath="$PROJECT_DIR$/system/views_daily.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/Accessory/accessory.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/Accessory/accessory.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/Apply/Apply_List.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/Apply/Apply_List.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyIpad_Detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyIpad_Detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dqe/LoanConfirm/LoanConfirmIpad_Detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dqe/LoanConfirm/LoanConfirmIpad_Detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/system_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/system_index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testManage/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testManage/migrations/0002_taskarrange_comments.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testManage/migrations/0003_auto_20190826_1008.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testManage/migrations/0004_timearrange.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testManage/migrations/0005_taskarrange_task_date.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testManage/migrations/0006_auto_20190829_1014.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testManage/migrations/0007_bugregister.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/testManage/CurrentTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/testManage/CurrentTest.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testManage/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/testManage/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testManage/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/testManage/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testManage/views_case.py" beforeDir="false" afterPath="$PROJECT_DIR$/testManage/views_case.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testManage/views_current.py" beforeDir="false" afterPath="$PROJECT_DIR$/testManage/views_current.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,19 +37,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/testManage/CurrentTest.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="137" column="57" selection-start-line="137" selection-start-column="57" selection-end-line="137" selection-end-column="57" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testManage/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="15" column="57" lean-forward="true" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
+            <state relative-caret-position="223">
+              <caret line="30" column="54" selection-start-line="30" selection-start-column="54" selection-end-line="30" selection-end-column="54" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -80,22 +49,49 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testManage/views_current.py">
+        <entry file="file://$PROJECT_DIR$/dqe/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1211">
-              <caret line="113" column="18" lean-forward="true" selection-start-line="113" selection-start-column="18" selection-end-line="113" selection-end-column="18" />
+            <state relative-caret-position="1411">
+              <caret line="83" selection-start-line="83" selection-end-line="83" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/testManage/CurrentTest.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="131" column="63" lean-forward="true" selection-start-line="131" selection-start-column="63" selection-end-line="131" selection-end-column="63" />
+              <folding>
+                <element signature="e#1007#1030#0#HTML" expanded="true" />
+                <element signature="e#1224#1257#0#HTML" expanded="true" />
+                <element signature="e#2539#2561#0#HTML" expanded="true" />
+                <element signature="e#3370#3389#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/testManage/views_current.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="485">
+              <caret line="194" column="37" selection-start-line="194" selection-start-column="35" selection-end-line="194" selection-end-column="37" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testManage/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="80" column="27" lean-forward="true" selection-start-line="80" selection-start-column="27" selection-end-line="80" selection-end-column="27" />
+            <state relative-caret-position="499">
+              <caret line="96" column="17" selection-start-line="96" selection-start-column="6" selection-end-line="96" selection-end-column="17" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -115,9 +111,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>is-casefun-delete</find>
-      <find>case_id</find>
-      <find>btndelete</find>
       <find>net</find>
       <find>deleteFun</find>
       <find>except</find>
@@ -145,6 +138,9 @@
       <find>submit1</find>
       <find>mt-apply-list</find>
       <find>TimeArrange</find>
+      <find>casemodel</find>
+      <find>btnSearch</find>
+      <find>gridObj</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -161,18 +157,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/testManage/views_bug.py" />
         <option value="$PROJECT_DIR$/templates/testManage/BugRegister.html" />
         <option value="$PROJECT_DIR$/templates/dqe/OutdateWarn/OutdateWarn_List.html" />
         <option value="$PROJECT_DIR$/templates/testManage/Case_fun.html" />
-        <option value="$PROJECT_DIR$/templates/testManage/CurrentTest.html" />
-        <option value="$PROJECT_DIR$/testManage/views.py" />
         <option value="$PROJECT_DIR$/templates/testManage/CaseManage.html" />
         <option value="$PROJECT_DIR$/templates/overtime/apply/Apply_List.html" />
         <option value="$PROJECT_DIR$/templates/overtime/apply/ApplyLeader_List.html" />
         <option value="$PROJECT_DIR$/templates/base-left.html" />
         <option value="$PROJECT_DIR$/templates/dqe/Inventory/Inventory_List.html" />
-        <option value="$PROJECT_DIR$/testManage/views_case.py" />
         <option value="$PROJECT_DIR$/dqe/views_inventory.py" />
         <option value="$PROJECT_DIR$/dqe/views_oct.py" />
         <option value="$PROJECT_DIR$/templates/dqe/LoanConfirm/LoanConfirm_List.html" />
@@ -191,13 +183,11 @@
         <option value="$PROJECT_DIR$/templates/overtime/apply/OverViewTime.html" />
         <option value="$PROJECT_DIR$/system/models.py" />
         <option value="$PROJECT_DIR$/overtime/views_addtime.py" />
-        <option value="$PROJECT_DIR$/dqe/views.py" />
         <option value="$PROJECT_DIR$/templates/system/historyManager.html" />
         <option value="$PROJECT_DIR$/system/views_daily.py" />
         <option value="$PROJECT_DIR$/system/urls.py" />
         <option value="$PROJECT_DIR$/overtime/views.py" />
         <option value="$PROJECT_DIR$/overtime/urls.py" />
-        <option value="$PROJECT_DIR$/testManage/urls.py" />
         <option value="$PROJECT_DIR$/templates/dqe/Accessory/accessory.html" />
         <option value="$PROJECT_DIR$/dqe/models.py" />
         <option value="$PROJECT_DIR$/templates/dqe/ApplyDetail/ApplyIpad_Detail.html" />
@@ -208,16 +198,22 @@
         <option value="$PROJECT_DIR$/dqe/views_loanconfirm.py" />
         <option value="$PROJECT_DIR$/templates/testManage/CurrentApply.html" />
         <option value="$PROJECT_DIR$/WGT1/settings.py" />
-        <option value="$PROJECT_DIR$/testManage/views_current.py" />
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/templates/system/system_index.html" />
+        <option value="$PROJECT_DIR$/dqe/views.py" />
+        <option value="$PROJECT_DIR$/testManage/urls.py" />
+        <option value="$PROJECT_DIR$/testManage/migrations/0001_initial.py" />
         <option value="$PROJECT_DIR$/testManage/models.py" />
+        <option value="$PROJECT_DIR$/testManage/views_case.py" />
+        <option value="$PROJECT_DIR$/testManage/views.py" />
+        <option value="$PROJECT_DIR$/templates/testManage/CurrentTest.html" />
+        <option value="$PROJECT_DIR$/testManage/views_current.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="192" />
-    <option name="y" value="32" />
+    <option name="x" value="184" />
+    <option name="y" value="35" />
     <option name="width" value="1822" />
     <option name="height" value="1126" />
   </component>
@@ -227,7 +223,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -238,23 +233,13 @@
             <path>
               <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
               <item name="WGT1" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="testManage" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="WGT1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="WGT1" type="462c0819:PsiDirectoryNode" />
               <item name="testManage" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -267,17 +252,17 @@
     <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/testManage" />
+      <recent name="$PROJECT_DIR$/templates/overtime/Absent" />
+      <recent name="$PROJECT_DIR$/dqe" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates/testManage" />
       <recent name="$PROJECT_DIR$/templates/system" />
       <recent name="$PROJECT_DIR$/static/img" />
       <recent name="$PROJECT_DIR$/system" />
       <recent name="$PROJECT_DIR$/static" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/templates/testManage" />
-      <recent name="$PROJECT_DIR$/templates/overtime/Absent" />
-      <recent name="$PROJECT_DIR$/dqe" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -307,7 +292,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8083" />
+      <option name="port" value="8081" />
       <option name="host" value="0.0.0.0" />
       <option name="additionalOptions" value="" />
       <option name="browserUrl" value="" />
@@ -365,7 +350,8 @@
       <workItem from="1572503613026" duration="29752000" />
       <workItem from="1572681206408" duration="25892000" />
       <workItem from="1572922611972" duration="74344000" />
-      <workItem from="1573431298921" duration="46034000" />
+      <workItem from="1573431298921" duration="73884000" />
+      <workItem from="1573895045840" duration="11547000" />
     </task>
     <task id="LOCAL-00001" summary="update dqe">
       <created>1562028066391</created>
@@ -465,34 +451,47 @@
       <option name="project" value="LOCAL" />
       <updated>1573606557805</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="1，更新首页 一键申请机台">
+      <created>1573694432717</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1573694432717</updated>
+    </task>
+    <task id="LOCAL-00016" summary="1，更新首页 一键申请机台">
+      <created>1573895025693</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1573895025693</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1666267000" />
+    <option name="totallyTimeSpent" value="1705664000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="192" y="32" width="1822" height="1126" extended-state="0" />
-    <editor active="true" />
+    <frame x="184" y="35" width="1822" height="1126" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49621785" visible="true" weight="0.25141242" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49621785" visible="true" weight="0.25480226" />
       <window_info id="Favorites" order="1" sideWeight="0.50378215" side_tool="true" weight="0.25581396" />
       <window_info id="Structure" order="2" sideWeight="0.50378215" side_tool="true" weight="0.25581396" />
       <window_info anchor="bottom" id="Database Changes" order="0" />
       <window_info anchor="bottom" id="Terminal" order="1" sideWeight="0.4983028" weight="0.27487683" />
       <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50406975" side_tool="true" weight="0.28694713" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.3270936" />
-      <window_info anchor="bottom" id="Python Console" order="4" sideWeight="0.49837133" weight="0.31737193" />
+      <window_info anchor="bottom" id="Python Console" order="4" sideWeight="0.49837133" weight="0.31724137" />
       <window_info anchor="bottom" id="Docker" order="5" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.32739422" />
       <window_info active="true" anchor="bottom" id="Run" order="8" sideWeight="0.49593022" visible="true" weight="0.25024632" />
-      <window_info anchor="bottom" id="Debug" order="9" weight="0.4127967" />
+      <window_info anchor="bottom" id="Debug" order="9" weight="0.41182265" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="12" />
       <window_info anchor="bottom" id="Thumbnails" order="13" weight="0.32994923" />
-      <window_info anchor="right" id="Database" order="0" weight="0.3299389" />
+      <window_info anchor="right" id="Database" order="0" weight="0.32937855" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="SciView" order="2" weight="0.329559" />
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
@@ -537,47 +536,6 @@
     <SUITE FILE_PATH="coverage/WGT1$middleware.coverage" NAME="middleware Coverage Results" MODIFIED="1561626502743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/system" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/testManage/views_case.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="71" column="49" lean-forward="true" selection-start-line="71" selection-start-column="49" selection-end-line="71" selection-end-column="49" />
-          <folding>
-            <element signature="e#26#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/testManage/Case_fun.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-190">
-          <caret selection-end-line="346" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/testManage/TaskArrange.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="22" column="61" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="22" selection-end-column="61" />
-          <folding>
-            <element signature="e#1057#1079#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/overtime/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="34" column="87" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/testManage/BugRemark.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="151" selection-start-line="151" selection-end-line="157" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/overtime/apply/OverViewTime.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
@@ -592,16 +550,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
           <caret line="448" column="20" selection-start-line="448" selection-start-column="12" selection-end-line="448" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/system/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="143" column="6" selection-start-line="143" selection-start-column="6" selection-end-line="143" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -661,35 +609,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/system/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-375">
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dqe/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="40" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/dqe/BorrowApply/BorrowApply_Detail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-632" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testManage/migrations/0008_auto_20191113_1426.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-233" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/migrations/0008_auto_20191113_1426.py" />
     <entry file="file://$PROJECT_DIR$/dqe/views_apply.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -781,16 +706,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dqe/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="50" column="108" selection-start-line="50" selection-start-column="89" selection-end-line="50" selection-end-column="108" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/testManage/CurrentApply.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -798,33 +713,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dqe/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="98" column="13" selection-start-line="98" selection-start-column="4" selection-end-line="98" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testManage/migrations/0003_testfun_pub_date.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testManage/migrations/0002_taskarrange_state.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testManage/migrations/0003_testfun_fk_time.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testManage/migrations/0001_initial.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="85" column="26" selection-start-line="85" selection-start-column="18" selection-end-line="85" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/migrations/0003_testfun_pub_date.py" />
+    <entry file="file://$PROJECT_DIR$/testManage/migrations/0002_taskarrange_state.py" />
+    <entry file="file://$PROJECT_DIR$/testManage/migrations/0003_testfun_fk_time.py" />
     <entry file="file://$USER_HOME$/PycharmProjects/WGT1/venv/lib/python3.7/site-packages/django/db/models/fields/related_descriptors.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
@@ -832,26 +723,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testManage/migrations/0002_testfun_fk_time.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/WGT1/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testManage/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-174">
-          <caret line="58" column="35" lean-forward="true" selection-start-line="56" selection-start-column="15" selection-end-line="58" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/migrations/0002_testfun_fk_time.py" />
     <entry file="file://$PROJECT_DIR$/templates/dqe/echart_index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-433" />
@@ -879,37 +751,131 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/testManage/CurrentTest.html">
+    <entry file="file://$PROJECT_DIR$/WGT1/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="137" column="57" selection-start-line="137" selection-start-column="57" selection-end-line="137" selection-end-column="57" />
+        <state relative-caret-position="389">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-246">
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/migrations/0003_auto_20191114_1437.py" />
+    <entry file="file://$PROJECT_DIR$/media/images/屏幕快照 2019-10-08 下午5.36.43_20191105143912_543.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dqe/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/migrations/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dqe/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1411">
+          <caret line="83" selection-start-line="83" selection-end-line="83" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/overtime/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-555" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dqe/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2957">
+          <caret line="87" column="55" selection-start-line="87" selection-start-column="37" selection-end-line="87" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-104">
+          <caret line="125" column="62" lean-forward="true" selection-start-line="125" selection-start-column="62" selection-end-line="125" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/testManage/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="15" column="57" lean-forward="true" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
+        <state relative-caret-position="223">
+          <caret line="30" column="54" selection-start-line="30" selection-start-column="54" selection-end-line="30" selection-end-column="54" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testManage/views_current.py">
+    <entry file="file://$PROJECT_DIR$/testManage/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1211">
-          <caret line="113" column="18" lean-forward="true" selection-start-line="113" selection-start-column="18" selection-end-line="113" selection-end-column="18" />
+        <state relative-caret-position="383">
+          <caret line="95" column="40" lean-forward="true" selection-start-line="95" selection-start-column="40" selection-end-line="95" selection-end-column="40" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/views_case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="252" column="95" selection-start-line="252" selection-start-column="95" selection-end-line="252" selection-end-column="95" />
+          <folding>
+            <element signature="e#26#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/testManage/CurrentTest.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="131" column="63" lean-forward="true" selection-start-line="131" selection-start-column="63" selection-end-line="131" selection-end-column="63" />
+          <folding>
+            <element signature="e#1007#1030#0#HTML" expanded="true" />
+            <element signature="e#1224#1257#0#HTML" expanded="true" />
+            <element signature="e#2539#2561#0#HTML" expanded="true" />
+            <element signature="e#3370#3389#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testManage/views_current.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="194" column="37" selection-start-line="194" selection-start-column="35" selection-end-line="194" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/testManage/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="80" column="27" lean-forward="true" selection-start-line="80" selection-start-column="27" selection-end-line="80" selection-end-column="27" />
+        <state relative-caret-position="499">
+          <caret line="96" column="17" selection-start-line="96" selection-start-column="6" selection-end-line="96" selection-end-column="17" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>

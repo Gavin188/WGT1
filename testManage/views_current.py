@@ -50,8 +50,6 @@ class CurrentTestView(LoginRequiredMixin, View):
                         da_dict[k] = v
                         da_list.append(da_dict)
 
-            print('da_list -- ', da_list)
-
             context = {
                 'comments': da_list,
                 # 'errmsg': errmsg,
@@ -70,10 +68,10 @@ class CurrentTestView(LoginRequiredMixin, View):
                "curPage": "",
                "data": " ", }
         today = datetime.date.today()
-        print('now - ', today)
-        fields = ['fk_restful__test_results', 'fk_restful__radar_id', 'fk_restful__comments', 'function', 'oper_step',
-                  'expect',
-                  'case_id', 'upload_user']
+
+        fields = ['test_results', 'radar_id', 'comments', 'fk_test__function', 'fk_test__oper_step',
+                  'fk_test__expect',
+                  'fk_test__case_id', 'fk_test__upload_user']
         # 获取 测试项
         comments = request.POST.get('comments')
         print('ww1--', comments)
@@ -82,34 +80,17 @@ class CurrentTestView(LoginRequiredMixin, View):
         if comments != 'null':
             comment = list(ast.literal_eval(comments))[0]
 
-            # 如果时间段存在数据库则不保存
-            try:
-                time_arrange = TimeArrange.objects.get(pub_date=today)
-            except Exception:
-                time_arrange = TimeArrange()
-                time_arrange.pub_date = today
-                time_arrange.save()
+            data = list(TestFun.objects.filter(fk_case__function=comment).values('id'))
+            id_list = [i['id'] for i in data]
+            print('id-list', id_list)
+            data = list(TestRestful.objects.filter(fk_test_id__in=id_list, create_time=today).values(*fields))
 
-            test = TestFun.objects.filter(fk_case__function=comment)
-            print('test -- ', len(test))
-            for i in test:
-                restful = TestRestful()
-                restful.fk_time = time_arrange
-                # restful.save()
-                i.fk_restful = restful
-                # i.save()
-
-            # data = list(TestFun.objects.filter(fk_case__function=comment).values(*fields))
-            #
-            # idList = data[0]['id']
-            #
-            # testRestfulData = list(
-            #     TestRestful.objects.filter(fk_test_id__in=idList, create_time='2019-11-16').values(*fields))
-            #
-            # for i in testRestfulData:
-            #     print(i)
-
-            # data = list(TestRestful.objects.filter(fk_test__fk_case__function=comment).values(*fields))
+            # test_id = list(TestRestful.objects.filter(create_time=today).values('fk_test_id'))
+            # test_id = [i['fk_test_id'] for i in test_id]
+            # print(test
+            if len(data) == 0:
+                for id in id_list:
+                    TestRestful.objects.create(fk_test_id=id, create_time=today)
         else:
             data = list()
         # 获取 案例管理 - 测试项
@@ -174,6 +155,9 @@ class CurrentUpdView(LoginRequiredMixin, View):
 
     def post(self, request):
         res = dict(result=False)
+
+        print(request.POST)
+
         # 获取 修改的数据
         id = request.POST.get('id')
         test_results = request.POST.get('test_results')
@@ -203,15 +187,15 @@ class CurrentUpdView(LoginRequiredMixin, View):
         if res['result']:
             today = datetime.date.today()
             # 如果时间段存在数据库则不保存
-            try:
-                time_arrange = TimeArrange.objects.get(pub_date=today)
-            except Exception:
-                time_arrange = TimeArrange()
-                time_arrange.pub_date = today
-                time_arrange.save()
+            # try:
+            #     time_arrange = TimeArrange.objects.get(pub_date=today)
+            # except Exception:
+            #     time_arrange = TimeArrange()
+            #     time_arrange.pub_date = today
+            #     time_arrange.save()
 
-            test.fk_time = time_arrange
-            test.save()
+            # test.fk_time = time_arrange
+            # test.save()
 
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
 

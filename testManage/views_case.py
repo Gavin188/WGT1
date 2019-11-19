@@ -202,7 +202,6 @@ class CaseModelInsertView(LoginRequiredMixin, View):
         case_inse.desc = desc
         case_inse.save()
         res['result'] = True
-        print(res)
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
 
 
@@ -237,7 +236,6 @@ class CaseFunDelView(LoginRequiredMixin, View):
     def post(self, request):
         res = dict(result=False)
         case_id = request.POST.get('case_id')
-        print(case_id)
         if case_id:
             TestFun.objects.filter(fk_case__id=case_id).delete()
             res['result'] = True
@@ -253,8 +251,6 @@ class CaseDetailDelView(LoginRequiredMixin, View):
         res = dict(result=False)
         case_id = request.POST.get('case_id')
         title = list(CaseRegister.objects.filter(id=case_id).values('function'))[0]['function']
-        print(title)
-        print(case_id)
         if case_id:
             CaseRegister.objects.filter(id=case_id).delete()
             TestWord.objects.filter(title=title).delete()
