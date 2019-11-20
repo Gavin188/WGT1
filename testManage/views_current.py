@@ -71,7 +71,7 @@ class CurrentTestView(LoginRequiredMixin, View):
 
         fields = ['test_results', 'radar_id', 'comments', 'fk_test__function', 'fk_test__oper_step',
                   'fk_test__expect',
-                  'fk_test__case_id', 'fk_test__upload_user']
+                  'fk_test__case_id', 'fk_test__upload_user', 'id']
         # 获取 测试项
         comments = request.POST.get('comments')
         print('ww1--', comments)
@@ -166,7 +166,7 @@ class CurrentUpdView(LoginRequiredMixin, View):
 
         # 获取前端的ID 连接数据库
         try:
-            test = TestFun.objects.get(id=id)
+            test = TestRestful.objects.get(id=id)
         except Exception:
             res['result'] = False
             return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')

@@ -76,7 +76,7 @@ class DqeView(LoginRequiredMixin, View):
         #                                                                                                 'count').order_by(
         #     '-count')
 
-        sub_count = list(EngineerRank.objects.filter(date=today).values().order_by('-count'))
+        sub_count = list(EngineerRank.objects.filter(date=today).values('name', 'count').order_by('-count'))
 
         res['sub_count'] = sub_count
 

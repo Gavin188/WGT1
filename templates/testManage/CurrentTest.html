@@ -130,7 +130,7 @@
                 {#url: "{% url 'testManage:is-currenttest' %}",   //json文件url#}
                 {#ajaxType: 'POST',      //请求方式#}
                 pageSizeSelect: true,   //是否显示分页大小选择下拉框，默认false
-                autoLoad:false,
+                autoLoad: false,
                 pageSize: 15,
                 stripeRows: true,//隔行变色
                 rowHoverColor: true,//划过行变色
@@ -245,7 +245,7 @@
         $(function () {
             //Initialize Select2 Elements
             $(".select2").select2();
-        }) ;
+        });
 
         //保存修改
         $("#SaveUpdate").click(function () {
@@ -259,19 +259,19 @@
                 $('#comments').val(records[returnA - 1], 'comments');
 
                 var rowIndex = key1.split('_');
+                console.log('rowIndex--', rowIndex)
 
                 var ArrayID = gridObj.getColumnValue(rowIndex[1], 'id');
+                console.log('id--', ArrayID)
 
                 $('#id').val(ArrayID);
 
                 $.each(object1, function (ckey1, cvalue1) {
                     var idName = "#" + ckey1;
                     $(idName).val(cvalue1);
-                    console.log('idName--', idName)
-                    console.log('cvalue1--', cvalue1)
-
                 });
                 var data = $("#addOptions").serialize();
+                console.log(data);
                 $.ajax({
                     type: "POST",
                     url: "{% url 'testManage:is-current-update' %}",
