@@ -162,6 +162,7 @@ class VersionView(models.Model):
     version = models.CharField(max_length=50, verbose_name='版本')
     platform = models.TextField(max_length=80, verbose_name='平台')
 
+
     def __str__(self):
         return self.version
 
@@ -175,6 +176,7 @@ class DutyView(models.Model):
     '''值日概览'''
     weekend = models.CharField(max_length=50, verbose_name='日期')
     name = models.TextField(max_length=80, verbose_name='名字')
+    date = models.CharField(max_length=30, blank=True, null=True, verbose_name="上传时间")
 
     def __str__(self):
         return self.weekend

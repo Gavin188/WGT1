@@ -60,27 +60,39 @@
         {% csrf_token %}
         <div class="form-group">
             <label for="firstname" class="col-sm-2 control-label">版本概览：</label>
-            <div class="col-sm-8">
-                <input type="file" class="form-control" name="excel1" id="input-1" placeholder="请输入名字">
+            <div class="col-sm-6">
+                <input type="file" class="form-control" name="excel1" id="input1" placeholder="请输入名字">
             </div>
+{#            <div class="col-sm-1">#}
+{#                <input type="button" class='btn btn-sm btn-danger' value='删除' onclick='doDelete("1")'>#}
+{#            </div>#}
+
         </div>
 
         <div class="form-group">
             <label for="firstname" class="col-sm-2 control-label">值日概览：</label>
-            <div class="col-sm-8">
-                <input type="file" class="form-control" name="excel2" id="input-2" placeholder="请输入名字">
+            <div class="col-sm-6">
+                <input type="file" class="form-control" name="excel2" id="input2" placeholder="请输入名字">
             </div>
+{#            <div class="col-sm-1">#}
+{#                <input type="button" class='btn btn-sm btn-danger' value='删除' onclick='doDelete("2")'>#}
+{#            </div>#}
         </div>
 
         <div class="form-group">
             <label for="firstname" class="col-sm-2 control-label">工程师排名：</label>
-            <div class="col-sm-8">
-                <input type="file" class="form-control" name="excel3" id="input-3" placeholder="请输入名字">
+            <div class="col-sm-6">
+                <input type="file" class="form-control" name="excel3" id="input3" placeholder="请输入名字">
             </div>
+{#            <div class="col-sm-1">#}
+{#                <input type="button" class='btn btn-sm btn-danger' value='删除' onclick='doDelete("3")'>#}
+{##}
+{#            </div>#}
         </div>
 
 
-        <input type="button" value="确认" id="btnSave" style="margin-left: 40%;width: 10%;height: 25%">
+        <input type="button" value="确认" id="btnSave" onsubmit="return false"
+               style="margin-left: 40%;width: 10%;height: 25%">
     </form>
 {% endblock %}
 
@@ -99,9 +111,9 @@
         // on操作的追加后的元素， click无法选中，用on追踪
         $("#btnSave").click(function () {
             var form_data = new FormData();
-            var f1 = $('#input-1')[0].files[0];
-            var f2 = $('#input-2')[0].files[0];
-            var f3 = $('#input-3')[0].files[0];
+            var f1 = $('#input1')[0].files[0];
+            var f2 = $('#input2')[0].files[0];
+            var f3 = $('#input3')[0].files[0];
             form_data.append('f1', f1);
             form_data.append('f2', f2);
             form_data.append('f3', f3);
@@ -126,6 +138,35 @@
                 }
             });
         });
+
+        //删除文件
+        function doDelete(id) {
+            layer.alert('确定删除吗？', {
+                title: '提示'
+                , icon: 3 //0:感叹号 1：对号 2：差号 3：问号 4：小锁 5：哭脸 6：笑脸
+                , time: 0 //不自动关闭
+                , btn: ['YES', 'NO']
+                , yes: function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'system:daily-excel-delete' %}",
+                        data: {"id": id, csrfmiddlewaretoken: '{{ csrf_token }}'},  //防止post数据时报 csrf_token 403
+                        cache: false,
+                        success: function (msg) {
+                            if (msg.result) {
+                                layer.alert('删除成功！', {icon: 1});
+                            } else {
+                                //alert(msg.message);
+                                layer.alert(msg.message, {icon: 2});
+                            }
+                            return;
+                        }
+                    });
+                }
+            });
+
+         }
 
 
     </script>

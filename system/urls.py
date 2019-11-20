@@ -114,6 +114,7 @@ urlpatterns = [
 
                   # 上传首页 各种EXCEL表格    /system/daily/ver/
                   url(r'^daily/ver/$', views_daily.ExcelUpload.as_view(), name='daily-excel'),
+                  url(r'^daily/ver/delete$', views_daily.ExcelDeleteUpload.as_view(), name='daily-excel-delete'),
                   # url(r'^daily/excel_handle/$', views_daily.ExcelUpload.as_view(), name='basic-ver'),
                   # url(r'^basic/access/list$', views_access.AccessListView.as_view(), name='basic-access-list'),
                   # url(r'^basic/access/update$', views_access.AccessUpdateView.as_view(), name='basic-access-update'),

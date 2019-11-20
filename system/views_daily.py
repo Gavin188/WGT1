@@ -18,22 +18,16 @@ class ExcelUpload(LoginRequiredMixin, View):
     '''测试说明书 视图'''
 
     def get(self, request):
-        context = {
-
-        }
-        return render(request, 'system/ExcelUpload.html', context)
+        # context = {
+        #
+        # }
+        return render(request, 'system/ExcelUpload.html')
 
     def post(self, request):
         res = dict(result=False)
         f1 = request.FILES.get('f1')
         f2 = request.FILES.get('f2')
         f3 = request.FILES.get('f3')
-        print(f1)
-        print(f2)
-        print(f3)
-        # radar_list = list(
-        #     UserProfile.objects.filter().values('radar'))
-        # print(radar_list)
         # 上传Excel 文件
         if f1:
             if f1.name.endswith('.xlsx') or f1.name.endswith('.xls'):
@@ -70,6 +64,7 @@ class ExcelUpload(LoginRequiredMixin, View):
                         duty = DutyView()
                         duty.weekend = df.loc[i, '日期']
                         duty.name = df.loc[i, '名字']
+                        duty.date = datetime.date.today().strftime('%Y-%m-%d')
                         duty.save()
                         res['msg'] = '上传成功！'
                         res['result'] = True
@@ -110,10 +105,7 @@ class ExcelUpload(LoginRequiredMixin, View):
                 res['result'] = False
                 return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
         if res['result']:
-            print(res)
             return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
-        # print(res)
-        # return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
 
 
 class HistoryManView(LoginRequiredMixin, View):
@@ -155,6 +147,7 @@ class HistoryManView(LoginRequiredMixin, View):
         data_list = []
 
         arr_per = []
+        # 解析数据，将数据按照时间的字段
         for i in datas:
             if i['name'] not in arr_per:
                 arr_per.append(i['name'])
@@ -170,7 +163,7 @@ class HistoryManView(LoginRequiredMixin, View):
                     count = count + int(i['count'])
                     data_dict['Count'] = count
             data_list.append(data_dict)
-            # print(data_dict)
+
         res["totalRows"] = len(datas)
         pageIndex = request.POST.get('curPage')
         pageSize = request.POST.get('pageSize')
@@ -185,4 +178,18 @@ class HistoryManView(LoginRequiredMixin, View):
         res["curPage"] = pageIndex
 
         res['success'] = True
+        return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')
+
+
+class ExcelDeleteUpload(LoginRequiredMixin, View):
+    def post(self, request):
+        res = dict(result=False)
+        today = datetime.date.today().strftime('%Y-%m-%d')
+        data = EngineerRank.objects.filter(date=today)
+        if len(data) == 0:
+            res['message'] = '今日的文件还没有上传！'
+        else:
+            data.delete()
+            res['result'] = True
+
         return HttpResponse(json.dumps(res, cls=DjangoJSONEncoder), content_type='application/json')

@@ -105,7 +105,7 @@ class DqeView(LoginRequiredMixin, View):
         res['version'] = version
 
         # 值日概览
-        duty = list(DutyView.objects.filter().values())
+        duty = list(DutyView.objects.filter().values('weekend', 'name'))
         res['duty'] = duty
 
         menu = Menu.get_menu_by_request_url(url=self.request.path_info)
